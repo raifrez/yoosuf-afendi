@@ -1,0 +1,28 @@
+route_id,agency_id,route_short_name,route_long_name,route_type,route_desc
+183,RTL,183,Ga.Villingili – Gdh.Thinadhoo,4,Also published as route 184
+193,RTL,193,Gdh.Vaadhoo – Gdh.Thinadhoo,4,Also published as route 194
+195,RTL,195,Gdh.Thinadhoo – Gdh.Kaadehdhoo,4,Also published as route 196
+197,RTL,197,Ga.Villingili – Ga.Kooddoo,4,Also published as route 198
+205,RTL,205,Gn.Fuvahmulah – S.Feydhoo,4,Also published as route 206
+217,RTL,217,Lh.Olhuvelifushi – Lh.Hinnavaru,4,
+218,RTL,218,Lh.Hinnavaru – Lh.Olhuvelifushi,4,
+219,RTL,219,Lh.Hinnavaru – Lh.Naifaru,4,Also published as route 220
+221,RTL,221,Lh.Naifaru – Lh.Hinnavaru,4,
+224,RTL,224,N.Henbadhoo – N.Manadhoo,4,Also published as route 225
+228,RTL,228,N.Kudafari – N.Manadhoo,4,Also published as route 229
+230,RTL,230,N.Manadhoo – N.Maafaru,4,Also published as route 231
+234,RTL,234,Ga.Kolamaafushi – Ga.Villingili,4,Also published as route 235
+236,RTL,236,Ga.Kanduhulhudhoo – Ga.Villingili,4,Also published as route 237
+238,RTL,238,Gn.Fuvahmulah – Gdh.Vaadhoo,4,Also published as route 239
+254,RTL,254,B.Kendhoo – B.Eydhafushi,4,Also published as route 255
+258,RTL,258,B.Eydhafushi – B.Dharavandhoo,4,Also published as route 259
+260,RTL,260,Th.Buruni – Th.Veymandoo,4,Also published as route 261
+262,RTL,262,Th.Kandoodhoo – Th.Veymandoo,4,Also published as route 263
+264,RTL,264,Th.Gaadhiffushi – Th.Veymandoo,4,Also published as route 265
+266,RTL,266,Th.Veymandoo – Th.Thimarafushi,4,Also published as route 267
+268,RTL,268,Th.Veymandoo – Th.Gaadhiffushi,4,Also published as route 269
+278,RTL,278,F.Feeali – F.Nilandhoo,4,Also published as route 279
+280,RTL,280,F.Nilandhoo – Dh.Meedhoo,4,Also published as route 281
+288,RTL,288,Dh.Meedhoo – Dh.Kudahuvadhoo,4,Also published as route 289
+290,RTL,290,L.Isdhoo – L.Fonadhoo,4,Also published as route 291
+292,RTL,292,L.Maavah – L.Gan,4,Also published as route 293

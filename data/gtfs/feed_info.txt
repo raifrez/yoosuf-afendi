@@ -1,0 +1,2 @@
+feed_publisher_name,feed_publisher_url,feed_lang,feed_start_date,feed_end_date,feed_version
+"M.A.N.D.A.R.I.N datathon team (unofficial, contains assumptions)",https://example.org/mandarin,en,20260101,20261231,source-2026-10-24-built-2026-10-24

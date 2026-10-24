@@ -1,0 +1,1353 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.4355968,
+      0.7553714
+     ],
+     [
+      73.2426515,
+      0.5567394
+     ],
+     [
+      72.9971416,
+      0.5326429
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "183",
+    "also_published_as": "184",
+    "mode": "ferry",
+    "stops": [
+     "Villingili",
+     "Dhevvadhoo",
+     "Thinadhoo"
+    ],
+    "stop_ids": [
+     "GA_VILLINGILI",
+     "GA_DHEVVADHOO",
+     "GDH_THINADHOO"
+    ],
+    "atolls": [
+     "Gaafu Alifu",
+     "Gaafu Dhaalu"
+    ],
+    "cross_atoll": true,
+    "sailings_per_day": 2,
+    "first_departure": "08:00",
+    "last_arrival": "16:35"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.2732628,
+      0.2271372
+     ],
+     [
+      73.1897201,
+      0.1989136
+     ],
+     [
+      73.1370968,
+      0.220502
+     ],
+     [
+      73.1049112,
+      0.2526627
+     ],
+     [
+      73.040317,
+      0.2940647
+     ],
+     [
+      72.9999241,
+      0.4524406
+     ],
+     [
+      72.9982568,
+      0.4590651
+     ],
+     [
+      72.9932901,
+      0.4878966
+     ],
+     [
+      72.9971416,
+      0.5326429
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "193",
+    "also_published_as": "194",
+    "mode": "ferry",
+    "stops": [
+     "Vaadhoo",
+     "Faresmaathoda",
+     "Fiyori",
+     "Rathafandhoo",
+     "Nadella",
+     "Hon'dehdhoo",
+     "Madaveli",
+     "Kaadehdhoo",
+     "Thinadhoo"
+    ],
+    "stop_ids": [
+     "GDH_VAADHOO",
+     "GDH_FARESMAATHODA",
+     "GDH_FIYORI",
+     "GDH_RATHAFANDHOO",
+     "GDH_NADELLA",
+     "GDH_HONDEHDHOO",
+     "GDH_MADAVELI",
+     "GDH_KAADEHDHOO",
+     "GDH_THINADHOO"
+    ],
+    "atolls": [
+     "Gaafu Dhaalu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:20",
+    "last_arrival": "18:05"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      72.9971416,
+      0.5326429
+     ],
+     [
+      72.9932901,
+      0.4878966
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "195",
+    "also_published_as": "196",
+    "mode": "ferry",
+    "stops": [
+     "Thinadhoo",
+     "Kaadehdhoo"
+    ],
+    "stop_ids": [
+     "GDH_THINADHOO",
+     "GDH_KAADEHDHOO"
+    ],
+    "atolls": [
+     "Gaafu Dhaalu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "11:30",
+    "last_arrival": "13:45"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.4355968,
+      0.7553714
+     ],
+     [
+      73.43315,
+      0.73363
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "197",
+    "also_published_as": "198",
+    "mode": "ferry",
+    "stops": [
+     "Villingili",
+     "Kooddoo"
+    ],
+    "stop_ids": [
+     "GA_VILLINGILI",
+     "GA_KOODDOO"
+    ],
+    "atolls": [
+     "Gaafu Alifu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "08:00",
+    "last_arrival": "09:40"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.424065,
+      -0.2948408
+     ],
+     [
+      73.2243244,
+      -0.5937439
+     ],
+     [
+      73.1350769,
+      -0.6826027
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "205",
+    "also_published_as": "206",
+    "mode": "ferry",
+    "stops": [
+     "Fuvahmulah",
+     "Hulhumeedhoo",
+     "Feydhoo"
+    ],
+    "stop_ids": [
+     "GN_FUVAHMULAH",
+     "S_HULHUMEEDHOO",
+     "S_FEYDHOO"
+    ],
+    "atolls": [
+     "Gnaviyani",
+     "Seenu"
+    ],
+    "cross_atoll": true,
+    "sailings_per_day": 4,
+    "first_departure": "07:00",
+    "last_arrival": "17:25"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.6068579,
+      5.2784273
+     ],
+     [
+      73.4639893,
+      5.3339199
+     ],
+     [
+      73.364058,
+      5.4466188
+     ],
+     [
+      73.3696984,
+      5.4588059
+     ],
+     [
+      73.4118161,
+      5.492375
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "217",
+    "also_published_as": "",
+    "mode": "ferry",
+    "stops": [
+     "Olhuvelifushi",
+     "Kurendhoo",
+     "Naifaru",
+     "Madivaru",
+     "Hinnavaru"
+    ],
+    "stop_ids": [
+     "LH_OLHUVELIFUSHI",
+     "LH_KURENDHOO",
+     "LH_NAIFARU",
+     "LH_MADIVARU",
+     "LH_HINNAVARU"
+    ],
+    "atolls": [
+     "Lhaviyani"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 1,
+    "first_departure": "06:30",
+    "last_arrival": "07:50"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.4118161,
+      5.492375
+     ],
+     [
+      73.3854647,
+      5.4770745
+     ],
+     [
+      73.3696984,
+      5.4588059
+     ],
+     [
+      73.364058,
+      5.4466188
+     ],
+     [
+      73.4639893,
+      5.3339199
+     ],
+     [
+      73.6068579,
+      5.2784273
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "218",
+    "also_published_as": "",
+    "mode": "ferry",
+    "stops": [
+     "Hinnavaru",
+     "Felivaru",
+     "Madivaru",
+     "Naifaru",
+     "Kurendhoo",
+     "Olhuvelifushi"
+    ],
+    "stop_ids": [
+     "LH_HINNAVARU",
+     "LH_FELIVARU",
+     "LH_MADIVARU",
+     "LH_NAIFARU",
+     "LH_KURENDHOO",
+     "LH_OLHUVELIFUSHI"
+    ],
+    "atolls": [
+     "Lhaviyani"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 1,
+    "first_departure": "14:20",
+    "last_arrival": "15:45"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.4118161,
+      5.492375
+     ],
+     [
+      73.3696984,
+      5.4588059
+     ],
+     [
+      73.364058,
+      5.4466188
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "219",
+    "also_published_as": "220",
+    "mode": "ferry",
+    "stops": [
+     "Hinnavaru",
+     "Madivaru",
+     "Naifaru"
+    ],
+    "stop_ids": [
+     "LH_HINNAVARU",
+     "LH_MADIVARU",
+     "LH_NAIFARU"
+    ],
+    "atolls": [
+     "Lhaviyani"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 3,
+    "first_departure": "07:45",
+    "last_arrival": "12:00"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.364058,
+      5.4466188
+     ],
+     [
+      73.3696984,
+      5.4588059
+     ],
+     [
+      73.3854647,
+      5.4770745
+     ],
+     [
+      73.4118161,
+      5.492375
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "221",
+    "also_published_as": "",
+    "mode": "ferry",
+    "stops": [
+     "Naifaru",
+     "Madivaru",
+     "Felivaru",
+     "Hinnavaru"
+    ],
+    "stop_ids": [
+     "LH_NAIFARU",
+     "LH_MADIVARU",
+     "LH_FELIVARU",
+     "LH_HINNAVARU"
+    ],
+    "atolls": [
+     "Lhaviyani"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 1,
+    "first_departure": "14:00",
+    "last_arrival": "14:25"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.3929952,
+      5.9677152
+     ],
+     [
+      73.4158181,
+      5.9522459
+     ],
+     [
+      73.4561548,
+      5.9021907
+     ],
+     [
+      73.4667284,
+      5.8812902
+     ],
+     [
+      73.4766352,
+      5.8240462
+     ],
+     [
+      73.4111938,
+      5.7665051
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "224",
+    "also_published_as": "225",
+    "mode": "ferry",
+    "stops": [
+     "Henbadhoo",
+     "Kendhikulhudhoo",
+     "Maalhendhoo",
+     "Landhoo",
+     "Maafaru",
+     "Manadhoo"
+    ],
+    "stop_ids": [
+     "N_HENBADHOO",
+     "N_KENDHIKULHUDHOO",
+     "N_MAALHENDHOO",
+     "N_LANDHOO",
+     "N_MAAFARU",
+     "N_MANADHOO"
+    ],
+    "atolls": [
+     "Noonu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "07:00",
+    "last_arrival": "15:15"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.40032,
+      5.88276
+     ],
+     [
+      73.37784,
+      5.81582
+     ],
+     [
+      73.3623859,
+      5.790411
+     ],
+     [
+      73.4111938,
+      5.7665051
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "228",
+    "also_published_as": "229",
+    "mode": "ferry",
+    "stops": [
+     "Kudafari",
+     "Lhohi",
+     "Miladhoo",
+     "Manadhoo"
+    ],
+    "stop_ids": [
+     "N_KUDAFARI",
+     "N_LHOHI",
+     "N_MILADHOO",
+     "N_MANADHOO"
+    ],
+    "atolls": [
+     "Noonu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "07:00",
+    "last_arrival": "14:45"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.4111938,
+      5.7665051
+     ],
+     [
+      73.4766352,
+      5.8240462
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "230",
+    "also_published_as": "231",
+    "mode": "ferry",
+    "stops": [
+     "Manadhoo",
+     "Maafaru"
+    ],
+    "stop_ids": [
+     "N_MANADHOO",
+     "N_MAAFARU"
+    ],
+    "atolls": [
+     "Noonu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "11:15",
+    "last_arrival": "13:45"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.1839716,
+      0.837386
+     ],
+     [
+      73.43315,
+      0.73363
+     ],
+     [
+      73.4355968,
+      0.7553714
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "234",
+    "also_published_as": "235",
+    "mode": "ferry",
+    "stops": [
+     "Kolamaafushi",
+     "Kooddoo",
+     "Villingili"
+    ],
+    "stop_ids": [
+     "GA_KOLAMAAFUSHI",
+     "GA_KOODDOO",
+     "GA_VILLINGILI"
+    ],
+    "atolls": [
+     "Gaafu Alifu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:30",
+    "last_arrival": "18:00"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.5398709,
+      0.3514621
+     ],
+     [
+      73.5687327,
+      0.4418043
+     ],
+     [
+      73.5483719,
+      0.4996788
+     ],
+     [
+      73.43315,
+      0.73363
+     ],
+     [
+      73.4355968,
+      0.7553714
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "236",
+    "also_published_as": "237",
+    "mode": "ferry",
+    "stops": [
+     "Kanduhulhudhoo",
+     "Gemanafushi",
+     "Kondey",
+     "Kooddoo",
+     "Villingili"
+    ],
+    "stop_ids": [
+     "GA_KANDUHULHUDHOO",
+     "GA_GEMANAFUSHI",
+     "GA_KONDEY",
+     "GA_KOODDOO",
+     "GA_VILLINGILI"
+    ],
+    "atolls": [
+     "Gaafu Alifu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:00",
+    "last_arrival": "18:35"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.424065,
+      -0.2948408
+     ],
+     [
+      73.1897201,
+      0.1989136
+     ],
+     [
+      73.2732628,
+      0.2271372
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "238",
+    "also_published_as": "239",
+    "mode": "ferry",
+    "stops": [
+     "Fuvahmulah",
+     "Faresmaathoda",
+     "Vaadhoo"
+    ],
+    "stop_ids": [
+     "GN_FUVAHMULAH",
+     "GDH_FARESMAATHODA",
+     "GDH_VAADHOO"
+    ],
+    "atolls": [
+     "Gnaviyani",
+     "Gaafu Dhaalu"
+    ],
+    "cross_atoll": true,
+    "sailings_per_day": 4,
+    "first_departure": "06:00",
+    "last_arrival": "18:10"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.0103309,
+      5.2753742
+     ],
+     [
+      73.0712595,
+      5.3002769
+     ],
+     [
+      73.1369237,
+      5.281926
+     ],
+     [
+      73.1247412,
+      5.2153132
+     ],
+     [
+      73.1227486,
+      5.1880576
+     ],
+     [
+      73.1316204,
+      5.1567446
+     ],
+     [
+      73.107807,
+      5.1347806
+     ],
+     [
+      73.0705369,
+      5.102491
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "254",
+    "also_published_as": "255",
+    "mode": "ferry",
+    "stops": [
+     "Kendhoo",
+     "Kudarikilu",
+     "Kamadhoo",
+     "Kihaadhoo",
+     "Dhonfanu",
+     "Dharavandhoo",
+     "Maalhos",
+     "Eydhafushi"
+    ],
+    "stop_ids": [
+     "B_KENDHOO",
+     "B_KUDARIKILU",
+     "B_KAMADHOO",
+     "B_KIHAADHOO",
+     "B_DHONFANU",
+     "B_DHARAVANDHOO",
+     "B_MAALHOS",
+     "B_EYDHAFUSHI"
+    ],
+    "atolls": [
+     "Baa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:15",
+    "last_arrival": "17:30"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.0705369,
+      5.102491
+     ],
+     [
+      73.107807,
+      5.1347806
+     ],
+     [
+      73.1316204,
+      5.1567446
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "258",
+    "also_published_as": "259",
+    "mode": "ferry",
+    "stops": [
+     "Eydhafushi",
+     "Maalhos",
+     "Dharavandhoo"
+    ],
+    "stop_ids": [
+     "B_EYDHAFUSHI",
+     "B_MAALHOS",
+     "B_DHARAVANDHOO"
+    ],
+    "atolls": [
+     "Baa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 4,
+    "first_departure": "08:10",
+    "last_arrival": "15:30"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.10595,
+      2.55873
+     ],
+     [
+      73.3092133,
+      2.5023027
+     ],
+     [
+      73.3558915,
+      2.3572816
+     ],
+     [
+      73.3380868,
+      2.3404327
+     ],
+     [
+      73.3197641,
+      2.3250025
+     ],
+     [
+      73.0944666,
+      2.1858711
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "260",
+    "also_published_as": "261",
+    "mode": "ferry",
+    "stops": [
+     "Buruni",
+     "Vilufushi",
+     "Madifushi",
+     "Dhiyamigili",
+     "Guraidhoo",
+     "Veymandoo"
+    ],
+    "stop_ids": [
+     "TH_BURUNI",
+     "TH_VILUFUSHI",
+     "TH_MADIFUSHI",
+     "TH_DHIYAMIGILI",
+     "TH_GURAIDHOO",
+     "TH_VEYMANDOO"
+    ],
+    "atolls": [
+     "Thaa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:15",
+    "last_arrival": "16:45"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      72.91697,
+      2.3205
+     ],
+     [
+      72.9418779,
+      2.2916189
+     ],
+     [
+      72.93193,
+      2.26971
+     ],
+     [
+      73.0241296,
+      2.1677188
+     ],
+     [
+      73.0679704,
+      2.1693993
+     ],
+     [
+      73.0944666,
+      2.1858711
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "262",
+    "also_published_as": "263",
+    "mode": "ferry",
+    "stops": [
+     "Kandoodhoo",
+     "Vandhoo",
+     "Hirilandhoo",
+     "Omadhoo",
+     "Kinbidhoo",
+     "Veymandoo"
+    ],
+    "stop_ids": [
+     "TH_KANDOODHOO",
+     "TH_VANDHOO",
+     "TH_HIRILANDHOO",
+     "TH_OMADHOO",
+     "TH_KINBIDHOO",
+     "TH_VEYMANDOO"
+    ],
+    "atolls": [
+     "Thaa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:30",
+    "last_arrival": "15:55"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.21327,
+      2.253
+     ],
+     [
+      73.1488721,
+      2.2095364
+     ],
+     [
+      73.0944666,
+      2.1858711
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "264",
+    "also_published_as": "265",
+    "mode": "ferry",
+    "stops": [
+     "Gaadhiffushi",
+     "Thimarafushi",
+     "Veymandoo"
+    ],
+    "stop_ids": [
+     "TH_GAADHIFFUSHI",
+     "TH_THIMARAFUSHI",
+     "TH_VEYMANDOO"
+    ],
+    "atolls": [
+     "Thaa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "08:25",
+    "last_arrival": "13:55"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.0944666,
+      2.1858711
+     ],
+     [
+      73.1488721,
+      2.2095364
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "266",
+    "also_published_as": "267",
+    "mode": "ferry",
+    "stops": [
+     "Veymandoo",
+     "Thimarafushi"
+    ],
+    "stop_ids": [
+     "TH_VEYMANDOO",
+     "TH_THIMARAFUSHI"
+    ],
+    "atolls": [
+     "Thaa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "08:35",
+    "last_arrival": "10:40"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.0944666,
+      2.1858711
+     ],
+     [
+      73.21327,
+      2.253
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "268",
+    "also_published_as": "269",
+    "mode": "ferry",
+    "stops": [
+     "Veymandoo",
+     "Gaadhiffushi"
+    ],
+    "stop_ids": [
+     "TH_VEYMANDOO",
+     "TH_GAADHIFFUSHI"
+    ],
+    "atolls": [
+     "Thaa"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "07:55",
+    "last_arrival": "14:15"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.0015966,
+      3.2700642
+     ],
+     [
+      72.9841481,
+      3.1182872
+     ],
+     [
+      72.9610004,
+      3.0777166
+     ],
+     [
+      72.9265905,
+      3.0631131
+     ],
+     [
+      72.8881326,
+      3.0573365
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "278",
+    "also_published_as": "279",
+    "mode": "ferry",
+    "stops": [
+     "Feeali",
+     "Bilehdhoo",
+     "Magoodhoo",
+     "Dharanboodhoo",
+     "Nilandhoo"
+    ],
+    "stop_ids": [
+     "F_FEEALI",
+     "F_BILEHDHOO",
+     "F_MAGOODHOO",
+     "F_DHARANBOODHOO",
+     "F_NILANDHOO"
+    ],
+    "atolls": [
+     "Faafu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "06:30",
+    "last_arrival": "17:40"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      72.8881326,
+      3.0573365
+     ],
+     [
+      73.0068096,
+      2.9984032
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "280",
+    "also_published_as": "281",
+    "mode": "ferry",
+    "stops": [
+     "Nilandhoo",
+     "Meedhoo"
+    ],
+    "stop_ids": [
+     "F_NILANDHOO",
+     "DH_MEEDHOO"
+    ],
+    "atolls": [
+     "Faafu",
+     "Dhaalu"
+    ],
+    "cross_atoll": true,
+    "sailings_per_day": 2,
+    "first_departure": "07:40",
+    "last_arrival": "16:30"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.0068096,
+      2.9984032
+     ],
+     [
+      72.9905415,
+      2.9365305
+     ],
+     [
+      72.8953643,
+      2.9244393
+     ],
+     [
+      72.8468299,
+      2.8583867
+     ],
+     [
+      72.9645036,
+      2.6956596
+     ],
+     [
+      72.8906489,
+      2.6707065
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "288",
+    "also_published_as": "289",
+    "mode": "ferry",
+    "stops": [
+     "Meedhoo",
+     "Bandidhoo",
+     "Rinbudhoo",
+     "Hulhudheli",
+     "Maaenboodhoo",
+     "Kudahuvadhoo"
+    ],
+    "stop_ids": [
+     "DH_MEEDHOO",
+     "DH_BANDIDHOO",
+     "DH_RINBUDHOO",
+     "DH_HULHUDHELI",
+     "DH_MAAENBOODHOO",
+     "DH_KUDAHUVADHOO"
+    ],
+    "atolls": [
+     "Dhaalu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "08:10",
+    "last_arrival": "16:00"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.5644347,
+      2.1189323
+     ],
+     [
+      73.5644347,
+      2.1189323
+     ],
+     [
+      73.5453323,
+      2.0936718
+     ],
+     [
+      73.5336288,
+      2.0297068
+     ],
+     [
+      73.5344082,
+      2.0111479
+     ],
+     [
+      73.5397563,
+      1.9066777
+     ],
+     [
+      73.5038114,
+      1.8358234
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "290",
+    "also_published_as": "291",
+    "mode": "ferry",
+    "stops": [
+     "Isdhoo",
+     "Kalaidhoo",
+     "Dhanbidhoo",
+     "Maabaidhoo",
+     "Mundoo",
+     "Gan",
+     "Fonadhoo"
+    ],
+    "stop_ids": [
+     "L_ISDHOO",
+     "L_KALAIDHOO",
+     "L_DHANBIDHOO",
+     "L_MAABAIDHOO",
+     "L_MUNDOO",
+     "L_GAN",
+     "L_FONADHOO"
+    ],
+    "atolls": [
+     "Laamu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "07:00",
+    "last_arrival": "16:25"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      73.242478,
+      1.885867
+     ],
+     [
+      73.3682333,
+      1.7840017
+     ],
+     [
+      73.3883387,
+      1.7964498
+     ],
+     [
+      73.3889736,
+      1.8183344
+     ],
+     [
+      73.5038114,
+      1.8358234
+     ],
+     [
+      73.5397563,
+      1.9066777
+     ]
+    ]
+   },
+   "properties": {
+    "route_id": "292",
+    "also_published_as": "293",
+    "mode": "ferry",
+    "stops": [
+     "Maavah",
+     "Kunahandhoo",
+     "Hithadhoo",
+     "Maamendhoo",
+     "Fonadhoo",
+     "Gan"
+    ],
+    "stop_ids": [
+     "L_MAAVAH",
+     "L_KUNAHANDHOO",
+     "L_HITHADHOO",
+     "L_MAAMENDHOO",
+     "L_FONADHOO",
+     "L_GAN"
+    ],
+    "atolls": [
+     "Laamu"
+    ],
+    "cross_atoll": false,
+    "sailings_per_day": 2,
+    "first_departure": "07:00",
+    "last_arrival": "16:50"
+   }
+  }
+ ]
+}

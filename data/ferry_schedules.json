@@ -1,0 +1,3472 @@
+{
+  "93": [],
+  "94": [],
+  "95": [],
+  "96": [],
+  "97": [],
+  "98": [],
+  "99": [],
+  "100": [],
+  "101": [],
+  "102": [],
+  "103": [],
+  "104": [],
+  "105": [],
+  "106": [],
+  "107": [],
+  "108": [],
+  "109": [],
+  "110": [],
+  "111": [],
+  "112": [],
+  "113": [],
+  "114": [],
+  "115": [],
+  "116": [],
+  "117": [],
+  "118": [],
+  "119": [],
+  "120": [],
+  "121": [],
+  "122": [],
+  "123": [],
+  "124": [],
+  "125": [],
+  "126": [],
+  "127": [],
+  "128": [],
+  "129": [],
+  "130": [],
+  "131": [],
+  "132": [],
+  "133": [],
+  "134": [],
+  "135": [],
+  "136": [],
+  "137": [],
+  "138": [],
+  "139": [],
+  "140": [],
+  "141": [],
+  "142": [],
+  "143": [],
+  "144": [],
+  "145": [],
+  "146": [],
+  "147": [],
+  "148": [],
+  "149": [],
+  "150": [],
+  "151": [],
+  "152": [],
+  "153": [],
+  "154": [],
+  "155": [],
+  "156": [],
+  "157": [],
+  "158": [],
+  "159": [],
+  "160": [],
+  "161": [],
+  "162": [],
+  "163": [],
+  "164": [],
+  "165": [],
+  "166": [],
+  "167": [],
+  "168": [],
+  "169": [],
+  "170": [],
+  "171": [],
+  "172": [],
+  "173": [],
+  "174": [],
+  "175": [],
+  "176": [],
+  "177": [],
+  "178": [],
+  "179": [],
+  "180": [],
+  "181": [],
+  "182": [],
+  "183": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "08:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Dhevvadhoo",
+          "dvstopName": "ގއ.ދެއްވަދޫ",
+          "timing": "08:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "09:35:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "15:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Dhevvadhoo",
+          "dvstopName": "ގއ.ދެއްވަދޫ",
+          "timing": "15:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "16:35:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "184": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "08:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Dhevvadhoo",
+          "dvstopName": "ގއ.ދެއްވަދޫ",
+          "timing": "08:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "09:35:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "15:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Dhevvadhoo",
+          "dvstopName": "ގއ.ދެއްވަދޫ",
+          "timing": "15:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "16:35:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "185": [],
+  "186": [],
+  "187": [],
+  "188": [],
+  "189": [],
+  "190": [],
+  "191": [],
+  "192": [],
+  "193": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "06:20:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "06:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Fiyori",
+          "dvstopName": "ގދ.ފިޔޯރީ",
+          "timing": "07:00:00",
+          "order": 3
+        },
+        {
+          "stopName": "Gdh.Rathafandhoo",
+          "dvstopName": "ގދ.ރަތަފަންދޫ",
+          "timing": "07:20:00",
+          "order": 4
+        },
+        {
+          "stopName": "Gdh.Nadella",
+          "dvstopName": "ގދ.ނަޑެއްލާ",
+          "timing": "07:45:00",
+          "order": 5
+        },
+        {
+          "stopName": "Gdh.Hon'dehdhoo",
+          "dvstopName": "ގދ.ހޯޑެއްދޫ",
+          "timing": "08:20:00",
+          "order": 6
+        },
+        {
+          "stopName": "Gdh.Madaveli",
+          "dvstopName": "ގދ.މަޑަވެލި",
+          "timing": "08:35:00",
+          "order": 7
+        },
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "08:50:00",
+          "order": 8
+        },
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "09:10:00",
+          "order": 9
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "15:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "15:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Madaveli",
+          "dvstopName": "ގދ.މަޑަވެލި",
+          "timing": "15:45:00",
+          "order": 3
+        },
+        {
+          "stopName": "Gdh.Hon'dehdhoo",
+          "dvstopName": "ގދ.ހޯޑެއްދޫ",
+          "timing": "16:00:00",
+          "order": 4
+        },
+        {
+          "stopName": "Gdh.Nadella",
+          "dvstopName": "ގދ.ނަޑެއްލާ",
+          "timing": "16:35:00",
+          "order": 5
+        },
+        {
+          "stopName": "Gdh.Rathafandhoo",
+          "dvstopName": "ގދ.ރަތަފަންދޫ",
+          "timing": "17:00:00",
+          "order": 6
+        },
+        {
+          "stopName": "Gdh.Fiyori",
+          "dvstopName": "ގދ.ފިޔޯރީ",
+          "timing": "17:20:00",
+          "order": 7
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "17:40:00",
+          "order": 8
+        },
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "18:05:00",
+          "order": 9
+        }
+      ]
+    }
+  ],
+  "194": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "06:20:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "06:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Fiyori",
+          "dvstopName": "ގދ.ފިޔޯރީ",
+          "timing": "07:00:00",
+          "order": 3
+        },
+        {
+          "stopName": "Gdh.Rathafandhoo",
+          "dvstopName": "ގދ.ރަތަފަންދޫ",
+          "timing": "07:20:00",
+          "order": 4
+        },
+        {
+          "stopName": "Gdh.Nadella",
+          "dvstopName": "ގދ.ނަޑެއްލާ",
+          "timing": "07:45:00",
+          "order": 5
+        },
+        {
+          "stopName": "Gdh.Hon'dehdhoo",
+          "dvstopName": "ގދ.ހޯޑެއްދޫ",
+          "timing": "08:20:00",
+          "order": 6
+        },
+        {
+          "stopName": "Gdh.Madaveli",
+          "dvstopName": "ގދ.މަޑަވެލި",
+          "timing": "08:35:00",
+          "order": 7
+        },
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "08:50:00",
+          "order": 8
+        },
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "09:10:00",
+          "order": 9
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "15:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "15:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Madaveli",
+          "dvstopName": "ގދ.މަޑަވެލި",
+          "timing": "15:45:00",
+          "order": 3
+        },
+        {
+          "stopName": "Gdh.Hon'dehdhoo",
+          "dvstopName": "ގދ.ހޯޑެއްދޫ",
+          "timing": "16:00:00",
+          "order": 4
+        },
+        {
+          "stopName": "Gdh.Nadella",
+          "dvstopName": "ގދ.ނަޑެއްލާ",
+          "timing": "16:35:00",
+          "order": 5
+        },
+        {
+          "stopName": "Gdh.Rathafandhoo",
+          "dvstopName": "ގދ.ރަތަފަންދޫ",
+          "timing": "17:00:00",
+          "order": 6
+        },
+        {
+          "stopName": "Gdh.Fiyori",
+          "dvstopName": "ގދ.ފިޔޯރީ",
+          "timing": "17:20:00",
+          "order": 7
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "17:40:00",
+          "order": 8
+        },
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "18:05:00",
+          "order": 9
+        }
+      ]
+    }
+  ],
+  "195": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "11:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "11:45:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "13:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "13:45:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "196": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "11:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "11:45:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Kaadehdhoo",
+          "dvstopName": "ގދ.ކާޑެއްދޫ",
+          "timing": "13:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Thinadhoo",
+          "dvstopName": "ގދ.ތިނަދޫ",
+          "timing": "13:45:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "197": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "08:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "08:10:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "09:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "09:40:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "198": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "08:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "08:10:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "09:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "09:40:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "199": [],
+  "200": [],
+  "201": [],
+  "202": [],
+  "203": [],
+  "204": [],
+  "205": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "08:00:00",
+          "order": 2
+        },
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "08:25:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "10:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "10:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "11:25:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "11:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "12:00:00",
+          "order": 2
+        },
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "12:25:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "16:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "16:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "17:25:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "206": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "08:00:00",
+          "order": 2
+        },
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "08:25:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "10:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "10:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "11:25:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "11:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "12:00:00",
+          "order": 2
+        },
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "12:25:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "S.Feydhoo",
+          "dvstopName": "ސ.ފޭދޫ",
+          "timing": "16:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "S.Hulhumeedhoo",
+          "dvstopName": "ސ.ހުޅުމީދޫ",
+          "timing": "16:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "17:25:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "207": [],
+  "208": [],
+  "209": [],
+  "210": [],
+  "211": [],
+  "212": [],
+  "213": [],
+  "214": [],
+  "215": [],
+  "216": [],
+  "217": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Olhuvelifushi",
+          "dvstopName": "ޅ.އޮޅުވެލިފުށި",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Kurendhoo",
+          "dvstopName": "ޅ.ކުރެންދޫ",
+          "timing": "06:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "07:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "07:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "07:50:00",
+          "order": 5
+        }
+      ]
+    }
+  ],
+  "218": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "14:20:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Felivaru",
+          "dvstopName": "ޅ.ފެލިވަރު",
+          "timing": "14:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "14:35:00",
+          "order": 3
+        },
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "14:45:00",
+          "order": 4
+        },
+        {
+          "stopName": "Lh.Kurendhoo",
+          "dvstopName": "ޅ.ކުރެންދޫ",
+          "timing": "15:15:00",
+          "order": 5
+        },
+        {
+          "stopName": "Lh.Olhuvelifushi",
+          "dvstopName": "ޅ.އޮޅުވެލިފުށި",
+          "timing": "15:45:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "219": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "07:45:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "07:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "08:05:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "11:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "11:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "11:35:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "11:40:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "11:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "12:00:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "220": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "07:45:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "07:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "08:05:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "11:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "11:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "11:35:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "11:40:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "11:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "12:00:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "221": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Lh.Naifaru",
+          "dvstopName": "ޅ.ނައިފަރު",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Lh.Madivaru",
+          "dvstopName": "ޅ.މަޑިވަރު",
+          "timing": "14:05:00",
+          "order": 2
+        },
+        {
+          "stopName": "Lh.Felivaru",
+          "dvstopName": "ޅ.ފެލިވަރު",
+          "timing": "14:15:00",
+          "order": 3
+        },
+        {
+          "stopName": "Lh.Hinnavaru",
+          "dvstopName": "ޅ.ހިންނަވަރު",
+          "timing": "14:25:00",
+          "order": 4
+        }
+      ]
+    }
+  ],
+  "222": [],
+  "223": [],
+  "224": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Henbadhoo",
+          "dvstopName": "ނ.ހެނބަދޫ",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Kendhikulhudhoo",
+          "dvstopName": "ނ.ކެނދިކުޅުދޫ",
+          "timing": "07:10:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Maalhendhoo",
+          "dvstopName": "ނ.މާޅެންދޫ",
+          "timing": "07:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Landhoo",
+          "dvstopName": "ނ.ލަންދޫ",
+          "timing": "07:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "07:55:00",
+          "order": 5
+        },
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "08:15:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "14:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Landhoo",
+          "dvstopName": "ނ.ލަންދޫ",
+          "timing": "14:35:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Maalhendhoo",
+          "dvstopName": "ނ.މާޅެންދޫ",
+          "timing": "14:45:00",
+          "order": 4
+        },
+        {
+          "stopName": "N.Kendhikulhudhoo",
+          "dvstopName": "ނ.ކެނދިކުޅުދޫ",
+          "timing": "15:00:00",
+          "order": 5
+        },
+        {
+          "stopName": "N.Henbadhoo",
+          "dvstopName": "ނ.ހެނބަދޫ",
+          "timing": "15:15:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "225": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Henbadhoo",
+          "dvstopName": "ނ.ހެނބަދޫ",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Kendhikulhudhoo",
+          "dvstopName": "ނ.ކެނދިކުޅުދޫ",
+          "timing": "07:10:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Maalhendhoo",
+          "dvstopName": "ނ.މާޅެންދޫ",
+          "timing": "07:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Landhoo",
+          "dvstopName": "ނ.ލަންދޫ",
+          "timing": "07:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "07:55:00",
+          "order": 5
+        },
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "08:15:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "14:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Landhoo",
+          "dvstopName": "ނ.ލަންދޫ",
+          "timing": "14:35:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Maalhendhoo",
+          "dvstopName": "ނ.މާޅެންދޫ",
+          "timing": "14:45:00",
+          "order": 4
+        },
+        {
+          "stopName": "N.Kendhikulhudhoo",
+          "dvstopName": "ނ.ކެނދިކުޅުދޫ",
+          "timing": "15:00:00",
+          "order": 5
+        },
+        {
+          "stopName": "N.Henbadhoo",
+          "dvstopName": "ނ.ހެނބަދޫ",
+          "timing": "15:15:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "226": [],
+  "227": [],
+  "228": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Kudafari",
+          "dvstopName": "ނ.ކުޑަފަރި",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Lhohi",
+          "dvstopName": "ނ.ޅޮހީ",
+          "timing": "07:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Miladhoo",
+          "dvstopName": "ނ.މިލަދޫ",
+          "timing": "07:30:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "07:45:00",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Miladhoo",
+          "dvstopName": "ނ.މިލަދޫ",
+          "timing": "14:10:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Lhohi",
+          "dvstopName": "ނ.ޅޮހީ",
+          "timing": "14:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Kudafari",
+          "dvstopName": "ނ.ކުޑަފަރި",
+          "timing": "14:45:00",
+          "order": 4
+        }
+      ]
+    }
+  ],
+  "229": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Kudafari",
+          "dvstopName": "ނ.ކުޑަފަރި",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Lhohi",
+          "dvstopName": "ނ.ޅޮހީ",
+          "timing": "07:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Miladhoo",
+          "dvstopName": "ނ.މިލަދޫ",
+          "timing": "07:30:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "07:45:00",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Miladhoo",
+          "dvstopName": "ނ.މިލަދޫ",
+          "timing": "14:10:00",
+          "order": 2
+        },
+        {
+          "stopName": "N.Lhohi",
+          "dvstopName": "ނ.ޅޮހީ",
+          "timing": "14:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "N.Kudafari",
+          "dvstopName": "ނ.ކުޑަފަރި",
+          "timing": "14:45:00",
+          "order": 4
+        }
+      ]
+    }
+  ],
+  "230": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "11:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "11:30:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "13:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "13:45:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "231": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "11:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "11:30:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "N.Maafaru",
+          "dvstopName": "ނ.މާފަރު",
+          "timing": "13:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "N.Manadhoo",
+          "dvstopName": "ނ.މަނަދޫ",
+          "timing": "13:45:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "232": [],
+  "233": [],
+  "234": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Kolamaafushi",
+          "dvstopName": "ގއ.ކޮލަމާފުށި",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "07:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "07:40:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "16:50:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "17:00:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Kolamaafushi",
+          "dvstopName": "ގއ.ކޮލަމާފުށި",
+          "timing": "18:00:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "235": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Kolamaafushi",
+          "dvstopName": "ގއ.ކޮލަމާފުށި",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "07:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "07:40:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "16:50:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "17:00:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Kolamaafushi",
+          "dvstopName": "ގއ.ކޮލަމާފުށި",
+          "timing": "18:00:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "236": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Kanduhulhudhoo",
+          "dvstopName": "ގއ.ކަނޑުހުޅުދޫ",
+          "timing": "06:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Gemanafushi",
+          "dvstopName": "ގއ.ގެމަނަފުށި",
+          "timing": "06:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Kondey",
+          "dvstopName": "ގއ.ކޮނޑޭ",
+          "timing": "06:40:00",
+          "order": 3
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "07:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "07:50:00",
+          "order": 5
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "16:45:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "16:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Kondey",
+          "dvstopName": "ގއ.ކޮނޑޭ",
+          "timing": "17:50:00",
+          "order": 3
+        },
+        {
+          "stopName": "Ga.Gemanafushi",
+          "dvstopName": "ގއ.ގެމަނަފުށި",
+          "timing": "18:10:00",
+          "order": 4
+        },
+        {
+          "stopName": "Ga.Kanduhulhudhoo",
+          "dvstopName": "ގއ.ކަނޑުހުޅުދޫ",
+          "timing": "18:35:00",
+          "order": 5
+        }
+      ]
+    }
+  ],
+  "237": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Kanduhulhudhoo",
+          "dvstopName": "ގއ.ކަނޑުހުޅުދޫ",
+          "timing": "06:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Gemanafushi",
+          "dvstopName": "ގއ.ގެމަނަފުށި",
+          "timing": "06:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Kondey",
+          "dvstopName": "ގއ.ކޮނޑޭ",
+          "timing": "06:40:00",
+          "order": 3
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "07:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "07:50:00",
+          "order": 5
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Ga.Villingili",
+          "dvstopName": "ގއ.ވިލިނގިލި",
+          "timing": "16:45:00",
+          "order": 1
+        },
+        {
+          "stopName": "Ga.Kooddoo",
+          "dvstopName": "ގއ.ކޫއްޑޫ",
+          "timing": "16:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "Ga.Kondey",
+          "dvstopName": "ގއ.ކޮނޑޭ",
+          "timing": "17:50:00",
+          "order": 3
+        },
+        {
+          "stopName": "Ga.Gemanafushi",
+          "dvstopName": "ގއ.ގެމަނަފުށި",
+          "timing": "18:10:00",
+          "order": 4
+        },
+        {
+          "stopName": "Ga.Kanduhulhudhoo",
+          "dvstopName": "ގއ.ކަނޑުހުޅުދޫ",
+          "timing": "18:35:00",
+          "order": 5
+        }
+      ]
+    }
+  ],
+  "238": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "06:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "07:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "07:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "08:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "08:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "10:10:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "15:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "15:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "16:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "16:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "18:10:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "239": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "06:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "07:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "07:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "08:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "08:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "10:10:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "15:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "15:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Gdh.Vaadhoo",
+          "dvstopName": "ގދ.ވާދޫ",
+          "timing": "16:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "Gdh.Faresmaathoda",
+          "dvstopName": "ގދ.ފަރެސްމާތޮޑާ",
+          "timing": "16:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Gn.Fuvahmulah",
+          "dvstopName": "ޏ.ފުވައްމުލައް",
+          "timing": "18:10:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "240": [],
+  "241": [],
+  "242": [],
+  "243": [],
+  "244": [],
+  "245": [],
+  "246": [],
+  "247": [],
+  "248": [],
+  "249": [],
+  "250": [],
+  "251": [],
+  "252": [],
+  "253": [],
+  "254": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Kendhoo",
+          "dvstopName": "ބ.ކެންދޫ",
+          "timing": "06:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Kudarikilu",
+          "dvstopName": "ބ.ކުޑަރިކިލު",
+          "timing": "06:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Kamadhoo",
+          "dvstopName": "ބ.ކަމަދޫ",
+          "timing": "06:45:00",
+          "order": 3
+        },
+        {
+          "stopName": "B.Kihaadhoo",
+          "dvstopName": "ބ.ކިހާދޫ",
+          "timing": "07:05:00",
+          "order": 4
+        },
+        {
+          "stopName": "B.Dhonfanu",
+          "dvstopName": "ބ.ދޮންފަނު",
+          "timing": "07:15:00",
+          "order": 5
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "07:30:00",
+          "order": 6
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "07:45:00",
+          "order": 7
+        },
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "08:00:00",
+          "order": 8
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "15:45:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "15:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "16:10:00",
+          "order": 3
+        },
+        {
+          "stopName": "B.Dhonfanu",
+          "dvstopName": "ބ.ދޮންފަނު",
+          "timing": "16:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "B.Kihaadhoo",
+          "dvstopName": "ބ.ކިހާދޫ",
+          "timing": "16:35:00",
+          "order": 5
+        },
+        {
+          "stopName": "B.Kamadhoo",
+          "dvstopName": "ބ.ކަމަދޫ",
+          "timing": "16:55:00",
+          "order": 6
+        },
+        {
+          "stopName": "B.Kudarikilu",
+          "dvstopName": "ބ.ކުޑަރިކިލު",
+          "timing": "17:15:00",
+          "order": 7
+        },
+        {
+          "stopName": "B.Kendhoo",
+          "dvstopName": "ބ.ކެންދޫ",
+          "timing": "17:30:00",
+          "order": 8
+        }
+      ]
+    }
+  ],
+  "255": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Kendhoo",
+          "dvstopName": "ބ.ކެންދޫ",
+          "timing": "06:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Kudarikilu",
+          "dvstopName": "ބ.ކުޑަރިކިލު",
+          "timing": "06:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Kamadhoo",
+          "dvstopName": "ބ.ކަމަދޫ",
+          "timing": "06:45:00",
+          "order": 3
+        },
+        {
+          "stopName": "B.Kihaadhoo",
+          "dvstopName": "ބ.ކިހާދޫ",
+          "timing": "07:05:00",
+          "order": 4
+        },
+        {
+          "stopName": "B.Dhonfanu",
+          "dvstopName": "ބ.ދޮންފަނު",
+          "timing": "07:15:00",
+          "order": 5
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "07:30:00",
+          "order": 6
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "07:45:00",
+          "order": 7
+        },
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "08:00:00",
+          "order": 8
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "15:45:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "15:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "16:10:00",
+          "order": 3
+        },
+        {
+          "stopName": "B.Dhonfanu",
+          "dvstopName": "ބ.ދޮންފަނު",
+          "timing": "16:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "B.Kihaadhoo",
+          "dvstopName": "ބ.ކިހާދޫ",
+          "timing": "16:35:00",
+          "order": 5
+        },
+        {
+          "stopName": "B.Kamadhoo",
+          "dvstopName": "ބ.ކަމަދޫ",
+          "timing": "16:55:00",
+          "order": 6
+        },
+        {
+          "stopName": "B.Kudarikilu",
+          "dvstopName": "ބ.ކުޑަރިކިލު",
+          "timing": "17:15:00",
+          "order": 7
+        },
+        {
+          "stopName": "B.Kendhoo",
+          "dvstopName": "ބ.ކެންދޫ",
+          "timing": "17:30:00",
+          "order": 8
+        }
+      ]
+    }
+  ],
+  "256": [],
+  "257": [],
+  "258": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "08:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "08:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "08:35:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "08:40:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "08:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "09:05:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "10:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "10:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "10:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "15:05:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "15:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "15:30:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "259": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "08:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "08:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "08:35:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "08:40:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "08:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "09:05:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "10:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "10:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "10:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "B.Dharavandhoo",
+          "dvstopName": "ބ.ދަރަވަންދޫ",
+          "timing": "15:05:00",
+          "order": 1
+        },
+        {
+          "stopName": "B.Maalhos",
+          "dvstopName": "ބ.މާޅޮސް",
+          "timing": "15:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "B.Eydhafushi",
+          "dvstopName": "ބ.އޭދަފުށި",
+          "timing": "15:30:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "260": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Buruni",
+          "dvstopName": "ތ.ބުރުނި",
+          "timing": "06:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Vilufushi",
+          "dvstopName": "ތ.ވިލުފުށި",
+          "timing": "06:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Madifushi",
+          "dvstopName": "ތ.މަޑިފުށި",
+          "timing": "07:20:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Dhiyamigili",
+          "dvstopName": "ތ.ދިޔަމިގިލި",
+          "timing": "07:30:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Guraidhoo",
+          "dvstopName": "ތ.ގުރައިދޫ",
+          "timing": "07:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "08:30:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "14:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Guraidhoo",
+          "dvstopName": "ތ.ގުރައިދޫ",
+          "timing": "15:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Dhiyamigili",
+          "dvstopName": "ތ.ދިޔަމިގިލި",
+          "timing": "15:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Madifushi",
+          "dvstopName": "ތ.މަޑިފުށި",
+          "timing": "15:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Vilufushi",
+          "dvstopName": "ތ.ވިލުފުށި",
+          "timing": "16:05:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Buruni",
+          "dvstopName": "ތ.ބުރުނި",
+          "timing": "16:45:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "261": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Buruni",
+          "dvstopName": "ތ.ބުރުނި",
+          "timing": "06:15:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Vilufushi",
+          "dvstopName": "ތ.ވިލުފުށި",
+          "timing": "06:50:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Madifushi",
+          "dvstopName": "ތ.މަޑިފުށި",
+          "timing": "07:20:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Dhiyamigili",
+          "dvstopName": "ތ.ދިޔަމިގިލި",
+          "timing": "07:30:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Guraidhoo",
+          "dvstopName": "ތ.ގުރައިދޫ",
+          "timing": "07:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "08:30:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "14:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Guraidhoo",
+          "dvstopName": "ތ.ގުރައިދޫ",
+          "timing": "15:15:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Dhiyamigili",
+          "dvstopName": "ތ.ދިޔަމިގިލި",
+          "timing": "15:25:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Madifushi",
+          "dvstopName": "ތ.މަޑިފުށި",
+          "timing": "15:35:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Vilufushi",
+          "dvstopName": "ތ.ވިލުފުށި",
+          "timing": "16:05:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Buruni",
+          "dvstopName": "ތ.ބުރުނި",
+          "timing": "16:45:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "262": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Kandoodhoo",
+          "dvstopName": "ތ.ކަންޑޫދޫ",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Vandhoo",
+          "dvstopName": "ތ.ވަންދޫ",
+          "timing": "06:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Hirilandhoo",
+          "dvstopName": "ތ.ހިރިލަނދޫ",
+          "timing": "06:55:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Omadhoo",
+          "dvstopName": "ތ.އޮމަދޫ",
+          "timing": "07:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Kinbidhoo",
+          "dvstopName": "ތ.ކިނބިދޫ",
+          "timing": "07:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "07:50:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "14:35:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Kinbidhoo",
+          "dvstopName": "ތ.ކިނބިދޫ",
+          "timing": "14:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Omadhoo",
+          "dvstopName": "ތ.އޮމަދޫ",
+          "timing": "14:55:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Hirilandhoo",
+          "dvstopName": "ތ.ހިރިލަނދޫ",
+          "timing": "15:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Vandhoo",
+          "dvstopName": "ތ.ވަންދޫ",
+          "timing": "15:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Kandoodhoo",
+          "dvstopName": "ތ.ކަންޑޫދޫ",
+          "timing": "15:55:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "263": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Kandoodhoo",
+          "dvstopName": "ތ.ކަންޑޫދޫ",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Vandhoo",
+          "dvstopName": "ތ.ވަންދޫ",
+          "timing": "06:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Hirilandhoo",
+          "dvstopName": "ތ.ހިރިލަނދޫ",
+          "timing": "06:55:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Omadhoo",
+          "dvstopName": "ތ.އޮމަދޫ",
+          "timing": "07:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Kinbidhoo",
+          "dvstopName": "ތ.ކިނބިދޫ",
+          "timing": "07:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "07:50:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "14:35:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Kinbidhoo",
+          "dvstopName": "ތ.ކިނބިދޫ",
+          "timing": "14:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Omadhoo",
+          "dvstopName": "ތ.އޮމަދޫ",
+          "timing": "14:55:00",
+          "order": 3
+        },
+        {
+          "stopName": "Th.Hirilandhoo",
+          "dvstopName": "ތ.ހިރިލަނދޫ",
+          "timing": "15:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "Th.Vandhoo",
+          "dvstopName": "ތ.ވަންދޫ",
+          "timing": "15:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Th.Kandoodhoo",
+          "dvstopName": "ތ.ކަންޑޫދޫ",
+          "timing": "15:55:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "264": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "08:25:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "08:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "08:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "13:25:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "13:35:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "13:55:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "265": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "08:25:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "08:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "08:55:00",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "13:25:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "13:35:00",
+          "order": 2
+        },
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "13:55:00",
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "266": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "08:35:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "08:45:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "10:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "10:40:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "267": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "08:35:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "08:45:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Thimarafushi",
+          "dvstopName": "ތ.ތިމަރަފުށި",
+          "timing": "10:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "10:40:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "268": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "07:55:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "08:20:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "14:15:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "269": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "07:55:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "08:20:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Th.Gaadhiffushi",
+          "dvstopName": "ތ.ގާދިއަފުށި",
+          "timing": "14:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "Th.Veymandoo",
+          "dvstopName": "ތ.ވޭމަންޑޫ",
+          "timing": "14:15:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "270": [],
+  "271": [],
+  "272": [],
+  "273": [],
+  "274": [],
+  "275": [],
+  "276": [],
+  "277": [],
+  "278": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "F.Feeali",
+          "dvstopName": "ފ.ފީއަލި",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "F.Bilehdhoo",
+          "dvstopName": "ފ.ބިލެތްދޫ",
+          "timing": "06:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "F.Magoodhoo",
+          "dvstopName": "ފ.މަގޫދޫ",
+          "timing": "07:10:00",
+          "order": 3
+        },
+        {
+          "stopName": "F.Dharanboodhoo",
+          "dvstopName": "ފ.ދަރަނބޫދޫ",
+          "timing": "07:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "07:35:00",
+          "order": 5
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "16:35:00",
+          "order": 1
+        },
+        {
+          "stopName": "F.Dharanboodhoo",
+          "dvstopName": "ފ.ދަރަނބޫދޫ",
+          "timing": "16:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "F.Magoodhoo",
+          "dvstopName": "ފ.މަގޫދޫ",
+          "timing": "16:55:00",
+          "order": 3
+        },
+        {
+          "stopName": "F.Bilehdhoo",
+          "dvstopName": "ފ.ބިލެތްދޫ",
+          "timing": "17:10:00",
+          "order": 4
+        },
+        {
+          "stopName": "F.Feeali",
+          "dvstopName": "ފ.ފީއަލި",
+          "timing": "17:40:00",
+          "order": 5
+        }
+      ]
+    }
+  ],
+  "279": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "F.Feeali",
+          "dvstopName": "ފ.ފީއަލި",
+          "timing": "06:30:00",
+          "order": 1
+        },
+        {
+          "stopName": "F.Bilehdhoo",
+          "dvstopName": "ފ.ބިލެތްދޫ",
+          "timing": "06:55:00",
+          "order": 2
+        },
+        {
+          "stopName": "F.Magoodhoo",
+          "dvstopName": "ފ.މަގޫދޫ",
+          "timing": "07:10:00",
+          "order": 3
+        },
+        {
+          "stopName": "F.Dharanboodhoo",
+          "dvstopName": "ފ.ދަރަނބޫދޫ",
+          "timing": "07:25:00",
+          "order": 4
+        },
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "07:35:00",
+          "order": 5
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "16:35:00",
+          "order": 1
+        },
+        {
+          "stopName": "F.Dharanboodhoo",
+          "dvstopName": "ފ.ދަރަނބޫދޫ",
+          "timing": "16:40:00",
+          "order": 2
+        },
+        {
+          "stopName": "F.Magoodhoo",
+          "dvstopName": "ފ.މަގޫދޫ",
+          "timing": "16:55:00",
+          "order": 3
+        },
+        {
+          "stopName": "F.Bilehdhoo",
+          "dvstopName": "ފ.ބިލެތްދޫ",
+          "timing": "17:10:00",
+          "order": 4
+        },
+        {
+          "stopName": "F.Feeali",
+          "dvstopName": "ފ.ފީއަލި",
+          "timing": "17:40:00",
+          "order": 5
+        }
+      ]
+    }
+  ],
+  "280": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "07:40:00",
+          "order": 1
+        },
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "08:05:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "16:05:00",
+          "order": 1
+        },
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "16:30:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "281": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "07:40:00",
+          "order": 1
+        },
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "08:05:00",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "16:05:00",
+          "order": 1
+        },
+        {
+          "stopName": "F.Nilandhoo",
+          "dvstopName": "ފ.ނިލަންދޫ",
+          "timing": "16:30:00",
+          "order": 2
+        }
+      ]
+    }
+  ],
+  "282": [],
+  "283": [],
+  "284": [],
+  "285": [],
+  "286": [],
+  "287": [],
+  "288": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "08:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "Dh.Bandidhoo",
+          "dvstopName": "ދ.ބަނޑިދޫ",
+          "timing": "08:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Dh.Rinbudhoo",
+          "dvstopName": "ދ.ރިނބުދޫ",
+          "timing": "08:45:00",
+          "order": 3
+        },
+        {
+          "stopName": "Dh.Hulhudheli",
+          "dvstopName": "ދ.ހުޅުދެލި",
+          "timing": "09:05:00",
+          "order": 4
+        },
+        {
+          "stopName": "Dh.Maaenboodhoo",
+          "dvstopName": "ދ.މާއެނބޫދޫ",
+          "timing": "09:45:00",
+          "order": 5
+        },
+        {
+          "stopName": "Dh.Kudahuvadhoo",
+          "dvstopName": "ދ.ކުޑަހުވަދޫ",
+          "timing": "10:05:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Dh.Kudahuvadhoo",
+          "dvstopName": "ދ.ކުޑަހުވަދޫ",
+          "timing": "14:05:00",
+          "order": 1
+        },
+        {
+          "stopName": "Dh.Maaenboodhoo",
+          "dvstopName": "ދ.މާއެނބޫދޫ",
+          "timing": "14:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Dh.Hulhudheli",
+          "dvstopName": "ދ.ހުޅުދެލި",
+          "timing": "15:00:00",
+          "order": 3
+        },
+        {
+          "stopName": "Dh.Rinbudhoo",
+          "dvstopName": "ދ.ރިނބުދޫ",
+          "timing": "15:20:00",
+          "order": 4
+        },
+        {
+          "stopName": "Dh.Bandidhoo",
+          "dvstopName": "ދ.ބަނޑިދޫ",
+          "timing": "15:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "16:00:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "289": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "08:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "Dh.Bandidhoo",
+          "dvstopName": "ދ.ބަނޑިދޫ",
+          "timing": "08:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "Dh.Rinbudhoo",
+          "dvstopName": "ދ.ރިނބުދޫ",
+          "timing": "08:45:00",
+          "order": 3
+        },
+        {
+          "stopName": "Dh.Hulhudheli",
+          "dvstopName": "ދ.ހުޅުދެލި",
+          "timing": "09:05:00",
+          "order": 4
+        },
+        {
+          "stopName": "Dh.Maaenboodhoo",
+          "dvstopName": "ދ.މާއެނބޫދޫ",
+          "timing": "09:45:00",
+          "order": 5
+        },
+        {
+          "stopName": "Dh.Kudahuvadhoo",
+          "dvstopName": "ދ.ކުޑަހުވަދޫ",
+          "timing": "10:05:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "Dh.Kudahuvadhoo",
+          "dvstopName": "ދ.ކުޑަހުވަދޫ",
+          "timing": "14:05:00",
+          "order": 1
+        },
+        {
+          "stopName": "Dh.Maaenboodhoo",
+          "dvstopName": "ދ.މާއެނބޫދޫ",
+          "timing": "14:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "Dh.Hulhudheli",
+          "dvstopName": "ދ.ހުޅުދެލި",
+          "timing": "15:00:00",
+          "order": 3
+        },
+        {
+          "stopName": "Dh.Rinbudhoo",
+          "dvstopName": "ދ.ރިނބުދޫ",
+          "timing": "15:20:00",
+          "order": 4
+        },
+        {
+          "stopName": "Dh.Bandidhoo",
+          "dvstopName": "ދ.ބަނޑިދޫ",
+          "timing": "15:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "Dh.Meedhoo",
+          "dvstopName": "ދ.މީދޫ",
+          "timing": "16:00:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "290": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Isdhoo",
+          "dvstopName": "ލ.އިސްދޫ",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Kalaidhoo",
+          "dvstopName": "ލ.ކަލައިދޫ",
+          "timing": "07:05:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Dhanbidhoo",
+          "dvstopName": "ލ.ދަނބިދޫ",
+          "timing": "07:15:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Maabaidhoo",
+          "dvstopName": "ލ.މާބައިދޫ",
+          "timing": "07:30:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Mundoo",
+          "dvstopName": "ލ.މުންޑޫ",
+          "timing": "07:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "08:00:00",
+          "order": 6
+        },
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "08:25:00",
+          "order": 7
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "15:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "15:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Mundoo",
+          "dvstopName": "ލ.މުންޑޫ",
+          "timing": "15:40:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Maabaidhoo",
+          "dvstopName": "ލ.މާބައިދޫ",
+          "timing": "15:50:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Dhanbidhoo",
+          "dvstopName": "ލ.ދަނބިދޫ",
+          "timing": "16:05:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Kalaidhoo",
+          "dvstopName": "ލ.ކަލައިދޫ",
+          "timing": "16:15:00",
+          "order": 6
+        },
+        {
+          "stopName": "L.Isdhoo",
+          "dvstopName": "ލ.އިސްދޫ",
+          "timing": "16:25:00",
+          "order": 7
+        }
+      ]
+    }
+  ],
+  "291": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Isdhoo",
+          "dvstopName": "ލ.އިސްދޫ",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Kalaidhoo",
+          "dvstopName": "ލ.ކަލައިދޫ",
+          "timing": "07:05:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Dhanbidhoo",
+          "dvstopName": "ލ.ދަނބިދޫ",
+          "timing": "07:15:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Maabaidhoo",
+          "dvstopName": "ލ.މާބައިދޫ",
+          "timing": "07:30:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Mundoo",
+          "dvstopName": "ލ.މުންޑޫ",
+          "timing": "07:40:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "08:00:00",
+          "order": 6
+        },
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "08:25:00",
+          "order": 7
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "15:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "15:20:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Mundoo",
+          "dvstopName": "ލ.މުންޑޫ",
+          "timing": "15:40:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Maabaidhoo",
+          "dvstopName": "ލ.މާބައިދޫ",
+          "timing": "15:50:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Dhanbidhoo",
+          "dvstopName": "ލ.ދަނބިދޫ",
+          "timing": "16:05:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Kalaidhoo",
+          "dvstopName": "ލ.ކަލައިދޫ",
+          "timing": "16:15:00",
+          "order": 6
+        },
+        {
+          "stopName": "L.Isdhoo",
+          "dvstopName": "ލ.އިސްދޫ",
+          "timing": "16:25:00",
+          "order": 7
+        }
+      ]
+    }
+  ],
+  "292": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Maavah",
+          "dvstopName": "ލ.މާވަށް",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Kunahandhoo",
+          "dvstopName": "ލ.ކުނަހަންދޫ",
+          "timing": "07:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Hithadhoo",
+          "dvstopName": "ލ.ހިތަދޫ",
+          "timing": "07:35:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Maamendhoo",
+          "dvstopName": "ލ.މާމެންދޫ",
+          "timing": "07:45:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "08:15:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "08:40:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "15:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "15:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Maamendhoo",
+          "dvstopName": "ލ.މާމެންދޫ",
+          "timing": "16:00:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Hithadhoo",
+          "dvstopName": "ލ.ހިތަދޫ",
+          "timing": "16:10:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Kunahandhoo",
+          "dvstopName": "ލ.ކުނަހަންދޫ",
+          "timing": "16:20:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Maavah",
+          "dvstopName": "ލ.މާވަށް",
+          "timing": "16:50:00",
+          "order": 6
+        }
+      ]
+    }
+  ],
+  "293": [
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Maavah",
+          "dvstopName": "ލ.މާވަށް",
+          "timing": "07:00:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Kunahandhoo",
+          "dvstopName": "ލ.ކުނަހަންދޫ",
+          "timing": "07:25:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Hithadhoo",
+          "dvstopName": "ލ.ހިތަދޫ",
+          "timing": "07:35:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Maamendhoo",
+          "dvstopName": "ލ.މާމެންދޫ",
+          "timing": "07:45:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "08:15:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "08:40:00",
+          "order": 6
+        }
+      ]
+    },
+    {
+      "scheduleStopTimings": [
+        {
+          "stopName": "L.Gan",
+          "dvstopName": "ލ.ގަން",
+          "timing": "15:10:00",
+          "order": 1
+        },
+        {
+          "stopName": "L.Fonadhoo",
+          "dvstopName": "ލ.ފޮނަދޫ",
+          "timing": "15:30:00",
+          "order": 2
+        },
+        {
+          "stopName": "L.Maamendhoo",
+          "dvstopName": "ލ.މާމެންދޫ",
+          "timing": "16:00:00",
+          "order": 3
+        },
+        {
+          "stopName": "L.Hithadhoo",
+          "dvstopName": "ލ.ހިތަދޫ",
+          "timing": "16:10:00",
+          "order": 4
+        },
+        {
+          "stopName": "L.Kunahandhoo",
+          "dvstopName": "ލ.ކުނަހަންދޫ",
+          "timing": "16:20:00",
+          "order": 5
+        },
+        {
+          "stopName": "L.Maavah",
+          "dvstopName": "ލ.މާވަށް",
+          "timing": "16:50:00",
+          "order": 6
+        }
+      ]
+    }
+  ]
+}

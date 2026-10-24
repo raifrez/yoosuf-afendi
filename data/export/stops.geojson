@@ -1,0 +1,1661 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1316204,
+     5.1567446
+    ]
+   },
+   "properties": {
+    "stop_id": "B_DHARAVANDHOO",
+    "name": "Dharavandhoo",
+    "name_dv": "ބ.ދަރަވަންދޫ",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 4,
+    "routes": [
+     "254",
+     "258"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1227486,
+     5.1880576
+    ]
+   },
+   "properties": {
+    "stop_id": "B_DHONFANU",
+    "name": "Dhonfanu",
+    "name_dv": "ބ.ދޮންފަނު",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "254"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0705369,
+     5.102491
+    ]
+   },
+   "properties": {
+    "stop_id": "B_EYDHAFUSHI",
+    "name": "Eydhafushi",
+    "name_dv": "ބ.އޭދަފުށި",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "254",
+     "258"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1369237,
+     5.281926
+    ]
+   },
+   "properties": {
+    "stop_id": "B_KAMADHOO",
+    "name": "Kamadhoo",
+    "name_dv": "ބ.ކަމަދޫ",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "254"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0103309,
+     5.2753742
+    ]
+   },
+   "properties": {
+    "stop_id": "B_KENDHOO",
+    "name": "Kendhoo",
+    "name_dv": "ބ.ކެންދޫ",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "254"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1247412,
+     5.2153132
+    ]
+   },
+   "properties": {
+    "stop_id": "B_KIHAADHOO",
+    "name": "Kihaadhoo",
+    "name_dv": "ބ.ކިހާދޫ",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "254"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0712595,
+     5.3002769
+    ]
+   },
+   "properties": {
+    "stop_id": "B_KUDARIKILU",
+    "name": "Kudarikilu",
+    "name_dv": "ބ.ކުޑަރިކިލު",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "254"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.107807,
+     5.1347806
+    ]
+   },
+   "properties": {
+    "stop_id": "B_MAALHOS",
+    "name": "Maalhos",
+    "name_dv": "ބ.މާޅޮސް",
+    "atoll": "Baa",
+    "approximate_position": false,
+    "departures_per_day": 6,
+    "routes": [
+     "254",
+     "258"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9905415,
+     2.9365305
+    ]
+   },
+   "properties": {
+    "stop_id": "DH_BANDIDHOO",
+    "name": "Bandidhoo",
+    "name_dv": "ދ.ބަނޑިދޫ",
+    "atoll": "Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "288"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8468299,
+     2.8583867
+    ]
+   },
+   "properties": {
+    "stop_id": "DH_HULHUDHELI",
+    "name": "Hulhudheli",
+    "name_dv": "ދ.ހުޅުދެލި",
+    "atoll": "Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "288"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8906489,
+     2.6707065
+    ]
+   },
+   "properties": {
+    "stop_id": "DH_KUDAHUVADHOO",
+    "name": "Kudahuvadhoo",
+    "name_dv": "ދ.ކުޑަހުވަދޫ",
+    "atoll": "Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "288"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9645036,
+     2.6956596
+    ]
+   },
+   "properties": {
+    "stop_id": "DH_MAAENBOODHOO",
+    "name": "Maaenboodhoo",
+    "name_dv": "ދ.މާއެނބޫދޫ",
+    "atoll": "Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "288"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0068096,
+     2.9984032
+    ]
+   },
+   "properties": {
+    "stop_id": "DH_MEEDHOO",
+    "name": "Meedhoo",
+    "name_dv": "ދ.މީދޫ",
+    "atoll": "Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "280",
+     "288"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8953643,
+     2.9244393
+    ]
+   },
+   "properties": {
+    "stop_id": "DH_RINBUDHOO",
+    "name": "Rinbudhoo",
+    "name_dv": "ދ.ރިނބުދޫ",
+    "atoll": "Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "288"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9841481,
+     3.1182872
+    ]
+   },
+   "properties": {
+    "stop_id": "F_BILEHDHOO",
+    "name": "Bilehdhoo",
+    "name_dv": "ފ.ބިލެތްދޫ",
+    "atoll": "Faafu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "278"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9265905,
+     3.0631131
+    ]
+   },
+   "properties": {
+    "stop_id": "F_DHARANBOODHOO",
+    "name": "Dharanboodhoo",
+    "name_dv": "ފ.ދަރަނބޫދޫ",
+    "atoll": "Faafu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "278"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0015966,
+     3.2700642
+    ]
+   },
+   "properties": {
+    "stop_id": "F_FEEALI",
+    "name": "Feeali",
+    "name_dv": "ފ.ފީއަލި",
+    "atoll": "Faafu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "278"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9610004,
+     3.0777166
+    ]
+   },
+   "properties": {
+    "stop_id": "F_MAGOODHOO",
+    "name": "Magoodhoo",
+    "name_dv": "ފ.މަގޫދޫ",
+    "atoll": "Faafu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "278"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8881326,
+     3.0573365
+    ]
+   },
+   "properties": {
+    "stop_id": "F_NILANDHOO",
+    "name": "Nilandhoo",
+    "name_dv": "ފ.ނިލަންދޫ",
+    "atoll": "Faafu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "278",
+     "280"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.2426515,
+     0.5567394
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_DHEVVADHOO",
+    "name": "Dhevvadhoo",
+    "name_dv": "ގއ.ދެއްވަދޫ",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "183"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5687327,
+     0.4418043
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_GEMANAFUSHI",
+    "name": "Gemanafushi",
+    "name_dv": "ގއ.ގެމަނަފުށި",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "236"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5398709,
+     0.3514621
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_KANDUHULHUDHOO",
+    "name": "Kanduhulhudhoo",
+    "name_dv": "ގއ.ކަނޑުހުޅުދޫ",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "236"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1839716,
+     0.837386
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_KOLAMAAFUSHI",
+    "name": "Kolamaafushi",
+    "name_dv": "ގއ.ކޮލަމާފުށި",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "234"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5483719,
+     0.4996788
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_KONDEY",
+    "name": "Kondey",
+    "name_dv": "ގއ.ކޮނޑޭ",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "236"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.43315,
+     0.73363
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_KOODDOO",
+    "name": "Kooddoo",
+    "name_dv": "ގއ.ކޫއްޑޫ",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 5,
+    "routes": [
+     "197",
+     "234",
+     "236"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4355968,
+     0.7553714
+    ]
+   },
+   "properties": {
+    "stop_id": "GA_VILLINGILI",
+    "name": "Villingili",
+    "name_dv": "ގއ.ވިލިނގިލި",
+    "atoll": "Gaafu Alifu",
+    "approximate_position": false,
+    "departures_per_day": 4,
+    "routes": [
+     "183",
+     "197",
+     "234",
+     "236"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1897201,
+     0.1989136
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_FARESMAATHODA",
+    "name": "Faresmaathoda",
+    "name_dv": "ގދ.ފަރެސްމާތޮޑާ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 6,
+    "routes": [
+     "193",
+     "238"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1370968,
+     0.220502
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_FIYORI",
+    "name": "Fiyori",
+    "name_dv": "ގދ.ފިޔޯރީ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "193"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9999241,
+     0.4524406
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_HONDEHDHOO",
+    "name": "Hon'dehdhoo",
+    "name_dv": "ގދ.ހޯޑެއްދޫ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": true,
+    "departures_per_day": 2,
+    "routes": [
+     "193"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9932901,
+     0.4878966
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_KAADEHDHOO",
+    "name": "Kaadehdhoo",
+    "name_dv": "ގދ.ކާޑެއްދޫ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "193",
+     "195"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9982568,
+     0.4590651
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_MADAVELI",
+    "name": "Madaveli",
+    "name_dv": "ގދ.މަޑަވެލި",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "193"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.040317,
+     0.2940647
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_NADELLA",
+    "name": "Nadella",
+    "name_dv": "ގދ.ނަޑެއްލާ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "193"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1049112,
+     0.2526627
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_RATHAFANDHOO",
+    "name": "Rathafandhoo",
+    "name_dv": "ގދ.ރަތަފަންދޫ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "193"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9971416,
+     0.5326429
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_THINADHOO",
+    "name": "Thinadhoo",
+    "name_dv": "ގދ.ތިނަދޫ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "183",
+     "193",
+     "195"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.2732628,
+     0.2271372
+    ]
+   },
+   "properties": {
+    "stop_id": "GDH_VAADHOO",
+    "name": "Vaadhoo",
+    "name_dv": "ގދ.ވާދޫ",
+    "atoll": "Gaafu Dhaalu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "193",
+     "238"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.424065,
+     -0.2948408
+    ]
+   },
+   "properties": {
+    "stop_id": "GN_FUVAHMULAH",
+    "name": "Fuvahmulah",
+    "name_dv": "ޏ.ފުވައްމުލައް",
+    "atoll": "Gnaviyani",
+    "approximate_position": false,
+    "departures_per_day": 4,
+    "routes": [
+     "205",
+     "238"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5453323,
+     2.0936718
+    ]
+   },
+   "properties": {
+    "stop_id": "L_DHANBIDHOO",
+    "name": "Dhanbidhoo",
+    "name_dv": "ލ.ދަނބިދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "290"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5038114,
+     1.8358234
+    ]
+   },
+   "properties": {
+    "stop_id": "L_FONADHOO",
+    "name": "Fonadhoo",
+    "name_dv": "ލ.ފޮނަދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "290",
+     "292"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5397563,
+     1.9066777
+    ]
+   },
+   "properties": {
+    "stop_id": "L_GAN",
+    "name": "Gan",
+    "name_dv": "ލ.ގަން",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "290",
+     "292"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3883387,
+     1.7964498
+    ]
+   },
+   "properties": {
+    "stop_id": "L_HITHADHOO",
+    "name": "Hithadhoo",
+    "name_dv": "ލ.ހިތަދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "292"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5644347,
+     2.1189323
+    ]
+   },
+   "properties": {
+    "stop_id": "L_ISDHOO",
+    "name": "Isdhoo",
+    "name_dv": "ލ.އިސްދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "290"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5644347,
+     2.1189323
+    ]
+   },
+   "properties": {
+    "stop_id": "L_KALAIDHOO",
+    "name": "Kalaidhoo",
+    "name_dv": "ލ.ކަލައިދޫ",
+    "atoll": "Laamu",
+    "approximate_position": true,
+    "departures_per_day": 2,
+    "routes": [
+     "290"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3682333,
+     1.7840017
+    ]
+   },
+   "properties": {
+    "stop_id": "L_KUNAHANDHOO",
+    "name": "Kunahandhoo",
+    "name_dv": "ލ.ކުނަހަންދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "292"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5336288,
+     2.0297068
+    ]
+   },
+   "properties": {
+    "stop_id": "L_MAABAIDHOO",
+    "name": "Maabaidhoo",
+    "name_dv": "ލ.މާބައިދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "290"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3889736,
+     1.8183344
+    ]
+   },
+   "properties": {
+    "stop_id": "L_MAAMENDHOO",
+    "name": "Maamendhoo",
+    "name_dv": "ލ.މާމެންދޫ",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "292"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.242478,
+     1.885867
+    ]
+   },
+   "properties": {
+    "stop_id": "L_MAAVAH",
+    "name": "Maavah",
+    "name_dv": "ލ.މާވަށް",
+    "atoll": "Laamu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "292"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.5344082,
+     2.0111479
+    ]
+   },
+   "properties": {
+    "stop_id": "L_MUNDOO",
+    "name": "Mundoo",
+    "name_dv": "ލ.މުންޑޫ",
+    "atoll": "Laamu",
+    "approximate_position": true,
+    "departures_per_day": 2,
+    "routes": [
+     "290"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3854647,
+     5.4770745
+    ]
+   },
+   "properties": {
+    "stop_id": "LH_FELIVARU",
+    "name": "Felivaru",
+    "name_dv": "ޅ.ފެލިވަރު",
+    "atoll": "Lhaviyani",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "218",
+     "221"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4118161,
+     5.492375
+    ]
+   },
+   "properties": {
+    "stop_id": "LH_HINNAVARU",
+    "name": "Hinnavaru",
+    "name_dv": "ޅ.ހިންނަވަރު",
+    "atoll": "Lhaviyani",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "217",
+     "218",
+     "219",
+     "221"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4639893,
+     5.3339199
+    ]
+   },
+   "properties": {
+    "stop_id": "LH_KURENDHOO",
+    "name": "Kurendhoo",
+    "name_dv": "ޅ.ކުރެންދޫ",
+    "atoll": "Lhaviyani",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "217",
+     "218"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3696984,
+     5.4588059
+    ]
+   },
+   "properties": {
+    "stop_id": "LH_MADIVARU",
+    "name": "Madivaru",
+    "name_dv": "ޅ.މަޑިވަރު",
+    "atoll": "Lhaviyani",
+    "approximate_position": false,
+    "departures_per_day": 6,
+    "routes": [
+     "217",
+     "218",
+     "219",
+     "221"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.364058,
+     5.4466188
+    ]
+   },
+   "properties": {
+    "stop_id": "LH_NAIFARU",
+    "name": "Naifaru",
+    "name_dv": "ޅ.ނައިފަރު",
+    "atoll": "Lhaviyani",
+    "approximate_position": false,
+    "departures_per_day": 4,
+    "routes": [
+     "217",
+     "218",
+     "219",
+     "221"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.6068579,
+     5.2784273
+    ]
+   },
+   "properties": {
+    "stop_id": "LH_OLHUVELIFUSHI",
+    "name": "Olhuvelifushi",
+    "name_dv": "ޅ.އޮޅުވެލިފުށި",
+    "atoll": "Lhaviyani",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "217",
+     "218"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3929952,
+     5.9677152
+    ]
+   },
+   "properties": {
+    "stop_id": "N_HENBADHOO",
+    "name": "Henbadhoo",
+    "name_dv": "ނ.ހެނބަދޫ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "224"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4158181,
+     5.9522459
+    ]
+   },
+   "properties": {
+    "stop_id": "N_KENDHIKULHUDHOO",
+    "name": "Kendhikulhudhoo",
+    "name_dv": "ނ.ކެނދިކުޅުދޫ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "224"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.40032,
+     5.88276
+    ]
+   },
+   "properties": {
+    "stop_id": "N_KUDAFARI",
+    "name": "Kudafari",
+    "name_dv": "ނ.ކުޑަފަރި",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "228"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4667284,
+     5.8812902
+    ]
+   },
+   "properties": {
+    "stop_id": "N_LANDHOO",
+    "name": "Landhoo",
+    "name_dv": "ނ.ލަންދޫ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "224"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.37784,
+     5.81582
+    ]
+   },
+   "properties": {
+    "stop_id": "N_LHOHI",
+    "name": "Lhohi",
+    "name_dv": "ނ.ޅޮހީ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "228"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4766352,
+     5.8240462
+    ]
+   },
+   "properties": {
+    "stop_id": "N_MAAFARU",
+    "name": "Maafaru",
+    "name_dv": "ނ.މާފަރު",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "224",
+     "230"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4561548,
+     5.9021907
+    ]
+   },
+   "properties": {
+    "stop_id": "N_MAALHENDHOO",
+    "name": "Maalhendhoo",
+    "name_dv": "ނ.މާޅެންދޫ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "224"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.4111938,
+     5.7665051
+    ]
+   },
+   "properties": {
+    "stop_id": "N_MANADHOO",
+    "name": "Manadhoo",
+    "name_dv": "ނ.މަނަދޫ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "224",
+     "228",
+     "230"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3623859,
+     5.790411
+    ]
+   },
+   "properties": {
+    "stop_id": "N_MILADHOO",
+    "name": "Miladhoo",
+    "name_dv": "ނ.މިލަދޫ",
+    "atoll": "Noonu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "228"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1350769,
+     -0.6826027
+    ]
+   },
+   "properties": {
+    "stop_id": "S_FEYDHOO",
+    "name": "Feydhoo",
+    "name_dv": "ސ.ފޭދޫ",
+    "atoll": "Seenu",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "205"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.2243244,
+     -0.5937439
+    ]
+   },
+   "properties": {
+    "stop_id": "S_HULHUMEEDHOO",
+    "name": "Hulhumeedhoo",
+    "name_dv": "ސ.ހުޅުމީދޫ",
+    "atoll": "Seenu",
+    "approximate_position": false,
+    "departures_per_day": 4,
+    "routes": [
+     "205"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.10595,
+     2.55873
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_BURUNI",
+    "name": "Buruni",
+    "name_dv": "ތ.ބުރުނި",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "260"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3380868,
+     2.3404327
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_DHIYAMIGILI",
+    "name": "Dhiyamigili",
+    "name_dv": "ތ.ދިޔަމިގިލި",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "260"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.21327,
+     2.253
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_GAADHIFFUSHI",
+    "name": "Gaadhiffushi",
+    "name_dv": "ތ.ގާދިއަފުށި",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "264",
+     "268"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3197641,
+     2.3250025
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_GURAIDHOO",
+    "name": "Guraidhoo",
+    "name_dv": "ތ.ގުރައިދޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "260"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.93193,
+     2.26971
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_HIRILANDHOO",
+    "name": "Hirilandhoo",
+    "name_dv": "ތ.ހިރިލަނދޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "262"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.91697,
+     2.3205
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_KANDOODHOO",
+    "name": "Kandoodhoo",
+    "name_dv": "ތ.ކަންޑޫދޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 1,
+    "routes": [
+     "262"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0679704,
+     2.1693993
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_KINBIDHOO",
+    "name": "Kinbidhoo",
+    "name_dv": "ތ.ކިނބިދޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "262"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3558915,
+     2.3572816
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_MADIFUSHI",
+    "name": "Madifushi",
+    "name_dv": "ތ.މަޑިފުށި",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "260"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0241296,
+     2.1677188
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_OMADHOO",
+    "name": "Omadhoo",
+    "name_dv": "ތ.އޮމަދޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "262"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1488721,
+     2.2095364
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_THIMARAFUSHI",
+    "name": "Thimarafushi",
+    "name_dv": "ތ.ތިމަރަފުށި",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 3,
+    "routes": [
+     "264",
+     "266"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9418779,
+     2.2916189
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_VANDHOO",
+    "name": "Vandhoo",
+    "name_dv": "ތ.ވަންދޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "262"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0944666,
+     2.1858711
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_VEYMANDOO",
+    "name": "Veymandoo",
+    "name_dv": "ތ.ވޭމަންޑޫ",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 5,
+    "routes": [
+     "260",
+     "262",
+     "264",
+     "266",
+     "268"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3092133,
+     2.5023027
+    ]
+   },
+   "properties": {
+    "stop_id": "TH_VILUFUSHI",
+    "name": "Vilufushi",
+    "name_dv": "ތ.ވިލުފުށި",
+    "atoll": "Thaa",
+    "approximate_position": false,
+    "departures_per_day": 2,
+    "routes": [
+     "260"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,109 @@
+entity_type,entity_id,source,observed_date,classification,note
+dataset,ferry_schedules.csv,data/ferry_schedules.csv,2026-10-24,observed,Publisher/retrieval method not recorded
+calendar,ASSUMED_DAILY,,,assumed,Source has no operating days; every route assumed to run daily
+stop_times,*,data/ferry_schedules.csv,2026-10-24,assumed,One time per stop in source; arrival_time set equal to departure_time
+agency,RTL,,,assumed,Operator not stated in source
+route,183,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 184
+route,193,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 194
+route,195,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 196
+route,197,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 198
+route,205,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 206
+route,217,data/ferry_schedules.csv,2026-10-24,observed,
+route,218,data/ferry_schedules.csv,2026-10-24,observed,
+route,219,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 220
+route,221,data/ferry_schedules.csv,2026-10-24,observed,
+route,224,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 225
+route,228,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 229
+route,230,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 231
+route,234,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 235
+route,236,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 237
+route,238,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 239
+route,254,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 255
+route,258,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 259
+route,260,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 261
+route,262,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 263
+route,264,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 265
+route,266,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 267
+route,268,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 269
+route,278,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 279
+route,280,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 281
+route,288,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 289
+route,290,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 291
+route,292,data/ferry_schedules.csv,2026-10-24,observed,Merged identical routes 293
+stop,B_DHARAVANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879730: ދަރަވަންދޫ, މާޅޮސްމަޑުލު ދެކުނުބުރި, 06060, ދިވެހިރާއްޖެ"
+stop,B_DHONFANU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879431: ދޮންފަނު, މާޅޮސްމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,B_EYDHAFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879464: އޭދަފުށި, މާޅޮސްމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,B_KAMADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879283: ކަމަދޫ, މާޅޮސްމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,B_KENDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879500: ކެންދޫ, މާޅޮސްމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,B_KIHAADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879239: ކިހާދޫ, މާޅޮސްމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,B_KUDARIKILU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879572: ކުޑަރިކިލު, މާޅޮސްމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,B_MAALHOS,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879346: މާޅޮސް, އޭދަފުށި, މާޅޮސްމަޑުލު ދެކުނުބުރި, 06070, ދިވެހިރާއްޖެ"
+stop,DH_BANDIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882764: ބަނޑިދޫ, ނިލަންދެއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,DH_HULHUDHELI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882782: ހުޅުދެލި, ނިލަންދެއަތޮޅު ދެކުނުބުރި, 13040, ދިވެހިރާއްޖެ"
+stop,DH_KUDAHUVADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19883142: ކުޑަހުވަދޫ, ނިލަންދެއަތޮޅު ދެކުނުބުރި, 13080, ދިވެހިރާއްޖެ"
+stop,DH_MAAENBOODHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882844: މާއެނބޫދޫ, ނިލަންދެއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,DH_MEEDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882773: މީދޫ, ނިލަންދެއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,DH_RINBUDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882756: ރިނބުދޫ, ނިލަންދެއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,F_BILEHDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"manual_verified: OSM islet ބިލެއްދޫ (spelling variant of ބިލެތްދޫ), only match in Faafu"
+stop,F_DHARANBOODHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882110: ދަރަނބޫދޫ, ނިލަންދޫ, ނިލަންދެއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,F_FEEALI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882185: ފީއަލި, ނިލަންދެއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,F_MAGOODHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882019: މަގޫދޫ, ނިލަންދެއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,F_NILANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882137: ނިލަންދޫ, ނިލަންދެއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GA_DHEVVADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932369: ދެއްވަދޫ, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GA_GEMANAFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932287: ގެމަނަފުށި, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GA_KANDUHULHUDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932545: ކަނޑުހުޅުދޫ, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GA_KOLAMAAFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932420: ކޮލަމާފުށި, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GA_KONDEY,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932525: ކޮނޑޭ, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GA_KOODDOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM island 'ކޫއްޑޫ އެއަރޕޯޓް' way/274218294
+stop,GA_VILLINGILI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19932560: ވިލިނގިލި, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
+stop,GDH_FARESMAATHODA,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932422: ފަރެސްމާތޮޑާ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,GDH_FIYORI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932249: ފިޔޯރީ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,GDH_HONDEHDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_approx: No OSM island found; point on Madaveli-Hoadedhdhoo causeway. Verify.
+stop,GDH_KAADEHDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"manual_verified: OSM island 'Kaadedhdhoo' (spelling variant), Gaafu Dhaalu"
+stop,GDH_MADAVELI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932554: މަޑަވެލި, ހުވަދުއަތޮޅު ދެކުނުބުރި, 17010, ދިވެހިރާއްޖެ"
+stop,GDH_NADELLA,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932236: ނަޑެއްލާ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,GDH_RATHAFANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932356: ރަތަފަންދޫ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,GDH_THINADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/171141666: ތިނަދޫ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,GDH_VAADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19932304: ވާދޫ, ހުވަދުއަތޮޅު ދެކުނުބުރި, 17060, ދިވެހިރާއްޖެ"
+stop,GN_FUVAHMULAH,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/223971265: ފުވައްމުލައް, ދިވެހިރާއްޖެ"
+stop,L_DHANBIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882971: ދަނބިދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_FONADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/283121819: ފޮނަދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_GAN,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882848: ގަން, ފޮނަދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_HITHADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19883161: ހިތަދޫ, ހައްދުންމަތި އަތޮޅު, 15110, ދިވެހިރާއްޖެ"
+stop,L_ISDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882790: އިސްދޫ, ހައްދުންމަތި އަތޮޅު, 15011, ދިވެހިރާއްޖެ"
+stop,L_KALAIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_approx: Placed at L.Isdhoo (5-min leg from Isdhoo; likely Isdhoo-Kalaidhoo). OSM ކަޅައިދޫ at 1.99N is a different island. Verify.
+stop,L_KUNAHANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882929: ކުނަހަންދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_MAABAIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19883185: މާބައިދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_MAAMENDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882961: މާމެންދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_MAAVAH,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883070: މާވަށް, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
+stop,L_MUNDOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"manual_approx: OSM islet 'Mandoo' in Laamu, between Maabaidhoo and Gan as route order implies. Verify name."
+stop,LH_FELIVARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879323: ފެލިވަރު, ނައިފަރު, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
+stop,LH_HINNAVARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/441740990: ހިންނަވަރު, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
+stop,LH_KURENDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879351: ކުރެންދޫ, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
+stop,LH_MADIVARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879264: މަޑިވަރު, ނައިފަރު, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
+stop,LH_NAIFARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879658: ނައިފަރު, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
+stop,LH_OLHUVELIFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879413: އޮޅުވެލިފުށި, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
+stop,N_HENBADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879556: ހެނބަދޫ, މިލަދުންމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,N_KENDHIKULHUDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19879474: ކެނދިކުޅުދޫ, މިލަދުންމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,N_KUDAFARI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM islet ކުޑަފަރީ way/19879473 (spelling variant)
+stop,N_LANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879426: ލަންދޫ, މިލަދުންމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,N_LHOHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM islet ޅޮހި way/19879491 (spelling variant)
+stop,N_MAAFARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19879285: މާފަރު, މިލަދުންމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,N_MAALHENDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879612: މާޅެންދޫ, މިލަދުންމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,N_MANADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19879551: މަނަދޫ, މިލަދުންމަޑުލު ދެކުނުބުރި, 04100, ދިވެހިރާއްޖެ"
+stop,N_MILADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879424: މިލަދޫ, މިލަދުންމަޑުލު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
+stop,S_FEYDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"manual_verified: OSM 'sand' ފޭދޫ way/31786895, Addu"
+stop,S_HULHUMEEDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_city: OSM way/966349608: ހުޅުމީދޫ, އައްޑޫ, 19060, ދިވެހިރާއްޖެ"
+stop,TH_BURUNI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM islet ބުރުނީ way/19883150 (spelling variant)
+stop,TH_DHIYAMIGILI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883186: ދިޔަމިގިލި, މަޑިފުށި, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_GAADHIFFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM islet ގާދިއްފުށި way/19882811 (spelling variant)
+stop,TH_GURAIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883076: ގުރައިދޫ, މަޑިފުށި, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_HIRILANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM islet ހިރިލަންދޫ way/19883140 (spelling variant)
+stop,TH_KANDOODHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_verified: OSM island ކަނޑޫދޫ way/19883089 (spelling variant)
+stop,TH_KINBIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882905: ކިނބިދޫ, ވޭމަންޑޫ, ކޮޅުމަޑުލު, 14120, ދިވެހިރާއްޖެ"
+stop,TH_MADIFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883193: މަޑިފުށި, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_OMADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883085: އޮމަދޫ, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_THIMARAFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882771: ތިމަރަފުށި, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_VANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883061: ވަންދޫ, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_VEYMANDOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883008: ވޭމަންޑޫ, ކޮޅުމަޑުލު, ދިވެހިރާއްޖެ"
+stop,TH_VILUFUSHI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19883216: ވިލުފުށި, ކޮޅުމަޑުލު, 14020, ދިވެހިރާއްޖެ"
