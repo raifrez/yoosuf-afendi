@@ -2,6 +2,7 @@
 
   data/gtfs/{trips,stop_times,stops}.txt     timetable (observed sailings; operating days assumed daily)
   data/export/stop_islands.csv               ferry stop -> Census island_id(s) (derived)
+  data/road_links.csv                        islands reached by road from a ferry stop (assumed)
   data/processed/population/islands.parquet  Census islands: name, atoll_code (+ population)
   data/processed/facilities/facilities.parquet  hospitals and schools with their island_id (island links derived)
   data/processed/facilities/school_grades.parquet  grades a school profile states (derived)
@@ -23,6 +24,7 @@ from simulator.schools import SCHOOL_AGES, School, Student
 from simulator.timetable import StopTime, Timetable, Trip
 
 STOP_ISLANDS = EXPORT / "stop_islands.csv"
+ROAD_LINKS = DATA / "road_links.csv"
 FACILITIES = DATA / "processed" / "facilities" / "facilities.parquet"
 SCHOOL_GRADES = DATA / "processed" / "facilities" / "school_grades.parquet"
 PERSONS = DATA / "processed" / "population" / "persons.parquet"
@@ -54,14 +56,28 @@ def load_stop_names(gtfs: Path = GTFS) -> dict[str, str]:
     return {s["stop_id"]: s["stop_name"] for s in _rows(gtfs / "stops.txt")}
 
 
-def load_island_stops(path: Path = STOP_ISLANDS) -> dict[str, frozenset[str]]:
+def load_island_stops(path: Path = STOP_ISLANDS, road_links: Path | None = ROAD_LINKS) -> dict[str, frozenset[str]]:
     """Census island_id -> the ferry stop_ids serving it. A stop can serve several islands;
-    stops on no Census island (airports, industrial islands) are left out."""
+    stops on no Census island (airports, industrial islands) are left out. Islands joined
+    to a ferry stop's island by road (data/road_links.csv, assumed) use that stop too,
+    with no road time modelled."""
     islands = defaultdict(set)
     for row in _rows(path):
         for island_id in filter(None, row["island_ids"].split(";")):
             islands[island_id].add(row["stop_id"])
+    if road_links is not None and road_links.exists():
+        by_name = {(i["atoll_code"].lower(), i["name"].lower()): i["island_id"] for i in load_census_islands()}
+        for row in read_csv(road_links):
+            island_id = by_name.get((row["atoll"].lower(), row["island_name"].lower()))
+            if island_id is None:
+                raise ValueError(f"road link island {row['atoll']}.{row['island_name']} is not a Census island")
+            islands[island_id].add(row["linked_stop_id"])
     return {island_id: frozenset(stops) for island_id, stops in islands.items()}
+
+
+def load_stop_points(gtfs: Path = GTFS) -> dict[str, dict]:
+    """stop_id -> {lat, lon} from the GTFS feed."""
+    return {s["stop_id"]: {"lat": float(s["stop_lat"]), "lon": float(s["stop_lon"])} for s in _rows(gtfs / "stops.txt")}
 
 
 def load_islands() -> dict[str, dict]:

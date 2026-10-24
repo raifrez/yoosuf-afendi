@@ -8,7 +8,7 @@ from simulator.load import load_island_stops, load_islands, load_timetable
 from simulator.timetable import TripShift, apply_edits
 
 FEEALI, NILANDHOO, MEEDHOO, KUDAHUVADHOO = "8", "1158", "1050", "499"
-GDH_THINADHOO, ADDU_HITHADHOO = "717", "1004"  # Hithadhoo: no ferry stop in the data
+GDH_THINADHOO, GA_MAAMENDHOO = "717", "1085"  # Maamendhoo: no ferry stop in the data
 
 
 def hm(text: str) -> int:
@@ -87,8 +87,8 @@ def test_no_return_after_last_departure(feed):
 
 
 def test_no_data_on_island_and_no_route(feed):
-    assert run(feed, ADDU_HITHADHOO, NILANDHOO, "09:00").outcome == "no_data"
-    assert run(feed, FEEALI, ADDU_HITHADHOO, "09:00").outcome == "no_data"
+    assert run(feed, GA_MAAMENDHOO, NILANDHOO, "09:00").outcome == "no_data"
+    assert run(feed, FEEALI, GA_MAAMENDHOO, "09:00").outcome == "no_data"
     on = run(feed, NILANDHOO, NILANDHOO, "09:00")
     assert on.outcome == "on_island" and on.succeeded and on.time_away_minutes == 60
     assert run(feed, FEEALI, GDH_THINADHOO, "09:00").outcome == "no_route"

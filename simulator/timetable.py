@@ -121,3 +121,59 @@ def apply_edits(timetable: Timetable, edits: Iterable[TripShift]) -> Timetable:
                      tuple(StopTime(st.stop_id, st.arrival + s, st.departure + s) for st in t.stop_times))
         trips.append(t)
     return Timetable(tuple(trips))
+
+
+@dataclass(frozen=True)
+class StopInsertion:
+    """Scenario edit: every sailing of `route_id` also calls at the new stop `stop_id`.
+
+    Between neighbouring stops `a` and `b` (either direction): the boat leaves the earlier
+    of the two at its scheduled time, reaches the new stop after that leg's minutes, calls
+    for `dwell_minutes`, and later stops move later by however much the detour costs.
+    With `b` None the route is extended past its terminus `a`: sailings that start there
+    start at the new stop earlier, sailings that end there carry on to it.
+    """
+    stop_id: str
+    route_id: str
+    a: str
+    b: str | None
+    minutes_a: int  # sailing between a and the new stop
+    minutes_b: int | None = None  # sailing between b and the new stop
+    dwell_minutes: int = 5
+
+
+def insert_stops(timetable: Timetable, insertions: Iterable[StopInsertion]) -> Timetable:
+    """A new Timetable with the stops inserted in order (a later one may chain onto an earlier
+    one). Raises ValueError if a time would cross midnight."""
+    trips = list(timetable.trips)
+    for ins in insertions:
+        if ins.b is not None and ins.minutes_b is None:
+            raise ValueError(f"{ins.stop_id}: minutes_b is needed between {ins.a} and {ins.b}")
+        legs = {ins.a: ins.minutes_a, ins.b: ins.minutes_b}
+        out = []
+        for t in trips:
+            calls = list(t.stop_times)
+            if t.route_id == ins.route_id:
+                calls = _insert(calls, ins, legs)
+            out.append(t if calls == list(t.stop_times) else Trip(t.trip_id, t.route_id, tuple(calls)))
+        trips = out
+    return Timetable(tuple(trips))
+
+
+def _insert(calls: list[StopTime], ins: StopInsertion, legs: dict) -> list[StopTime]:
+    at = lambda stop, minute: StopTime(stop, minute, minute)  # noqa: E731
+    if ins.b is None:
+        lead = ins.minutes_a + ins.dwell_minutes
+        if calls[0].stop_id == ins.a:
+            return [at(ins.stop_id, calls[0].arrival - lead), *calls]
+        if calls[-1].stop_id == ins.a:
+            return [*calls, at(ins.stop_id, calls[-1].departure + lead)]
+        return calls
+    for i, (x, y) in enumerate(zip(calls, calls[1:])):
+        if {x.stop_id, y.stop_id} != {ins.a, ins.b}:
+            continue
+        new = x.departure + legs[x.stop_id]
+        delta = max(0, new + ins.dwell_minutes + legs[y.stop_id] - y.arrival)
+        later = [StopTime(s.stop_id, s.arrival + delta, s.departure + delta) for s in calls[i + 1:]]
+        return [*calls[:i + 1], at(ins.stop_id, new), *later]
+    return calls
