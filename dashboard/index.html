@@ -446,6 +446,25 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .sug-caveat { font-size: 12px !important; color: var(--ink-3) !important; margin: 0; }
 
 .clock-chip .chip-lbl { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #A9C6DB; }
+
+/* Follow the ferry */
+#mapsvg .boats { pointer-events: auto; }
+#mapsvg .boat { cursor: pointer; }
+#mapsvg .boat.followed .hull { stroke: var(--turquoise); stroke-width: 3; stroke-opacity: 1; }
+.follow-card { position: absolute; left: 12px; bottom: 12px; width: 280px; max-width: calc(100% - 84px); max-height: 46%; overflow-y: auto; background: var(--surface); color: var(--ink); border-radius: 14px; padding: 10px 12px; box-shadow: 0 10px 28px #06122040; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.fc-head { display: flex; align-items: center; gap: 8px; }
+.fc-head b { font-family: var(--display); font-size: 15px; flex: 1; }
+.fc-head .x { width: 26px; height: 26px; font-size: 16px; }
+.fc-moved { font-size: 11px; font-weight: 700; color: var(--accent); }
+.fc-sub { color: var(--ink-2); font-size: 12.5px; }
+.fc-stops { list-style: none; margin: 0; padding: 0 0 0 10px; display: flex; flex-direction: column; border-left: 2px solid var(--surface-3); }
+.fc-stops li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 3px 0 3px 10px; position: relative; color: var(--ink-2); }
+.fc-stops li::before { content: ""; position: absolute; left: -16px; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--ink-3); }
+.fc-stops li.passed { color: var(--ink-3); }
+.fc-stops li.passed::before { background: var(--ink-3); }
+.fc-stops li.next { color: var(--ink); font-weight: 700; }
+.fc-stops li.next::before { background: var(--turquoise); border-color: var(--turquoise); }
+.fc-stops li.added span:last-child::after { content: " · added"; color: var(--accent); font-weight: 600; font-size: 11px; }
 </style>
 
 <div class="app">
@@ -464,6 +483,7 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
       </div>
     </div>
     <div class="sheen" aria-hidden="true"></div>
+    <div class="follow-card" id="follow-card" role="status" aria-live="polite" hidden></div>
     <div class="map-toast" id="map-toast" role="status" aria-live="polite" hidden></div>
     <div class="zoom-ctl" role="group" aria-label="Map zoom">
       <button type="button" id="zoom-in" aria-label="Zoom in">+</button>

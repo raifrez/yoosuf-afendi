@@ -332,13 +332,13 @@
         seen.add(b.id);
         let g = boatEls.get(b.id);
         if (!g) {
-          g = el("g", { class: "boat" }, gBoats);
+          g = el("g", { class: "boat", "data-trip": b.id }, gBoats);
           el("path", { class: "hull", d: "M-9 -4.4H3Q9.5 -3.8 11.5 0Q9.5 3.8 3 4.4H-9Q-10 0 -9 -4.4Z" }, g);
           el("path", { class: "deck", d: "M-6.5 -2.6H1.5Q5 -2.2 5.8 0Q5 2.2 1.5 2.6H-6.5Z" }, g);
           el("title", {}, g);
           boatEls.set(b.id, g);
         }
-        g.setAttribute("class", `boat ${b.cls || ""}${b.route && b.route === hlRoute ? " hl" : ""}`);
+        g.setAttribute("class", `boat ${b.cls || ""}${b.route && b.route === hlRoute ? " hl" : ""}${b.followed ? " followed" : ""}`);
         g.style.setProperty("--boat-color", b.color || "");
         g.lastChild.textContent = b.title || "";
       }
@@ -465,18 +465,33 @@
       if (!drag || e.pointerId !== drag.id) return;
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       if (!drag.moved && Math.hypot(dx, dy) < 4) return;
-      if (!drag.moved) { drag.moved = true; ++tween; svg.setPointerCapture(e.pointerId); svg.classList.add("dragging"); }
+      if (!drag.moved) { drag.moved = true; ++tween; svg.setPointerCapture(e.pointerId); svg.classList.add("dragging"); opts.onUserPan && opts.onUserPan(); }
       vb = [drag.vb[0] - dx * upp, drag.vb[1] - dy * upp, drag.vb[2], drag.vb[3]];
       applyViewBox();
     });
     const endDrag = () => { if (drag && drag.moved) suppressClick = true; drag = null; svg.classList.remove("dragging"); };
     svg.addEventListener("pointerup", endDrag);
     svg.addEventListener("pointercancel", endDrag);
+    // Follow-camera: ease the view centre (and, while approaching, the zoom)
+    // towards a moving point. Called on every animation tick.
+    function track(x, y, width) {
+      ++tween;
+      const k = 0.2;
+      const cx = vb[0] + vb[2] / 2, cy = vb[1] + vb[3] / 2;
+      const w = width ? vb[2] + (width - vb[2]) * k : vb[2];
+      const h = vb[3] * (w / vb[2]);
+      const ncx = cx + (x - cx) * k, ncy = cy + (y - cy) * k;
+      vb = [ncx - w / 2, ncy - h / 2, w, h];
+      applyViewBox();
+    }
+
     function zoomBy(f) { const r = svg.getBoundingClientRect(); zoomAround(r.left + r.width / 2, r.top + r.height / 2, f); }
     function refit() { zoomTo(lastZoom.id, true, lastZoom.fit); }
 
     svg.addEventListener("click", (e) => {
       if (suppressClick) { suppressClick = false; return; }
+      const boat = e.target.closest(".boat[data-trip]");
+      if (boat) { opts.onBoat && opts.onBoat(boat.dataset.trip); return; }
       const pin = e.target.closest("[data-island]");
       if (pin) { opts.onIsland && opts.onIsland(pin.dataset.island); return; }
       const a = e.target.closest("[data-atoll]");
@@ -501,7 +516,7 @@
       svg.classList.add("just-applied");
       setTimeout(() => svg.classList.remove("just-applied"), 2600);
     }
-    return { setSearching, markAtoll, flashEdited, zoomTo, zoomBy, refit, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
+    return { track, setSearching, markAtoll, flashEdited, zoomTo, zoomBy, refit, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
   }
 
   window.MandarinMap = { createMap };

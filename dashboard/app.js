@@ -151,6 +151,8 @@
   const map = window.MandarinMap.createMap($("#mapsvg"), geo, {
     onAtoll: (id) => selectAtoll(id),
     onIsland: (id) => { if (stopById[id] && stopById[id].atoll === state.atoll && nets[state.atoll]) showJourney(id); },
+    onBoat: (tripId) => startFollow(tripId),
+    onUserPan: () => stopFollow(),
   });
   const P = Object.fromEntries(D.stops.map((s) => [s.id, map.project(s.lon, s.lat)]));
 
@@ -286,6 +288,7 @@
 
   function selectAtoll(id) {
     state.atoll = id || null;
+    stopFollow();
     state.view = "list";
     state.suggestion = null;
     const trips = state.atoll ? tripsTouching(state.atoll) : [];
@@ -378,6 +381,45 @@
     drawBoats();
   }
 
+  // ---- Follow the ferry --------------------------------------------------
+  const follow = { trip: null, since: 0, doneAt: 0 };
+  function startFollow(tripId) {
+    if (!state.atoll) return;
+    follow.trip = tripId; follow.since = performance.now(); follow.doneAt = 0;
+    const shift = active() ? state.shifts[tripId] || 0 : 0;
+    const c = tripMeta[tripId].calls;
+    if (anim.t < c[0][1] + shift - 5 || anim.t > c[c.length - 1][1] + shift) anim.t = c[0][1] + shift - 2;
+    anim.last = performance.now();
+    $("#follow-card").hidden = false;
+    drawBoats();
+  }
+  function stopFollow() {
+    follow.trip = null;
+    const card = document.querySelector("#follow-card");
+    if (card) card.hidden = true;
+  }
+  function updateFollow(boats) {
+    const id = follow.trip;
+    const shift = active() ? state.shifts[id] || 0 : 0;
+    const c = tripMeta[id].calls.map(([sid, m]) => [sid, m + shift]);
+    const b = boats.find((x) => x.id === id);
+    const t = anim.t;
+    // Camera: approach for the first ~1.5 s (zoom in to ~25 km across), then just follow.
+    const approaching = performance.now() - follow.since < 1500;
+    if (b) map.track(b.x, b.y, approaching ? 2400 : null);
+    else if (t < c[0][1]) map.track(...P[c[0][0]], approaching ? 2400 : null);
+    else if (!follow.doneAt) follow.doneAt = performance.now();
+    if (follow.doneAt && performance.now() - follow.doneAt > 4000) { stopFollow(); return; }
+    const nextIdx = c.findIndex(([, m]) => m > t);
+    const done = nextIdx === -1;
+    $("#follow-card").innerHTML = `
+      <div class="fc-head"><span class="swatch" style="background:${routeColor.get(tripMeta[id].route) || "var(--r-other)"}"></span>
+        <b>Following Route ${esc(tripMeta[id].route)}</b>${shift ? `<span class="fc-moved">moved ${shift > 0 ? "+" : "−"}${Math.abs(shift)} min</span>` : ""}
+        <button type="button" class="x" id="stop-follow" aria-label="Stop following">×</button></div>
+      <div class="fc-sub">${esc(sname(c[0][0]))} → ${esc(sname(c[c.length - 1][0]))} · ${done ? `<b>Arrived at ${esc(sname(c[c.length - 1][0]))} ${fmt(c[c.length - 1][1])}</b>` : t < c[0][1] ? `departs ${fmt(c[0][1])}` : `next: <b>${esc(sname(c[nextIdx][0]))} ${fmt(c[nextIdx][1])}</b>`}</div>
+      <ol class="fc-stops">${c.map(([sid, m], i) => `<li class="${m <= t ? "passed" : i === nextIdx ? "next" : ""}${stopById[sid] && stopById[sid].added ? " added" : ""}"><span class="mono">${fmt(m)}</span><span>${esc(sname(sid))}</span></li>`).join("")}</ol>`;
+  }
+
   // ---- Ferry animation ---------------------------------------------------
   // Ferries loop through the day in the atoll view (6 schedule minutes per second).
   const anim = { t: 6 * 60 + 30, playing: !reduced, speed: 6, last: performance.now() };
@@ -399,7 +441,7 @@
           id: trip.id, x: x0 + (x1 - x0) * k, y: y0 + (y1 - y0) * k,
           angle: (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI,
           cls: `${shift ? "moved" : ""} ${state.atoll && !atolls.has(state.atoll) ? "away" : ""}`,
-          color: routeColor.get(trip.route) || "", route: trip.route,
+          color: routeColor.get(trip.route) || "", route: trip.route, followed: trip.id === follow.trip,
           title: `${routeName(trip.id)} · ${k < 0.5 ? "leaving" : "approaching"} ${sname(near)}`,
         });
         break;
@@ -416,6 +458,7 @@
     const boats = boatsAt(anim.t);
     map.setBoats(boats);
     $("#clock").textContent = fmt(Math.floor(anim.t));
+    if (follow.trip) updateFollow(boats);
     const inScope = boats.filter((b) => tripAtolls(b.id).has(state.atoll)).length;
     $("#clock-sub").textContent = inScope ? `${inScope} ${inScope === 1 ? "ferry" : "ferries"} sailing now` : "no ferries sailing now";
   }
@@ -1070,14 +1113,17 @@
   }
 
   document.addEventListener("click", (e) => {
+    if (e.target.closest("#stop-follow")) { stopFollow(); return; }
     if (e.target.closest("[data-run-optimize]")) { const b = $("#optimize"); if (b && !b.hidden && !b.disabled) b.click(); return; }
     const as = e.target.closest("[data-add-stop]");
     if (as) { addStop(as.dataset.addStop, as); return; }
     const rr = e.target.closest("[data-route-row]");
     if (rr) {
       const ids = NET.trips.filter((t) => t.route === rr.dataset.routeRow).map((t) => t.id);
-      const deps = ids.map((id) => firstDep(id) + (active() ? state.shifts[id] || 0 : 0)).sort((a, b) => a - b);
-      anim.t = (deps.find((d) => d > anim.t + 1) ?? deps[0]) - 2;
+      const dep = (id) => firstDep(id) + (active() ? state.shifts[id] || 0 : 0);
+      const next = ids.slice().sort((a, b) => dep(a) - dep(b)).find((id) => dep(id) > anim.t + 1) || ids.slice().sort((a, b) => dep(a) - dep(b))[0];
+      anim.t = dep(next) - 2;
+      startFollow(next);
       anim.last = performance.now(); drawBoats();
       return;
     }
