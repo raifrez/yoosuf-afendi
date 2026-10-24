@@ -76,7 +76,8 @@
             const b = { x0: p.x + c.box[0] * upp, y0: p.y + c.box[1] * upp, x1: p.x + c.box[2] * upp, y1: p.y + c.box[3] * upp };
             if (hit(b)) continue;
             for (const [elx, dy] of [[p.nameEl, 0], [p.capEl, 13]]) {
-              elx.setAttribute("x", c.nx); elx.setAttribute("y", c.ny + dy); elx.setAttribute("text-anchor", c.anchor);
+              // Inline style, because the stylesheet's text-anchor would override the attribute.
+              elx.setAttribute("x", c.nx); elx.setAttribute("y", c.ny + dy); elx.style.textAnchor = c.anchor;
             }
             p.nameEl.style.display = ""; p.capEl.style.display = withCap ? "" : "none";
             boxes.push(b); done = true; break;

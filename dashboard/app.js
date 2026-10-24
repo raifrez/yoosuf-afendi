@@ -264,6 +264,7 @@
     const national = !state.atoll;
     $(".mapbox").classList.toggle("national", national);
     $("#clock-chip").hidden = national;
+    $("#map-back").hidden = national;
     if (national) { map.setBoats([]); return; }
     const boats = boatsAt(anim.t);
     map.setBoats(boats);
@@ -285,18 +286,8 @@
   // ---- Rail: overview ----------------------------------------------------
   function renderOverview() {
     const el = $("#r-overview");
-    if (!state.atoll) {
-      el.innerHTML = `
-        <div class="eyebrow">All of the Maldives</div>
-        <h2>Published ferry network</h2>
-        <div class="stats">
-          <div class="stat"><b>${n(D.stops.length)}</b><span>islands with a ferry stop</span></div>
-          <div class="stat"><b>${n(D.trips.length)}</b><span>sailings a day</span></div>
-          <div class="stat"><b>${n(ROUTES.size)}</b><span>routes</span></div>
-          <div class="stat"><b>${FEED_ATOLLS.length}<small class="muted" style="font-size:13px"> of ${geo.atolls.length}</small></b><span>atolls in the schedule</span></div>
-        </div>`;
-      return;
-    }
+    el.hidden = !state.atoll;
+    if (!state.atoll) { el.innerHTML = ""; return; }
     const a = atollById[state.atoll];
     const stops = stopsIn(state.atoll);
     const trips = tripsTouching(state.atoll);
@@ -309,8 +300,7 @@
     const last = Math.max(...trips.map((id) => { const c = tripMeta[id].calls; return c[c.length - 1][1]; }));
     const links = [...new Set(trips.flatMap((id) => [...tripAtolls(id)]))].filter((x) => x !== state.atoll);
     el.innerHTML = `
-      <div class="eyebrow">Atoll</div>
-      <h2>${esc(a.name)} <span class="muted" style="font-size:14px;font-weight:500">${esc(a.alt)}</span></h2>
+      <h3>Ferries in ${esc(a.name)}</h3>
       <div class="stats">
         <div class="stat"><b>${stops.length}</b><span>islands with a ferry stop</span></div>
         <div class="stat"><b>${trips.length}</b><span>sailings a day</span></div>
@@ -333,10 +323,11 @@
     const pp = active() && base ? cur.access_pct - base.access_pct : 0;
     const d = active() && Math.abs(pp) >= 0.05 ? `<span class="delta ${pp > 0 ? "good" : "bad"}">${pp > 0 ? "▲ +" : "▼ −"}${Math.abs(pp).toFixed(1)} pp vs schedule</span>` : "";
     return `
-      <div class="sec-head"><h3>Same-day hospital trip</h3><span class="tag assumed">rule assumed</span></div>
+      <div class="eyebrow">${state.atoll ? esc(atollById[state.atoll].name) : "All of the Maldives"}</div>
+      <div class="sec-head"><h2>Current issues</h2><span class="tag assumed">rule assumed</span></div>
       <div class="access-line">
         <div class="access-pct">${cur.access_pct == null ? "n/a" : `${cur.access_pct.toFixed(0)}%`}</div>
-        <p>${n(cur.success)} of ${units(cur.eligible)} can reach ${state.atoll ? "the hospital" : "their atoll hospital"} by ${settings.arriveBy} and be home by ${settings.homeBy}.</p>
+        <p>${n(cur.success)} of ${units(cur.eligible)} can reach ${state.atoll ? "the hospital" : "their atoll hospital"} by ${settings.arriveBy} and be home the same day by ${settings.homeBy}.</p>
       </div>
       <div class="bar"><i style="width:${(cur.access_pct || 0).toFixed(1)}%"></i></div>${d}`;
   }
@@ -708,6 +699,7 @@
     if (go && !go.closest("#mapsvg")) selectAtoll(go.dataset.goAtoll);
   });
 
+  $("#map-back").addEventListener("click", () => selectAtoll(null));
   $("#zoom-in").addEventListener("click", () => map.zoomBy(0.6));
   $("#zoom-out").addEventListener("click", () => map.zoomBy(1 / 0.6));
   $("#zoom-fit").addEventListener("click", () => map.refit());

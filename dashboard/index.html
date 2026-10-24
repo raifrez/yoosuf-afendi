@@ -339,12 +339,17 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 @keyframes ripple { from { transform: scale(0.6); opacity: .7; } to { transform: scale(4.2); opacity: 0; } }
 #mapsvg .boats.has-hl ~ .ripples, #mapsvg .ripples:has(~ .boats.has-hl) { opacity: .3; }
 @media (prefers-reduced-motion: reduce) { #mapsvg .ripples { display: none; } }
+
+.map-back { display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 10px; padding: 7px 12px 7px 9px; background: var(--surface); color: var(--ink); font-weight: 600; font-size: 13px; box-shadow: 0 2px 8px #0612202E; }
+.map-back:hover { background: var(--surface-2); }
+.map-back svg { width: 15px; height: 15px; }
 </style>
 
 <div class="app">
   <div class="mapbox">
     <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives with ferry routes and moving ferries"></svg>
     <div class="map-ui tl">
+      <button type="button" class="map-back" id="map-back" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>All of the Maldives</button>
       <div class="clock-chip" id="clock-chip" hidden><b class="mono" id="clock">06:00</b><span id="clock-sub"></span></div>
       <div class="legend">
         <span class="atoll-only"><i class="lg-boat"></i>Ferry</span>
@@ -376,8 +381,8 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
     </div>
 
     <div class="rail-scroll" id="rail-scroll">
-      <section class="sec" id="r-overview"></section>
       <section class="sec" id="r-access"></section>
+      <section class="sec" id="r-overview"></section>
 
       <section class="sec" id="r-move" hidden>
         <h3>Move a sailing</h3>
