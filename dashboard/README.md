@@ -12,8 +12,11 @@ Opening `dashboard/index.html` directly also works.
 
 ## What it shows
 
-- **All of the Maldives:** national totals, atolls ranked by islands cut off, and a red bubble on each problem atoll.
-- **One atoll:** its barriers (grouped by cause, such as "Route 288 docks at 10:05"), each island's journey step by step, and its islands in a table.
+The screen is a full-height map and one rail on the right.
+
+- **Ferries move along their routes** on a clock you can play, pause, scrub (05:00–20:00) and speed up. Sailings you've moved are drawn in turquoise. Positions are interpolated on straight lines between stops.
+- **All of the Maldives:** the ferry network in numbers, how many islands can make a same-day hospital trip, and the atolls where islands are cut off (also shown as red bubbles on the map).
+- **One atoll:** its sailings, first and last times, its barriers (grouped by cause, such as "Route 288 docks at 10:05") and each island's journey step by step.
 - **Move a sailing** to compare against the published schedule. Every stop of the sailing moves together.
 - **Suggest a timetable** for one atoll or every atoll. It searches 15-min shifts of sailings inside the atoll, maximizes islands with a complete trip, and never lets anyone lose access. It doesn't check boats, crews or cost.
 - **Journey rule** (appointment time, length, home-by time and time to change boats). It is an assumption, so it can be changed in the sidebar to test how sensitive the results are.

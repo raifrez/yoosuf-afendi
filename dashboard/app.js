@@ -1,5 +1,6 @@
-// M.A.N.D.A.R.I.N dashboard. Real ferry schedules (network-data.js, built from
-// data/) run through the simulator per atoll. Every number on screen comes from
+// M.A.N.D.A.R.I.N dashboard: the real ferry network on a map with ferries
+// moving along their routes, and one rail for the network, same-day hospital
+// access, timetable changes and assumptions. Every access number comes from
 // simulator output; the journey rule is an editable assumption.
 
 (function () {
@@ -12,6 +13,7 @@
   const n = (v) => Math.round(v).toLocaleString("en-US");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const listNames = (names) => names.length <= 2 ? names.join(" and ") : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const atollById = Object.fromEntries(geo.atolls.map((a) => [a.id, a]));
   const stopById = Object.fromEntries(D.stops.map((s) => [s.id, s]));
@@ -22,8 +24,9 @@
   const units = (v) => `${n(v)} ${v === 1 ? UNIT[0] : UNIT[1]}`;
   const sname = (id) => (stopById[id] ? stopById[id].name : id);
   const routeName = (tripId) => `Route ${tripMeta[tripId].route}`;
+  const ROUTES = new Set(D.trips.map((t) => t.route));
+  const FEED_ATOLLS = [...new Set(D.stops.map((s) => s.atoll))];
 
-  // Simulator-shaped trips: one time per stop in the source, so arr = dep.
   const TRIPS = D.trips.map((t) => ({
     id: t.id, days: "all",
     stops: t.calls.map(([sid, m], k, arr) => ({ island: sid, ...(k > 0 ? { arr: fmt(m) } : {}), ...(k < arr.length - 1 ? { dep: fmt(m) } : {}) })),
@@ -36,7 +39,6 @@
     const c = tripMeta[id].calls;
     return `${routeName(id)} · ${sname(c[0][0])} → ${sname(c[c.length - 1][0])}`;
   }
-
   const stopsIn = (atollId) => D.stops.filter((s) => s.atoll === atollId);
   const settings = { arriveBy: "10:00", activityMin: 120, homeBy: "18:00", buffer: 15 };
 
@@ -57,8 +59,7 @@
     };
   }
 
-  const FEED_ATOLLS = [...new Set(D.stops.map((s) => s.atoll))];
-  const state = { atoll: null, shifts: {}, editTrip: null, island: null, leftView: "cards", suggestion: null, national: null, busy: false };
+  const state = { atoll: null, shifts: {}, editTrip: null, island: null, view: "list", suggestion: null, national: null, busy: false };
   let nets = {};
   let shiftError = null;
 
@@ -92,7 +93,7 @@
       const s = net[which].summary.health;
       t.eligible += s.eligible; t.success += s.success; t.failed += s.failed;
       for (const [k, v] of Object.entries(s.by_reason)) t.by_reason[k] = (t.by_reason[k] || 0) + v;
-      if (which === "current" && net.comparison) { t.gained += net.comparison.health.gained; t.lost += net.comparison.health.lost; }
+      if (net.comparison) { t.gained += net.comparison.health.gained; t.lost += net.comparison.health.lost; }
     }
     t.access_pct = t.eligible ? (t.success / t.eligible) * 100 : null;
     return t;
@@ -105,15 +106,26 @@
     return { ...s, gained: net.comparison ? net.comparison.health.gained : 0, lost: net.comparison ? net.comparison.health.lost : 0 };
   }
 
+  const REASON = {
+    late_arrival: "Arrives late", no_return: "Can't get home", missed_connection: "Missed connection",
+    no_service: "No ferry today", no_route: "No morning ferry",
+  };
+  const REASON_COUNT = {
+    late_arrival: ["arrives late", "arrive late"], no_return: ["can't get home", "can't get home"],
+    missed_connection: ["misses a connection", "miss a connection"], no_service: ["has no ferry", "have no ferry"],
+    no_route: ["has no morning ferry", "have no morning ferry"],
+  };
+
   // ---- Map ---------------------------------------------------------------
   const map = window.MandarinMap.createMap($("#mapsvg"), geo, {
     onAtoll: (id) => selectAtoll(id),
-    onIsland: (id) => { if (stopById[id] && stopById[id].atoll === state.atoll) showJourney(id); },
+    onIsland: (id) => { if (stopById[id] && stopById[id].atoll === state.atoll && nets[state.atoll]) showJourney(id); },
   });
+  const P = Object.fromEntries(D.stops.map((s) => [s.id, map.project(s.lon, s.lat)]));
 
   function selectAtoll(id) {
     state.atoll = id || null;
-    state.leftView = "cards";
+    state.view = "list";
     state.suggestion = null;
     const trips = state.atoll ? tripsTouching(state.atoll) : [];
     state.editTrip = trips.includes(state.editTrip) ? state.editTrip : trips[0] || null;
@@ -123,6 +135,7 @@
     $("#atoll").value = state.atoll || "";
     buildTripOptions();
     render();
+    $("#rail-scroll").scrollTop = 0;
   }
 
   function stopStatus(id) {
@@ -148,10 +161,7 @@
       }
     }
     map.setState({ atollId: state.atoll, status, notes });
-    $("#map-hint").hidden = !!state.atoll;
-
     const editedIds = new Set(active() ? moved().map(([id]) => id) : []);
-    const P = Object.fromEntries(D.stops.map((s) => [s.id, map.project(s.lon, s.lat)]));
     const pairs = new Map();
     for (const t of D.trips) {
       for (let i = 0; i < t.calls.length - 1; i++) {
@@ -163,7 +173,6 @@
       }
     }
     const routes = [...pairs.values()].map((p) => ({ x1: P[p.a][0], y1: P[p.a][1], x2: P[p.b][0], y2: P[p.b][1], kind: p.edited ? "edited" : "today" }));
-
     const nodes = D.stops.map((s) => {
       const st = stopStatus(s.id);
       const net = nets[s.atoll];
@@ -175,103 +184,151 @@
       }
       return {
         id: s.id, x: P[s.id][0], y: P[s.id][1], mini: !full, hub: st === "hub",
-        r: st === "hub" ? 11 : popKnown && s.population ? Math.round(6 + Math.sqrt(s.population) / 7) : 7,
-        status: st, label: s.name, caption, selected: full && s.id === state.island,
+        r: st === "hub" ? 10 : popKnown && s.population ? Math.round(6 + Math.sqrt(s.population) / 7) : 7,
+        status: st, label: s.name, caption, selected: full && state.view === "journey" && s.id === state.island,
       };
     });
-
-    const bubbles = state.atoll ? [] : Object.entries(nets).map(([id, net]) => {
+    const bubbles = state.atoll ? [] : Object.entries(nets).filter(([, net]) => net.current.summary.health.failed).map(([id, net]) => {
       const s = net.current.summary.health;
       const [x, y] = map.centreOf(id);
-      return { atoll: id, x, y, r: s.failed ? Math.round(10 + Math.sqrt(s.failed) * (popKnown ? 0.25 : 3.5)) : 8, text: s.failed ? n(s.failed) : "✓", status: s.failed ? "bad" : "ok" };
+      return { atoll: id, x, y, r: Math.round(10 + Math.sqrt(s.failed) * (popKnown ? 0.25 : 3.5)), text: n(s.failed), status: "bad" };
     });
     map.setNetwork({ nodes, routes, bubbles });
+    drawBoats();
   }
 
-  // ---- KPIs --------------------------------------------------------------
-  function delta(value, goodWhenUp, unit) {
-    if (!active()) return "";
-    if (value == null || Math.abs(value) < 0.05) return `<span class="delta flat">No change</span>`;
-    const up = value > 0, good = up === goodWhenUp;
-    const txt = unit === "pp" ? `${up ? "+" : "−"}${Math.abs(value).toFixed(1)} pp` : `${up ? "+" : "−"}${n(Math.abs(value))}`;
-    return `<span class="delta ${good ? "good" : "bad"}">${up ? "▲" : "▼"} ${txt} vs timetable</span>`;
-  }
+  // ---- Ferry animation ---------------------------------------------------
+  const anim = { t: 6 * 60 + 30, playing: !reduced, speed: 6, last: performance.now() };
+  const PLAY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>';
+  const PAUSE_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
 
-  function renderKpis() {
-    const cur = scopeSummary("current"), base = scopeSummary("baseline");
-    const intro = $("#kpi-scope");
-    if (!cur) {
-      intro.textContent = atollById[state.atoll].name;
-      $("#kpi-note").textContent = "No ferry schedule for this atoll yet.";
-      $("#kpis").innerHTML = `<div class="kpi empty-kpi"><div class="kpi-label">Nothing to model here yet</div><div class="kpi-sub">Add this atoll's ferries to data/ferry_schedules.csv and its hospital to data/facilities.csv.</div></div>`;
+  function boatsAt(t) {
+    const out = [];
+    for (const trip of D.trips) {
+      const shift = active() ? state.shifts[trip.id] || 0 : 0;
+      const c = trip.calls;
+      if (t < c[0][1] + shift || t > c[c.length - 1][1] + shift) continue;
+      for (let i = 0; i < c.length - 1; i++) {
+        const m0 = c[i][1] + shift, m1 = c[i + 1][1] + shift;
+        if (t < m0 || t > m1) continue;
+        const k = m1 > m0 ? (t - m0) / (m1 - m0) : 0;
+        const [x0, y0] = P[c[i][0]], [x1, y1] = P[c[i + 1][0]];
+        const near = k < 0.5 ? c[i][0] : c[i + 1][0];
+        const atolls = tripAtolls(trip.id);
+        out.push({
+          id: trip.id, x: x0 + (x1 - x0) * k, y: y0 + (y1 - y0) * k,
+          angle: (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI,
+          cls: `${shift ? "moved" : ""} ${state.atoll && !atolls.has(state.atoll) ? "away" : ""}`,
+          title: `${routeName(trip.id)} · ${k < 0.5 ? "leaving" : "approaching"} ${sname(near)}`,
+        });
+        break;
+      }
+    }
+    return out;
+  }
+  function drawBoats() {
+    const boats = boatsAt(anim.t);
+    map.setBoats(boats);
+    $("#clock").textContent = fmt(Math.floor(anim.t));
+    const inScope = state.atoll ? boats.filter((b) => tripAtolls(b.id).has(state.atoll)).length : boats.length;
+    $("#clock-sub").textContent = `${inScope} ${inScope === 1 ? "ferry" : "ferries"} sailing${state.atoll ? ` in ${atollById[state.atoll].name}` : ""}`;
+    const scrub = $("#time");
+    if (document.activeElement !== scrub) scrub.value = Math.floor(anim.t);
+  }
+  function syncPlayer() {
+    $("#play").innerHTML = anim.playing ? PAUSE_ICON : PLAY_ICON;
+    $("#play").setAttribute("aria-label", anim.playing ? "Pause" : "Play");
+    document.querySelectorAll("[data-speed]").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.speed) === anim.speed)));
+  }
+  // Time-based (not frame-based) so the clock stays right in throttled panes.
+  setInterval(() => {
+    const now = performance.now();
+    const dt = Math.min(5, (now - anim.last) / 1000);
+    anim.last = now;
+    if (!anim.playing) return;
+    anim.t += dt * anim.speed;
+    if (anim.t > 20 * 60) anim.t = 5 * 60;
+    drawBoats();
+  }, 50);
+  $("#play").addEventListener("click", () => { anim.playing = !anim.playing; anim.last = performance.now(); syncPlayer(); });
+  $("#time").addEventListener("input", (e) => { anim.t = Number(e.target.value); drawBoats(); });
+  document.querySelectorAll("[data-speed]").forEach((b) => b.addEventListener("click", () => { anim.speed = Number(b.dataset.speed); syncPlayer(); }));
+
+  // ---- Rail: overview ----------------------------------------------------
+  function renderOverview() {
+    const el = $("#r-overview");
+    if (!state.atoll) {
+      el.innerHTML = `
+        <div class="eyebrow">All of the Maldives</div>
+        <h2>Published ferry network</h2>
+        <div class="stats">
+          <div class="stat"><b>${n(D.stops.length)}</b><span>islands with a ferry stop</span></div>
+          <div class="stat"><b>${n(D.trips.length)}</b><span>sailings a day</span></div>
+          <div class="stat"><b>${n(ROUTES.size)}</b><span>routes</span></div>
+          <div class="stat"><b>${FEED_ATOLLS.length}<small class="muted" style="font-size:13px"> of ${geo.atolls.length}</small></b><span>atolls in the schedule</span></div>
+        </div>`;
       return;
     }
-    intro.textContent = state.atoll ? atollById[state.atoll].name : "All of the Maldives";
-    $("#kpi-note").textContent = state.atoll
-      ? `${units(cur.eligible)} served by ferry, going to ${facilityByAtoll[state.atoll].name}`
-      : `${Object.keys(nets).length} atolls with ferry schedules · ${units(cur.eligible)} modeled`;
-    const late = (cur.by_reason.late_arrival || 0) + (cur.by_reason.missed_connection || 0);
-    const lateB = (base.by_reason.late_arrival || 0) + (base.by_reason.missed_connection || 0);
-    const noRet = cur.by_reason.no_return || 0, noRetB = base.by_reason.no_return || 0;
-    const tiles = [
-      { label: "Same-day hospital access", value: cur.access_pct == null ? "n/a" : `${cur.access_pct.toFixed(0)}%`,
-        sub: `${n(cur.success)} of ${units(cur.eligible)}`, d: delta(cur.access_pct - base.access_pct, true, "pp"), tone: "lead" },
-      { label: `${UNIT[1][0].toUpperCase()}${UNIT[1].slice(1)} cut off from same-day care`, value: n(cur.failed),
-        sub: `Can't arrive by ${settings.arriveBy} and be home by ${settings.homeBy}`, d: delta(cur.failed - base.failed, false), tone: cur.failed ? "bad" : "good" },
-      { label: "Arrive after the appointment starts", value: n(late),
-        sub: "Late ferry or a missed connection", d: delta(late - lateB, false), tone: late ? "bad" : "good" },
-      { label: "Reach the hospital but can't get home", value: n(noRet),
-        sub: `No ferry home by ${settings.homeBy}`, d: delta(noRet - noRetB, false), tone: noRet ? "bad" : "good" },
-    ];
-    $("#kpis").innerHTML = tiles.map((t) => `<div class="kpi ${t.tone}"><div class="kpi-label">${t.label}</div><div class="kpi-value">${t.value}</div><div class="kpi-sub">${t.sub}</div>${t.d}</div>`).join("");
+    const a = atollById[state.atoll];
+    const stops = stopsIn(state.atoll);
+    const trips = tripsTouching(state.atoll);
+    if (!stops.length) {
+      el.innerHTML = `<div class="eyebrow">Atoll</div><h2>${esc(a.name)} <span class="muted" style="font-size:14px;font-weight:500">${esc(a.alt)}</span></h2>
+        <p>No ferry sailings for this atoll in the published schedule yet. To include it, add its sailings to <span class="mono">data/ferry_schedules.csv</span> and its hospital island to <span class="mono">data/facilities.csv</span>.</p>`;
+      return;
+    }
+    const first = Math.min(...trips.map((id) => tripMeta[id].calls[0][1]));
+    const last = Math.max(...trips.map((id) => { const c = tripMeta[id].calls; return c[c.length - 1][1]; }));
+    const links = [...new Set(trips.flatMap((id) => [...tripAtolls(id)]))].filter((x) => x !== state.atoll);
+    el.innerHTML = `
+      <div class="eyebrow">Atoll</div>
+      <h2>${esc(a.name)} <span class="muted" style="font-size:14px;font-weight:500">${esc(a.alt)}</span></h2>
+      <div class="stats">
+        <div class="stat"><b>${stops.length}</b><span>islands with a ferry stop</span></div>
+        <div class="stat"><b>${trips.length}</b><span>sailings a day</span></div>
+        <div class="stat"><b class="mono" style="font-size:19px">${fmt(first)}</b><span>first departure</span></div>
+        <div class="stat"><b class="mono" style="font-size:19px">${fmt(last)}</b><span>last arrival</span></div>
+      </div>
+      ${links.length ? `<p class="status-line">Sailings also reach ${esc(listNames(links.map((x) => atollById[x].name)))}.</p>` : ""}`;
   }
 
-  // ---- Left column -------------------------------------------------------
-  const REASON = {
-    late_arrival: "Arrives late",
-    no_return: "Can't get home",
-    missed_connection: "Missed connection",
-    no_service: "No ferry today",
-    no_route: "No ferry route",
-  };
-
-  // How a count of islands reads in a sentence ("2 can't get home").
-  const REASON_COUNT = {
-    late_arrival: ["arrives late", "arrive late"],
-    no_return: ["can't get home", "can't get home"],
-    missed_connection: ["misses a connection", "miss a connection"],
-    no_service: ["has no ferry", "have no ferry"],
-    no_route: ["has no morning ferry", "have no morning ferry"],
-  };
-
-  function renderLeft() {
-    $("#left-national").hidden = !!state.atoll;
-    $("#left-cards").hidden = !state.atoll || state.leftView !== "cards";
-    $("#inspector").hidden = !state.atoll || state.leftView !== "journey";
-    if (!state.atoll) renderAtollRanking();
-    else if (state.leftView === "cards") renderCards();
-    else renderInspector();
+  // ---- Rail: same-day hospital access -------------------------------------
+  function accessHeader(cur, base) {
+    const pp = active() && base ? cur.access_pct - base.access_pct : 0;
+    const d = active() && Math.abs(pp) >= 0.05 ? `<span class="delta ${pp > 0 ? "good" : "bad"}">${pp > 0 ? "▲ +" : "▼ −"}${Math.abs(pp).toFixed(1)} pp vs schedule</span>` : "";
+    return `
+      <div class="sec-head"><h3>Same-day hospital trip</h3><span class="tag assumed">rule assumed</span></div>
+      <div class="access-line">
+        <div class="access-pct">${cur.access_pct == null ? "n/a" : `${cur.access_pct.toFixed(0)}%`}</div>
+        <p>${n(cur.success)} of ${units(cur.eligible)} can reach ${state.atoll ? "the hospital" : "their atoll hospital"} by ${settings.arriveBy} and be home by ${settings.homeBy}.</p>
+      </div>
+      <div class="bar"><i style="width:${(cur.access_pct || 0).toFixed(1)}%"></i></div>${d}`;
   }
 
-  function renderAtollRanking() {
-    const rows = Object.entries(nets).map(([id, net]) => ({ id, net, s: net.current.summary.health }))
-      .sort((a, b) => b.s.failed - a.s.failed || a.s.access_pct - b.s.access_pct);
-    const cut = rows.filter((r) => r.s.failed).length;
-    $("#rank-count").textContent = `${cut} of ${rows.length} atolls with ferry data have ${UNIT[1]} cut off`;
-    $("#ranking").innerHTML = rows.map(({ id, net, s }) => {
-      const a = atollById[id];
-      const reasons = Object.entries(s.by_reason).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${n(v)} ${v === 1 ? REASON_COUNT[k][0] : REASON_COUNT[k][1]}`).join(" · ");
-      const ch = net.comparison ? net.comparison.health : null;
-      const change = ch && (ch.gained || ch.lost) ? `<span class="rank-change">${ch.gained ? `<b class="good">+${n(ch.gained)}</b>` : ""}${ch.lost ? ` <b class="badtxt">−${n(ch.lost)}</b>` : ""}</span>` : "";
-      return `<button type="button" class="rank ${s.failed ? "bad" : "ok"}" data-go-atoll="${id}">
-        <span class="rank-top"><span class="rank-name">${esc(a.name)}</span><span class="rank-alt">${esc(a.alt)}</span>${change}</span>
-        <span class="rank-big">${s.failed ? `${n(s.failed)}<span class="of"> of ${units(s.eligible)} cut off</span>` : `<span class="okline">${s.eligible === 1 ? "The one ferry-served island can" : `All ${units(s.eligible)} can`} make it</span>`}</span>
-        <span class="rank-bar" aria-hidden="true"><i style="width:${(s.access_pct || 0).toFixed(1)}%"></i></span>
-        <span class="rank-sub">${s.failed ? esc(reasons) : `${s.access_pct.toFixed(0)}% same-day access`}</span>
-      </button>`;
-    }).join("");
-    const none = geo.atolls.filter((a) => !nets[a.id]);
-    $("#nodata-list").innerHTML = none.map((a) => `<button type="button" class="chip" data-go-atoll="${a.id}">${esc(a.name)}${FEED_ATOLLS.includes(a.id) ? " (one island)" : ""}</button>`).join("");
+  function renderAccess() {
+    const el = $("#r-access");
+    if (state.atoll && !nets[state.atoll]) {
+      el.hidden = !FEED_ATOLLS.includes(state.atoll);
+      el.innerHTML = `<h3>Same-day hospital trip</h3><p class="empty">Only one island of this atoll is in the ferry schedule, so there's no ferry journey to the hospital to model.</p>`;
+      return;
+    }
+    el.hidden = false;
+    if (state.atoll && state.view === "journey") { el.innerHTML = journeyHtml(); return; }
+    const cur = scopeSummary("current"), base = scopeSummary("baseline");
+    if (!state.atoll) {
+      const rows = Object.entries(nets).map(([id, net]) => ({ id, net, s: net.current.summary.health }));
+      const bad = rows.filter((r) => r.s.failed).sort((a, b) => b.s.failed - a.s.failed);
+      const ok = rows.filter((r) => !r.s.failed);
+      el.innerHTML = accessHeader(cur, base) + `
+        ${bad.length ? `<div class="eyebrow">Where islands are cut off</div><div class="rows">${bad.map(({ id, net, s }) => {
+          const reasons = Object.entries(s.by_reason).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${n(v)} ${v === 1 ? REASON_COUNT[k][0] : REASON_COUNT[k][1]}`).join(" · ");
+          const ch = net.comparison && (net.comparison.health.gained || net.comparison.health.lost) ? ` · <b class="good">+${n(net.comparison.health.gained)}</b>${net.comparison.health.lost ? ` <b class="badtxt">−${n(net.comparison.health.lost)}</b>` : ""} with your changes` : "";
+          return `<button type="button" class="row bad" data-go-atoll="${id}"><span class="row-name">${esc(atollById[id].name)}<small>${esc(atollById[id].alt)}</small></span><span class="row-val">${n(s.failed)} of ${n(s.eligible)}</span><span class="row-sub">${esc(reasons)}${ch}</span></button>`;
+        }).join("")}</div>` : ""}
+        ${ok.length ? `<div class="eyebrow">Every island can make it</div><div class="chips">${ok.map(({ id }) => `<button type="button" class="chip" data-go-atoll="${id}">${esc(atollById[id].name)}</button>`).join("")}</div>` : ""}`;
+      return;
+    }
+    el.innerHTML = accessHeader(cur, base) + barriersHtml();
   }
 
   function groupKey(r) {
@@ -293,9 +350,8 @@
     switch (r.failure_reason) {
       case "late_arrival": {
         const leg = r.legs[r.legs.length - 1];
-        return { head: `${names} ${plural ? "reach" : "reaches"} the hospital after a ${settings.arriveBy} appointment starts`,
-          detail: `${routeName(leg.trip_id)} docks at ${hub} at ${fmt(leg.arr)}. With ${r.walk_minutes} min to ${f.name.startsWith("Atoll hospital") ? "the hospital" : f.name}, that's ${fmt(r.facility_arrival)}, ${fmtDur(r.minutes_late)} late.`,
-          big: fmtDur(r.minutes_late), bigUnit: "late" };
+        return { head: `${names} ${plural ? "reach" : "reaches"} the hospital ${fmtDur(r.minutes_late)} late`,
+          detail: `${routeName(leg.trip_id)} docks at ${hub} at ${fmt(leg.arr)}. With ${r.walk_minutes} min to ${f.name.startsWith("Atoll hospital") ? "the hospital" : f.name}, that's ${fmt(r.facility_arrival)} for a ${settings.arriveBy} appointment.` };
       }
       case "no_return": {
         const e = r.evidence;
@@ -303,32 +359,24 @@
         if (e.late_home_departure != null) detail += ` The next ferry home leaves ${hub} at ${fmt(e.late_home_departure)} and arrives at ${fmt(e.late_home_arrival)}, after ${settings.homeBy}.`;
         else if (e.last_workable_departure != null) detail += ` The last ferry that gets home in time leaves at ${fmt(e.last_workable_departure)}.`;
         else detail += " No ferry goes home after it.";
-        return { head: `${names} can reach the hospital but can't get home the same day`, detail, big: null };
+        return { head: `${names} can't get home the same day`, detail };
       }
       case "missed_connection": {
         const e = r.evidence;
         return { head: `${names} ${plural ? "miss" : "misses"} the connection at ${sname(e.at)}`,
-          detail: `The ferry docks at ${sname(e.at)} at ${fmt(e.arrived)}; the onward ferry leaves at ${fmt(e.departs)}, ${e.gap} min later. Changing boats needs ${e.needed} min.`, big: null };
+          detail: `The ferry docks at ${sname(e.at)} at ${fmt(e.arrived)}; the onward ferry leaves at ${fmt(e.departs)}, ${e.gap} min later. Changing boats needs ${e.needed} min.` };
       }
       case "no_service":
-        return { head: `${names} ${plural ? "have" : "has"} no ferry today`, detail: "No sailing in the schedule serves this island.", big: null };
+        return { head: `${names} ${plural ? "have" : "has"} no ferry today`, detail: "No sailing in the schedule serves this island." };
       default:
-        return { head: `${names} ${plural ? "have" : "has"} no morning ferry towards ${hub}`,
-          detail: `No combination of scheduled sailings reaches ${hub} by ${settings.arriveBy}. The island is only served at other times of day.`, big: null };
+        return { head: `${names} ${plural ? "have" : "has"} no morning ferry to ${hub}`,
+          detail: `No combination of scheduled sailings reaches ${hub} by ${settings.arriveBy}. The island is only served at other times of day.` };
     }
   }
 
-  function renderCards() {
+  function barriersHtml() {
     const net = nets[state.atoll];
-    const box = $("#cards");
-    if (!net) {
-      $("#card-count").textContent = "";
-      box.innerHTML = `<p class="empty">${FEED_ATOLLS.includes(state.atoll) ? "Only one island of this atoll is in the ferry feed, so there are no ferry journeys to model." : "No ferry schedule for this atoll yet."}</p>`;
-      return;
-    }
-    const groups = new Map();
-    const fixed = [];
-    const waits = [];
+    const groups = new Map(), fixed = [];
     for (const r of net.current.results.health) {
       const b = resOf(net.baseline, r.home_island_id);
       if (!r.success) {
@@ -336,43 +384,25 @@
         if (!groups.has(key)) groups.set(key, []);
         groups.get(key).push(r);
       } else if (active() && !b.success) fixed.push([r, b]);
-      else if (r.wait_before_minutes >= 120) waits.push(r);
     }
-    const cards = [];
+    const parts = [];
     for (const [r, b] of fixed) {
-      cards.push({ tone: "good", pill: "Fixed by this change", r, big: units(r.population_weight), bigUnit: "",
-        head: `${sname(r.home_island_id)} can now reach the hospital and get home the same day`,
-        detail: `Now at the hospital by ${fmt(r.facility_arrival)} and home by ${fmt(r.home_arrival)}. Before: ${REASON[b.failure_reason].toLowerCase()}.`, w: r.population_weight, sort: 0 });
+      parts.push(`<div class="barrier good"><div class="barrier-top"><span class="pill good">Fixed by your change</span></div>
+        <div class="barrier-head">${esc(sname(r.home_island_id))} can now get there and back</div>
+        <div class="barrier-detail">At the hospital by ${fmt(r.facility_arrival)}, home by ${fmt(r.home_arrival)}. Before: ${esc(REASON[b.failure_reason].toLowerCase())}.</div>
+        <button type="button" class="link" data-inspect="${r.home_island_id}">See the journey →</button></div>`);
     }
-    for (const [key, rs] of groups) {
+    for (const [key, rs] of [...groups].sort((a, b) => b[1].length - a[1].length)) {
       const d = describeGroup(rs);
       const w = rs.reduce((s, x) => s + x.population_weight, 0);
-      cards.push({ tone: "bad", pill: key.startsWith("new|") ? "New problem from this change" : REASON[rs[0].failure_reason], r: rs[0],
-        big: units(w), bigUnit: d.big ? `· ${d.big} ${d.bigUnit}` : "", head: d.head, detail: d.detail, w, sort: key.startsWith("new|") ? 1 : 2 });
+      parts.push(`<div class="barrier"><div class="barrier-top"><span class="pill bad">${esc(key.startsWith("new|") ? "New problem from your change" : REASON[rs[0].failure_reason])}</span><span class="barrier-n">${esc(units(w))}</span></div>
+        <div class="barrier-head">${esc(d.head)}</div>
+        <div class="barrier-detail">${esc(d.detail)}</div>
+        <button type="button" class="link" data-inspect="${rs[0].home_island_id}">See the journey →</button></div>`);
     }
-    for (const r of waits.sort((a, b) => b.wait_before_minutes - a.wait_before_minutes).slice(0, 3)) {
-      cards.push({ tone: "warn", pill: "Works, with a long wait", r, big: fmtDur(r.wait_before_minutes), bigUnit: "waiting",
-        head: `${sname(r.home_island_id)} arrives at ${fmt(r.facility_arrival)} for a ${settings.arriveBy} appointment`,
-        detail: `${routeName(r.legs[r.legs.length - 1].trip_id)} is the only way to arrive in time. The trip takes from ${fmt(r.legs[0].dep)} to ${fmt(r.home_arrival)}.`, w: 0, sort: 3 });
-    }
-    cards.sort((a, b) => a.sort - b.sort || b.w - a.w);
-    const bad = cards.filter((c) => c.tone === "bad").length;
-    $("#card-count").textContent = bad ? `${bad} barrier${bad === 1 ? "" : "s"} on this timetable` : "No barriers on this timetable";
-    box.innerHTML = cards.length ? cards.map((c) => `<article class="impact ${c.tone}">
-        <div class="impact-top"><span class="pill ${c.tone}">${esc(c.pill)}</span></div>
-        <div class="impact-big">${esc(c.big)}<span class="impact-unit">${esc(c.bigUnit)}</span></div>
-        <p class="impact-head">${esc(c.head)}</p>
-        <p class="impact-detail">${esc(c.detail)}</p>
-        <button type="button" class="link" data-inspect="${c.r.home_island_id}">See the journey →</button>
-      </article>`).join("") : `<p class="empty">Every ferry-served island can reach the hospital and get home the same day under this rule.</p>`;
-  }
-
-  function showJourney(islandId) {
-    state.island = islandId;
-    state.leftView = "journey";
-    render();
-    const left = document.querySelector(".left");
-    if (left) left.scrollTop = 0;
+    const islands = net.current.results.health.map((r) => `<button type="button" class="chip" data-inspect="${r.home_island_id}" style="${r.success ? "" : "color:var(--bad);font-weight:600"}">${r.success ? "" : "✕ "}${esc(sname(r.home_island_id))}</button>`).join("");
+    return `${parts.length ? `<div class="rows">${parts.join("")}</div>` : `<p class="empty">Every ferry-served island can get there and back under this rule.</p>`}
+      <div class="eyebrow">Islands</div><div class="chips">${islands}</div>`;
   }
 
   function timeline(r) {
@@ -401,7 +431,7 @@
     }
     const waitBefore = r.arrive_by - r.facility_arrival;
     if (waitBefore > 0) steps.push({ kind: "wait", t: fmt(r.facility_arrival), title: "Wait", text: `${fmtDur(waitBefore)} before the appointment` });
-    steps.push({ kind: "activity", t: settings.arriveBy, title: "Hospital appointment", text: `Until ${fmt(r.activity_end)} · ${fmtDur(settings.activityMin)} (assumed)` });
+    steps.push({ kind: "activity", t: settings.arriveBy, title: "Hospital appointment", text: `Until ${fmt(r.activity_end)} (assumed length)` });
     steps.push({ kind: "walk", t: fmt(r.activity_end), title: "Back to the harbour", text: `${r.walk_minutes} min` });
     if (r.failure_reason === "no_return") {
       steps.push({ kind: "fail", t: fmt(r.evidence.return_ready), title: "No ferry home in time", text: describeGroup([r]).detail.replace(/^A [^.]+\. /, "") });
@@ -414,35 +444,28 @@
     return steps;
   }
 
-  function renderInspector() {
+  function journeyHtml() {
     const net = nets[state.atoll];
-    const sel = $("#insp-island");
-    if (!net) return;
-    const ids = net.baseline.results.health.map((r) => r.home_island_id);
-    const optsKey = ids.join(",");
-    if (sel.dataset.key !== optsKey) {
-      sel.innerHTML = ids.map((id) => `<option value="${id}">${esc(sname(id))}</option>`).join("");
-      sel.dataset.key = optsKey;
-    }
-    if (!ids.includes(state.island)) state.island = ids[0];
-    sel.value = state.island;
     const r = resOf(net.current, state.island);
     const b = resOf(net.baseline, state.island);
-    const changed = active() && b.success !== r.success;
     const s = stopById[state.island];
-    $("#insp-body").innerHTML = `
-      <div class="insp-head">
-        <div>
-          <div class="insp-title">${esc(s.name)} → ${esc(sname(net.fx.hub))}</div>
-          <div class="insp-sub">${s.dv ? `<span lang="dv">${esc(s.dv)}</span> · ` : ""}${popKnown ? `${units(r.population_weight)}` : "Population not loaded"}${s.approx ? " · position approximate" : ""}</div>
-        </div>
-        <div class="insp-pills">${r.success ? `<span class="pill good">Can make the trip</span>` : `<span class="pill bad">${esc(REASON[r.failure_reason])}</span>`}${changed ? `<span class="pill ${r.success ? "good" : "bad"}">${r.success ? "Fixed by this change" : "New problem"}</span>` : ""}</div>
-      </div>
+    const changed = active() && b.success !== r.success;
+    return `
+      <button type="button" class="link" id="back">← All of ${esc(atollById[state.atoll].name)}</button>
+      <div class="sec-head"><h3>${esc(s.name)} → ${esc(sname(net.fx.hub))}</h3>${r.success ? `<span class="pill good">Can make it</span>` : `<span class="pill bad">${esc(REASON[r.failure_reason])}</span>`}</div>
+      <p class="status-line">${s.dv ? `<span lang="dv">${esc(s.dv)}</span> · ` : ""}${popKnown ? units(r.population_weight) : "Population not loaded"}${s.approx ? " · position approximate" : ""}${changed ? ` · <b class="${r.success ? "good" : "badtxt"}">${r.success ? "fixed by your change" : "new problem from your change"}</b>` : ""}</p>
       <ol class="timeline">${timeline(r).map((st) => `<li class="step ${st.kind}"><span class="t mono">${st.t}</span><span class="dot" aria-hidden="true"></span><div><div class="st">${esc(st.title)}</div>${st.text ? `<div class="sx">${esc(st.text)}</div>` : ""}</div></li>`).join("")}</ol>
-      ${r.success ? `<div class="burden"><div><span>${fmtDur(r.travel_minutes)}</span>on boats</div><div><span>${fmtDur(r.wait_minutes)}</span>waiting</div><div><span>${fmtDur(r.transfer_minutes)}</span>walking and changing</div></div>` : ""}`;
+      ${r.success ? `<div class="stats"><div class="stat"><b>${fmtDur(r.travel_minutes)}</b><span>on boats</span></div><div class="stat"><b>${fmtDur(r.wait_minutes)}</b><span>waiting</span></div></div>` : ""}`;
   }
 
-  // ---- Sidebar -----------------------------------------------------------
+  function showJourney(islandId) {
+    state.island = islandId;
+    state.view = "journey";
+    render();
+    $("#r-access").scrollIntoView({ block: "start" });
+  }
+
+  // ---- Rail: controls ----------------------------------------------------
   function buildTripOptions() {
     const sel = $("#trip");
     const ids = state.atoll ? tripsTouching(state.atoll).sort((a, b) => firstDep(a) - firstDep(b)) : [];
@@ -450,12 +473,11 @@
     if (state.editTrip) sel.value = state.editTrip;
   }
 
-  function setupSidebar() {
-    $("#atoll").innerHTML = `<option value="" data-sub="${Object.keys(nets).length} atolls with ferry data">All of the Maldives</option>` + geo.atolls
-      .map((a) => `<option value="${a.id}" data-sub="${esc(a.alt)}"${nets[a.id] ? ' data-badge="Ferry data"' : ""}>${esc(a.name)}</option>`).join("");
+  function setupControls() {
+    $("#atoll").innerHTML = `<option value="" data-sub="${FEED_ATOLLS.length} atolls in the ferry schedule">All of the Maldives</option>` + geo.atolls
+      .map((a) => `<option value="${a.id}" data-sub="${esc(a.alt)}"${FEED_ATOLLS.includes(a.id) ? ' data-badge="Ferries"' : ""}>${esc(a.name)}</option>`).join("");
     $("#atoll").addEventListener("change", (e) => selectAtoll(e.target.value));
     $("#to-national").addEventListener("click", () => selectAtoll(null));
-
     $("#trip").addEventListener("change", (e) => { state.editTrip = e.target.value; syncControls(); });
     $("#shift").addEventListener("input", (e) => setShift(Number(e.target.value)));
     $("#earlier").addEventListener("click", () => setShift((state.shifts[state.editTrip] || 0) - 15));
@@ -466,7 +488,6 @@
       if (rm) { delete state.shifts[rm.dataset.unmove]; recompute(); render(); }
     });
 
-    // Journey rule (assumption) controls
     const times = (from, to, step) => { const o = []; for (let m = from; m <= to; m += step) o.push(m); return o; };
     $("#rule-arrive").innerHTML = times(7 * 60, 14 * 60, 30).map((m) => `<option value="${fmt(m)}">${fmt(m)}</option>`).join("");
     $("#rule-duration").innerHTML = [30, 60, 90, 120, 180, 240].map((m) => `<option value="${m}">${fmtDur(m)}</option>`).join("");
@@ -485,18 +506,16 @@
     $("#optimize").addEventListener("click", () => {
       const net = nets[state.atoll];
       if (!net) return;
-      const o = M.optimize(net.fx, { candidates: tripsWithin(state.atoll) });
-      state.suggestion = { atoll: state.atoll, ...o };
-      renderSidebar();
+      state.suggestion = { atoll: state.atoll, ...M.optimize(net.fx, { candidates: tripsWithin(state.atoll) }) };
+      renderControls();
     });
     $("#optimize-all").addEventListener("click", optimizeAll);
-    document.querySelector(".side").addEventListener("click", (e) => {
+    $(".rail").addEventListener("click", (e) => {
       if (e.target.closest("#apply-suggestion")) { applyShifts(state.suggestion.shifts); state.suggestion = null; render(); }
-      else if (e.target.closest("#dismiss-suggestion")) { state.suggestion = null; renderSidebar(); }
+      else if (e.target.closest("#dismiss-suggestion")) { state.suggestion = null; renderControls(); }
       else if (e.target.closest("#apply-national")) { applyShifts(state.national.shifts); state.national = null; render(); }
-      else if (e.target.closest("#dismiss-national")) { state.national = null; renderSidebar(); }
+      else if (e.target.closest("#dismiss-national")) { state.national = null; renderControls(); }
     });
-
     window.Dropdown.enhance($("#atoll"));
     window.Dropdown.enhance($("#trip"));
   }
@@ -513,12 +532,12 @@
     state.busy = true;
     const ids = Object.keys(nets);
     const out = { shifts: {}, perAtoll: [], evaluated: 0 };
-    let i = 0;
     const btn = $("#optimize-all");
+    let i = 0;
     (function step() {
       if (i >= ids.length) {
-        state.busy = false; btn.disabled = false; btn.textContent = "Find better timetables for every atoll";
-        state.national = out; renderSidebar(); return;
+        state.busy = false; btn.disabled = false; btn.textContent = "Suggest for every atoll";
+        state.national = out; renderControls(); return;
       }
       const id = ids[i++];
       btn.disabled = true; btn.textContent = `Checking ${atollById[id].name}…`;
@@ -538,22 +557,25 @@
   }
 
   function syncControls() {
-    const has = !!state.editTrip;
-    $("#ferry-controls").hidden = !has;
-    if (has) {
+    if (state.editTrip) {
       const shift = state.shifts[state.editTrip] || 0;
       $("#trip").value = state.editTrip;
       $("#shift").value = shift;
       const from = firstDep(state.editTrip), to = from + shift;
       $("#shift-readout").innerHTML = shift === 0
         ? `Departs <b class="mono">${fmt(from)}</b> <span class="muted">as scheduled</span>`
-        : `<span class="mono strike">${fmt(from)}</span> → <b class="mono">${to >= 0 && to <= 1439 ? fmt(to) : "--:--"}</b> <span class="muted">${shift > 0 ? "+" : "−"}${Math.abs(shift)} min, every stop</span>`;
+        : `<span class="mono strike">${fmt(from)}</span> → <b class="mono">${to >= 0 && to <= 1439 ? fmt(to) : "--:--"}</b> <span class="muted">${shift > 0 ? "+" : "−"}${Math.abs(shift)} min at every stop</span>`;
     }
     const list = moved();
-    $("#reset").disabled = !list.length;
-    $("#moved").innerHTML = list.length
-      ? list.map(([id, s]) => `<li><span class="moved-edit"><span>${esc(tripLabel(id))}</span><span class="mono">${fmt(firstDep(id))} → ${fmt(firstDep(id) + s)}</span></span><button type="button" class="x" data-unmove="${id}" aria-label="Put ${esc(tripLabel(id))} back">×</button></li>`).join("")
-      : `<li class="none">No sailings moved. Results match the published schedule.</li>`;
+    $("#r-moved").hidden = !list.length && !shiftError;
+    $("#moved").innerHTML = list.map(([id, s]) => `<li><span class="moved-edit"><span>${esc(tripLabel(id))}</span><span class="mono">${fmt(firstDep(id))} → ${fmt(firstDep(id) + s)}</span></span><button type="button" class="x" data-unmove="${id}" aria-label="Put ${esc(tripLabel(id))} back">×</button></li>`).join("");
+    const st = $("#scenario-status");
+    if (shiftError) { st.className = "status-line error"; st.textContent = `${shiftError} Showing the published schedule instead.`; }
+    else {
+      const t = totals("current");
+      st.className = "status-line";
+      st.innerHTML = `Across all atolls: <b class="good">+${units(t.gained)}</b> gain same-day access${t.lost ? `, <b class="badtxt">${units(t.lost)}</b> lose it` : ", nobody loses it"}.`;
+    }
     window.Dropdown.syncAll();
   }
 
@@ -562,31 +584,25 @@
     const h = o.comparison.health;
     const unresolved = o.unresolved.filter((r) => r.journey_rule_id === "health");
     return `
-      <div class="sug-head">${changes.length ? `${changes.length} change${changes.length === 1 ? "" : "s"} for ${esc(scopeName)}` : `No better timetable found for ${esc(scopeName)}`}</div>
+      <div class="sug-head">${changes.length ? `${changes.length} change${changes.length === 1 ? "" : "s"} for ${esc(scopeName)}` : `No better timetable for ${esc(scopeName)}`}</div>
       ${changes.length ? `<ol class="sug-list">${changes.map(([id, v]) => `<li><span>${esc(tripLabel(id))}</span><span class="mono"><span class="strike">${fmt(firstDep(id))}</span> → <b>${fmt(firstDep(id) + v)}</b></span></li>`).join("")}</ol>` : ""}
-      <dl class="sug-result">
-        <div><dt>Gain same-day access</dt><dd class="good"><b>+${units(h.gained)}</b></dd></div>
-        <div><dt>Lose access</dt><dd>${n(h.lost)} <span class="muted">(not allowed)</span></dd></div>
-      </dl>
+      <dl class="sug-result"><div><dt>Gain same-day access</dt><dd class="good"><b>+${units(h.gained)}</b></dd></div><div><dt>Lose access</dt><dd>${n(h.lost)} <span class="muted">(not allowed)</span></dd></div></dl>
       ${unresolved.length ? `<div class="sug-unres"><b>Still not fixed:</b> ${unresolved.map((r) => `${esc(sname(r.home_island_id))} (${esc(REASON[r.failure_reason].toLowerCase())})`).join("; ")}. These need a new sailing or a cross-atoll change.</div>` : ""}
-      <div class="sug-actions">${changes.length ? `<button type="button" class="btn primary" id="apply-suggestion">Apply to the map</button>` : ""}<button type="button" class="btn" id="dismiss-suggestion">Dismiss</button></div>
-      <p class="sug-note">Checked ${n(o.evaluated)} timetables. Only moves sailings within this atoll, in 15-min steps. Doesn't check boats, crews or cost.</p>`;
+      <div class="sug-actions">${changes.length ? `<button type="button" class="btn primary" id="apply-suggestion">Apply</button>` : ""}<button type="button" class="btn" id="dismiss-suggestion">Dismiss</button></div>
+      <p class="sug-note">Checked ${n(o.evaluated)} timetables. Moves sailings inside this atoll in 15-min steps. Doesn't check boats, crews or cost.</p>`;
   }
 
-  function renderSidebar() {
+  function renderControls() {
     const net = nets[state.atoll];
-    $("#side-national").hidden = !!state.atoll;
-    $("#side-nodata").hidden = !state.atoll || !!net;
-    $("#side-atoll").hidden = !net;
-
-    const st = $("#scenario-status");
-    if (shiftError) { st.className = "status-line error"; st.textContent = `${shiftError} Showing the published schedule instead.`; }
-    else if (active()) { st.className = "status-line"; st.textContent = `${moved().length} sailing${moved().length === 1 ? "" : "s"} moved. Same journey rule as the published schedule.`; }
-    else { st.className = "status-line"; st.textContent = "Published schedule. Move a sailing to compare."; }
-
+    $("#to-national").hidden = !state.atoll;
+    $("#r-move").hidden = !net;
+    $("#r-suggest-all").hidden = !!state.atoll;
+    if (net) {
+      const box = $("#suggestion");
+      if (state.suggestion && state.suggestion.atoll === state.atoll) { box.hidden = false; box.innerHTML = suggestionHtml(state.suggestion, atollById[state.atoll].name); }
+      else box.hidden = true;
+    }
     if (!state.atoll) {
-      const t = totals("current");
-      $("#nat-summary").innerHTML = `${Object.keys(nets).length} atolls · ${D.trips.length} daily sailings · ${D.stops.length} island stops. ${t.failed ? `<b class="badtxt">${units(t.failed)} cut off</b> under the current rule.` : "Everyone modeled can make the trip."}`;
       const box = $("#national-suggestion");
       if (state.national) {
         const changes = Object.entries(state.national.shifts);
@@ -596,134 +612,52 @@
         box.innerHTML = `
           <div class="sug-head">${changes.length} sailing${changes.length === 1 ? "" : "s"} to move</div>
           <ol class="sug-list">${state.national.perAtoll.filter((x) => Object.keys(x.o.shifts).length).map((x) => `<li><span><b>${esc(atollById[x.id].name)}</b>: ${Object.entries(x.o.shifts).map(([id, v]) => `${routeName(id)} ${fmt(firstDep(id))} → ${fmt(firstDep(id) + v)}`).join(", ")}</span><span class="good">+${units(x.o.comparison.health.gained)}</span></li>`).join("") || "<li>Nothing to move under this rule.</li>"}</ol>
-          <dl class="sug-result"><div><dt>Gain same-day access</dt><dd class="good"><b>+${units(gained)}</b></dd></div><div><dt>Lose access</dt><dd>0 <span class="muted">(not allowed)</span></dd></div><div><dt>Still cut off</dt><dd>${units(unres)} <span class="muted">(need new sailings)</span></dd></div></dl>
-          <div class="sug-actions">${changes.length ? `<button type="button" class="btn primary" id="apply-national">Apply to the map</button>` : ""}<button type="button" class="btn" id="dismiss-national">Dismiss</button></div>
+          <dl class="sug-result"><div><dt>Gain same-day access</dt><dd class="good"><b>+${units(gained)}</b></dd></div><div><dt>Lose access</dt><dd>0 <span class="muted">(not allowed)</span></dd></div><div><dt>Still cut off</dt><dd>${units(unres)}</dd></div></dl>
+          <div class="sug-actions">${changes.length ? `<button type="button" class="btn primary" id="apply-national">Apply</button>` : ""}<button type="button" class="btn" id="dismiss-national">Dismiss</button></div>
           <p class="sug-note">Checked ${n(state.national.evaluated)} timetables across ${state.national.perAtoll.length} atolls. Only sailings inside one atoll are moved.</p>`;
       } else box.hidden = true;
     }
-    if (state.atoll && !net) {
-      $("#nodata-name").textContent = `${atollById[state.atoll].name} (${atollById[state.atoll].alt})`;
-      $("#nodata-text").textContent = FEED_ATOLLS.includes(state.atoll)
-        ? "Only one island of this atoll is in the ferry feed, so there's no ferry journey to the hospital to model."
-        : "The ferry feed has no sailings for this atoll yet. To model it, add:";
-      $("#nodata-need").hidden = FEED_ATOLLS.includes(state.atoll);
-    }
-    if (net) {
-      const a = atollById[state.atoll], f = facilityByAtoll[state.atoll];
-      $("#atoll-name").textContent = `${a.name} (${a.alt})`;
-      $("#atoll-hospital").innerHTML = `<span>${esc(f.name)}${f.name.startsWith("Atoll hospital") ? "" : ` on ${esc(sname(f.stop))}`}</span><span class="tag ${f.classification}">${esc(f.classification)}</span>`;
-      $("#atoll-hospital-note").textContent = f.name.startsWith("Atoll hospital") ? `Assumed on ${sname(f.stop)}. ${f.note}.` : f.note;
-      const box = $("#suggestion");
-      if (state.suggestion && state.suggestion.atoll === state.atoll) { box.hidden = false; box.innerHTML = suggestionHtml(state.suggestion, a.name); }
-      else box.hidden = true;
-    }
-    renderChanges();
-  }
-
-  function renderChanges() {
-    const el = $("#changes");
-    const cur = scopeSummary("current");
-    if (!active() || !cur) { el.hidden = true; return; }
-    el.hidden = false;
-    const base = scopeSummary("baseline");
-    const pp = cur.access_pct - base.access_pct;
-    el.innerHTML = `<div class="change-row">
-      <div class="change-head">${state.atoll ? esc(atollById[state.atoll].name) : "Maldives"}</div>
-      <div class="change-nums">
-        <span class="cn good">+${n(cur.gained)}</span><span class="cl">gain</span>
-        <span class="cn ${cur.lost ? "bad" : "zero"}">−${n(cur.lost)}</span><span class="cl">lose</span>
-        <span class="cn">${pp >= 0 ? "+" : "−"}${Math.abs(pp).toFixed(1)}</span><span class="cl">pp</span>
-      </div>
-      <div class="change-unit">${UNIT[1]} with same-day hospital access</div>
-    </div>`;
-  }
-
-  // ---- Table + sources ---------------------------------------------------
-  function renderTable() {
-    if (!state.atoll) {
-      $("#table-title").textContent = "Atolls";
-      $("#table-hint").textContent = "Click a row to open the atoll.";
-      const rows = geo.atolls.map((a) => {
-        const net = nets[a.id];
-        if (!net) return `<tr data-go-atoll="${a.id}" tabindex="0"><th scope="row">${esc(a.name)}</th><td colspan="5" class="muted">${FEED_ATOLLS.includes(a.id) ? "One island in the feed" : "No ferry data"}</td></tr>`;
-        const s = net.current.summary.health, f = facilityByAtoll[a.id];
-        return `<tr data-go-atoll="${a.id}" tabindex="0"><th scope="row">${esc(a.name)}</th><td>${esc(sname(f.stop))} <span class="tag ${f.classification}">${f.classification}</span></td>
-          <td class="num">${n(s.eligible)}</td><td class="num">${n(s.success)}</td><td class="num ${s.failed ? "badtxt" : ""}">${n(s.failed)}</td><td class="num">${s.access_pct.toFixed(0)}%</td></tr>`;
-      }).join("");
-      $("#table").innerHTML = `<table><thead><tr><th>Atoll</th><th>Hospital island</th><th class="num">${UNIT[1]}</th><th class="num">Can make it</th><th class="num">Cut off</th><th class="num">Access</th></tr></thead><tbody>${rows}</tbody></table>`;
-      return;
-    }
-    const net = nets[state.atoll];
-    $("#table-title").textContent = `Islands in ${atollById[state.atoll].name}`;
-    $("#table-hint").textContent = net ? "Click a row to see that island's journey." : "";
-    if (!net) { $("#table").innerHTML = `<p class="empty" style="padding:14px">No ferry-served islands to list.</p>`; return; }
-    const rows = net.current.results.health.map((r) => {
-      const b = resOf(net.baseline, r.home_island_id);
-      const was = active() && b.success !== r.success ? `<span class="was">was ${b.success ? "OK" : esc(REASON[b.failure_reason].toLowerCase())}</span>` : "";
-      return `<tr data-island="${r.home_island_id}" class="${state.island === r.home_island_id ? "sel" : ""}" tabindex="0">
-        <th scope="row">${esc(sname(r.home_island_id))}</th>
-        <td>${r.success ? `<span class="pill good">Can make it</span>` : `<span class="pill bad">${esc(REASON[r.failure_reason])}</span>`}${was}</td>
-        <td class="num mono">${r.facility_arrival != null ? fmt(r.facility_arrival) : "—"}</td>
-        <td class="num mono">${r.home_arrival != null ? fmt(r.home_arrival) : "—"}</td>
-        <td class="num">${r.success ? fmtDur(r.wait_minutes) : "—"}</td>
-      </tr>`;
-    }).join("");
-    $("#table").innerHTML = `<table><thead><tr><th>Island</th><th>Hospital trip</th><th class="num">At hospital</th><th class="num">Home</th><th class="num">Waiting</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
   function renderSources() {
     const obs = D.facilities.filter((f) => f.classification === "observed").length;
     const rows = [
-      ["Ferry schedules", `data/ferry_schedules.csv → GTFS · ${new Set(D.trips.map((t) => t.route)).size} routes, ${D.trips.length} daily sailings`, "observed"],
+      ["Ferry schedules", `data/ferry_schedules.csv → GTFS: ${ROUTES.size} routes, ${D.trips.length} daily sailings`, "observed"],
       ["Operating days", "Not in the source; every route assumed to run daily", "assumed"],
-      ["Island positions", `OpenStreetMap · ${D.stops.filter((s) => s.approx).length} approximate`, "observed"],
-      ["Hospitals", `data/facilities.csv · ${obs} from OpenStreetMap, ${D.facilities.length - obs} assumed at the atoll capital`, "mixed"],
-      ["Population", popKnown ? "data/island_population.csv" : "Not loaded yet. Each island counts once. Add Census 2022 figures to data/island_population.csv", popKnown ? "observed" : "missing"],
+      ["Island positions", `OpenStreetMap, ${D.stops.filter((s) => s.approx).length} approximate`, "observed"],
+      ["Hospitals", `data/facilities.csv: ${obs} from OpenStreetMap, ${D.facilities.length - obs} assumed at the atoll capital`, "mixed"],
+      ["Population", popKnown ? "data/island_population.csv" : "Not loaded. Each island counts once until Census 2022 figures are added to data/island_population.csv", popKnown ? "observed" : "missing"],
       ["Map outlines", "OpenStreetMap coastline and reefs, simplified", "observed"],
-      ["Journey rule", "Set in the sidebar", "assumed"],
     ];
-    $("#sources").innerHTML = rows.map(([a, b, c]) => `<tr><th scope="row">${a}</th><td>${esc(b)}</td><td><span class="tag ${c}">${c}</span></td></tr>`).join("");
-    $("#rules").innerHTML = [
-      ...(D.meta.assumptions || []),
-      "Residents go to their own atoll's hospital, leave home from 05:00 and must be home by the set time.",
-      "Changing boats needs the set buffer; one time per stop means a boat's arrival and departure are the same minute.",
-      "Suggested timetables only move existing sailings inside one atoll (15-min steps, up to 4 h, 05:00–22:00) and never cost anyone access.",
-    ].map((t) => `<li>${esc(t)}</li>`).join("");
+    $("#sources").innerHTML = rows.map(([a, b, c]) => `<div class="src"><b>${a}</b><span class="tag ${c}">${c}</span><span class="d">${esc(b)}</span></div>`).join("") +
+      `<ul class="assume">${[
+        ...(D.meta.assumptions || []),
+        "Ferry positions between stops are drawn on straight lines, not the real sailing path.",
+        "Residents go to their own atoll's hospital and can leave home from 05:00.",
+        "Suggested timetables move existing sailings inside one atoll (15-min steps, up to 4 h, 05:00–22:00) and never cost anyone access.",
+      ].map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
   }
 
   function render() {
     renderMap();
-    renderKpis();
-    renderLeft();
-    renderSidebar();
-    renderTable();
+    renderOverview();
+    renderAccess();
+    renderControls();
     syncControls();
   }
 
-  // ---- Events ------------------------------------------------------------
   document.addEventListener("click", (e) => {
     const insp = e.target.closest("[data-inspect]");
     if (insp) { showJourney(insp.dataset.inspect); return; }
-    if (e.target.closest("#back")) { state.leftView = "cards"; render(); return; }
+    if (e.target.closest("#back")) { state.view = "list"; render(); return; }
     const go = e.target.closest("[data-go-atoll]");
-    if (go && !go.closest("#mapsvg")) { selectAtoll(go.dataset.goAtoll); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
-    const row = e.target.closest("tr[data-island]");
-    if (row) { showJourney(row.dataset.island); window.scrollTo({ top: 0, behavior: "smooth" }); }
+    if (go && !go.closest("#mapsvg")) selectAtoll(go.dataset.goAtoll);
   });
-  document.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const row = e.target.closest && e.target.closest("tr[data-island], tr[data-go-atoll]");
-    if (!row) return;
-    e.preventDefault();
-    if (row.dataset.island) showJourney(row.dataset.island); else selectAtoll(row.dataset.goAtoll);
-    window.scrollTo({ top: 0 });
-  });
-  $("#insp-island").addEventListener("change", (e) => { state.island = e.target.value; render(); });
 
   rebuild();
-  setupSidebar();
-  window.Dropdown.enhance($("#insp-island"));
+  setupControls();
   renderSources();
   buildTripOptions();
+  syncPlayer();
   render();
 })();

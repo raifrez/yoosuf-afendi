@@ -13,7 +13,7 @@
   function createMap(svg, geo, opts) {
     const atolls = geo.atolls;
     const all = atolls.reduce((b, a) => [Math.min(b[0], a.bbox[0]), Math.min(b[1], a.bbox[1]), Math.max(b[2], a.bbox[2]), Math.max(b[3], a.bbox[3])], [1e9, 1e9, -1e9, -1e9]);
-    const NATIONAL = [all[0] - 3000, all[1] - 13000, all[2] - all[0] + 14000, all[3] - all[1] + 16500]; // extra top room for the map toolbar
+    const NATIONAL = [all[0] - 3000, all[1] - 9000, all[2] - all[0] + 14000, all[3] - all[1] + 21000]; // room for the top legend and the bottom playback bar // extra top room for the map toolbar
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let vb = NATIONAL.slice();
@@ -25,6 +25,9 @@
     const gAtolls = el("g", { class: "atolls" }, svg);
     const gLabels = el("g", { class: "atoll-labels" }, svg);
     const gNet = el("g", { class: "network" }, svg);
+    const gBoats = el("g", { class: "boats" }, svg);
+    const boatEls = new Map();
+    let lastBoats = [];
 
     const atollEls = {};
     for (const a of atolls) {
@@ -75,7 +78,8 @@
       if (!a) return NATIONAL.slice();
       const [x0, y0, x1, y1] = a.bbox;
       const w = x1 - x0, h = y1 - y0, pad = Math.max(w, h) * 0.12 + 500;
-      return [x0 - pad, y0 - pad, w + 2 * pad, h + 2 * pad];
+      // Extra room at the bottom so the playback bar doesn't cover the atoll.
+      return [x0 - pad, y0 - pad, w + 2 * pad, (h + 2 * pad) * 1.2];
     }
 
     function applyViewBox() {
@@ -86,6 +90,7 @@
       layoutLabels();
       for (const p of pins) p.setAttribute("transform", `translate(${p.dataset.x} ${p.dataset.y}) scale(${upp.toFixed(3)})`);
       svg.style.setProperty("--dash", `${(3 * upp).toFixed(1)} ${(6 * upp).toFixed(1)}`);
+      placeBoats();
     }
 
     // Timer-driven (not requestAnimationFrame) so the zoom still finishes in
@@ -179,6 +184,34 @@
     });
     svg.addEventListener("mouseleave", () => setHover(null));
 
+    // boats: [{ id, x, y, angle (deg), cls, title }] — positions in map units.
+    function setBoats(boats) {
+      lastBoats = boats;
+      const seen = new Set();
+      for (const b of boats) {
+        seen.add(b.id);
+        let g = boatEls.get(b.id);
+        if (!g) {
+          g = el("g", { class: "boat" }, gBoats);
+          el("path", { class: "wake", d: "M-9 0H-22" }, g);
+          el("path", { class: "hull", d: "M-8 -4H4L9 0L4 4H-8Z" }, g);
+          el("title", {}, g);
+          boatEls.set(b.id, g);
+        }
+        g.setAttribute("class", `boat ${b.cls || ""}`);
+        g.lastChild.textContent = b.title || "";
+      }
+      for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); }
+      placeBoats();
+    }
+    function placeBoats() {
+      const sc = Math.max(upp, 0.0001).toFixed(3);
+      for (const b of lastBoats) {
+        const g = boatEls.get(b.id);
+        if (g) g.setAttribute("transform", `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.angle.toFixed(1)}) scale(${sc})`);
+      }
+    }
+
     svg.addEventListener("click", (e) => {
       const pin = e.target.closest("[data-island]");
       if (pin) { opts.onIsland && opts.onIsland(pin.dataset.island); return; }
@@ -196,7 +229,7 @@
     const bboxOf = (id) => atolls.find((a) => a.id === id).bbox;
     const project = (lon, lat) => [(lon - geo.projection.lon0) * geo.projection.k, (geo.projection.lat0 - lat) * geo.projection.k];
     const centreOf = (id) => { const a = atolls.find((x) => x.id === id); return [(a.bbox[0] + a.bbox[2]) / 2, a.labelY != null ? a.labelY : (a.bbox[1] + a.bbox[3]) / 2]; };
-    return { zoomTo, setState, setNetwork, bboxOf, project, centreOf };
+    return { zoomTo, setState, setNetwork, setBoats, bboxOf, project, centreOf };
   }
 
   window.MandarinMap = { createMap };

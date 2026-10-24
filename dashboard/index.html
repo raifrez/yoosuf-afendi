@@ -1,22 +1,19 @@
 <meta charset="utf-8">
-<title>MANDARIN Access Dashboard</title>
+<title>MANDARIN Ferry Access</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-/* Layout: slim ocean header → [Maldives map | control sidebar] → headline numbers → impact cards → journey + islands → sources. */
+/* Layout: full-height map with a playback bar, and one control rail on the right. */
 :root {
-  --ocean: #0B3A5C; --turquoise: #2EC4B6; --sand: #EED9B0; --white: #FFFFFF;
-  --bg: #F2F6F8; --surface: #FFFFFF; --surface-2: #E6EEF2; --surface-3: #D9E5EB;
-  --ink: #0B2236; --ink-2: #44596B; --ink-3: #6F8494;
-  --accent: #0E8378;
-  --ok: #17895C; --ok-bg: #DDF3E8;
-  --bad: #D2493C; --bad-bg: #FCE3DF;
-  --warn: #7A5A1E; --warn-bg: #F5E9CF;
-  --header-bg: var(--ocean); --header-ink-2: #A9C6DB;
-  --sea: #CFE9EC; --sea-deep: #BFE0E5; --reef: #A6DCD8; --reef-demo: #7FD3CB; --land: #E9CF9E; --land-demo: #DDBB7C;
+  --ocean: #0B3A5C; --turquoise: #2EC4B6; --sand: #EED9B0;
+  --bg: #F2F6F8; --surface: #FFFFFF; --surface-2: #E8EFF3; --surface-3: #D9E5EB;
+  --ink: #0B2236; --ink-2: #44596B; --ink-3: #6F8494; --accent: #0E8378;
+  --ok: #17895C; --ok-bg: #DDF3E8; --bad: #D2493C; --bad-bg: #FCE3DF; --warn: #7A5A1E; --warn-bg: #F5E9CF;
+  --sea: #CFE9EC; --reef: #A6DCD8; --land: #E9CF9E;
   --map-label: #0B3A5C; --map-label-2: #4D6F86; --halo: #CFE9EC; --route: #0B3A5C;
+  --boat: #0B3A5C; --boat-edge: #FFFFFF; --boat-moved: #0E8378;
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -25,304 +22,230 @@
   --bg: #061A2B; --surface: #0C2740; --surface-2: #11314E; --surface-3: #183D5E;
   --ink: #E6EFF5; --ink-2: #A8BDCC; --ink-3: #7D96A9; --accent: #2EC4B6;
   --ok: #4FD29C; --ok-bg: #11392F; --bad: #FF8C7E; --bad-bg: #44212A; --warn: #EED9B0; --warn-bg: #3A3226;
-  --header-ink-2: #9DBBD1;
-  --sea: #082640; --sea-deep: #0A2C49; --reef: #12495A; --reef-demo: #1A6B70; --land: #CDB78E; --land-demo: #EED9B0;
+  --sea: #082640; --reef: #12495A; --land: #CDB78E;
   --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
+  --boat: #FFFFFF; --boat-edge: #082640; --boat-moved: #2EC4B6;
   color-scheme: dark;
 } }
 :root[data-theme="dark"] {
   --bg: #061A2B; --surface: #0C2740; --surface-2: #11314E; --surface-3: #183D5E;
   --ink: #E6EFF5; --ink-2: #A8BDCC; --ink-3: #7D96A9; --accent: #2EC4B6;
   --ok: #4FD29C; --ok-bg: #11392F; --bad: #FF8C7E; --bad-bg: #44212A; --warn: #EED9B0; --warn-bg: #3A3226;
-  --header-ink-2: #9DBBD1;
-  --sea: #082640; --sea-deep: #0A2C49; --reef: #12495A; --reef-demo: #1A6B70; --land: #CDB78E; --land-demo: #EED9B0;
+  --sea: #082640; --reef: #12495A; --land: #CDB78E;
   --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
+  --boat: #FFFFFF; --boat-edge: #082640; --boat-moved: #2EC4B6;
   color-scheme: dark;
 }
-
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
-.wrap { max-width: 1440px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.45; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--turquoise); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .muted { color: var(--ink-3); }
 .strike { text-decoration: line-through; color: var(--ink-3); }
-.good { color: var(--ok); }
-h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
-button { font: inherit; color: inherit; cursor: pointer; }
-:focus-visible { outline: 3px solid var(--turquoise); outline-offset: 2px; }
+.good { color: var(--ok); } .badtxt { color: var(--bad); }
 
-/* Header */
-header.top { background: var(--header-bg); color: #fff; }
-header.top .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; padding-block: 14px; }
-.brand-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-.brand { font-family: var(--display); font-size: 26px; font-weight: 800; letter-spacing: .03em; }
-.brand-sub { color: var(--header-ink-2); font-size: 14px; }
-.meta { display: flex; gap: 8px; flex-wrap: wrap; }
-.meta span { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: #FFFFFF1A; }
-.meta .demo { background: var(--sand); color: var(--ocean); font-weight: 600; }
+.app { display: grid; grid-template-columns: minmax(0, 1fr) 400px; height: 100vh; height: 100dvh; min-height: 560px; }
 
-main { display: flex; flex-direction: column; gap: 28px; padding-block: 18px 48px; }
-.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
-.section-head h2 { font-size: 22px; font-weight: 700; }
-.section-head p { margin: 0; color: var(--ink-2); font-size: 14px; }
-
-/* Map + sidebar */
-.stage { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 14px; height: clamp(600px, calc(100vh - 110px), 920px); }
-.mapbox { position: relative; border-radius: 16px; overflow: hidden; background: var(--sea); min-width: 0; }
+/* Map */
+.mapbox { position: relative; overflow: hidden; background: var(--sea); min-width: 0; }
 #mapsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 #mapsvg .sea { fill: var(--sea); }
 #mapsvg .hit { fill: transparent; }
 #mapsvg .reef { fill: var(--reef); }
 #mapsvg .land { fill: var(--land); }
 #mapsvg .atoll { cursor: pointer; }
-#mapsvg .atoll.demo .reef { fill: var(--reef-demo); }
 #mapsvg.is-national .atoll.hover .reef { fill: var(--turquoise); }
 #mapsvg.is-national .atoll.hover .land { fill: var(--ocean); }
-#mapsvg:not(.is-national) .atoll.hover:not(.active) { opacity: .8; }
 #mapsvg:not(.is-national) .atoll:not(.active) { opacity: .45; }
+#mapsvg:not(.is-national) .atoll.hover:not(.active) { opacity: .8; }
 #mapsvg:not(.is-national) .atoll.active { cursor: default; }
+#mapsvg .atoll.st-none .reef { fill: color-mix(in srgb, var(--reef) 55%, var(--sea)); }
+#mapsvg .atoll.st-none .land { fill: color-mix(in srgb, var(--land) 55%, var(--sea)); }
 #mapsvg .atoll-labels { font-family: var(--body); }
-#mapsvg .atoll-label { cursor: pointer; transition: fill .12s; }
-#mapsvg .atoll-label.hover { fill: var(--accent); }
-#mapsvg .atoll-label.hover .al-alt { fill: var(--ink); }
-#mapsvg .atoll-label .al-name { text-decoration-thickness: 1.5px; }
-#mapsvg .atoll-label.hover .al-name { text-decoration: underline; text-underline-offset: 3px; }
 #mapsvg:not(.is-national) .atoll-labels { display: none; }
-#mapsvg .atoll-label { fill: var(--map-label); paint-order: stroke; stroke: var(--halo); stroke-width: .35em; stroke-linejoin: round; }
+#mapsvg .atoll-label { cursor: pointer; fill: var(--map-label); paint-order: stroke; stroke: var(--halo); stroke-width: .35em; stroke-linejoin: round; }
+#mapsvg .atoll-label.st-none { fill: var(--map-label-2); }
 #mapsvg .al-name { font-family: var(--display); font-weight: 700; }
 #mapsvg .al-alt { fill: var(--map-label-2); font-size: .82em; }
-#mapsvg .atoll-label.demo .al-alt { fill: var(--accent); font-weight: 600; }
-#mapsvg .route { stroke: var(--route); stroke-width: 2; opacity: .55; }
-#mapsvg .route.off { stroke-dasharray: var(--dash); opacity: .35; }
-#mapsvg .route.edited { stroke: var(--turquoise); stroke-width: 4; opacity: 1; }
+#mapsvg .atoll-label.st-bad .al-alt { fill: var(--bad); font-weight: 600; }
+#mapsvg .atoll-label.st-ok .al-alt { fill: var(--ok); font-weight: 600; }
+#mapsvg .atoll-label.hover { fill: var(--accent); }
+#mapsvg .atoll-label.hover .al-name { text-decoration: underline; text-underline-offset: 3px; }
+#mapsvg .route { stroke: var(--route); stroke-width: 1.6; opacity: .45; }
+#mapsvg .route.edited { stroke: var(--turquoise); stroke-width: 3.5; opacity: 1; }
 #mapsvg .pin { cursor: pointer; outline: none; }
-#mapsvg .pin.hub { cursor: default; }
-#mapsvg .pin .dot { fill: var(--surface); stroke-width: 4; }
+#mapsvg .pin.hub, #mapsvg .pin.mini { cursor: default; }
+#mapsvg .pin .dot { fill: var(--surface); stroke-width: 3.5; }
 #mapsvg .pin.ok .dot { stroke: var(--ok); fill: var(--ok-bg); }
 #mapsvg .pin.bad .dot { stroke: var(--bad); fill: var(--bad-bg); }
-#mapsvg .pin.na .dot { stroke: var(--ink-3); stroke-dasharray: 3 3; }
+#mapsvg .pin.none .dot { stroke: var(--route); }
 #mapsvg .pin.hub .dot { fill: var(--turquoise); stroke: var(--ocean); }
+#mapsvg .pin.mini .dot { stroke-width: 1.5; }
+#mapsvg:not(.is-national) .pin.mini { opacity: .5; }
 #mapsvg .pin .cross { stroke: #fff; stroke-width: 3; stroke-linecap: round; fill: none; }
 #mapsvg .pin .sel-ring { fill: none; stroke: var(--map-label); stroke-width: 2; }
 #mapsvg .pin:focus-visible .dot { stroke-width: 6; }
 #mapsvg .pin text { text-anchor: middle; paint-order: stroke; stroke: var(--halo); stroke-width: 4px; stroke-linejoin: round; }
-#mapsvg .pin-name { font-family: var(--display); font-weight: 700; font-size: 13px; fill: var(--map-label); }
+#mapsvg .pin-name { font-family: var(--display); font-weight: 700; font-size: 12.5px; fill: var(--map-label); }
 #mapsvg .pin-cap { font-size: 11px; fill: var(--map-label-2); }
 #mapsvg .pin.bad .pin-cap { fill: var(--bad); font-weight: 600; }
+#mapsvg .bubble { cursor: pointer; }
+#mapsvg .bubble circle { stroke: var(--surface); stroke-width: 2.5; }
+#mapsvg .bubble.bad circle { fill: var(--bad); fill-opacity: .9; }
+#mapsvg .bubble.ok circle { fill: var(--ok); fill-opacity: .9; }
+#mapsvg .bubble text { text-anchor: middle; font-family: var(--display); font-weight: 800; font-size: 12px; fill: #fff; pointer-events: none; }
+#mapsvg .bubble:hover circle { stroke: var(--turquoise); stroke-width: 3.5; }
+#mapsvg .boats { pointer-events: none; }
+#mapsvg .boat .hull { fill: var(--boat); stroke: var(--boat-edge); stroke-width: 1.5; stroke-linejoin: round; }
+#mapsvg .boat .wake { stroke: var(--boat); stroke-width: 2; stroke-linecap: round; opacity: .35; }
+#mapsvg .boat.moved .hull { fill: var(--boat-moved); }
+#mapsvg .boat.moved .wake { stroke: var(--boat-moved); opacity: .6; }
+#mapsvg:not(.is-national) .boat.away { opacity: .45; }
 
 .map-ui { position: absolute; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.map-ui.tl { top: 12px; left: 12px; right: 12px; }
-.map-ui.tr { top: 60px; right: 12px; }
-.map-ui.bl { bottom: 12px; left: 12px; right: 12px; }
-.map-ui select { font: inherit; font-weight: 600; color: var(--ink); background: var(--surface); border: 0; border-radius: 10px; padding: 9px 12px; max-width: 100%; box-shadow: 0 2px 8px #0B3A5C24; }
-.map-ui .btn { box-shadow: 0 2px 8px #0B3A5C24; }
-.hint { background: var(--surface); color: var(--ink-2); border-radius: 10px; padding: 8px 12px; font-size: 13px; box-shadow: 0 2px 8px #0B3A5C24; }
-.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); background: color-mix(in srgb, var(--surface) 88%, transparent); border-radius: 10px; padding: 7px 12px; }
+.map-ui.tl { top: 12px; left: 12px; right: 12px; pointer-events: none; }
+.map-ui.tl > * { pointer-events: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink-2); background: color-mix(in srgb, var(--surface) 88%, transparent); border-radius: 10px; padding: 6px 10px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend i { width: 12px; height: 12px; border-radius: 50%; border: 3px solid; display: inline-block; }
+.legend i { width: 11px; height: 11px; border-radius: 50%; border: 3px solid; display: inline-block; }
 .legend .lg-ok { border-color: var(--ok); background: var(--ok-bg); } .legend .lg-bad { border-color: var(--bad); background: var(--bad-bg); }
 .legend .lg-hub { background: var(--turquoise); border-color: var(--ocean); }
-.legend .lg-route { width: 18px; height: 0; border-radius: 0; border: 0; border-top: 2px solid var(--route); opacity: .6; }
-.legend .lg-edit { width: 18px; height: 0; border-radius: 0; border: 0; border-top: 4px solid var(--turquoise); }
-.legend .lg-land { border-radius: 3px; border: 0; background: var(--land); }
-.legend .lg-reef { border-radius: 3px; border: 0; background: var(--reef); }
-.attrib { position: absolute; right: 8px; bottom: 6px; font-size: 10.5px; color: var(--map-label-2); }
+.legend .lg-boat { width: 14px; height: 8px; border: 0; border-radius: 1px 5px 5px 1px; background: var(--boat); box-shadow: 0 0 0 1px var(--boat-edge); }
+.legend .lg-moved { width: 14px; height: 8px; border: 0; border-radius: 1px 5px 5px 1px; background: var(--boat-moved); }
+.attrib { position: absolute; right: 10px; top: 10px; font-size: 10.5px; color: var(--map-label-2); }
 
-.side { background: var(--surface); border-radius: 16px; overflow-y: auto; display: flex; flex-direction: column; min-width: 0; }
-.side-sec { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
-.side-sec + .side-sec { border-top: 1px solid var(--surface-2); }
-.side h2 { font-size: 19px; font-weight: 700; }
-.side h3 { font-size: 15px; font-weight: 700; }
-.eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
-.side p { margin: 0; font-size: 14px; color: var(--ink-2); }
-.demo-tag { align-self: flex-start; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--warn-bg); color: var(--warn); }
-.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.field label, .field .lbl { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
-.side select { font: inherit; color: var(--ink); background: var(--surface-2); border: 0; border-radius: 10px; padding: 9px 12px; width: 100%; }
-.shift-ctl { display: flex; align-items: center; gap: 8px; }
-.shift-ctl input[type=range] { flex: 1; min-width: 0; accent-color: var(--turquoise); }
-.btn { background: var(--surface-2); border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 600; font-size: 14px; }
+/* Playback bar */
+.player { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; gap: 12px; background: color-mix(in srgb, var(--surface) 94%, transparent); border-radius: 14px; padding: 10px 14px; box-shadow: 0 6px 20px #0612202E; }
+.play { width: 40px; height: 40px; flex: none; border: 0; border-radius: 50%; background: var(--ocean); color: #fff; display: grid; place-items: center; }
+.play svg { width: 16px; height: 16px; }
+.clock { font-family: var(--mono); font-weight: 600; font-size: 24px; font-variant-numeric: tabular-nums; min-width: 4.2ch; }
+.clock-sub { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.scrub { flex: 1; min-width: 80px; display: flex; flex-direction: column; gap: 2px; }
+.scrub input { width: 100%; accent-color: var(--turquoise); margin: 0; }
+.scrub-ticks { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-3); font-family: var(--mono); }
+.speed { display: inline-flex; background: var(--surface-2); border-radius: 9px; padding: 2px; }
+.speed button { border: 0; background: none; border-radius: 7px; padding: 4px 8px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.speed button[aria-pressed="true"] { background: var(--ocean); color: #fff; }
+
+/* Rail */
+.rail { background: var(--surface); display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.rail-top { padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 10px; background: var(--ocean); color: #fff; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: .03em; }
+.brand-sub { font-size: 12.5px; color: #A9C6DB; }
+.rail-nav { display: flex; gap: 8px; align-items: center; }
+.rail-nav .dd { flex: 1; }
+.rail-top .dd-trigger { background: #FFFFFF1F; color: #fff; }
+.rail-top .dd-trigger:hover { background: #FFFFFF2E; }
+.rail-top .dd-value .dd-sub, .rail-top .dd-chev { color: #A9C6DB; }
+.rail-top .dd-badge { background: #2EC4B633; color: #8EEDE4; }
+.icon-btn { border: 0; border-radius: 10px; background: #FFFFFF1F; color: #fff; padding: 9px 11px; font-weight: 600; font-size: 13px; white-space: nowrap; }
+.icon-btn:hover { background: #FFFFFF2E; }
+.rail-scroll { flex: 1; overflow-y: auto; min-height: 0; }
+.sec { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.sec + .sec { border-top: 1px solid var(--surface-2); }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.sec h2 { font-size: 18px; font-weight: 700; }
+.sec h3 { font-size: 15px; font-weight: 700; }
+.sec p { margin: 0; color: var(--ink-2); }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.stat { background: var(--surface-2); border-radius: 10px; padding: 9px 11px; display: flex; flex-direction: column; }
+.stat b { font-family: var(--display); font-size: 22px; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--ink-2); }
+.stat.live b { color: var(--accent); }
+.access-line { display: flex; align-items: center; gap: 12px; }
+.access-pct { font-family: var(--display); font-weight: 800; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
+.bar { height: 6px; border-radius: 3px; background: var(--bad-bg); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.delta { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; align-self: flex-start; }
+.delta.good { background: var(--ok-bg); color: var(--ok); } .delta.bad { background: var(--bad-bg); color: var(--bad); }
+.rows { display: flex; flex-direction: column; gap: 6px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; text-align: left; border: 0; border-radius: 10px; padding: 9px 11px; background: var(--surface-2); }
+.row:hover { box-shadow: 0 0 0 2px var(--turquoise); }
+.row-name { font-weight: 600; }
+.row-name small { font-weight: 400; color: var(--ink-3); margin-left: 6px; }
+.row-val { font-family: var(--display); font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; }
+.row-sub { grid-column: 1 / -1; font-size: 12px; color: var(--ink-2); }
+.row.bad .row-val { color: var(--bad); } .row.ok .row-val { color: var(--ok); }
+.row .bar { grid-column: 1 / -1; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 0; background: var(--surface-2); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+.chip:hover { background: color-mix(in srgb, var(--turquoise) 25%, var(--surface-2)); }
+.barrier { border-radius: 12px; padding: 11px 12px; display: flex; flex-direction: column; gap: 4px; background: color-mix(in srgb, var(--bad-bg) 55%, var(--surface)); }
+.barrier.good { background: color-mix(in srgb, var(--ok-bg) 70%, var(--surface)); }
+.barrier-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.barrier-n { font-family: var(--display); font-weight: 800; font-size: 15px; color: var(--bad); }
+.barrier.good .barrier-n { color: var(--ok); }
+.barrier-head { font-weight: 600; }
+.barrier-detail { font-size: 12.5px; color: var(--ink-2); }
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.good { background: var(--ok-bg); color: var(--ok); } .pill.good::before { content: "✓"; }
+.pill.bad { background: var(--bad-bg); color: var(--bad); } .pill.bad::before { content: "✕"; }
+.link { background: none; border: 0; padding: 0; color: var(--accent); font-weight: 600; font-size: 13px; align-self: flex-start; }
+.link:hover { text-decoration: underline; }
+.btn { background: var(--surface-2); border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 600; font-size: 13.5px; }
 .btn:hover { background: var(--surface-3); }
 .btn:disabled { opacity: .45; cursor: default; }
 .btn.primary { background: var(--ocean); color: #fff; }
 .btn.primary:hover { background: color-mix(in srgb, var(--ocean) 85%, #fff); }
-.btn.big { padding: 11px 14px; font-size: 15px; }
-#shift-readout { font-size: 15px; }
+.btn.big { padding: 10px 14px; }
+.field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.field label, .field .lbl { font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.shift-ctl { display: flex; align-items: center; gap: 8px; }
+.shift-ctl input[type=range] { flex: 1; min-width: 0; accent-color: var(--turquoise); }
 .moved { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.moved li { display: flex; gap: 4px; align-items: stretch; }
-.moved li.none { font-size: 13px; color: var(--ink-3); }
-.moved-edit { flex: 1; text-align: left; border: 0; background: var(--surface-2); border-radius: 8px; padding: 6px 10px; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-.moved-edit.cur { background: color-mix(in srgb, var(--turquoise) 22%, var(--surface-2)); }
-.x { border: 0; background: var(--surface-2); border-radius: 8px; width: 32px; font-size: 18px; line-height: 1; color: var(--ink-2); }
+.moved li { display: flex; gap: 4px; }
+.moved-edit { flex: 1; background: var(--surface-2); border-radius: 8px; padding: 6px 10px; font-size: 12.5px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.x { border: 0; background: var(--surface-2); border-radius: 8px; width: 30px; font-size: 17px; color: var(--ink-2); }
 .x:hover { background: var(--bad-bg); color: var(--bad); }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { border: 0; background: var(--surface-2); border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 500; text-align: left; }
-.chip:hover { background: color-mix(in srgb, var(--turquoise) 25%, var(--surface-2)); }
-.chip-note { color: var(--bad); font-weight: 600; }
-.status-line { font-size: 13px; color: var(--ink-2); }
-.status-line.error { color: var(--bad); font-weight: 600; }
-.changes { display: flex; flex-direction: column; gap: 6px; }
-.change-row { display: grid; grid-template-columns: 70px 1fr; align-items: baseline; gap: 2px 10px; background: var(--surface-2); border-radius: 10px; padding: 8px 12px; }
-.change-head { font-weight: 700; font-size: 14px; }
-.change-nums { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; }
-.cn { font-family: var(--display); font-weight: 700; font-size: 20px; font-variant-numeric: tabular-nums; }
-.cn.good { color: var(--ok); } .cn.bad { color: var(--bad); } .cn.zero { color: var(--ink-3); }
-.cl { font-size: 12px; color: var(--ink-3); margin-right: 8px; }
-.change-unit { grid-column: 2; font-size: 12px; color: var(--ink-3); }
-.check { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-2); }
-.check input { accent-color: var(--turquoise); width: 16px; height: 16px; }
-.suggestion { background: color-mix(in srgb, var(--turquoise) 12%, var(--surface)); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-.sug-head { font-family: var(--display); font-weight: 700; font-size: 17px; }
-.sug-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.suggestion { background: color-mix(in srgb, var(--turquoise) 12%, var(--surface)); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.sug-head { font-family: var(--display); font-weight: 700; font-size: 16px; }
+.sug-list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
 .sug-list li span:first-child { display: block; }
-.sug-result { margin: 0; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
-.sug-result div { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-.sug-result dt { color: var(--ink-2); }
-.sug-result dd { margin: 0; font-variant-numeric: tabular-nums; }
-.sug-result dd .good { font-weight: 600; margin-left: 4px; }
-.sug-unres { font-size: 13px; color: var(--warn); background: var(--warn-bg); border-radius: 8px; padding: 8px 10px; }
-.sug-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.sug-note { font-size: 12px !important; color: var(--ink-3) !important; }
-.need { margin: 0; padding-left: 18px; font-size: 14px; color: var(--ink-2); display: flex; flex-direction: column; gap: 4px; }
-
-/* KPIs */
-.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.kpi { background: var(--surface); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.kpi.lead { background: var(--ocean); color: #fff; }
-.kpi.lead .kpi-label, .kpi.lead .kpi-sub { color: #B9D3E4; }
-.kpi.lead .kpi-value { color: var(--turquoise); }
-.kpi-label { font-size: 13px; font-weight: 600; color: var(--ink-2); }
-.kpi-value { font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1.05; font-variant-numeric: tabular-nums; }
-.kpi.bad .kpi-value { color: var(--bad); } .kpi.good .kpi-value { color: var(--ok); }
-.kpi-value .of { font-size: 20px; color: var(--ink-3); font-weight: 600; }
-.kpi-sub { font-size: 13px; color: var(--ink-3); }
-.delta { font-size: 12px; font-weight: 600; margin-top: 4px; padding: 2px 8px; border-radius: 999px; align-self: flex-start; }
-.delta.good { background: var(--ok-bg); color: var(--ok); } .delta.bad { background: var(--bad-bg); color: var(--bad); } .delta.flat { background: var(--surface-2); color: var(--ink-3); }
-.kpi.lead .delta.flat { background: #FFFFFF22; color: #DCEAF3; }
-
-/* Impact cards */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.impact { border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); min-width: 0; }
-.impact.bad { background: color-mix(in srgb, var(--bad-bg) 55%, var(--surface)); }
-.impact.good { background: color-mix(in srgb, var(--ok-bg) 70%, var(--surface)); }
-.impact.warn { background: color-mix(in srgb, var(--warn-bg) 60%, var(--surface)); }
-.impact-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.impact-rule { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-.impact-big { font-family: var(--display); font-weight: 800; font-size: 46px; line-height: 1; margin-top: 6px; font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
-.impact.bad .impact-big { color: var(--bad); } .impact.good .impact-big { color: var(--ok); } .impact.warn .impact-big { color: var(--warn); font-size: 38px; }
-.impact-unit { font-family: var(--body); font-size: 14px; font-weight: 500; color: var(--ink-2); }
-.impact-head { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.35; }
-.impact-detail { margin: 0; font-size: 14px; color: var(--ink-2); flex: 1; }
-.link { background: none; border: 0; padding: 4px 0 0; color: var(--accent); font-weight: 600; font-size: 14px; align-self: flex-start; }
-.link:hover { text-decoration: underline; }
-.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
-.pill.good { background: var(--ok-bg); color: var(--ok); } .pill.good::before { content: "✓"; }
-.pill.bad { background: var(--bad-bg); color: var(--bad); } .pill.bad::before { content: "✕"; }
-.pill.warn { background: var(--warn-bg); color: var(--warn); } .pill.warn::before { content: "◷"; }
-
-/* Inspector + table */
-.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
-.panel { background: var(--surface); border-radius: 14px; padding: 18px; min-width: 0; }
-.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
-.panel-head h2 { font-size: 20px; font-weight: 700; }
-.seg { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 3px; }
-.map-ui .seg { background: var(--surface); box-shadow: 0 2px 8px #0B3A5C24; }
-.seg button { border: 0; background: none; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
-.seg button[aria-pressed="true"], .seg button[aria-selected="true"] { background: var(--ocean); color: #fff; }
-.panel select { font: inherit; color: var(--ink); background: var(--surface-2); border: 0; border-radius: 10px; padding: 7px 10px; }
-.insp-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 12px; margin-bottom: 14px; }
-.insp-title { font-family: var(--display); font-size: 18px; font-weight: 700; }
-.insp-sub { font-size: 13px; color: var(--ink-2); }
-.insp-pills { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
+.sug-result { margin: 0; display: flex; flex-direction: column; gap: 3px; font-size: 13px; }
+.sug-result div { display: flex; justify-content: space-between; gap: 8px; }
+.sug-result dt { color: var(--ink-2); } .sug-result dd { margin: 0; }
+.sug-unres { font-size: 12.5px; color: var(--warn); background: var(--warn-bg); border-radius: 8px; padding: 7px 9px; }
+.sug-actions { display: flex; gap: 8px; }
+.sug-note { font-size: 11.5px !important; color: var(--ink-3) !important; }
+.status-line { font-size: 12.5px; color: var(--ink-2); }
+.status-line.error { color: var(--bad); font-weight: 600; }
+.tag { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; border-radius: 6px; background: var(--surface-2); color: var(--ink-2); vertical-align: 1px; }
+.tag.observed { background: var(--ok-bg); color: var(--ok); }
+.tag.assumed { background: var(--warn-bg); color: var(--warn); }
+.tag.missing { background: var(--bad-bg); color: var(--bad); }
+.rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+details.more summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 15px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::after { content: "+"; font-family: var(--body); font-weight: 400; font-size: 18px; color: var(--ink-3); }
+details.more[open] summary::after { content: "−"; }
+details.more > div { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.src { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; font-size: 12.5px; }
+.src b { font-weight: 600; } .src span.d { grid-column: 1 / -1; color: var(--ink-2); }
+.assume { margin: 0; padding-left: 16px; font-size: 12.5px; color: var(--ink-2); display: flex; flex-direction: column; gap: 4px; }
 .timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.step { display: grid; grid-template-columns: 52px 16px minmax(0, 1fr); gap: 10px; position: relative; padding-bottom: 14px; }
-.step::after { content: ""; position: absolute; left: 69px; top: 18px; bottom: 0; width: 2px; background: var(--surface-3); }
+.step { display: grid; grid-template-columns: 46px 14px minmax(0, 1fr); gap: 9px; position: relative; padding-bottom: 12px; }
+.step::after { content: ""; position: absolute; left: 61px; top: 16px; bottom: 0; width: 2px; background: var(--surface-3); }
 .step:last-child::after { display: none; }
-.step .t { font-size: 13px; color: var(--ink-2); padding-top: 1px; }
-.step .dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; background: var(--surface-3); position: relative; z-index: 1; }
+.step .t { font-size: 12.5px; color: var(--ink-2); }
+.step .dot { width: 12px; height: 12px; border-radius: 50%; margin-top: 3px; background: var(--surface-3); position: relative; z-index: 1; }
 .step.ride .dot { background: var(--ocean); } .step.activity .dot { background: var(--turquoise); }
 .step.home .dot { background: var(--ok); } .step.fail .dot { background: var(--bad); }
 .step.wait .dot, .step.walk .dot { background: var(--surface); border: 2px solid var(--ink-3); }
-.st { font-weight: 600; font-size: 14px; }
-.step.fail .st { color: var(--bad); }
-.sx { font-size: 13px; color: var(--ink-2); }
-.trip { font-size: 11px; color: var(--ink-3); font-weight: 400; }
-.burden { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px; background: var(--surface-2); border-radius: 10px; padding: 12px; font-size: 12px; color: var(--ink-2); }
-.burden span { display: block; font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--ink); }
-.empty { color: var(--ink-2); }
-.table-wrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; font-size: 14px; }
-th, td { text-align: left; padding: 10px 12px; vertical-align: middle; }
-thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 600; background: var(--surface-2); white-space: nowrap; }
-tbody tr + tr th, tbody tr + tr td { border-top: 1px solid var(--surface-2); }
-tbody th { font-weight: 600; white-space: nowrap; }
-.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-#table tbody tr { cursor: pointer; }
-#table tbody tr:hover, #table tbody tr.sel { background: color-mix(in srgb, var(--turquoise) 10%, var(--surface)); }
-.was { display: block; font-size: 12px; color: var(--ink-3); margin-top: 2px; }
-
-/* Sources */
-.sources { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 12px; }
-.sources .panel h3 { font-size: 17px; margin-bottom: 8px; }
-.sources table th, .sources table td { padding: 8px 10px 8px 0; font-size: 13px; }
-.sources ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); display: flex; flex-direction: column; gap: 6px; }
-.tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 2px 8px; border-radius: 6px; background: var(--warn-bg); color: var(--warn); }
-.tag.observed { background: var(--ok-bg); color: var(--ok); }
-.disclaimer { font-size: 13px; color: var(--ink-3); max-width: 80ch; }
-
-@media (max-width: 1100px) { .kpis { grid-template-columns: repeat(2, 1fr); } .cards { grid-template-columns: repeat(2, 1fr); } .split, .sources { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); height: auto; } .mapbox { height: 72vh; min-height: 460px; } .side { overflow: visible; } }
-@media (max-width: 640px) { .kpis, .cards { grid-template-columns: minmax(0, 1fr); } .kpi-value { font-size: 34px; } .brand-sub { display: none; } }
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
-
-/* One-screen app layout: header + metrics strip + three columns fill the viewport. */
-.wrap { max-width: 1680px; }
-.screen { height: 100vh; height: 100dvh; min-height: 640px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 14px; }
-header.top .wrap { padding-block: 10px; }
-.brand { font-size: 22px; }
-.kpi-strip { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; align-items: stretch; width: 100%; }
-.kpi-intro { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
-.kpi-intro .eyebrow { font-size: 12px; color: var(--accent); }
-.kpi-note { font-size: 12px; color: var(--ink-3); line-height: 1.35; }
-.kpi-strip .kpis { gap: 10px; }
-.kpi-strip .kpi { padding: 10px 14px; gap: 2px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "value label" "value sub" "delta delta"; column-gap: 12px; align-items: center; }
-.kpi-strip .kpi-label { grid-area: label; font-size: 12.5px; line-height: 1.3; align-self: end; }
-.kpi-strip .kpi-value { grid-area: value; font-size: 30px; }
-.kpi-strip .kpi-value .of { font-size: 16px; }
-.kpi-strip .kpi-sub { grid-area: sub; font-size: 12px; line-height: 1.3; align-self: start; }
-.kpi-strip .delta { grid-area: delta; margin-top: 2px; }
-.stage { flex: 1; min-height: 0; height: auto; width: 100%; grid-template-columns: 340px minmax(0, 1fr) 360px; gap: 12px; }
-.left { background: var(--surface); border-radius: 16px; overflow-y: auto; min-width: 0; display: flex; flex-direction: column; }
-.left-view { display: flex; flex-direction: column; gap: 10px; padding: 14px; }
-.left-head { display: flex; flex-direction: column; gap: 6px; position: sticky; top: -14px; margin: -14px -14px 0; padding: 14px 14px 8px; background: var(--surface); z-index: 2; }
-.left-head h2 { font-size: 19px; font-weight: 700; }
-.left-head p { margin: 0; font-size: 13px; color: var(--ink-2); }
-.insp-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.insp-controls select { font: inherit; font-size: 14px; color: var(--ink); background: var(--surface-2); border: 0; border-radius: 10px; padding: 6px 10px; }
-.back { padding: 0; }
-.left .cards { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-.left .impact { padding: 13px 14px; gap: 4px; }
-.left .impact-big { font-size: 32px; margin-top: 2px; }
-.left .impact.warn .impact-big { font-size: 26px; }
-.left .impact-head { font-size: 15px; }
-.left .impact-detail { font-size: 13px; }
-.left .insp-head { margin-bottom: 10px; }
-.left .burden span { font-size: 16px; }
-main.wrap { padding-top: 24px; }
-@media (max-width: 1360px) { .stage { grid-template-columns: 300px minmax(0, 1fr) 330px; } .kpi-strip { grid-template-columns: minmax(0, 1fr); } .kpi-intro { flex-direction: row; gap: 12px; align-items: baseline; } }
-@media (max-width: 1100px) {
-  .screen { height: auto; min-height: 0; }
-  .stage { grid-template-columns: minmax(0, 1fr) 340px; grid-template-areas: "map side" "left left"; }
-  .stage .mapbox { grid-area: map; height: 74vh; min-height: 480px; } .stage .side { grid-area: side; max-height: 74vh; } .stage .left { grid-area: left; overflow: visible; }
-  .left .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+.st { font-weight: 600; font-size: 13.5px; } .step.fail .st { color: var(--bad); }
+.sx { font-size: 12.5px; color: var(--ink-2); }
+.empty { color: var(--ink-2); margin: 0; }
 @media (max-width: 900px) {
-  .stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "map" "side" "left"; } .stage .side { max-height: none; }
-  .kpi-strip .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .app { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .mapbox { height: 68vh; min-height: 460px; }
+  .rail-scroll { overflow: visible; }
+  .clock-sub, .scrub-ticks { display: none; }
 }
-@media (max-width: 640px) { .left .cards, .kpi-strip .kpis { grid-template-columns: minmax(0, 1fr); } }
-
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 /* Themed dropdown (dropdown.js) */
 .dd-native { position: absolute !important; width: 1px !important; height: 1px !important; opacity: 0; pointer-events: none; }
 .dd { position: relative; min-width: 0; }
@@ -330,8 +253,8 @@ main.wrap { padding-top: 24px; }
 .dd-trigger { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; text-align: left; border: 0; border-radius: 10px; padding: 8px 10px 8px 12px; background: var(--surface-2); color: var(--ink); transition: background .15s, box-shadow .15s; }
 .dd-trigger:hover { background: var(--surface-3); }
 .dd.open .dd-trigger { box-shadow: 0 0 0 2px var(--turquoise); }
-.map-ui .dd-trigger { background: var(--surface); box-shadow: 0 2px 8px #0B3A5C24; min-width: 230px; }
-.map-ui .dd.open .dd-trigger { box-shadow: 0 0 0 2px var(--turquoise), 0 2px 8px #0B3A5C24; }
+.rail-top .dd-trigger { background: var(--surface); box-shadow: 0 2px 8px #0B3A5C24; min-width: 230px; }
+.rail-top .dd.open .dd-trigger { box-shadow: 0 0 0 2px var(--turquoise), 0 2px 8px #0B3A5C24; }
 .dd-value { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .dd-value .dd-main { font-weight: 600; }
 .dd-value .dd-sub { font-size: 12.5px; color: var(--ink-3); }
@@ -349,234 +272,110 @@ main.wrap { padding-top: 24px; }
 .dd-opt .dd-sub { font-size: 12.5px; color: var(--ink-3); }
 .dd-badge { flex: none; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 6px; background: color-mix(in srgb, var(--turquoise) 22%, var(--surface)); color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .dd-trigger, .dd-chev { transition: none; } }
-
-/* Real-data views */
-.meta .real { background: var(--turquoise); color: var(--ocean); font-weight: 700; }
-.small { font-size: 13px !important; }
-.badtxt { color: var(--bad); }
-.tag.missing { background: var(--bad-bg); color: var(--bad); }
-.tag.mixed { background: var(--surface-2); color: var(--ink-2); }
-.tag.assumed { background: var(--warn-bg); color: var(--warn); }
-.side h3 .tag { font-family: var(--body); vertical-align: 2px; margin-left: 4px; }
-.hosp-line { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-weight: 600; font-size: 14px; }
-.rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.ranking { display: flex; flex-direction: column; gap: 8px; }
-.rank { display: flex; flex-direction: column; gap: 4px; text-align: left; border: 0; border-radius: 12px; padding: 12px 14px; background: var(--surface-2); color: var(--ink); }
-.rank.bad { background: color-mix(in srgb, var(--bad-bg) 55%, var(--surface)); }
-.rank:hover { box-shadow: 0 0 0 2px var(--turquoise); }
-.rank-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.rank-name { font-family: var(--display); font-weight: 700; font-size: 16px; }
-.rank-alt { font-size: 12px; color: var(--ink-3); }
-.rank-change { margin-left: auto; font-size: 13px; }
-.rank-big { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.1; color: var(--bad); font-variant-numeric: tabular-nums; }
-.rank-big .of { font-family: var(--body); font-size: 13px; font-weight: 500; color: var(--ink-2); }
-.rank-big .okline { font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--ok); }
-.rank-bar { height: 6px; border-radius: 3px; background: var(--bad-bg); overflow: hidden; }
-.rank.ok .rank-bar { background: var(--surface-3); }
-.rank-bar i { display: block; height: 100%; background: var(--ok); border-radius: 3px; }
-.rank-sub { font-size: 12.5px; color: var(--ink-2); }
-.nodata-block { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
-.nodata-block .chip { font-size: 12px; padding: 4px 10px; }
-.empty-kpi { grid-column: 1 / -1; }
-#mapsvg .atoll.st-none .reef { fill: color-mix(in srgb, var(--reef) 55%, var(--sea)); }
-#mapsvg .atoll.st-none .land { fill: color-mix(in srgb, var(--land) 55%, var(--sea)); }
-#mapsvg .atoll-label.st-none { fill: var(--map-label-2); }
-#mapsvg .atoll-label.st-bad .al-alt { fill: var(--bad); font-weight: 600; }
-#mapsvg .atoll-label.st-ok .al-alt { fill: var(--ok); font-weight: 600; }
-#mapsvg .pin.mini .dot { stroke-width: 1.5; }
-#mapsvg .pin.mini.none .dot { fill: var(--surface); stroke: var(--route); }
-#mapsvg .pin.mini.hub .dot { fill: var(--turquoise); stroke: var(--ocean); }
-#mapsvg:not(.is-national) .pin.mini { opacity: .5; }
-#mapsvg .bubble { cursor: pointer; }
-#mapsvg .bubble circle { stroke: var(--surface); stroke-width: 2.5; }
-#mapsvg .bubble.bad circle { fill: var(--bad); fill-opacity: .9; }
-#mapsvg .bubble.ok circle { fill: var(--ok); fill-opacity: .9; }
-#mapsvg .bubble text { text-anchor: middle; font-family: var(--display); font-weight: 800; font-size: 12px; fill: #fff; pointer-events: none; }
-#mapsvg .bubble:hover circle { stroke: var(--turquoise); stroke-width: 3.5; }
 </style>
 
-<div class="screen">
-<header class="top">
-  <div class="wrap">
-    <div class="brand-row">
-      <div class="brand">M.A.N.D.A.R.I.N</div>
-      <div class="brand-sub">Can islanders reach their atoll hospital and get home the same day on the published ferries?</div>
-    </div>
-    <div class="meta">
-      <span class="real">Real ferry schedules</span>
-      <span class="demo">Population not loaded · islands count once</span>
-    </div>
-  </div>
-</header>
-
-<section class="kpi-strip wrap" aria-label="Headline numbers">
-  <div class="kpi-intro">
-    <div class="eyebrow" id="kpi-scope">All of the Maldives</div>
-    <div class="kpi-note" id="kpi-note"></div>
-  </div>
-  <div class="kpis" id="kpis"></div>
-</section>
-
-<section class="stage wrap" aria-label="Barriers, map and timetable controls">
-  <aside class="left" aria-label="What's stopping people">
-    <div id="left-national" class="left-view">
-      <div class="left-head">
-        <h2>Where people are cut off</h2>
-        <p id="rank-count"></p>
-      </div>
-      <div class="ranking" id="ranking"></div>
-      <div class="nodata-block">
-        <div class="eyebrow">No ferry data yet</div>
-        <div class="chips" id="nodata-list"></div>
-      </div>
-    </div>
-    <div id="left-cards" class="left-view" hidden>
-      <div class="left-head">
-        <button type="button" class="link back" data-go-atoll="">← All atolls</button>
-        <h2>What's stopping people</h2>
-        <p id="card-count"></p>
-      </div>
-      <div class="cards" id="cards"></div>
-    </div>
-    <div id="inspector" class="left-view" hidden>
-      <div class="left-head">
-        <button type="button" class="link back" id="back">← All barriers</button>
-        <div class="insp-controls">
-          <select id="insp-island" aria-label="Island"></select>
-        </div>
-      </div>
-      <div id="insp-body"></div>
-    </div>
-  </aside>
-
+<div class="app">
   <div class="mapbox">
-    <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives atolls, ferry routes and island stops"></svg>
+    <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives with ferry routes and moving ferries"></svg>
     <div class="map-ui tl">
-      <select id="atoll" aria-label="Atoll"></select>
-      <button type="button" class="btn" id="to-national">All atolls</button>
-      <span class="hint" id="map-hint">Red bubbles show how many are cut off. Click an atoll to zoom in.</span>
-    </div>
-    <div class="map-ui bl">
       <div class="legend">
-        <span><i class="lg-land"></i>Island</span>
-        <span><i class="lg-reef"></i>Reef</span>
+        <span><i class="lg-boat"></i>Ferry</span>
+        <span><i class="lg-moved"></i>Moved sailing</span>
         <span><i class="lg-ok"></i>Can make the trip</span>
         <span><i class="lg-bad"></i>Can't</span>
         <span><i class="lg-hub"></i>Hospital island</span>
-        <span><i class="lg-route"></i>Ferry route</span>
-        <span><i class="lg-edit"></i>Moved sailing</span>
       </div>
     </div>
-    <div class="attrib">Map and island positions © OpenStreetMap contributors</div>
+    <div class="attrib">© OpenStreetMap contributors</div>
+    <div class="player" role="group" aria-label="Ferry playback">
+      <button type="button" class="play" id="play" aria-label="Pause"></button>
+      <div>
+        <div class="clock" id="clock">06:00</div>
+        <div class="clock-sub" id="clock-sub"></div>
+      </div>
+      <div class="scrub">
+        <input type="range" id="time" min="300" max="1200" step="1" value="360" aria-label="Time of day">
+        <div class="scrub-ticks"><span>05:00</span><span>08:00</span><span>11:00</span><span>14:00</span><span>17:00</span><span>20:00</span></div>
+      </div>
+      <div class="speed" role="group" aria-label="Playback speed">
+        <button type="button" data-speed="2">2×</button>
+        <button type="button" data-speed="6">6×</button>
+        <button type="button" data-speed="15">15×</button>
+      </div>
+    </div>
   </div>
 
-  <aside class="side" aria-label="Timetable controls">
-    <div id="side-national">
-      <div class="side-sec">
-        <div class="eyebrow">All of the Maldives</div>
-        <h2>Published ferry schedules</h2>
-        <p id="nat-summary"></p>
-        <div class="status-line" id="scenario-status"></div>
-        <div class="changes" id="changes" hidden></div>
+  <aside class="rail" aria-label="Ferry network and access">
+    <div class="rail-top">
+      <div>
+        <div class="brand">M.A.N.D.A.R.I.N</div>
+        <div class="brand-sub">Maldives ferries, and who they get to the hospital and back</div>
       </div>
-      <div class="side-sec">
-        <h3>Suggest better timetables</h3>
-        <p>Searches each atoll for departure times that give the most islands a complete hospital trip, without anyone losing access.</p>
-        <button type="button" class="btn primary big" id="optimize-all">Find better timetables for every atoll</button>
-        <div class="suggestion" id="national-suggestion" hidden></div>
+      <div class="rail-nav">
+        <select id="atoll" aria-label="Atoll"></select>
+        <button type="button" class="icon-btn" id="to-national" hidden>All atolls</button>
       </div>
     </div>
 
-    <div id="side-nodata" hidden>
-      <div class="side-sec">
-        <div class="eyebrow">Atoll</div>
-        <h2 id="nodata-name"></h2>
-        <p id="nodata-text"></p>
-        <ul class="need" id="nodata-need">
-          <li>Its ferry sailings in data/ferry_schedules.csv</li>
-          <li>Its hospital island in data/facilities.csv</li>
-          <li>Island populations (Census 2022)</li>
-        </ul>
-      </div>
-    </div>
+    <div class="rail-scroll" id="rail-scroll">
+      <section class="sec" id="r-overview"></section>
+      <section class="sec" id="r-access"></section>
 
-    <div id="side-atoll" hidden>
-      <div class="side-sec">
-        <div class="eyebrow">Atoll</div>
-        <h2 id="atoll-name"></h2>
-        <div class="hosp-line" id="atoll-hospital"></div>
-        <p class="small" id="atoll-hospital-note"></p>
-      </div>
-      <div class="side-sec">
-        <h3>Sailing to move</h3>
-        <div id="ferry-controls">
-          <div class="field">
-            <label for="trip">Sailing</label>
-            <select id="trip"></select>
-          </div>
-          <div class="field">
-            <span class="lbl">Departure time</span>
-            <div class="shift-ctl">
-              <button type="button" class="btn" id="earlier" aria-label="15 minutes earlier">−15</button>
-              <input type="range" id="shift" min="-240" max="240" step="15" value="0" aria-label="Shift departure in minutes">
-              <button type="button" class="btn" id="later" aria-label="15 minutes later">+15</button>
-            </div>
-            <span id="shift-readout"></span>
-          </div>
+      <section class="sec" id="r-move" hidden>
+        <h3>Move a sailing</h3>
+        <div class="field">
+          <label for="trip">Sailing</label>
+          <select id="trip"></select>
         </div>
-      </div>
-      <div class="side-sec">
-        <h3>Suggest a timetable</h3>
-        <p>Searches this atoll's sailings for departure times that give the most islands a complete trip, without anyone losing access.</p>
-        <button type="button" class="btn primary big" id="optimize">Find the best timetable</button>
+        <div class="field">
+          <span class="lbl">Departure</span>
+          <div class="shift-ctl">
+            <button type="button" class="btn" id="earlier" aria-label="15 minutes earlier">−15</button>
+            <input type="range" id="shift" min="-240" max="240" step="15" value="0" aria-label="Shift departure in minutes">
+            <button type="button" class="btn" id="later" aria-label="15 minutes later">+15</button>
+          </div>
+          <span id="shift-readout"></span>
+        </div>
+        <button type="button" class="btn primary big" id="optimize">Suggest a better timetable</button>
         <div class="suggestion" id="suggestion" hidden></div>
-      </div>
-    </div>
+      </section>
 
-    <div class="side-sec">
-      <h3>Moved sailings</h3>
-      <ul class="moved" id="moved"></ul>
-      <button type="button" class="btn" id="reset">Put every sailing back</button>
-    </div>
+      <section class="sec" id="r-suggest-all">
+        <h3>Better timetables</h3>
+        <p>Search every atoll for departure times that give more islands a complete hospital trip, without anyone losing access.</p>
+        <button type="button" class="btn primary big" id="optimize-all">Suggest for every atoll</button>
+        <div class="suggestion" id="national-suggestion" hidden></div>
+      </section>
 
-    <div class="side-sec">
-      <h3>Journey rule <span class="tag assumed">assumed</span></h3>
-      <p class="small">Change these to test how sensitive the results are.</p>
-      <div class="rule-grid">
-        <div class="field"><label for="rule-arrive">Appointment at</label><select id="rule-arrive"></select></div>
-        <div class="field"><label for="rule-duration">Appointment takes</label><select id="rule-duration"></select></div>
-        <div class="field"><label for="rule-home">Home by</label><select id="rule-home"></select></div>
-        <div class="field"><label for="rule-buffer">Change boats in</label><select id="rule-buffer"></select></div>
-      </div>
+      <section class="sec" id="r-moved" hidden>
+        <div class="sec-head"><h3>Moved sailings</h3><button type="button" class="link" id="reset">Put all back</button></div>
+        <div class="status-line" id="scenario-status"></div>
+        <ul class="moved" id="moved"></ul>
+      </section>
+
+      <section class="sec">
+        <details class="more">
+          <summary>Journey rule <span class="tag assumed">assumed</span></summary>
+          <div>
+            <p class="status-line">The hospital results depend on these. Change them to test how sensitive the results are.</p>
+            <div class="rule-grid">
+              <div class="field"><label for="rule-arrive">Appointment at</label><select id="rule-arrive"></select></div>
+              <div class="field"><label for="rule-duration">Takes</label><select id="rule-duration"></select></div>
+              <div class="field"><label for="rule-home">Home by</label><select id="rule-home"></select></div>
+              <div class="field"><label for="rule-buffer">Change boats in</label><select id="rule-buffer"></select></div>
+            </div>
+          </div>
+        </details>
+      </section>
+      <section class="sec">
+        <details class="more">
+          <summary>Data and sources</summary>
+          <div id="sources"></div>
+        </details>
+      </section>
     </div>
   </aside>
-</section>
 </div>
-
-<main class="wrap">
-  <section aria-labelledby="table-title">
-    <div class="section-head">
-      <h2 id="table-title">Atolls</h2>
-      <p id="table-hint"></p>
-    </div>
-    <div class="panel"><div class="table-wrap" id="table"></div></div>
-  </section>
-
-  <section aria-labelledby="sources-title">
-    <div class="section-head"><h2 id="sources-title">Data and assumptions</h2></div>
-    <div class="sources">
-      <div class="panel">
-        <h3>Datasets</h3>
-        <div class="table-wrap"><table><thead><tr><th>Dataset</th><th>Source</th><th>Status</th></tr></thead><tbody id="sources"></tbody></table></div>
-      </div>
-      <div class="panel">
-        <h3>Assumptions</h3>
-        <ul id="rules"></ul>
-      </div>
-    </div>
-    <p class="disclaimer">Ferry times come from the published schedules (see the repo's data/ folder). Results show modeled access under the journey rule above, not observed patients or missed appointments. Islands without a ferry stop in the feed aren't modeled. A missing return trip doesn't mean an overnight stay is available.</p>
-  </section>
-</main>
 
 <script src="maldives-geo.js"></script>
 <script src="network-data.js"></script>
