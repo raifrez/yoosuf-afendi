@@ -154,7 +154,6 @@
     routeColor.clear();
     if (state.atoll) for (const r of routesIn(state.atoll)) routeColor.set(r.route, r.color);
     map.zoomTo(state.atoll, true, state.atoll ? stopsIn(state.atoll).map((x) => P[x.id]) : null);
-    autoSuggest(state.atoll);
     $("#atoll").value = state.atoll || "";
     if (state.atoll && trips.length && !boatsAt(anim.t).some((b) => tripAtolls(b.id).has(state.atoll))) {
       // Nothing sailing here right now: jump to the next departure in this atoll.
@@ -675,22 +674,6 @@
     });
   }
 
-  // Opening an atoll with people cut off shows its suggested timetable straight
-  // away: cached if already found, otherwise searched (visibly) once the zoom ends.
-  function autoSuggest(atoll) {
-    const net = nets[atoll];
-    if (!net || state.busy) return;
-    const cut = issuesFor(atoll).hospital.items.length;
-    const applied = (o) => Object.entries(o.shifts).every(([id, v]) => state.shifts[id] === v);
-    if (sugCache[atoll]) {
-      const o = sugCache[atoll];
-      if (Object.keys(o.shifts).length && !applied(o)) state.suggestion = { atoll, ...o };
-      return;
-    }
-    if (!cut) return;
-    setTimeout(() => { if (state.atoll === atoll && !state.busy && !state.suggestion) $("#optimize").click(); }, reduced ? 0 : 850);
-  }
-
   // Apply with a short "applying" state, then let the moved routes glow and
   // jump the clock to just before the first moved sailing so it can be watched.
   function applyWithEffect(shifts, box, clear) {
@@ -773,8 +756,8 @@
       const cut = state.atoll ? iss.hospital.w : totals("current").failed;
       const where = state.atoll ? `in ${esc(atollById[state.atoll].name)}` : "across the atolls with ferry data";
       $("#suggest-lede").innerHTML = cut > 0
-        ? `<b>${esc(units(cut))}</b> ${where} can't make a same-day hospital trip. Find departure times that fix it, without anyone losing access.`
-        : `Everyone ${where} can make the trip. Search anyway for times that keep it that way with less waiting.`;
+        ? `<b>${esc(units(cut))}</b> cut off. Try new departure times; nobody loses access.`
+        : `Everyone ${where} can make the trip.`;
     }
     if (net) {
       const box = $("#suggestion");
