@@ -1,0 +1,98 @@
+"""Bundle engine results for the dashboard into dashboard/engine-data.js (no server needed).
+
+  uv run python -m simulator.export_dashboard
+
+window.MANDARIN_ENGINE = {
+  meta        categories, atolls, islands {island_id: {name, atoll, population}}
+  baseline    scores per island x category and atoll x category (as /api/baseline)
+  demo        the demo resident with before/after itineraries (as /api/demo)
+  scenarios   [{id, label, description, scenario, compare (as /api/scenario), scores (after the change)}]
+}
+Scenarios are precomputed with the same engine and rules as the API: two single-sailing
+shifts, Find better times for Dhaalu, and Add a stop for GA. Maamendhoo.
+"""
+
+import json
+import sys
+from pathlib import Path
+
+from simulator.demo_story import demo_story
+from simulator.model import AddedStop, Model, Scenario
+from simulator.optimize import best_stop, run_search
+from simulator.schools import DEFAULT_SESSION
+from simulator.timetable import TripShift
+
+OUT = Path(__file__).resolve().parent.parent / "dashboard" / "engine-data.js"
+MAAMENDHOO = "1085"
+
+
+def scenarios(model: Model) -> list[tuple[str, str, str, Scenario]]:
+    found = run_search(model, Scenario(), "Dh")
+    stop = best_stop(model, Scenario(), MAAMENDHOO)["best"]
+    name = model.islands[MAAMENDHOO]["name"]
+    return [
+        ("viligili-earlier", "Boat home from Viligili 70 min earlier",
+         "Sailing 236_1 leaves Viligili at 15:35 instead of 16:45, so Gemanafushi residents are home by 17:00.",
+         Scenario((TripShift("236_1", -70),))),
+        ("kudahuvadhoo-later", "Last boat from Kudahuvadhoo 75 min later",
+         "Sailing 288_1 leaves Kudahuvadhoo at 15:20 instead of 14:05, so afternoon hospital visits can get home.",
+         Scenario((TripShift("288_1", 75),))),
+        ("dhaalu-better-times", "Find better times: Dhaalu",
+         "Sailings inside Dhaalu retimed in 15-min steps so more residents' trips work and nobody loses one: "
+         + ", ".join(f"{t} {s:+d} min" for t, s in found["shifts"].items()) + ".",
+         Scenario(tuple(TripShift(t, s) for t, s in found["shifts"].items()))),
+        ("maamendhoo-stop", f"Add a stop: {name}",
+         f"Route {stop['route_id']} calls at {name} (no ferry stop in the schedule today)"
+         + (f", with sailing times adjusted: " + ", ".join(f"{t} {s:+d} min" for t, s in stop["shifts"].items()) if stop["shifts"] else "")
+         + ". Nobody loses a working trip.",
+         Scenario(tuple(TripShift(t, s) for t, s in stop["shifts"].items()),
+                  added_stops=(AddedStop(MAAMENDHOO, stop["route_id"], stop["a"], stop["b"]),))),
+    ]
+
+
+def hhmm(m: int) -> str:
+    return f"{m // 60:02d}:{m % 60:02d}"
+
+
+def rules(model: Model) -> list[str]:
+    """How the synthetic residents travel, read from the parameters the model runs with."""
+    h, s, p = model.health_params, model.school_params, model.params
+    slots = h.appointment_slots
+    mins = lambda c: " or ".join(f"{d} min" for d in h.duration_options(c))  # noqa: E731
+    return [
+        f"Each resident gets one appointment per kind of care, at a fixed time between {hhmm(slots[0])} and {hhmm(slots[-1])} "
+        f"(every {slots[1] - slots[0]} min): health centre {mins('health_centre')}, hospital {mins('hospital_adult')}, referral {mins('referral')}.",
+        f"They must arrive by the appointment and be home by {hhmm(h.home_by)}; residents aged 65+ by {hhmm(h.elderly_home_by)}.",
+        "Children (0-17), adults (18-64) and the elderly (65+) go to the nearest hospital in their home atoll; "
+        "referrals go to the nearest Grade 3 or tertiary hospital in any atoll.",
+        f"Students (6-17) whose grade isn't taught at home commute daily if the school is within "
+        f"{s.max_school_commute_minutes} min by ferry; further away they board. School starts {hhmm(DEFAULT_SESSION.start)}.",
+        f"Connections need {p.min_transfer_minutes} min. Islands with no ferry stop in the schedule show as no data.",
+    ]
+
+
+def main() -> int:
+    model = Model()
+    meta = model.meta()
+    out = {
+        "meta": {"categories": meta["categories"], "atolls": meta["atolls"], "residents": len(model.residents),
+                 "population_source": "built from Census 2022 and HIES 2019 (one record per person)",
+                 "rules": rules(model),
+                 "islands": {i["island_id"]: {"name": i["name"], "atoll": i["atoll"], "population": i["population"]}
+                             for i in meta["islands"]}},
+        "baseline": model.scores_payload(model.baseline),
+        "demo": demo_story(model),
+        "scenarios": [],
+    }
+    for sid, label, description, scenario in scenarios(model):
+        run = model.run(scenario)
+        out["scenarios"].append({"id": sid, "label": label, "description": description, "scenario": scenario.as_dict(),
+                                 "compare": model.compare_payload(run), "scores": model.scores_payload(run)})
+    OUT.write_text("// Generated by simulator/export_dashboard.py. Do not edit by hand.\n"
+                   "window.MANDARIN_ENGINE = " + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n")
+    print(f"Wrote {OUT} ({OUT.stat().st_size // 1024} KB, {len(out['scenarios'])} scenarios)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -174,6 +174,7 @@ h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
 .row .bar { grid-column: 1 / -1; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { border: 0; background: var(--surface-2); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+.chip.sel { box-shadow: 0 0 0 2px var(--turquoise); font-weight: 600; }
 .chip:hover { background: color-mix(in srgb, var(--turquoise) 25%, var(--surface-2)); }
 .barrier { border-radius: 12px; padding: 11px 12px; display: flex; flex-direction: column; gap: 4px; background: color-mix(in srgb, var(--bad-bg) 55%, var(--surface)); }
 .barrier.good { background: color-mix(in srgb, var(--ok-bg) 70%, var(--surface)); }
@@ -507,6 +508,8 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 
     <div class="rail-scroll" id="rail-scroll">
       <section class="sec" id="engine-panel" hidden></section>
+      <section class="sec" id="engine-adjust" hidden></section>
+      <section class="sec" id="engine-access" hidden></section>
       <section class="sec" id="r-access"></section>
       <section class="sec" id="r-overview"></section>
 
@@ -574,4 +577,5 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 <script src="map.js"></script>
 <script src="dropdown.js"></script>
 <script src="app.js"></script>
+<script src="engine-data.js"></script>
 <script src="engine.js"></script>

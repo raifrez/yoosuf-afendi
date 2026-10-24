@@ -17,7 +17,13 @@ The server loads all 11 ferry atolls (124,778 synthetic residents) and runs the 
 
 **Demo story** (`GET /api/demo`, write-up in `docs/demo_resident.md`): Aminath Shafeeg (68, a synthetic resident of GA. Gemanafushi) can reach Viligili hospital for an 11:30 appointment, but the only boat home lands at 18:10, after her 17:00 home-by. Moving sailing 236_1 70 minutes earlier brings her home at 17:00 and gains 1,861 residents across Gemanafushi, Kanduhulhudhoo and Kodey, but 196 Kodey residents lose access, 187 of them their referral trip to Thinadhoo. Gains and losses are shown separately.
 
-**Known gap:** the dashboard UI still computes its numbers with its own `dashboard/simulator.js`. Wiring it onto `/api/dash/*` (the engine's rules) is the next step.
+The dashboard's **Example resident**, **Try an adjustment** and **Access by atoll** panels read `dashboard/engine-data.js`: engine results precomputed with the same rules as the API (baseline scores per island and category, the demo resident, and four adjustments: two sailing shifts, Find better times for Dhaalu, Add a stop for GA. Maamendhoo). Rebuild it after changing data or rules:
+
+```bash
+uv run python -m simulator.export_dashboard   # about 15 s
+```
+
+**Known gap:** the map, timetable and issue cards still compute their numbers with `dashboard/simulator.js` under one assumed rule. Wiring them onto `/api/dash/*` is the next step.
 
 Without the dashboard:
 
