@@ -423,10 +423,10 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 #mapsvg .boat .hull { fill: #F4F7F8; stroke: #0B2236; stroke-width: 1; stroke-opacity: .5; }
 #mapsvg .boat .deck { fill: var(--boat-color, var(--ocean)); }
 #mapsvg .boat.moved .hull { stroke: var(--turquoise); stroke-width: 2.5; stroke-opacity: 1; }
-#mapsvg .boat .wake path { fill: none; stroke: url(#wakeFade); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 1.2 2.2; animation: wake .5s linear infinite; }
-#mapsvg .boat .wake path:first-child { stroke-width: 2.2; }
-@keyframes wake { to { stroke-dashoffset: -6.8; } }
-@media (prefers-reduced-motion: reduce) { #mapsvg .boat .wake path { animation: none; } }
+#mapsvg .wakes { pointer-events: none; }
+#mapsvg .wake polyline { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1.4 2.6; }
+#mapsvg .wake polyline.mid { stroke-width: 2.2; }
+#mapsvg .wake polyline.side { stroke-width: 1.6; }
 
 .rail-foot .sug-actions { flex-direction: column; align-items: stretch; gap: 6px; }
 .rail-foot .sug-actions .link { align-self: center; font-size: 12.5px; color: var(--ink-2); }
@@ -444,6 +444,8 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .warntxt { color: var(--warn); }
 .issue-fix { align-self: flex-start; }
 .sug-caveat { font-size: 12px !important; color: var(--ink-3) !important; margin: 0; }
+
+.clock-chip .chip-lbl { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #A9C6DB; }
 </style>
 
 <div class="app">
@@ -451,7 +453,7 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
     <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives with ferry routes and moving ferries"></svg>
     <div class="map-ui tl">
       <button type="button" class="map-back" id="map-back" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>All of the Maldives</button>
-      <div class="clock-chip" id="clock-chip" hidden><b class="mono" id="clock">06:00</b><span id="clock-sub"></span></div>
+      <div class="clock-chip" id="clock-chip" hidden title="Ferries are drawn where the published timetable puts them at this time of day. The clock runs at 6 timetable minutes per second and loops through the day."><span class="chip-lbl">Timetable</span><b class="mono" id="clock">06:00</b><span id="clock-sub"></span></div>
       <div class="legend">
         <span class="atoll-only"><i class="lg-boat"></i>Ferry</span>
         <span class="atoll-only"><i class="lg-moved"></i>Moved sailing</span>

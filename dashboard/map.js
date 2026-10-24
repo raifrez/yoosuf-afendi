@@ -25,13 +25,11 @@
     const gAtolls = el("g", { class: "atolls" }, svg);
     const gLabels = el("g", { class: "atoll-labels" }, svg);
     const gNet = el("g", { class: "network" }, svg);
-    // Wake gradient: drawn in each boat's local (screen-pixel) frame, white at
-    // the stern fading out behind it.
-    const defs = el("defs", {}, svg);
-    const grad = el("linearGradient", { id: "wakeFade", gradientUnits: "userSpaceOnUse", x1: -9, y1: 0, x2: -54, y2: 0 }, defs);
-    el("stop", { offset: 0, "stop-color": "#fff", "stop-opacity": 0.85 }, grad);
-    el("stop", { offset: 0.45, "stop-color": "#fff", "stop-opacity": 0.4 }, grad);
-    el("stop", { offset: 0.8, "stop-color": "#fff", "stop-opacity": 0 }, grad);
+    // Wakes live on the water (map coordinates), not on the boat: each ferry
+    // leaves foam along the path it just travelled, which spreads and fades.
+    const gWakes = el("g", { class: "wakes" }, svg);
+    const trails = new Map(); // boat id -> { pts: [{x, y, t}], g, lines }
+    const WAKE_MS = 3200, WAKE_BUCKETS = 4;
     const gBoats = el("g", { class: "boats" }, svg);
     const boatEls = new Map();
     let lastBoats = [];
@@ -336,11 +334,6 @@
         let g = boatEls.get(b.id);
         if (!g) {
           g = el("g", { class: "boat" }, gBoats);
-          // Three foam trails from the stern (centre and both quarters), fanning out.
-          const w = el("g", { class: "wake" }, g);
-          el("path", { d: "M-9 0L-52 0" }, w);
-          el("path", { d: "M-9 -2.6L-50 -7.5" }, w);
-          el("path", { d: "M-9 2.6L-50 7.5" }, w);
           el("path", { class: "hull", d: "M-9 -4.4H3Q9.5 -3.8 11.5 0Q9.5 3.8 3 4.4H-9Q-10 0 -9 -4.4Z" }, g);
           el("path", { class: "deck", d: "M-6.5 -2.6H1.5Q5 -2.2 5.8 0Q5 2.2 1.5 2.6H-6.5Z" }, g);
           el("title", {}, g);
@@ -351,21 +344,10 @@
         g.lastChild.textContent = b.title || "";
       }
       for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); }
+      updateTrails(boats);
       placeBoats();
     }
 
-    // Wake: three straight foam trails behind the stern (centre and both
-    // quarters) that fan out into a V.
-    function wakePath(side, t) {
-      const pts = [];
-      for (let k = 0; k <= 16; k++) {
-        const x = -9 - k * 2.8, d = k / 16;
-        // Straight trails in a clean V (no sway); the foam dashes still drift back.
-        const y = side * (2.6 + d * 4.6);
-        pts.push(`${k ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(2)}`);
-      }
-      return pts.join("");
-    }
     function placeBoats() {
       // Boats keep their size at the atoll's framed view and grow as you zoom in
       // (up to 3.5x), so they stay in proportion with the islands.
@@ -376,11 +358,58 @@
         const g = boatEls.get(b.id);
         if (!g) continue;
         g.setAttribute("transform", `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.angle.toFixed(1)}) scale(${sc})`);
-        const paths = g.querySelectorAll(".wake path");
-        if (paths.length === 3) {
-          paths[0].setAttribute("d", wakePath(0, t));
-          paths[1].setAttribute("d", wakePath(-1, t));
-          paths[2].setAttribute("d", wakePath(1, t));
+      }
+      drawWakes(grow);
+    }
+
+    function updateTrails(boats) {
+      const now = performance.now(), seen = new Set();
+      for (const b of boats) {
+        if ((b.cls || "").includes("away")) continue;
+        seen.add(b.id);
+        let tr = trails.get(b.id);
+        if (!tr) {
+          const g = el("g", { class: "wake" }, gWakes);
+          const lines = [];
+          for (let side = -1; side <= 1; side++) for (let k = 0; k < WAKE_BUCKETS; k++) {
+            lines.push({ side, k, el: el("polyline", { "vector-effect": "non-scaling-stroke", class: side ? "side" : "mid" }, g) });
+          }
+          tr = { pts: [], g, lines };
+          trails.set(b.id, tr);
+        }
+        const last = tr.pts[tr.pts.length - 1];
+        // A clock jump teleports the boat: start a fresh wake instead of a streak.
+        if (last && Math.hypot(b.x - last.x, b.y - last.y) > 60 * upp) tr.pts = [];
+        const prev = tr.pts[tr.pts.length - 1];
+        if (!prev || now - prev.t > 80) tr.pts.push({ x: b.x, y: b.y, t: now });
+        tr.head = { x: b.x, y: b.y, t: now, angle: b.angle };
+        tr.pts = tr.pts.filter((p) => now - p.t < WAKE_MS);
+      }
+      for (const [id, tr] of trails) if (!seen.has(id)) { tr.g.remove(); trails.delete(id); }
+    }
+
+    function drawWakes(grow) {
+      const now = performance.now();
+      for (const tr of trails.values()) {
+        if (!tr.head) continue;
+        const pts = [tr.head, ...tr.pts.slice().reverse().filter((p) => p.t < tr.head.t)]; // newest first
+        const per = pts.map((p, i) => {
+          // Direction of travel here (towards the newer point), for the sideways spread.
+          const q = pts[Math.max(0, i - 1)], r = pts[Math.min(pts.length - 1, i + 1)];
+          let dx = q.x - r.x, dy = q.y - r.y, L = Math.hypot(dx, dy);
+          if (L < 1e-6) { const a = (tr.head.angle * Math.PI) / 180; dx = Math.cos(a); dy = Math.sin(a); L = 1; }
+          return { nx: -dy / L, ny: dx / L, age: Math.min(1, (now - p.t) / WAKE_MS) };
+        });
+        for (const ln of tr.lines) {
+          const lo = ln.k / WAKE_BUCKETS, hi = (ln.k + 1) / WAKE_BUCKETS;
+          const sel = [];
+          pts.forEach((p, i) => { if (per[i].age >= lo - 0.05 && per[i].age <= hi + 0.02) sel.push(i); });
+          if (sel.length < 2) { ln.el.setAttribute("points", ""); continue; }
+          ln.el.setAttribute("points", sel.map((i) => {
+            const spread = ln.side * (2.4 + per[i].age * 9) * upp * grow;
+            return `${(pts[i].x + per[i].nx * spread).toFixed(1)},${(pts[i].y + per[i].ny * spread).toFixed(1)}`;
+          }).join(" "));
+          ln.el.setAttribute("stroke-opacity", (0.85 * Math.pow(1 - (lo + hi) / 2, 1.4)).toFixed(2));
         }
       }
     }

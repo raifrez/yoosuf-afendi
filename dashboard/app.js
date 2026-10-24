@@ -240,6 +240,7 @@
       for (const end of [longest[0][0], longest[longest.length - 1][0]]) cands.push({ stopId, route, a: end, end: true });
     }
     let best = null;
+    const tried = [];
     const keep = { ...added };
     for (const c of cands) {
       added[censusId] = c;
@@ -257,7 +258,26 @@
       const extra = Math.max(0, ...trips.filter((t) => t.route === c.route).map((t) => t.extraMinutes || 0));
       // Lexicographic: island gets access, then nobody loses access, then least delay.
       const score = [me && me.success ? 0 : 1, lost, minutes];
-      if (!best || lexLess(score, best.score)) best = { ...c, minutes, extra, lost, ok: !!(me && me.success), me, score };
+      const cand = { ...c, minutes, extra, lost, ok: !!(me && me.success), me, score };
+      tried.push(cand);
+      if (!best || lexLess(score, best.score)) best = cand;
+    }
+    // No placement works on its own: retry the most direct placements while also
+    // letting the search move that route's sailings (still: nobody loses access).
+    if (best && (!best.ok || best.lost)) {
+      const shortlist = tried.slice().sort((x, y) => x.minutes + x.extra - (y.minutes + y.extra)).slice(0, 4);
+      for (const c of shortlist) {
+        const trips = insertStop(NET.trips, c, pos);
+        const stops = [...NET.stops, { id: stopId, name: isl.name, atoll, lat: isl.lat, lon: isl.lon, population: isl.population }];
+        const savedTrips = TRIPS; TRIPS = simTrips(trips);
+        const savedStops = NET.stops; NET.stops = stops;
+        const routeTrips = trips.filter((t) => t.route === c.route).map((t) => t.id);
+        const o = M.optimize(fxFor(atoll), { candidates: routeTrips, maxShift: 180 });
+        TRIPS = savedTrips; NET.stops = savedStops;
+        const me2 = o.result.results.health.find((x) => x.home_island_id === stopId);
+        const lost2 = before ? before.results.health.filter((b) => b.success && !(o.result.results.health.find((x) => x.home_island_id === b.home_island_id) || {}).success).reduce((s2, b) => s2 + b.population_weight, 0) : 0;
+        if (me2 && me2.success && !lost2) { best = { ...c, ok: true, lost: 0, me: me2, shifts: o.shifts }; break; }
+      }
     }
     for (const k of Object.keys(added)) delete added[k];
     Object.assign(added, keep);
@@ -397,7 +417,7 @@
     map.setBoats(boats);
     $("#clock").textContent = fmt(Math.floor(anim.t));
     const inScope = boats.filter((b) => tripAtolls(b.id).has(state.atoll)).length;
-    $("#clock-sub").textContent = `${inScope} ${inScope === 1 ? "ferry" : "ferries"} sailing`;
+    $("#clock-sub").textContent = inScope ? `${inScope} ${inScope === 1 ? "ferry" : "ferries"} sailing now` : "no ferries sailing now";
   }
   // Time-based (not frame-based) so the clock stays right in throttled panes.
   setInterval(() => {
@@ -997,6 +1017,16 @@
     const r = e.target.closest("#mapsvg [data-route]");
     map.highlightRoute(r ? r.dataset.route : null);
   });
+  // Plain-language reason a journey fails, for the "can't add" message.
+  function describeBlocker(r) {
+    if (r.failure_reason === "no_return") {
+      const e = r.evidence;
+      return e.late_home_arrival != null ? `the ferry home would arrive at ${fmt(e.late_home_arrival)}, after ${settings.homeBy}` : `no ferry would take them home after the appointment`;
+    }
+    if (r.failure_reason === "late_arrival") return `the ferry would reach the hospital at ${fmt(r.facility_arrival)}, after ${settings.arriveBy}`;
+    return "";
+  }
+
   // "Add a stop": search every gap on the atoll's routes (visibly), then insert
   // the island where it gains access without costing anyone else.
   function addStop(censusId, btn) {
@@ -1013,10 +1043,13 @@
       state.busy = false;
       if (!best || !best.ok || best.lost) {
         btn.disabled = false; btn.textContent = "Add a stop";
-        showToast(`No stop on an existing route gets ${esc(isl.name)} to the hospital and back without costing others access. It needs a new sailing.`, true);
+        const why = best && best.me ? describeBlocker(best.me) : "";
+        showToast(`Can't add ${esc(isl.name)} to an existing route without costing others access${why ? `: ${esc(why)}` : ""}. It needs a new sailing.`, true);
         return;
       }
-      added[censusId] = { ...best, seq: ++addSeq };
+      const { shifts: extraShifts, ...stop } = best;
+      added[censusId] = { ...stop, seq: ++addSeq };
+      if (extraShifts) state.shifts = { ...state.shifts, ...extraShifts };
       refreshNetwork();
       // Watch it: jump the clock to just before the route's next sailing.
       const deps = NET.trips.filter((t) => t.route === best.route).map((t) => t.calls[0][1] + (state.shifts[t.id] || 0)).sort((a, b) => a - b);
@@ -1025,7 +1058,9 @@
       map.flashEdited();
       const me = resOf(nets[isl.atoll].current, best.stopId);
       const where = best.end ? `as a new end stop beyond ${esc(sname(best.a))} (${best.extra} min more sailing)` : `between ${esc(sname(best.a))} and ${esc(sname(best.b))}${best.minutes ? ` · +${best.minutes} min for later stops` : ""}`;
-      showToast(`Added ${esc(isl.name)} to Route ${esc(best.route)} ${where} · ${me && me.success ? `<b class="good">${esc(units(isl.population))} can now reach the hospital</b>` : `still can't make the hospital trip (${esc((REASON[me ? me.failure_reason : "no_route"] || "").toLowerCase())})`}${best.lost ? ` · <b class="badtxt">${esc(units(best.lost))} lose access</b>` : ""}`);
+      const movedTxt = extraShifts && Object.keys(extraShifts).length
+        ? `, and moved ${Object.entries(extraShifts).map(([id, v]) => `${esc(tripLabel(id))} to ${fmt(firstDep(id) + v)}`).join(", ")}` : "";
+      showToast(`Added ${esc(isl.name)} to Route ${esc(best.route)} ${where}${movedTxt} · ${me && me.success ? `<b class="good">${esc(units(isl.population))} can now reach the hospital</b>` : `still can't make the hospital trip (${esc((REASON[me ? me.failure_reason : "no_route"] || "").toLowerCase())})`}${best.lost ? ` · <b class="badtxt">${esc(units(best.lost))} lose access</b>` : ""}`);
     }, reduced ? 0 : 1400);
   }
 
