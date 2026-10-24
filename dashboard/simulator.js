@@ -30,7 +30,7 @@
       if (isl.id === fx.hub) continue; // already at the facility; not modeled
       groups.push({
         group_id: `G-${isl.id}-RES`, home_island_id: isl.id, age_group: "residents",
-        population_weight: isl.population, data_classification: fx.meta.classification,
+        population_weight: isl.population ?? 1, data_classification: fx.meta.classification,
       });
       if (!isl.ownSecondary && isl.secondaryStudents > 0) {
         groups.push({
@@ -195,7 +195,10 @@
       return {
         ...base, outward_feasible: true, return_feasible: false, failure_reason: "no_return", legs,
         facility_arrival: facilityArr,
-        evidence: { return_ready: returnReady, last_workable_departure: lastWorkable, late_home_arrival: homeArr ?? null },
+        evidence: {
+          return_ready: returnReady, last_workable_departure: lastWorkable, late_home_arrival: homeArr ?? null,
+          late_home_departure: homeArr !== undefined ? pathLegs(back, hub, origin)[0].dep : null,
+        },
       };
     }
 
@@ -274,7 +277,7 @@
     const baseline = run(fx, null);
     const key = (r) => `${r.journey_rule_id}|${r.group_id}`;
     const hadAccess = new Set(Object.values(baseline.results).flat().filter((r) => r.success).map(key));
-    const candidates = baseline.trips.filter((t) => t.days.includes(fx.meta.weekday)).map((t) => t.id);
+    const candidates = opts.candidates || baseline.trips.filter((t) => t.days.includes(fx.meta.weekday)).map((t) => t.id);
     let evaluated = 0;
 
     function score(shifts) {

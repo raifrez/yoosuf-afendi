@@ -1,41 +1,45 @@
 # M.A.N.D.A.R.I.N dashboard
 
-A static prototype of the impact dashboard. It needs no build step and no backend.
+Can islanders reach their atoll hospital and get home the same day on the published ferries? This dashboard runs the real ferry schedules in `data/` through a journey simulator and shows the answer for every atoll, plus timetable changes that would help.
+
+No build step or backend is needed:
 
 ```bash
-open dashboard/index.html
+python3 -m http.server 8765 --directory dashboard   # then open http://localhost:8765
 ```
 
-You can also serve the folder with any static server (for example `python3 -m http.server` from inside `dashboard/`).
+Opening `dashboard/index.html` directly also works.
 
-**All data is fictional.** `data.js` describes a made-up atoll so the UI and simulator can be built before real data is ready.
+## What it shows
+
+- **All of the Maldives:** national totals, atolls ranked by islands cut off, and a red bubble on each problem atoll.
+- **One atoll:** its barriers (grouped by cause, such as "Route 288 docks at 10:05"), each island's journey step by step, and its islands in a table.
+- **Move a sailing** to compare against the published schedule. Every stop of the sailing moves together.
+- **Suggest a timetable** for one atoll or every atoll. It searches 15-min shifts of sailings inside the atoll, maximizes islands with a complete trip, and never lets anyone lose access. It doesn't check boats, crews or cost.
+- **Journey rule** (appointment time, length, home-by time and time to change boats). It is an assumption, so it can be changed in the sidebar to test how sensitive the results are.
+
+## Data
+
+| File | What it is | Status |
+|---|---|---|
+| `data/export/network.json` | Ferry sailings and stops (from `pipeline/`) | Observed; operating days assumed daily |
+| `data/facilities.csv` | The hospital island for each atoll | 7 from OpenStreetMap, 3 assumed at the atoll capital |
+| `data/island_population.csv` | Island populations | **Empty.** Until it's filled, each island counts once. Add Census 2022 figures (`stop_id,population,source,year`) and every count switches to residents |
+| `dashboard/maldives-geo.js` | Island and reef outlines for the map | OpenStreetMap (ODbL), simplified |
+
+After changing anything in `data/`, rebuild the dashboard bundle:
+
+```bash
+python3 dashboard/build_data.py
+```
 
 ## Files
 
-| File | Role | When the backend arrives |
-|---|---|---|
-| `maldives-geo.js` | Real island and reef outlines for all 20 atolls, from OpenStreetMap (© OpenStreetMap contributors, ODbL), simplified to ~220 KB | Keep; regenerate if you need more detail |
-| `map.js` | Maldives map: atoll zoom and the ferry-network overlay | — |
-| `data.js` | Demo fixture: islands, trips, journey rules, sources. `atollId` sets which atoll the demo network is drawn in | Replace with real, sourced records in the same shape (or an API that returns it) |
-| `simulator.js` | Population generator, journey routing, aggregation, baseline vs scenario comparison, and the timetable optimizer | Can move server-side; keep the output record fields (see `M.A.N.D.A.R.I.N_MAJOR_COMPONENTS.md`) |
-| `app.js` | Renders everything from simulator output | Swap `Mandarin.run(...)` for an API call |
-| `index.html` | Layout and styles | — |
-
-## Demo stories built into the fixture
-
-| Island | What happens |
+| File | Role |
 |---|---|
-| B | The only morning ferry arrives after a 10:00 appointment, and students arrive 3 h 10 min late |
-| C | Residents reach the hospital, but the last ferry home leaves at 11:30 |
-| D | Misses the connection at Island A by 10 min (5 min gap, 15 min needed) |
-| E | No ferry runs on Tuesdays |
-| F | Secondary students (45% of the island's school-age children) arrive 60 min late because the ferry leaves at 07:30 |
-| G | Everything works, but residents wait 2 h 45 min before the appointment |
-
-The "Try" buttons replay each fix, plus one change that causes a loss (Island A's ferry 90 min later).
-
-## Suggested timetable
-
-"Find the best timetable" searches departure shifts (15-min steps, up to ±4 h, departures 05:00–22:00) one ferry at a time, repeating until nothing improves. It maximizes the people who can complete their trip, never lets anyone who had access lose it, and prefers the fewest minutes moved. "Also cut waiting time" adds waiting as a second goal. It does not check boats, crews, harbour slots or cost, and it can't fix an island with no service that day.
-
-On the demo data it suggests 4 changes: hospital access goes from 54% to 93% and the full school day from 70 to 420 of 470 students. Island E stays unfixed because it has no Tuesday ferry.
+| `build_data.py` | Bundles `data/` into `network-data.js` |
+| `simulator.js` | Journey routing, failure reasons, aggregation, comparison and the timetable optimizer |
+| `map.js` | Maldives map, atoll zoom, routes, stops and problem bubbles |
+| `app.js` | Dashboard views; every number comes from simulator output |
+| `dropdown.js` | Themed dropdown used in place of native selects |
+| `index.html` | Layout and styles |

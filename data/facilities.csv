@@ -1,0 +1,11 @@
+atoll,stop_id,facility,service,harbour_to_facility_min,classification,source,note
+B,B_EYDHAFUSHI,Atoll hospital (assumed at atoll capital),hospital,10,assumed,,Not mapped as a hospital in OpenStreetMap; verify
+Lh,LH_NAIFARU,Lhaviyani Atoll Hospital,hospital,10,observed,OpenStreetMap amenity=hospital,0.2 km from the ferry stop
+N,N_MANADHOO,Atoll hospital (assumed at atoll capital),hospital,10,assumed,,Not mapped as a hospital in OpenStreetMap; verify
+F,F_NILANDHOO,Faafu Atoll Hospital,hospital,10,observed,OpenStreetMap amenity=hospital,0.2 km from the ferry stop
+Dh,DH_KUDAHUVADHOO,Dhaal Atoll Hospital,hospital,10,observed,OpenStreetMap amenity=hospital,0.6 km from the ferry stop
+Th,TH_VEYMANDOO,Thaa Atoll Hospital,hospital,10,observed,OpenStreetMap amenity=hospital,0.4 km from the ferry stop
+L,L_GAN,Gan Regional Hospital,hospital,10,observed,OpenStreetMap amenity=hospital,1.7 km from the ferry stop
+Ga,GA_VILLINGILI,Atoll hospital (assumed at atoll capital),hospital,10,assumed,,Not mapped as a hospital in OpenStreetMap; verify
+Gdh,GDH_THINADHOO,Dr. Abdul Samadh Memorial Hospital,hospital,10,observed,OpenStreetMap amenity=hospital,0.5 km from the ferry stop
+S,S_FEYDHOO,Hithadhoo Regional Hospital,hospital,20,observed,OpenStreetMap amenity=hospital,Hospital is on Hithadhoo; 20 min by link road from Feydhoo is assumed

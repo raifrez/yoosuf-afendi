@@ -349,6 +349,50 @@ main.wrap { padding-top: 24px; }
 .dd-opt .dd-sub { font-size: 12.5px; color: var(--ink-3); }
 .dd-badge { flex: none; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 6px; background: color-mix(in srgb, var(--turquoise) 22%, var(--surface)); color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .dd-trigger, .dd-chev { transition: none; } }
+
+/* Real-data views */
+.meta .real { background: var(--turquoise); color: var(--ocean); font-weight: 700; }
+.small { font-size: 13px !important; }
+.badtxt { color: var(--bad); }
+.tag.missing { background: var(--bad-bg); color: var(--bad); }
+.tag.mixed { background: var(--surface-2); color: var(--ink-2); }
+.tag.assumed { background: var(--warn-bg); color: var(--warn); }
+.side h3 .tag { font-family: var(--body); vertical-align: 2px; margin-left: 4px; }
+.hosp-line { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-weight: 600; font-size: 14px; }
+.rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ranking { display: flex; flex-direction: column; gap: 8px; }
+.rank { display: flex; flex-direction: column; gap: 4px; text-align: left; border: 0; border-radius: 12px; padding: 12px 14px; background: var(--surface-2); color: var(--ink); }
+.rank.bad { background: color-mix(in srgb, var(--bad-bg) 55%, var(--surface)); }
+.rank:hover { box-shadow: 0 0 0 2px var(--turquoise); }
+.rank-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.rank-name { font-family: var(--display); font-weight: 700; font-size: 16px; }
+.rank-alt { font-size: 12px; color: var(--ink-3); }
+.rank-change { margin-left: auto; font-size: 13px; }
+.rank-big { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.1; color: var(--bad); font-variant-numeric: tabular-nums; }
+.rank-big .of { font-family: var(--body); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.rank-big .okline { font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--ok); }
+.rank-bar { height: 6px; border-radius: 3px; background: var(--bad-bg); overflow: hidden; }
+.rank.ok .rank-bar { background: var(--surface-3); }
+.rank-bar i { display: block; height: 100%; background: var(--ok); border-radius: 3px; }
+.rank-sub { font-size: 12.5px; color: var(--ink-2); }
+.nodata-block { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.nodata-block .chip { font-size: 12px; padding: 4px 10px; }
+.empty-kpi { grid-column: 1 / -1; }
+#mapsvg .atoll.st-none .reef { fill: color-mix(in srgb, var(--reef) 55%, var(--sea)); }
+#mapsvg .atoll.st-none .land { fill: color-mix(in srgb, var(--land) 55%, var(--sea)); }
+#mapsvg .atoll-label.st-none { fill: var(--map-label-2); }
+#mapsvg .atoll-label.st-bad .al-alt { fill: var(--bad); font-weight: 600; }
+#mapsvg .atoll-label.st-ok .al-alt { fill: var(--ok); font-weight: 600; }
+#mapsvg .pin.mini .dot { stroke-width: 1.5; }
+#mapsvg .pin.mini.none .dot { fill: var(--surface); stroke: var(--route); }
+#mapsvg .pin.mini.hub .dot { fill: var(--turquoise); stroke: var(--ocean); }
+#mapsvg:not(.is-national) .pin.mini { opacity: .5; }
+#mapsvg .bubble { cursor: pointer; }
+#mapsvg .bubble circle { stroke: var(--surface); stroke-width: 2.5; }
+#mapsvg .bubble.bad circle { fill: var(--bad); fill-opacity: .9; }
+#mapsvg .bubble.ok circle { fill: var(--ok); fill-opacity: .9; }
+#mapsvg .bubble text { text-anchor: middle; font-family: var(--display); font-weight: 800; font-size: 12px; fill: #fff; pointer-events: none; }
+#mapsvg .bubble:hover circle { stroke: var(--turquoise); stroke-width: 3.5; }
 </style>
 
 <div class="screen">
@@ -356,27 +400,39 @@ main.wrap { padding-top: 24px; }
   <div class="wrap">
     <div class="brand-row">
       <div class="brand">M.A.N.D.A.R.I.N</div>
-      <div class="brand-sub">Can people reach the hospital and school, and get home the same day, on today's ferries?</div>
+      <div class="brand-sub">Can islanders reach their atoll hospital and get home the same day on the published ferries?</div>
     </div>
     <div class="meta">
-      <span class="demo">Demo network · fictional islands and timetable</span>
-      <span>Tue 3 Nov 2026</span>
+      <span class="real">Real ferry schedules</span>
+      <span class="demo">Population not loaded · islands count once</span>
     </div>
   </div>
 </header>
 
 <section class="kpi-strip wrap" aria-label="Headline numbers">
   <div class="kpi-intro">
-    <div class="eyebrow" id="net-title">Demo network</div>
-    <div class="kpi-note">Hospital and school are counted separately, never added together.</div>
+    <div class="eyebrow" id="kpi-scope">All of the Maldives</div>
+    <div class="kpi-note" id="kpi-note"></div>
   </div>
   <div class="kpis" id="kpis"></div>
 </section>
 
 <section class="stage wrap" aria-label="Barriers, map and timetable controls">
   <aside class="left" aria-label="What's stopping people">
-    <div id="left-cards" class="left-view">
+    <div id="left-national" class="left-view">
       <div class="left-head">
+        <h2>Where people are cut off</h2>
+        <p id="rank-count"></p>
+      </div>
+      <div class="ranking" id="ranking"></div>
+      <div class="nodata-block">
+        <div class="eyebrow">No ferry data yet</div>
+        <div class="chips" id="nodata-list"></div>
+      </div>
+    </div>
+    <div id="left-cards" class="left-view" hidden>
+      <div class="left-head">
+        <button type="button" class="link back" data-go-atoll="">← All atolls</button>
         <h2>What's stopping people</h2>
         <p id="card-count"></p>
       </div>
@@ -387,86 +443,75 @@ main.wrap { padding-top: 24px; }
         <button type="button" class="link back" id="back">← All barriers</button>
         <div class="insp-controls">
           <select id="insp-island" aria-label="Island"></select>
-          <div class="seg" role="tablist" aria-label="Trip">
-            <button type="button" role="tab" data-rule-tab="health">Hospital</button>
-            <button type="button" role="tab" data-rule-tab="school">School</button>
-          </div>
         </div>
       </div>
       <div id="insp-body"></div>
     </div>
   </aside>
 
-    <div class="mapbox">
-      <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives atolls"></svg>
-      <div class="map-ui tl">
-        <select id="atoll" aria-label="Atoll"></select>
-        <button type="button" class="btn" id="to-national">All atolls</button>
-        <span class="hint" id="map-hint">Pick an atoll on the map or from the list</span>
+  <div class="mapbox">
+    <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives atolls, ferry routes and island stops"></svg>
+    <div class="map-ui tl">
+      <select id="atoll" aria-label="Atoll"></select>
+      <button type="button" class="btn" id="to-national">All atolls</button>
+      <span class="hint" id="map-hint">Red bubbles show how many are cut off. Click an atoll to zoom in.</span>
+    </div>
+    <div class="map-ui bl">
+      <div class="legend">
+        <span><i class="lg-land"></i>Island</span>
+        <span><i class="lg-reef"></i>Reef</span>
+        <span><i class="lg-ok"></i>Can make the trip</span>
+        <span><i class="lg-bad"></i>Can't</span>
+        <span><i class="lg-hub"></i>Hospital island</span>
+        <span><i class="lg-route"></i>Ferry route</span>
+        <span><i class="lg-edit"></i>Moved sailing</span>
       </div>
-      <div class="map-ui tr" id="map-lens" hidden>
-        <div class="seg" role="group" aria-label="Colour islands by">
-          <button type="button" data-lens="health">Hospital</button>
-          <button type="button" data-lens="school">School</button>
-        </div>
+    </div>
+    <div class="attrib">Map and island positions © OpenStreetMap contributors</div>
+  </div>
+
+  <aside class="side" aria-label="Timetable controls">
+    <div id="side-national">
+      <div class="side-sec">
+        <div class="eyebrow">All of the Maldives</div>
+        <h2>Published ferry schedules</h2>
+        <p id="nat-summary"></p>
+        <div class="status-line" id="scenario-status"></div>
+        <div class="changes" id="changes" hidden></div>
       </div>
-      <div class="map-ui bl">
-        <div class="legend">
-          <span><i class="lg-land"></i>Island</span>
-          <span><i class="lg-reef"></i>Reef</span>
-          <span id="map-legend-net" hidden>
-            <span><i class="lg-ok"></i>Can make the trip</span>
-            <span><i class="lg-bad"></i>Can't</span>
-            <span><i class="lg-hub"></i>Hospital and school</span>
-            <span><i class="lg-route"></i>Ferry</span>
-            <span><i class="lg-edit"></i>Moved ferry</span>
-          </span>
-        </div>
+      <div class="side-sec">
+        <h3>Suggest better timetables</h3>
+        <p>Searches each atoll for departure times that give the most islands a complete hospital trip, without anyone losing access.</p>
+        <button type="button" class="btn primary big" id="optimize-all">Find better timetables for every atoll</button>
+        <div class="suggestion" id="national-suggestion" hidden></div>
       </div>
-      <div class="attrib">Map © OpenStreetMap contributors</div>
     </div>
 
-    <aside class="side" aria-label="Timetable controls">
-      <div id="side-national">
-        <div class="side-sec">
-          <div class="eyebrow">All of the Maldives</div>
-          <h2>Choose an atoll</h2>
-          <p>Click an atoll to zoom in. Each atoll needs its own ferry timetable, population and facility data before it can be modeled.</p>
-        </div>
-        <div class="side-sec">
-          <h3>Demo network</h3>
-          <p>A fictional set of islands and ferries is loaded in <b id="net-title-short">Laamu</b> so the tool can be tried end to end.</p>
-          <button type="button" class="btn primary big" data-go-demo>Open the demo network</button>
-        </div>
+    <div id="side-nodata" hidden>
+      <div class="side-sec">
+        <div class="eyebrow">Atoll</div>
+        <h2 id="nodata-name"></h2>
+        <p id="nodata-text"></p>
+        <ul class="need" id="nodata-need">
+          <li>Its ferry sailings in data/ferry_schedules.csv</li>
+          <li>Its hospital island in data/facilities.csv</li>
+          <li>Island populations (Census 2022)</li>
+        </ul>
       </div>
+    </div>
 
-      <div id="side-nodata" hidden>
-        <div class="side-sec">
-          <div class="eyebrow">Atoll</div>
-          <h2 id="nodata-name"></h2>
-          <p>No ferry timetable or population data is loaded for this atoll yet. To model it, add:</p>
-          <ul class="need">
-            <li>Island populations (Census 2022)</li>
-            <li>Ferry timetables with operating days</li>
-            <li>Hospital and school locations</li>
-          </ul>
-          <button type="button" class="btn primary big" data-go-demo>Open the demo network</button>
-        </div>
+    <div id="side-atoll" hidden>
+      <div class="side-sec">
+        <div class="eyebrow">Atoll</div>
+        <h2 id="atoll-name"></h2>
+        <div class="hosp-line" id="atoll-hospital"></div>
+        <p class="small" id="atoll-hospital-note"></p>
       </div>
-
-      <div id="side-demo" hidden>
-        <div class="side-sec">
-          <div class="eyebrow">Atoll</div>
-          <h2 id="demo-atoll-name"></h2>
-          <span class="demo-tag">Fictional islands and timetable on a real map</span>
-          <div class="status-line" id="scenario-status"></div>
-          <div class="changes" id="changes" hidden></div>
-        </div>
-
-        <div class="side-sec">
-          <h3>Ferry to move</h3>
+      <div class="side-sec">
+        <h3>Sailing to move</h3>
+        <div id="ferry-controls">
           <div class="field">
-            <label for="trip">Ferry</label>
+            <label for="trip">Sailing</label>
             <select id="trip"></select>
           </div>
           <div class="field">
@@ -478,35 +523,41 @@ main.wrap { padding-top: 24px; }
             </div>
             <span id="shift-readout"></span>
           </div>
-          <div class="field">
-            <span class="lbl">Moved ferries</span>
-            <ul class="moved" id="moved"></ul>
-          </div>
-          <button type="button" class="btn" id="reset">Put every ferry back</button>
-        </div>
-
-        <div class="side-sec">
-          <h3>Try an example</h3>
-          <div class="chips" id="presets"></div>
-        </div>
-
-        <div class="side-sec">
-          <h3>Suggest a timetable</h3>
-          <p>Searches for departure times that give the most people a complete trip, without anyone losing access.</p>
-          <label class="check"><input type="checkbox" id="reduce-wait"> Also cut waiting time (moves more ferries)</label>
-          <button type="button" class="btn primary big" id="optimize">Find the best timetable</button>
-          <div class="suggestion" id="suggestion" hidden></div>
         </div>
       </div>
-    </aside>
+      <div class="side-sec">
+        <h3>Suggest a timetable</h3>
+        <p>Searches this atoll's sailings for departure times that give the most islands a complete trip, without anyone losing access.</p>
+        <button type="button" class="btn primary big" id="optimize">Find the best timetable</button>
+        <div class="suggestion" id="suggestion" hidden></div>
+      </div>
+    </div>
+
+    <div class="side-sec">
+      <h3>Moved sailings</h3>
+      <ul class="moved" id="moved"></ul>
+      <button type="button" class="btn" id="reset">Put every sailing back</button>
+    </div>
+
+    <div class="side-sec">
+      <h3>Journey rule <span class="tag assumed">assumed</span></h3>
+      <p class="small">Change these to test how sensitive the results are.</p>
+      <div class="rule-grid">
+        <div class="field"><label for="rule-arrive">Appointment at</label><select id="rule-arrive"></select></div>
+        <div class="field"><label for="rule-duration">Appointment takes</label><select id="rule-duration"></select></div>
+        <div class="field"><label for="rule-home">Home by</label><select id="rule-home"></select></div>
+        <div class="field"><label for="rule-buffer">Change boats in</label><select id="rule-buffer"></select></div>
+      </div>
+    </div>
+  </aside>
 </section>
 </div>
 
 <main class="wrap">
-  <section aria-labelledby="islands-title">
+  <section aria-labelledby="table-title">
     <div class="section-head">
-      <h2 id="islands-title">Islands</h2>
-      <p>Click a row to see that island's journey.</p>
+      <h2 id="table-title">Atolls</h2>
+      <p id="table-hint"></p>
     </div>
     <div class="panel"><div class="table-wrap" id="table"></div></div>
   </section>
@@ -519,16 +570,16 @@ main.wrap { padding-top: 24px; }
         <div class="table-wrap"><table><thead><tr><th>Dataset</th><th>Source</th><th>Status</th></tr></thead><tbody id="sources"></tbody></table></div>
       </div>
       <div class="panel">
-        <h3>Journey rules</h3>
+        <h3>Assumptions</h3>
         <ul id="rules"></ul>
       </div>
     </div>
-    <p class="disclaimer">The map outlines are real (OpenStreetMap). The islands, people and ferries in the demo network are fictional and placed in one atoll only to show how the tool works. Results show modeled residents without same-day access under these rules. They are not counts of patients, missed appointments or school absences. A missing return trip doesn't mean an overnight stay is available.</p>
+    <p class="disclaimer">Ferry times come from the published schedules (see the repo's data/ folder). Results show modeled access under the journey rule above, not observed patients or missed appointments. Islands without a ferry stop in the feed aren't modeled. A missing return trip doesn't mean an overnight stay is available.</p>
   </section>
 </main>
 
 <script src="maldives-geo.js"></script>
-<script src="data.js"></script>
+<script src="network-data.js"></script>
 <script src="simulator.js"></script>
 <script src="map.js"></script>
 <script src="dropdown.js"></script>

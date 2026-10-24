@@ -13,7 +13,7 @@
   function createMap(svg, geo, opts) {
     const atolls = geo.atolls;
     const all = atolls.reduce((b, a) => [Math.min(b[0], a.bbox[0]), Math.min(b[1], a.bbox[1]), Math.max(b[2], a.bbox[2]), Math.max(b[3], a.bbox[3])], [1e9, 1e9, -1e9, -1e9]);
-    const NATIONAL = [all[0] - 3000, all[1] - 7500, all[2] - all[0] + 14000, all[3] - all[1] + 11000]; // extra top room for the map toolbar
+    const NATIONAL = [all[0] - 3000, all[1] - 13000, all[2] - all[0] + 14000, all[3] - all[1] + 16500]; // extra top room for the map toolbar
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let vb = NATIONAL.slice();
@@ -109,19 +109,24 @@
       })();
     }
 
-    function setState({ atollId, demoAtollId }) {
+    // status: { atollId: "bad" | "ok" | "none" }, notes: { atollId: "short text" }
+    function setState({ atollId, status = {}, notes = {} }) {
       svg.classList.toggle("is-national", !atollId);
       for (const a of atolls) {
         const { g, label, alt } = atollEls[a.id];
         g.classList.toggle("active", a.id === atollId);
-        g.classList.toggle("demo", a.id === demoAtollId);
-        label.classList.toggle("demo", a.id === demoAtollId);
-        alt.textContent = a.id === demoAtollId ? `${a.alt} · demo network` : a.alt;
+        for (const k of ["bad", "ok", "none"]) {
+          g.classList.toggle(`st-${k}`, status[a.id] === k);
+          label.classList.toggle(`st-${k}`, status[a.id] === k);
+        }
+        alt.textContent = notes[a.id] ? `${a.alt} · ${notes[a.id]}` : a.alt;
       }
+      layoutLabels();
     }
 
-    // nodes: {id, x, y, r, status, label, caption, selected, hub}
+    // nodes: {id, x, y, r, status, label, caption, selected, hub, mini}
     // routes: {x1, y1, x2, y2, kind}
+    // bubbles: {atoll, x, y, r, text, status}
     function setNetwork(net) {
       gNet.replaceChildren();
       pins = [];
@@ -129,7 +134,21 @@
       for (const r of net.routes) {
         el("line", { class: `route ${r.kind}`, x1: r.x1, y1: r.y1, x2: r.x2, y2: r.y2, "vector-effect": "non-scaling-stroke" }, gNet);
       }
-      for (const n of net.nodes) {
+      for (const n of net.nodes.filter((x) => x.mini)) {
+        const g = el("g", { class: `pin mini ${n.status}`, "aria-hidden": "true" }, gNet);
+        g.dataset.x = n.x; g.dataset.y = n.y;
+        el("circle", { class: "dot", r: n.hub ? 4.5 : 3 }, g);
+        pins.push(g);
+      }
+      for (const b of net.bubbles || []) {
+        const g = el("g", { class: `bubble ${b.status}`, "data-atoll": b.atoll }, gNet);
+        g.dataset.x = b.x; g.dataset.y = b.y;
+        el("circle", { r: b.r }, g);
+        const t = el("text", { y: 0.5, "dominant-baseline": "middle" }, g);
+        t.textContent = b.text;
+        pins.push(g);
+      }
+      for (const n of net.nodes.filter((x) => !x.mini)) {
         const g = el("g", {
           class: `pin ${n.status}${n.selected ? " sel" : ""}`, "data-island": n.id,
           tabindex: n.hub ? -1 : 0, role: n.hub ? "img" : "button", "aria-label": `${n.label}: ${n.caption}`,
@@ -175,7 +194,9 @@
     applyViewBox();
 
     const bboxOf = (id) => atolls.find((a) => a.id === id).bbox;
-    return { zoomTo, setState, setNetwork, bboxOf };
+    const project = (lon, lat) => [(lon - geo.projection.lon0) * geo.projection.k, (geo.projection.lat0 - lat) * geo.projection.k];
+    const centreOf = (id) => { const a = atolls.find((x) => x.id === id); return [(a.bbox[0] + a.bbox[2]) / 2, a.labelY != null ? a.labelY : (a.bbox[1] + a.bbox[3]) / 2]; };
+    return { zoomTo, setState, setNetwork, bboxOf, project, centreOf };
   }
 
   window.MandarinMap = { createMap };
