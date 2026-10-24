@@ -25,9 +25,13 @@
     const gAtolls = el("g", { class: "atolls" }, svg);
     const gLabels = el("g", { class: "atoll-labels" }, svg);
     const gNet = el("g", { class: "network" }, svg);
-    const gRipples = el("g", { class: "ripples" }, svg);
+    // Wake gradient: drawn in each boat's local (screen-pixel) frame, white at
+    // the stern fading out behind it.
+    const defs = el("defs", {}, svg);
+    const grad = el("linearGradient", { id: "wakeFade", gradientUnits: "userSpaceOnUse", x1: -9, y1: 0, x2: -52, y2: 0 }, defs);
+    el("stop", { offset: 0, "stop-color": "#fff", "stop-opacity": 0.9 }, grad);
+    el("stop", { offset: 1, "stop-color": "#fff", "stop-opacity": 0 }, grad);
     const gBoats = el("g", { class: "boats" }, svg);
-    const rippleState = new Map(); // boat id -> { t, x, y } of the last ripple
     const boatEls = new Map();
     let lastBoats = [];
     let routeLines = []; // [{ id, color, points: [[x,y]...], el, glow }]
@@ -328,8 +332,13 @@
         let g = boatEls.get(b.id);
         if (!g) {
           g = el("g", { class: "boat" }, gBoats);
-          el("path", { class: "wake", d: "M-9 0H-22" }, g);
-          el("path", { class: "hull", d: "M-8 -4H4L9 0L4 4H-8Z" }, g);
+          // Three foam trails from the stern (centre and both quarters), fanning out.
+          const w = el("g", { class: "wake" }, g);
+          el("path", { d: "M-9 0L-52 0" }, w);
+          el("path", { d: "M-9 -2.6L-50 -7.5" }, w);
+          el("path", { d: "M-9 2.6L-50 7.5" }, w);
+          el("path", { class: "hull", d: "M-9 -4.4H3Q9.5 -3.8 11.5 0Q9.5 3.8 3 4.4H-9Q-10 0 -9 -4.4Z" }, g);
+          el("path", { class: "deck", d: "M-6.5 -2.6H1.5Q5 -2.2 5.8 0Q5 2.2 1.5 2.6H-6.5Z" }, g);
           el("title", {}, g);
           boatEls.set(b.id, g);
         }
@@ -337,29 +346,10 @@
         g.style.setProperty("--boat-color", b.color || "");
         g.lastChild.textContent = b.title || "";
       }
-      for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); rippleState.delete(id); }
+      for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); }
       placeBoats();
-      dropRipples(boats);
     }
 
-    // A moving ferry leaves a ring of water every ~0.45 s that spreads and fades
-    // (CSS animation). Rings are sized in screen pixels via scale(upp).
-    function dropRipples(boats) {
-      if (reduced) return;
-      const now = performance.now();
-      for (const b of boats) {
-        if ((b.cls || "").includes("away")) continue; // only ferries in the open atoll
-        const last = rippleState.get(b.id);
-        if (last && (now - last.t < 450 || Math.hypot(b.x - last.x, b.y - last.y) < 0.5 * upp)) continue;
-        rippleState.set(b.id, { t: now, x: b.x, y: b.y });
-        if (!last) continue; // first sighting: nothing to compare movement against yet
-        if (gRipples.childElementCount > 120) gRipples.firstChild.remove();
-        const g = el("g", { class: `ripple ${b.cls || ""}`, transform: `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) scale(${upp.toFixed(3)})` }, gRipples);
-        g.style.setProperty("--boat-color", b.color || "");
-        el("circle", { r: 4, "vector-effect": "non-scaling-stroke" }, g);
-        setTimeout(() => g.remove(), 1900);
-      }
-    }
     function placeBoats() {
       // Boats are drawn smaller at national zoom so they don't crowd the atolls.
       const sc = (Math.max(upp, 0.0001) * (svg.classList.contains("is-national") ? 0.55 : 1)).toFixed(3);

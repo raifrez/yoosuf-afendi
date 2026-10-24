@@ -634,6 +634,7 @@
     const labelEl = btn.querySelector("span") || btn;
     const label = labelEl.textContent;
     btn.disabled = true;
+    if (ids.length === 1) btn.hidden = true; // the loader and then the result take its place
     box.hidden = false;
     map.setSearching(true);
     const per = [];
@@ -751,7 +752,7 @@
       ${changes.length ? `<ol class="sug-list">${changes.map(([id, v]) => `<li><span>${esc(tripLabel(id))}</span><span class="mono"><span class="strike">${fmt(firstDep(id))}</span> → <b>${fmt(firstDep(id) + v)}</b></span></li>`).join("")}</ol>` : ""}
       <dl class="sug-result"><div><dt>Gain same-day access</dt><dd class="good"><b>+${units(h.gained)}</b></dd></div><div><dt>Lose access</dt><dd>${n(h.lost)} <span class="muted">(not allowed)</span></dd></div></dl>
       ${unresolved.length ? `<div class="sug-unres"><b>Still not fixed:</b> ${unresolved.map((r) => `${esc(sname(r.home_island_id))} (${esc(REASON[r.failure_reason].toLowerCase())})`).join("; ")}. These need a new sailing or a cross-atoll change.</div>` : ""}
-      <div class="sug-actions">${changes.length ? `<button type="button" class="btn primary" id="apply-suggestion">Apply</button>` : ""}<button type="button" class="btn" id="dismiss-suggestion">Dismiss</button></div>
+      <div class="sug-actions">${changes.length ? `<button type="button" class="btn hero-btn" id="apply-suggestion">Apply new times</button>` : ""}<button type="button" class="link" id="dismiss-suggestion">${changes.length ? "Dismiss" : "Close"}</button></div>
       <p class="sug-note">Checked ${n(o.evaluated)} timetables. Moves sailings inside this atoll in 15-min steps. Doesn't check boats, crews or cost.</p>`;
   }
 
@@ -765,7 +766,10 @@
     const hasIssue = !!net && issuesFor(state.atoll).hospital.items.length > 0;
     const showing = state.busy || (state.suggestion && state.suggestion.atoll === state.atoll);
     $("#r-suggest").hidden = !net || (!hasIssue && !showing);
-    $("#optimize").hidden = !net;
+    // Find better times disappears once clicked: the search, then its result
+    // (with Apply as the main action) take its place until dismissed or applied.
+    const showingResult = state.suggestion && state.suggestion.atoll === state.atoll;
+    $("#optimize").hidden = !net || state.busy || !!showingResult;
     $("#optimize-all").hidden = !!state.atoll;
     if (!$("#optimize").disabled && !$("#optimize-all").disabled) {
       const iss = state.atoll ? issuesFor(state.atoll) : null;
