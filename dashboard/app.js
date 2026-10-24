@@ -788,6 +788,7 @@
     if (ids.length === 1) btn.hidden = true; // the loader and then the result take its place
     box.hidden = false;
     map.setSearching(true);
+    $(".mapbox").classList.add("applying"); // same quiet sheen as applying
     const per = [];
     const t0 = performance.now();
     let evaluated = 0, ai = 0, it = null;
@@ -800,6 +801,7 @@
         }
         if (ai >= ids.length) {
           map.setSearching(false); map.markAtoll(null); map.highlightRoute(null);
+          $(".mapbox").classList.remove("applying");
           state.busy = false; btn.disabled = false; labelEl.textContent = label;
           done(per, evaluated);
           return;
