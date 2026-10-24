@@ -3,11 +3,14 @@
   data/gtfs/{trips,stop_times,stops}.txt     timetable (observed sailings; operating days assumed daily)
   data/export/stop_islands.csv               ferry stop -> Census island_id(s) (derived)
   data/processed/population/islands.parquet  Census islands: name, atoll_code (+ population)
-  data/processed/facilities/facilities.parquet  hospitals and their island_id (island links derived)
+  data/processed/facilities/facilities.parquet  hospitals and schools with their island_id (island links derived)
+  data/processed/facilities/school_grades.parquet  grades a school profile states (derived)
+  data/processed/population/persons.parquet  synthetic residents: home island and age
 """
 
 from collections import defaultdict
 from pathlib import Path
+from typing import Iterable
 
 import duckdb
 
@@ -15,10 +18,13 @@ from pipeline.build_gtfs import OUT as GTFS, to_minutes
 from pipeline.export_web import EXPORT
 from pipeline.map_islands import load_census_islands
 from pipeline.stops import DATA, read_csv
+from simulator.schools import SCHOOL_AGES, School, Student
 from simulator.timetable import StopTime, Timetable, Trip
 
 STOP_ISLANDS = EXPORT / "stop_islands.csv"
 FACILITIES = DATA / "processed" / "facilities" / "facilities.parquet"
+SCHOOL_GRADES = DATA / "processed" / "facilities" / "school_grades.parquet"
+PERSONS = DATA / "processed" / "population" / "persons.parquet"
 
 
 def _rows(path: Path) -> list[dict]:
@@ -68,3 +74,22 @@ def load_hospitals(path: Path = FACILITIES) -> list[dict]:
         SELECT facility_id, name, island_id, location_match FROM '{path}'
         WHERE facility_type = 'hospital' AND island_id IS NOT NULL ORDER BY island_id, name""")
     return [dict(zip(rel.columns, row)) for row in rel.fetchall()]
+
+
+def load_schools(facilities: Path = FACILITIES, grades: Path = SCHOOL_GRADES) -> list[School]:
+    """Schools linked to a Census island, with the grades their profile states (None = not sourced)."""
+    rel = duckdb.sql(f"""
+        SELECT f.facility_id, f.name, f.island_id, list(g.grade::INT) FILTER (g.grade IS NOT NULL) AS grades
+        FROM '{facilities}' f LEFT JOIN '{grades}' g USING (facility_id)
+        WHERE f.kind = 'school' AND f.island_id IS NOT NULL
+        GROUP BY ALL ORDER BY f.island_id, f.name""")
+    return [School(fid, name, island_id, frozenset(g) if g else None) for fid, name, island_id, g in rel.fetchall()]
+
+
+def load_students(island_ids: Iterable[str], persons: Path = PERSONS) -> list[Student]:
+    """Synthetic residents of school age living on the given islands."""
+    rows = duckdb.execute(f"""
+        SELECT person_id, home_island_id, age, population_weight FROM '{persons}'
+        WHERE age BETWEEN ? AND ? AND list_contains(?, home_island_id) ORDER BY person_id""",
+        [SCHOOL_AGES.start, SCHOOL_AGES.stop - 1, list(island_ids)]).fetchall()
+    return [Student(pid, island, age, weight) for pid, island, age, weight in rows]
