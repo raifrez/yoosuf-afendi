@@ -29,7 +29,6 @@
     // leaves foam along the path it just travelled, which spreads and fades.
     const gWakes = el("g", { class: "wakes" }, svg);
     const trails = new Map(); // boat id -> { pts: [{x, y, t}], g, lines }
-    const WAKE_MS = 3200, WAKE_BUCKETS = 4;
     const gBoats = el("g", { class: "boats" }, svg);
     const boatEls = new Map();
     let lastBoats = [];
@@ -362,8 +361,13 @@
       drawWakes(grow);
     }
 
+    // Wake on the water. Each ferry keeps the path it has travelled (sampled by
+    // distance); a single foam trail is drawn along the last ~70 px of it from
+    // the stern, fading with distance. Points stay where the boat left them, so
+    // turns leave a curve.
+    const WAKE_PX = 70, WAKE_STEPS = 10;
     function updateTrails(boats) {
-      const now = performance.now(), seen = new Set();
+      const seen = new Set();
       for (const b of boats) {
         if ((b.cls || "").includes("away")) continue;
         seen.add(b.id);
@@ -371,45 +375,66 @@
         if (!tr) {
           const g = el("g", { class: "wake" }, gWakes);
           const lines = [];
-          for (let side = -1; side <= 1; side++) for (let k = 0; k < WAKE_BUCKETS; k++) {
+          // One trail down the middle of the boat's path.
+          for (const side of [0]) for (let k = 0; k < WAKE_STEPS; k++) {
             lines.push({ side, k, el: el("polyline", { "vector-effect": "non-scaling-stroke", class: side ? "side" : "mid" }, g) });
           }
           tr = { pts: [], g, lines };
           trails.set(b.id, tr);
         }
         const last = tr.pts[tr.pts.length - 1];
-        // A clock jump teleports the boat: start a fresh wake instead of a streak.
-        if (last && Math.hypot(b.x - last.x, b.y - last.y) > 60 * upp) tr.pts = [];
-        const prev = tr.pts[tr.pts.length - 1];
-        if (!prev || now - prev.t > 80) tr.pts.push({ x: b.x, y: b.y, t: now });
-        tr.head = { x: b.x, y: b.y, t: now, angle: b.angle };
-        tr.pts = tr.pts.filter((p) => now - p.t < WAKE_MS);
+        const d = last ? Math.hypot(b.x - last.x, b.y - last.y) : Infinity;
+        if (last && d > 120 * upp) tr.pts = []; // clock jump: start a fresh wake
+        if (!last || d > 2 * upp || !tr.pts.length) tr.pts.push({ x: b.x, y: b.y });
+        if (tr.pts.length > 400) tr.pts.splice(0, tr.pts.length - 400);
+        tr.head = { x: b.x, y: b.y, angle: b.angle };
       }
       for (const [id, tr] of trails) if (!seen.has(id)) { tr.g.remove(); trails.delete(id); }
     }
 
     function drawWakes(grow) {
-      const now = performance.now();
+      const unitPx = upp * grow;                 // map units per boat-pixel
+      const L = WAKE_PX * unitPx;                // wake length in map units
+      const STERN = 8 * unitPx, HALF0 = 2.2 * unitPx, SPREAD = Math.tan((20 * Math.PI) / 180);
       for (const tr of trails.values()) {
         if (!tr.head) continue;
-        const pts = [tr.head, ...tr.pts.slice().reverse().filter((p) => p.t < tr.head.t)]; // newest first
-        const per = pts.map((p, i) => {
-          // Direction of travel here (towards the newer point), for the sideways spread.
-          const q = pts[Math.max(0, i - 1)], r = pts[Math.min(pts.length - 1, i + 1)];
-          let dx = q.x - r.x, dy = q.y - r.y, L = Math.hypot(dx, dy);
-          if (L < 1e-6) { const a = (tr.head.angle * Math.PI) / 180; dx = Math.cos(a); dy = Math.sin(a); L = 1; }
-          return { nx: -dy / L, ny: dx / L, age: Math.min(1, (now - p.t) / WAKE_MS) };
-        });
+        // Path from the stern backwards: start behind the boat along its heading.
+        const a = (tr.head.angle * Math.PI) / 180;
+        const stern = { x: tr.head.x - Math.cos(a) * STERN, y: tr.head.y - Math.sin(a) * STERN };
+        const back = [stern];
+        for (let i = tr.pts.length - 1; i >= 0; i--) {
+          const p = tr.pts[i], q = back[back.length - 1];
+          // skip history points still under the hull
+          if (back.length === 1 && Math.hypot(p.x - tr.head.x, p.y - tr.head.y) < STERN) continue;
+          back.push({ x: p.x, y: p.y });
+          if (q && back.length > 1) {
+            let acc = 0;
+            for (let k = 1; k < back.length; k++) acc += Math.hypot(back[k].x - back[k - 1].x, back[k].y - back[k - 1].y);
+            if (acc > L) break;
+          }
+        }
+        // Arc length and local direction at each point.
+        const s = [0];
+        for (let k = 1; k < back.length; k++) s.push(s[k - 1] + Math.hypot(back[k].x - back[k - 1].x, back[k].y - back[k - 1].y));
+        const total = Math.min(L, s[s.length - 1] || 0);
+        const pt = (k, side) => {
+          const p = back[k], q = back[Math.max(0, k - 1)], r = back[Math.min(back.length - 1, k + 1)];
+          let dx = q.x - r.x, dy = q.y - r.y, n = Math.hypot(dx, dy);
+          if (n < 1e-9) { dx = Math.cos(a); dy = Math.sin(a); n = 1; }
+          const off = side * (HALF0 + s[k] * SPREAD);
+          return `${(p.x + (-dy / n) * off).toFixed(1)},${(p.y + (dx / n) * off).toFixed(1)}`;
+        };
         for (const ln of tr.lines) {
-          const lo = ln.k / WAKE_BUCKETS, hi = (ln.k + 1) / WAKE_BUCKETS;
-          const sel = [];
-          pts.forEach((p, i) => { if (per[i].age >= lo - 0.05 && per[i].age <= hi + 0.02) sel.push(i); });
-          if (sel.length < 2) { ln.el.setAttribute("points", ""); continue; }
-          ln.el.setAttribute("points", sel.map((i) => {
-            const spread = ln.side * (2.4 + per[i].age * 9) * upp * grow;
-            return `${(pts[i].x + per[i].nx * spread).toFixed(1)},${(pts[i].y + per[i].ny * spread).toFixed(1)}`;
-          }).join(" "));
-          ln.el.setAttribute("stroke-opacity", (0.85 * Math.pow(1 - (lo + hi) / 2, 1.4)).toFixed(2));
+          const lo = (ln.k / WAKE_STEPS) * total, hi = ((ln.k + 1) / WAKE_STEPS) * total;
+          const idx = [];
+          for (let k = 0; k < back.length; k++) if (s[k] >= lo - 1e-9 && s[k] <= hi + 1e-9) idx.push(k);
+          // include the neighbours so consecutive pieces join without gaps
+          if (idx.length && idx[0] > 0) idx.unshift(idx[0] - 1);
+          if (idx.length && idx[idx.length - 1] < back.length - 1 && s[idx[idx.length - 1]] < hi) idx.push(idx[idx.length - 1] + 1);
+          if (idx.length < 2 || total <= 0) { ln.el.setAttribute("points", ""); continue; }
+          ln.el.setAttribute("points", idx.map((k) => pt(k, ln.side)).join(" "));
+          const f = (ln.k + 0.5) / WAKE_STEPS;     // 0 at the stern → 1 at the tail
+          ln.el.setAttribute("stroke-opacity", (0.8 * Math.pow(1 - f, 1.5)).toFixed(3));
         }
       }
     }
