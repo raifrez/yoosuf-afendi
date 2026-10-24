@@ -761,7 +761,8 @@
     $("#to-national").hidden = !state.atoll;
     $("#r-move").hidden = !net;
     // Showcase section: same place at both levels; atoll search inside an atoll, all atolls otherwise.
-    $("#r-suggest").hidden = !!state.atoll && !net;
+    // Only inside an atoll; the all-atolls view leads with current issues instead.
+    $("#r-suggest").hidden = !net;
     $("#optimize").hidden = !net;
     $("#optimize-all").hidden = !!state.atoll;
     if (!$("#optimize").disabled && !$("#optimize-all").disabled) {
