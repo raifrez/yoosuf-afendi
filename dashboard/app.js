@@ -78,6 +78,7 @@
     };
   }
 
+  const sugCache = {}; // atoll id -> optimizer result for the current journey rule
   const state = { atoll: null, shifts: {}, editTrip: null, island: null, view: "list", suggestion: null, national: null, busy: false };
   let nets = {};
   let shiftError = null;
@@ -153,6 +154,7 @@
     routeColor.clear();
     if (state.atoll) for (const r of routesIn(state.atoll)) routeColor.set(r.route, r.color);
     map.zoomTo(state.atoll, true, state.atoll ? stopsIn(state.atoll).map((x) => P[x.id]) : null);
+    autoSuggest(state.atoll);
     $("#atoll").value = state.atoll || "";
     if (state.atoll && trips.length && !boatsAt(anim.t).some((b) => tripAtolls(b.id).has(state.atoll))) {
       // Nothing sailing here right now: jump to the next departure in this atoll.
@@ -588,6 +590,7 @@
       settings.arriveBy = $("#rule-arrive").value; settings.activityMin = Number($("#rule-duration").value);
       settings.homeBy = $("#rule-home").value; settings.buffer = Number($("#rule-buffer").value);
       state.suggestion = null; state.national = null;
+      for (const k of Object.keys(sugCache)) delete sugCache[k];
       rebuild(); render();
     };
     for (const id of ["#rule-arrive", "#rule-duration", "#rule-home", "#rule-buffer"]) { $(id).addEventListener("change", onRule); window.Dropdown.enhance($(id)); }
@@ -596,7 +599,8 @@
       if (!nets[state.atoll] || state.busy) return;
       const atoll = state.atoll;
       searchAtolls([atoll], $("#suggestion"), $("#optimize"), (per) => {
-        state.suggestion = { atoll, ...per[0].o };
+        sugCache[atoll] = per[0].o;
+        if (state.atoll === atoll) state.suggestion = { atoll, ...per[0].o };
         renderControls();
       });
     });
@@ -665,10 +669,26 @@
     if (state.busy) return;
     searchAtolls(Object.keys(nets), $("#national-suggestion"), $("#optimize-all"), (per, evaluated) => {
       const shifts = {};
-      for (const x of per) Object.assign(shifts, x.o.shifts);
+      for (const x of per) { Object.assign(shifts, x.o.shifts); sugCache[x.id] = x.o; }
       state.national = { shifts, perAtoll: per, evaluated };
       renderControls();
     });
+  }
+
+  // Opening an atoll with people cut off shows its suggested timetable straight
+  // away: cached if already found, otherwise searched (visibly) once the zoom ends.
+  function autoSuggest(atoll) {
+    const net = nets[atoll];
+    if (!net || state.busy) return;
+    const cut = issuesFor(atoll).hospital.items.length;
+    const applied = (o) => Object.entries(o.shifts).every(([id, v]) => state.shifts[id] === v);
+    if (sugCache[atoll]) {
+      const o = sugCache[atoll];
+      if (Object.keys(o.shifts).length && !applied(o)) state.suggestion = { atoll, ...o };
+      return;
+    }
+    if (!cut) return;
+    setTimeout(() => { if (state.atoll === atoll && !state.busy && !state.suggestion) $("#optimize").click(); }, reduced ? 0 : 850);
   }
 
   // Apply with a short "applying" state, then let the moved routes glow and
