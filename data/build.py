@@ -15,7 +15,8 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parent
 FACILITY_ISLANDS = ROOT / "facility_islands_manual.csv"
-# Atoll names that prefix health-facility names -> Census atoll_code.
+# Atoll names that prefix facility names -> Census atoll_code. Abbreviated prefixes
+# ("F. Magoodhoo School") use the Census code itself, in any letter case.
 ATOLL_CODES = {
     "Alifu Alifu": "AA", "Alifu Dhaalu": "Adh", "Baa": "B", "Dhaalu": "Dh", "Faafu": "F",
     "Gaafu Alifu": "GA", "Gaafu Dhaalu": "GDh", "Gnaviyani": "Gn", "Haa Alifu": "HA",
@@ -23,6 +24,7 @@ ATOLL_CODES = {
     "Noonu": "N", "Raa": "R", "Seenu": "S", "Shaviyani": "Sh", "Thaa": "Th", "Vaavu": "V",
 }
 MIN_SIMILARITY, MIN_MARGIN = 0.8, 0.1
+FACILITY_SUFFIX = r"(?i)\s+(heal?th\s+cent(re|er)|hc|(primary\s+)?school|education\s+cent(re|er))$"
 
 
 def sql_string(value):
@@ -57,18 +59,30 @@ def infer_island(name, islands):
     return candidates[0]["island_id"] if len(candidates) == 1 else None
 
 
+def split_atoll_prefix(name):
+    """'Faafu Magoodhoo Health Centre' or 'F. Magoodhoo School' -> ('F', 'Magoodhoo ...')."""
+    for atoll in sorted(ATOLL_CODES, key=len, reverse=True):
+        if name.lower().startswith(atoll.lower() + " "):
+            return ATOLL_CODES[atoll], name[len(atoll):]
+    codes = {code.lower(): code for code in ATOLL_CODES.values()}
+    prefix, dot, rest = name.partition(".")
+    if dot and rest.startswith(" ") and prefix.lower() in codes:
+        return codes[prefix.lower()], rest
+    return None, name
+
+
 def infer_atoll_island(name, islands):
-    """Map '<Atoll> <Island> Health Centre' to an island within the named atoll.
+    """Map '<Atoll> <Island> Health Centre' or '<Atoll>. <Island> School' to an island within that atoll.
 
     A spelling variant (Kunburudhoo/Kuburudhoo) is accepted only when one island in
     that atoll is clearly the closest name. Returns (island_id, location_match).
     """
-    atoll = next((a for a in sorted(ATOLL_CODES, key=len, reverse=True) if name.lower().startswith(a.lower() + " ")), None)
-    if atoll is None:
+    atoll_code, rest = split_atoll_prefix(name)
+    if atoll_code is None:
         return None, None
-    island_name = re.sub(r"(?i)\s+(heal?th\s+cent(re|er)|hc)$", "", name[len(atoll):]).strip()
+    island_name = re.sub(FACILITY_SUFFIX, "", rest).strip()
     scored = sorted(((difflib.SequenceMatcher(None, normalized(island_name), normalized(i["name"])).ratio(), i["island_id"])
-                     for i in islands if i["atoll_code"] == ATOLL_CODES[atoll]), reverse=True)
+                     for i in islands if i["atoll_code"] == atoll_code), reverse=True)
     if not scored:
         return None, None
     best, island_id = scored[0]
@@ -80,15 +94,20 @@ def infer_atoll_island(name, islands):
     return None, None
 
 
-def locate_health_facility(name, islands, manual):
-    """Reviewed lookup first, then the atoll-qualified name, then a unique whole island name."""
-    if name in manual:
-        return manual[name]["island_id"], "manual_sourced", manual[name]["source_url"]
+def locate_by_name(name, islands):
+    """The atoll-qualified name first, then a unique whole island name."""
     island_id, match = infer_atoll_island(name, islands)
     if island_id is None:
         island_id = infer_island(name, islands)
         match = "unique_name_derived" if island_id else "unresolved"
-    return island_id, match, None
+    return island_id, match
+
+
+def locate_health_facility(name, islands, manual):
+    """Reviewed lookup first, then the facility name."""
+    if name in manual:
+        return manual[name]["island_id"], "manual_sourced", manual[name]["source_url"]
+    return (*locate_by_name(name, islands), None)
 
 
 def facilities(islands):
@@ -106,13 +125,13 @@ def facilities(islands):
     for record in schools["records"]:
         profile = profile_by_key.get((record["name"], record["phone"]))
         facility_id = source_id("moe-", record["name"] + "|" + str(record["phone"]))
-        island_id = profile["island_id"] if profile else infer_island(record["name"], islands)
+        island_id, match = (profile["island_id"], "official_profile") if profile else locate_by_name(record["name"], islands)
         if island_id is not None and island_id not in island_codes:
             raise ValueError(f"Unknown school island {island_id}")
         result.append({
             "facility_id": facility_id, "name": record["name"], "kind": "school",
             "facility_type": "government_school", "island_id": island_id,
-            "location_match": "official_profile" if profile else "unique_name_derived" if island_id else "unresolved",
+            "location_match": match,
             "location_source_url": profile["source_url"] if profile else None,
             "latitude": None, "longitude": None,
             "phone": record["phone"], "government_level_raw": None,
@@ -228,7 +247,7 @@ def build():
         assert connection.execute("SELECT count(*) FROM services.school_grades g LEFT JOIN services.schools s USING(facility_id) WHERE s.facility_id IS NULL").fetchone()[0] == 0
         for table in ("facilities", "school_grades"):
             connection.execute(f"COPY services.{table} TO {sql_string(processed / (table + '.parquet'))} (FORMAT PARQUET, COMPRESSION ZSTD)")
-        report = {"duckdb_version": duckdb.__version__, "counts": counts, "location_matches": dict(Counter(r["location_match"] for r in facility_rows)), "school_grade_coverage": "One profile has a verified numeric grade range; other schools remain unknown until sourced.", "checks": {"source_checksums": True, "unique_facility_ids": True, "facility_island_references": True, "school_grade_references": True}, "intended_destination": "/Users/shaaik/projects/yoosuf-afendi/data"}
+        report = {"duckdb_version": duckdb.__version__, "counts": counts, "location_matches": dict(Counter(r["location_match"] for r in facility_rows)), "school_grade_coverage": f"{len({g['facility_id'] for g in grade_rows})} profiles have a verified numeric grade range; other schools remain unknown until sourced.", "checks": {"source_checksums": True, "unique_facility_ids": True, "facility_island_references": True, "school_grade_references": True}, "intended_destination": "/Users/shaaik/projects/yoosuf-afendi/data"}
         connection.close()
         connection = None
         path.replace(output / "shared.duckdb")

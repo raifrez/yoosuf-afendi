@@ -13,7 +13,7 @@
     "services.hospitals": 22,
     "services.health_centres": 164,
     "services.clinics": 7,
-    "services.school_grades": 12,
+    "services.school_grades": 145,
     "transport.terminals": 0,
     "transport.routes": 0,
     "transport.trips": 0,
@@ -23,14 +23,14 @@
     "services.facility_hours": 0
   },
   "location_matches": {
-    "official_profile": 2,
-    "unique_name_derived": 79,
-    "unresolved": 148,
-    "atoll_name_derived": 126,
-    "manual_sourced": 22,
-    "atoll_spelling_variant": 36
+    "official_profile": 35,
+    "unique_name_derived": 72,
+    "unresolved": 113,
+    "atoll_name_derived": 134,
+    "atoll_spelling_variant": 37,
+    "manual_sourced": 22
   },
-  "school_grade_coverage": "One profile has a verified numeric grade range; other schools remain unknown until sourced.",
+  "school_grade_coverage": "14 profiles have a verified numeric grade range; other schools remain unknown until sourced.",
   "checks": {
     "source_checksums": true,
     "unique_facility_ids": true,

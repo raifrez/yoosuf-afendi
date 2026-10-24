@@ -3,7 +3,7 @@
   "publisher": "Ministry of Education, Higher Education and Skills Development",
   "source_as_of": null,
   "data_classification": "observed",
-  "capture_method": "Factual fields checked in official school profiles through the web tool, then saved locally. Page revision dates are unavailable.",
+  "capture_method": "Factual fields checked in official school profiles through the web tool, then saved locally. Page revision dates are unavailable. On 2026-10-24 every school profile in Faafu, Dhaalu, Gaafu Alifu and Gaafu Dhaalu was added (plus R. Vaadhoo and V. Thinadhoo, which share names with Gaafu Dhaalu schools); island_id is the Census island matching the profile's stated island.",
   "coverage": "Partial enrichment. A missing grade list means unknown, not that a school teaches no grades.",
   "records": [
     {
@@ -11,7 +11,20 @@
       "directory_phone": "+960 6640471",
       "source_url": "https://www.moe.gov.mv/en/schools/526",
       "island_id": "69",
-      "grades": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
       "foundation_stage": true,
       "grade_evidence": "Profile explicitly describes foundation stage through Grade 12. Numeric grades are expanded from that stated range; foundation is retained as a stage rather than inventing individual kindergarten grade offerings."
     },
@@ -23,6 +36,449 @@
       "grades": null,
       "foundation_stage": null,
       "grade_evidence": "The reviewed profile identifies HA. Kelaa but does not establish the grades taught."
+    },
+    {
+      "directory_name": "Vaadhoo School",
+      "directory_phone": "+960 6580362",
+      "source_url": "https://www.moe.gov.mv/en/schools/504",
+      "island_id": "609",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies R. Vaadhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Thinadhoo School",
+      "directory_phone": "+960 6706558",
+      "source_url": "https://www.moe.gov.mv/en/schools/554",
+      "island_id": "1079",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies V. Thinadhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "F. Atoll Education Centre",
+      "directory_phone": "+960 7952909",
+      "source_url": "https://www.moe.gov.mv/en/schools/564",
+      "island_id": "1158",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"Faafu Atoll Education Centre is a K0 to K5 single session school\" and \"The school has Science and Business stream in both O Level and A level.\" A level is higher secondary (key stage 5), so K0 to K5 is read as foundation to key stage 5. Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "F. Atoll School",
+      "directory_phone": "+960 7952910",
+      "source_url": "https://www.moe.gov.mv/en/schools/565",
+      "island_id": "8",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"With a student population of 272 and a staff population of 41, we educates students from Foundation stage to Key Stage 4.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "F. Magoodhoo School",
+      "directory_phone": "+960 7952912",
+      "source_url": "https://www.moe.gov.mv/en/schools/566",
+      "island_id": "85",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies F. Magoodhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Bilehdhoo School",
+      "directory_phone": "+960 7952913",
+      "source_url": "https://www.moe.gov.mv/en/schools/567",
+      "island_id": "606",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"A small school with an enrollment of about 283 students providing education from foundation to KS 5.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Dharanboodhoo School",
+      "directory_phone": "+960 7952911",
+      "source_url": "https://www.moe.gov.mv/en/schools/568",
+      "island_id": "970",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies F. Dharanboodhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Dh. Atoll Education Centre",
+      "directory_phone": "+960 7952914",
+      "source_url": "https://www.moe.gov.mv/en/schools/569",
+      "island_id": "499",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"Established in 1984, Dhaal Atoll Education Centre has been a guiding light for students, offering comprehensive education across business, science, and Btec streams from foundation stage to higher secondary levels.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Dh. Atoll School",
+      "directory_phone": "+960 7952915",
+      "source_url": "https://www.moe.gov.mv/en/schools/570",
+      "island_id": "1050",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies Dh. Meedhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Hulhudheli School",
+      "directory_phone": "+960 7952918",
+      "source_url": "https://www.moe.gov.mv/en/schools/571",
+      "island_id": "662",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"Hence, to achieve the mission and vision of the school students taught from foundation stage to Key stage 4, providing education mandated by the National Curriculum Framework.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Rinbudhoo School",
+      "directory_phone": "+960 7952917",
+      "source_url": "https://www.moe.gov.mv/en/schools/572",
+      "island_id": "334",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"From the foundation stage, with 1 class in each grade to grade 10, the school provides educational opportunities to prepare students for the 21st century by facilitating them to learn, explore, experience and research productively through the formal learning system. [...] In 2024, a total of 69 students will attend the school from foundation level to grade 10.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Bandidhoo School",
+      "directory_phone": "+960 7952916",
+      "source_url": "https://www.moe.gov.mv/en/schools/573",
+      "island_id": "66",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"The school caters pupils from the foundation stage to grade 10.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Maaenboodhoo School",
+      "directory_phone": "+960 7952919",
+      "source_url": "https://www.moe.gov.mv/en/schools/574",
+      "island_id": "209",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"The school now offers education from foundation to grade 10.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "GA. Atoll Education Centre",
+      "directory_phone": "+960 6820029",
+      "source_url": "https://www.moe.gov.mv/en/schools/601",
+      "island_id": "247",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GA. Villingili but does not state the grades taught."
+    },
+    {
+      "directory_name": "GA. Atoll School",
+      "directory_phone": "+960 7983072",
+      "source_url": "https://www.moe.gov.mv/en/schools/602",
+      "island_id": "743",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"GA Atoll School was officially opened in 28th March 1984 and offers education from LKG (Lower Kindergarten) to Grade 10.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "GA. Nilandhoo School",
+      "directory_phone": "+960 7983074",
+      "source_url": "https://www.moe.gov.mv/en/schools/603",
+      "island_id": "1091",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GA. Nilandhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Kondey School",
+      "directory_phone": "+960 6820097",
+      "source_url": "https://www.moe.gov.mv/en/schools/604",
+      "island_id": "435",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GA. Kondey but does not state the grades taught."
+    },
+    {
+      "directory_name": "Kanduhulhudhoo School",
+      "directory_phone": "+960 7983078",
+      "source_url": "https://www.moe.gov.mv/en/schools/605",
+      "island_id": "856",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"The school continues to provide education from the foundation stage to Key Stage 4.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "GA. Maamendhoo School",
+      "directory_phone": "+960 7983073",
+      "source_url": "https://www.moe.gov.mv/en/schools/606",
+      "island_id": "1085",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GA. Maamendhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Dhaandhoo School",
+      "directory_phone": "+960 7983075",
+      "source_url": "https://www.moe.gov.mv/en/schools/607",
+      "island_id": "766",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"Today, the school has 18 classrooms, a library, science lab, and a prayer room, offering education from LKG to Grade 11 in Science and Business streams.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Sulthan Mohamed School",
+      "directory_phone": "+960 7983076",
+      "source_url": "https://www.moe.gov.mv/en/schools/608",
+      "island_id": "412",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GA. Dhevvadhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Gemanafushi School",
+      "directory_phone": "+960 7983077",
+      "source_url": "https://www.moe.gov.mv/en/schools/609",
+      "island_id": "1182",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GA. Gemanafushi but does not state the grades taught."
+    },
+    {
+      "directory_name": "GDh. Atoll Education Centre",
+      "directory_phone": "+960 6841026",
+      "source_url": "https://www.moe.gov.mv/en/schools/610",
+      "island_id": "717",
+      "grades": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "foundation_stage": false,
+      "grade_evidence": "Profile states: \"Until 2018, Gaaf Dhaal Atoll Education Centre enrolled students in grades 1 through 12, but from 2019, our center only admits students in grades 7 through 12.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "GDh. Atoll School",
+      "directory_phone": "+960 7983083",
+      "source_url": "https://www.moe.gov.mv/en/schools/611",
+      "island_id": "887",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Gaddhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Aboobakuru School",
+      "directory_phone": "+960 6842550",
+      "source_url": "https://www.moe.gov.mv/en/schools/612",
+      "island_id": "717",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Thinadhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Hoadedhdhoo School",
+      "directory_phone": "+960 7983089",
+      "source_url": "https://www.moe.gov.mv/en/schools/613",
+      "island_id": "851",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Hoandeddhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Nadella School",
+      "directory_phone": "+960 7983088",
+      "source_url": "https://www.moe.gov.mv/en/schools/614",
+      "island_id": "181",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Nadellaa but does not state the grades taught."
+    },
+    {
+      "directory_name": "Rathafandhoo School",
+      "directory_phone": "+960 7983087",
+      "source_url": "https://www.moe.gov.mv/en/schools/615",
+      "island_id": "630",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Rathafandhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Vaadhoo Jamaluddeen School",
+      "directory_phone": "+960 7983084",
+      "source_url": "https://www.moe.gov.mv/en/schools/616",
+      "island_id": "195",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Vaadhoo but does not state the grades taught."
+    },
+    {
+      "directory_name": "Madaveli School",
+      "directory_phone": "+960 7983090",
+      "source_url": "https://www.moe.gov.mv/en/schools/617",
+      "island_id": "557",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile says \"foundation to key stage 3\" but also offers secondary-grade streams; grades not inferred."
+    },
+    {
+      "directory_name": "Huvadhoo School",
+      "directory_phone": "+960 7983085",
+      "source_url": "https://www.moe.gov.mv/en/schools/618",
+      "island_id": "572",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Fares-Maathodaa but does not state the grades taught."
+    },
+    {
+      "directory_name": "Fiyoaree School",
+      "directory_phone": "+960 7983086",
+      "source_url": "https://www.moe.gov.mv/en/schools/619",
+      "island_id": "470",
+      "grades": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "foundation_stage": true,
+      "grade_evidence": "Profile states: \"Today, the school upholds inclusive and holistic education principles from preschool to lower secondary levels, offering specialised streams in science, business, and B.Tech. hospitality.\" Grades expanded with the National Curriculum Framework (NIE, 2014, Table 2; https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf): foundation = LKG/UKG, key stage 1 = grades 1-3, 2 = 4-6, 3 = 7-8, 4 = 9-10, 5 (higher secondary) = 11-12."
+    },
+    {
+      "directory_name": "Thinadhoo School",
+      "directory_phone": "+960 6842050",
+      "source_url": "https://www.moe.gov.mv/en/schools/620",
+      "island_id": "717",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The profile identifies GDh. Thinadhoo but does not state the grades taught."
     }
   ]
 }

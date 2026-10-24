@@ -61,9 +61,9 @@
       "source_url": "https://www.moe.gov.mv/en/schools",
       "source_as_of": null,
       "local_path": "raw/facilities/school_profiles.snapshot.json",
-      "sha256": "c161212bc3426936ce487040176c45bd9c19f31473294e32f90bab81f52e8079",
+      "sha256": "8d73d932ad8caa57e18c5cb530632ef0fe9d30bb85a9274a0f4915b0af5e7f1f",
       "availability": "structured_capture",
-      "caveats": "Factual fields checked in official school profiles through the web tool, then saved locally. Page revision dates are unavailable. Partial enrichment. A missing grade list means unknown, not that a school teaches no grades."
+      "caveats": "Factual fields checked in official school profiles through the web tool, then saved locally. Page revision dates are unavailable. Covers every school in Faafu, Dhaalu, Gaafu Alifu and Gaafu Dhaalu, plus three others. Grades are listed only where a profile states the current offering; they are expanded with the National Curriculum Framework key stages. A missing grade list means unknown, not that a school teaches no grades."
     },
     {
       "source_id": "moe-schools-2025",
@@ -105,6 +105,16 @@
       "sha256": "311fb4d88bf4527bb9cb513ccce721dc3b07035a5ca47b346874eed56f7d9b49",
       "availability": "derived_lookup",
       "caveats": "Health facility -> Census island for the 20 hospitals and 2 health centres that names alone cannot place. Mostly from the Ministry of Health Maaharaa registry's location field; the two Male' ward assignments come from OpenStreetMap district tags. One source URL per row."
+    },
+    {
+      "source_id": "nie-ncf-2014",
+      "publisher": "National Institute of Education (Maldives)",
+      "source_url": "https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf",
+      "source_as_of": "2014-04-01",
+      "local_path": null,
+      "sha256": null,
+      "availability": "reference",
+      "caveats": "National Curriculum Framework, Table 2 (Phases and Key Stages), used to expand stated key stages into grades. Copy hosted by UNESCO; no nie.edu.mv copy was found. NIE is reviewing the curriculum, so the mapping could change."
     }
   ],
   "missing_datasets": [

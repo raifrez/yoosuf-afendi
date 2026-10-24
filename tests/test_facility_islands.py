@@ -11,6 +11,11 @@ ISLANDS = [
     {"island_id": "658", "name": "Nolhivaramu", "atoll_code": "HDh"},
     {"island_id": "416", "name": "Nolhivaranfaru", "atoll_code": "HDh"},
     {"island_id": "48", "name": "Kulhudhuffushi", "atoll_code": "HDh"},
+    {"island_id": "85", "name": "Magoodhoo", "atoll_code": "F"},
+    {"island_id": "907", "name": "Magoodhoo", "atoll_code": "N"},
+    {"island_id": "459", "name": "Dhidhdhoo", "atoll_code": "Adh"},
+    {"island_id": "69", "name": "Maafushi", "atoll_code": "K"},
+    {"island_id": "531", "name": "Mulah", "atoll_code": "M"},
 ]
 
 
@@ -44,3 +49,17 @@ def test_manual_lookup_rows_are_sourced():
         rows = list(csv.DictReader(handle))
     for row in rows:
         assert row["island_id"] and row["source_url"].startswith("http"), row
+
+
+def test_abbreviated_atoll_prefix_for_schools():
+    assert build.infer_atoll_island("F. Magoodhoo School", ISLANDS) == ("85", "atoll_name_derived")
+    assert build.infer_atoll_island("N. Magoodhoo School", ISLANDS) == ("907", "atoll_name_derived")
+    assert build.infer_atoll_island("ADh. Dhidhdhoo School", ISLANDS) == ("459", "atoll_name_derived")
+    assert build.infer_atoll_island("Hdh. Kulhudhuffushi Primary School", ISLANDS) == ("48", "atoll_name_derived")
+
+
+def test_atoll_schools_and_dotted_names_are_not_islands():
+    assert build.locate_by_name("Dh. Atoll School", ISLANDS) == (None, "unresolved")
+    assert build.locate_by_name("M. Atoll Education Center", ISLANDS) == (None, "unresolved")
+    assert build.split_atoll_prefix("M.C.S Medical Centre 2- K. Maafushi") == (None, "M.C.S Medical Centre 2- K. Maafushi")
+    assert build.locate_by_name("M.C.S Medical Centre 2- K. Maafushi", ISLANDS) == ("69", "unique_name_derived")
