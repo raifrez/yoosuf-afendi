@@ -77,11 +77,17 @@ main { display: flex; flex-direction: column; gap: 28px; padding-block: 18px 48p
 #mapsvg .land { fill: var(--land); }
 #mapsvg .atoll { cursor: pointer; }
 #mapsvg .atoll.demo .reef { fill: var(--reef-demo); }
-#mapsvg.is-national .atoll:hover .reef { fill: var(--turquoise); }
-#mapsvg.is-national .atoll:hover .land { fill: var(--ocean); }
+#mapsvg.is-national .atoll.hover .reef { fill: var(--turquoise); }
+#mapsvg.is-national .atoll.hover .land { fill: var(--ocean); }
+#mapsvg:not(.is-national) .atoll.hover:not(.active) { opacity: .8; }
 #mapsvg:not(.is-national) .atoll:not(.active) { opacity: .45; }
 #mapsvg:not(.is-national) .atoll.active { cursor: default; }
-#mapsvg .atoll-labels { pointer-events: none; font-family: var(--body); }
+#mapsvg .atoll-labels { font-family: var(--body); }
+#mapsvg .atoll-label { cursor: pointer; transition: fill .12s; }
+#mapsvg .atoll-label.hover { fill: var(--accent); }
+#mapsvg .atoll-label.hover .al-alt { fill: var(--ink); }
+#mapsvg .atoll-label .al-name { text-decoration-thickness: 1.5px; }
+#mapsvg .atoll-label.hover .al-name { text-decoration: underline; text-underline-offset: 3px; }
 #mapsvg:not(.is-national) .atoll-labels { display: none; }
 #mapsvg .atoll-label { fill: var(--map-label); paint-order: stroke; stroke: var(--halo); stroke-width: .35em; stroke-linejoin: round; }
 #mapsvg .al-name { font-family: var(--display); font-weight: 700; }
