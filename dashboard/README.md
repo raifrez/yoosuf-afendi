@@ -16,6 +16,7 @@ The screen is a full-height map and one rail on the right.
 
 - **Ferries move along their routes** when you open an atoll, looping through the day (a small clock chip shows the time). Each route has its own colour; moved sailings get a turquoise outline. Positions are interpolated on straight lines between stops.
 - **All of the Maldives:** the ferry network in numbers, how many islands can make a same-day hospital trip, and the atolls where islands are cut off (also shown as red bubbles on the map).
+- **Map controls:** scroll to zoom, drag to pan, or use the +/−/fit buttons. Opening an atoll frames its ferry stops; island names and route numbers are placed so they don't overlap (crowded ones appear as you zoom in).
 - **One atoll:** its sailings, first and last times, its barriers (grouped by cause, such as "Route 288 docks at 10:05") and each island's journey step by step.
 - **Move a sailing** to compare against the published schedule. Every stop of the sailing moves together.
 - **Suggest a timetable** for one atoll or every atoll. It searches 15-min shifts of sailings inside the atoll, maximizes islands with a complete trip, and never lets anyone lose access. It doesn't check boats, crews or cost.

@@ -29,6 +29,61 @@
     const boatEls = new Map();
     let lastBoats = [];
     let routeLines = []; // [{ id, color, points: [[x,y]...], el, glow }]
+    let fullPins = [];   // labelled stops in the atoll view
+    let tags = [];       // route number tags
+
+    // Greedy label placement in screen space: route tags first (on a free
+    // stretch of their line), then island names around their pin (below,
+    // right, left, above). Captions drop before names; hidden names stay in
+    // the pin's tooltip.
+    function layoutPinLabels() {
+      if (!fullPins.length && !tags.length) return;
+      const boxes = fullPins.map((p) => ({ x0: p.x - (p.r + 3) * upp, y0: p.y - (p.r + 3) * upp, x1: p.x + (p.r + 3) * upp, y1: p.y + (p.r + 3) * upp }));
+      const hit = (b) => boxes.some((o) => b.x0 < o.x1 && b.x1 > o.x0 && b.y0 < o.y1 && b.y1 > o.y0);
+      for (const t of tags) {
+        const segs = [];
+        for (let i = 0; i < t.points.length - 1; i++) segs.push([t.points[i], t.points[i + 1]]);
+        segs.sort((a, b) => Math.hypot(b[1][0] - b[0][0], b[1][1] - b[0][1]) - Math.hypot(a[1][0] - a[0][0], a[1][1] - a[0][1]));
+        let placed = null;
+        for (const [a, b] of segs) {
+          for (const f of [0.5, 0.35, 0.65, 0.2, 0.8]) {
+            const cx = a[0] + (b[0] - a[0]) * f, cy = a[1] + (b[1] - a[1]) * f;
+            const bx = { x0: cx - (t.w / 2 + 2) * upp, y0: cy - 11 * upp, x1: cx + (t.w / 2 + 2) * upp, y1: cy + 11 * upp };
+            if (!hit(bx)) { placed = [cx, cy, bx]; break; }
+          }
+          if (placed) break;
+        }
+        t.g.classList.toggle("hidden-label", !placed);
+        if (placed) {
+          t.g.setAttribute("transform", `translate(${placed[0].toFixed(1)} ${placed[1].toFixed(1)}) scale(${upp.toFixed(3)})`);
+          boxes.push(placed[2]);
+        }
+      }
+      for (const p of [...fullPins].sort((a, b) => a.prio - b.prio)) {
+        const nameW = p.name.length * 7.3 + 4, capW = p.cap ? p.cap.length * 6.3 + 4 : 0;
+        let done = false;
+        for (const withCap of p.cap ? [true, false] : [false]) {
+          const w = Math.max(nameW, withCap ? capW : 0), h = withCap ? 29 : 16, r = p.r;
+          const cands = [
+            { box: [-w / 2, r + 3, w / 2, r + 3 + h], anchor: "middle", nx: 0, ny: r + 15 },
+            { box: [r + 5, -8, r + 5 + w, -8 + h], anchor: "start", nx: r + 5, ny: 4 },
+            { box: [-r - 5 - w, -8, -r - 5, -8 + h], anchor: "end", nx: -r - 5, ny: 4 },
+            { box: [-w / 2, -r - 3 - h, w / 2, -r - 3], anchor: "middle", nx: 0, ny: -r - 3 - h + 12 },
+          ];
+          for (const c of cands) {
+            const b = { x0: p.x + c.box[0] * upp, y0: p.y + c.box[1] * upp, x1: p.x + c.box[2] * upp, y1: p.y + c.box[3] * upp };
+            if (hit(b)) continue;
+            for (const [elx, dy] of [[p.nameEl, 0], [p.capEl, 13]]) {
+              elx.setAttribute("x", c.nx); elx.setAttribute("y", c.ny + dy); elx.setAttribute("text-anchor", c.anchor);
+            }
+            p.nameEl.style.display = ""; p.capEl.style.display = withCap ? "" : "none";
+            boxes.push(b); done = true; break;
+          }
+          if (done) break;
+        }
+        if (!done) { p.nameEl.style.display = "none"; p.capEl.style.display = "none"; }
+      }
+    }
 
     const atollEls = {};
     for (const a of atolls) {
@@ -74,9 +129,17 @@
       }
     }
 
-    function boxFor(id) {
+    // fit: optional [[x, y], ...] to frame instead of the whole atoll (its ferry stops).
+    function boxFor(id, fit) {
       const a = atolls.find((x) => x.id === id);
       if (!a) return NATIONAL.slice();
+      if (fit && fit.length) {
+        let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+        for (const [x, y] of fit) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+        const ext = Math.max(x1 - x0, y1 - y0, 1800);
+        const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, half = ext / 2 + Math.max(ext * 0.22, 700);
+        return [cx - half, cy - half * 1.15, 2 * half, 2 * half * 1.1];
+      }
       const [x0, y0, x1, y1] = a.bbox;
       const w = x1 - x0, h = y1 - y0, pad = Math.max(w, h) * 0.12 + 500;
       // A little extra room at the top for the legend.
@@ -92,13 +155,16 @@
       for (const p of pins) p.setAttribute("transform", `translate(${p.dataset.x} ${p.dataset.y}) scale(${upp.toFixed(3)})`);
       svg.style.setProperty("--dash", `${(3 * upp).toFixed(1)} ${(6 * upp).toFixed(1)}`);
       layoutRouteLines();
+      layoutPinLabels();
       placeBoats();
     }
 
     // Timer-driven (not requestAnimationFrame) so the zoom still finishes in
     // throttled or background panes; each step is computed from elapsed time.
-    function zoomTo(id, animate = true) {
-      const to = boxFor(id);
+    let lastZoom = { id: null, fit: null };
+    function zoomTo(id, animate = true, fit = null) {
+      lastZoom = { id, fit };
+      const to = boxFor(id, fit);
       const id0 = ++tween;
       if (!animate || reduced) { vb = to; applyViewBox(); return; }
       const from = vb.slice(), t0 = performance.now(), dur = 800;
@@ -145,6 +211,7 @@
       // Coloured route lines (atoll view). Routes sharing a stretch are drawn
       // side by side, like a metro map, so each stays visible.
       routeLines = [];
+      fullPins = []; tags = [];
       const use = new Map();
       for (const r of net.routeLines || []) {
         for (let i = 0; i < r.points.length - 1; i++) {
@@ -166,6 +233,7 @@
         const t = el("text", { y: 0.5, "dominant-baseline": "middle" }, g);
         t.textContent = r.label;
         pins.push(g);
+        tags.push({ g, w, points: r.points });
       }
       for (const n of net.nodes.filter((x) => x.mini)) {
         const g = el("g", { class: `pin mini ${n.status}`, "aria-hidden": "true" }, gNet);
@@ -194,7 +262,10 @@
         t.textContent = n.label;
         const c = el("text", { class: "pin-cap", y: n.r + 28 }, g);
         c.textContent = n.caption;
+        el("title", {}, g).textContent = n.caption ? `${n.label}: ${n.caption}` : n.label;
         pins.push(g);
+        fullPins.push({ g, x: n.x, y: n.y, r: n.r, name: n.label, cap: n.caption, nameEl: t, capEl: c,
+          prio: n.hub ? 0 : n.selected ? 1 : n.status === "bad" ? 2 : 3 });
       }
       applyViewBox();
     }
@@ -275,7 +346,44 @@
       }
     }
 
+    // Scroll to zoom around the cursor, drag to pan.
+    function zoomAround(clientX, clientY, f) {
+      ++tween;
+      const r = svg.getBoundingClientRect();
+      const w = Math.max(450, Math.min(NATIONAL[2] * 1.3, vb[2] * f));
+      const k = w / vb[2];
+      const cx = vb[0] + vb[2] / 2, cy = vb[1] + vb[3] / 2;
+      const px = cx + (clientX - (r.left + r.width / 2)) * upp, py = cy + (clientY - (r.top + r.height / 2)) * upp;
+      const ncx = px - (px - cx) * k, ncy = py - (py - cy) * k;
+      vb = [ncx - (vb[2] * k) / 2, ncy - (vb[3] * k) / 2, vb[2] * k, vb[3] * k];
+      applyViewBox();
+    }
+    svg.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const d = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+      zoomAround(e.clientX, e.clientY, Math.exp(Math.max(-60, Math.min(60, d)) * 0.004));
+    }, { passive: false });
+    let drag = null, suppressClick = false;
+    svg.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      drag = { x: e.clientX, y: e.clientY, vb: vb.slice(), moved: false, id: e.pointerId };
+    });
+    svg.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.moved && Math.hypot(dx, dy) < 4) return;
+      if (!drag.moved) { drag.moved = true; ++tween; svg.setPointerCapture(e.pointerId); svg.classList.add("dragging"); }
+      vb = [drag.vb[0] - dx * upp, drag.vb[1] - dy * upp, drag.vb[2], drag.vb[3]];
+      applyViewBox();
+    });
+    const endDrag = () => { if (drag && drag.moved) suppressClick = true; drag = null; svg.classList.remove("dragging"); };
+    svg.addEventListener("pointerup", endDrag);
+    svg.addEventListener("pointercancel", endDrag);
+    function zoomBy(f) { const r = svg.getBoundingClientRect(); zoomAround(r.left + r.width / 2, r.top + r.height / 2, f); }
+    function refit() { zoomTo(lastZoom.id, true, lastZoom.fit); }
+
     svg.addEventListener("click", (e) => {
+      if (suppressClick) { suppressClick = false; return; }
       const pin = e.target.closest("[data-island]");
       if (pin) { opts.onIsland && opts.onIsland(pin.dataset.island); return; }
       const a = e.target.closest("[data-atoll]");
@@ -292,7 +400,7 @@
     const bboxOf = (id) => atolls.find((a) => a.id === id).bbox;
     const project = (lon, lat) => [(lon - geo.projection.lon0) * geo.projection.k, (geo.projection.lat0 - lat) * geo.projection.k];
     const centreOf = (id) => { const a = atolls.find((x) => x.id === id); return [(a.bbox[0] + a.bbox[2]) / 2, a.labelY != null ? a.labelY : (a.bbox[1] + a.bbox[3]) / 2]; };
-    return { zoomTo, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
+    return { zoomTo, zoomBy, refit, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
   }
 
   window.MandarinMap = { createMap };

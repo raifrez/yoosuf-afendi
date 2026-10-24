@@ -320,6 +320,17 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 #mapsvg.is-national .atoll.st-none .reef { fill: color-mix(in srgb, var(--reef) 80%, var(--sea)); stroke-opacity: .35; }
 #mapsvg.is-national .atoll.st-none .land { fill: color-mix(in srgb, var(--land) 75%, var(--sea)); }
 #mapsvg.is-national .atoll.st-bad .reef { stroke: var(--bad); stroke-opacity: .9; }
+
+/* Zoom / pan */
+#mapsvg { cursor: grab; touch-action: none; }
+#mapsvg.dragging { cursor: grabbing; }
+.zoom-ctl { position: absolute; right: 12px; bottom: 28px; display: flex; flex-direction: column; background: var(--surface); border-radius: 10px; box-shadow: 0 4px 14px #0612202E; overflow: hidden; }
+.zoom-ctl button { width: 36px; height: 36px; border: 0; background: none; font-size: 19px; font-weight: 600; color: var(--ink); display: grid; place-items: center; }
+.zoom-ctl button + button { border-top: 1px solid var(--surface-2); }
+.zoom-ctl button:hover { background: var(--surface-2); }
+.zoom-ctl svg { width: 15px; height: 15px; }
+.attrib { top: auto; bottom: 6px; }
+#mapsvg .route-tag.hidden-label { display: none; }
 </style>
 
 <div class="app">
@@ -335,6 +346,11 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
         <span><i class="lg-hub"></i>Hospital island</span>
         <span class="lg-dim">Dimmed atolls: no ferry data yet</span>
       </div>
+    </div>
+    <div class="zoom-ctl" role="group" aria-label="Map zoom">
+      <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+      <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+      <button type="button" id="zoom-fit" aria-label="Fit to view" title="Fit to view"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <div class="attrib">© OpenStreetMap contributors</div>
   </div>

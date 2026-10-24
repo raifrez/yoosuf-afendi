@@ -152,7 +152,7 @@
     state.island = net ? net.baseline.results.health[0]?.home_island_id : null;
     routeColor.clear();
     if (state.atoll) for (const r of routesIn(state.atoll)) routeColor.set(r.route, r.color);
-    map.zoomTo(state.atoll);
+    map.zoomTo(state.atoll, true, state.atoll ? stopsIn(state.atoll).map((x) => P[x.id]) : null);
     $("#atoll").value = state.atoll || "";
     if (state.atoll && trips.length && !boatsAt(anim.t).some((b) => tripAtolls(b.id).has(state.atoll))) {
       // Nothing sailing here right now: jump to the next departure in this atoll.
@@ -705,6 +705,10 @@
     const go = e.target.closest("[data-go-atoll]");
     if (go && !go.closest("#mapsvg")) selectAtoll(go.dataset.goAtoll);
   });
+
+  $("#zoom-in").addEventListener("click", () => map.zoomBy(0.6));
+  $("#zoom-out").addEventListener("click", () => map.zoomBy(1 / 0.6));
+  $("#zoom-fit").addEventListener("click", () => map.refit());
 
   rebuild();
   setupControls();
