@@ -24,10 +24,12 @@ Each app can read this snapshot. Only `build.py` writes the database; apps must 
 | `population.persons` | 448,819 | Named synthetic people; Census 2022 demographic anchor |
 | `population.households` | 90,459 | Synthetic household memberships; supported economics modeled from HIES 2019 |
 | `population.population_groups` | 578 | Island/age population weights |
+| `population.journey_requests` | 417,415 | Assumed October 2026 demand: 13,465 people per day |
 | `services.schools` | 220 | Listed government schools; directory headline says 219, retained as a source discrepancy |
 | `services.health_facilities` | 193 | Government facilities in the official December 2024 list |
 | `services.hospitals` | 22 | Facilities classified as HG or T by that source |
 | `services.health_centres` | 164 | HCG classifications; other health entries are clinics |
+| `services.clinics` | 7 | General clinics (`GC`) in the government health list |
 | `services.school_grades` | 12 | Grades 1–12 for one verified school profile, Maafushi School |
 
 The health snapshot is a **2024 government list**, not the live registry of all public/private facilities. Its operating status applies to the source date. Exact source level codes and registration/license numbers are retained, including duplicate registration numbers in the source. Facility identifiers use license numbers for health entries and name/contact identity for the school directory.
@@ -42,7 +44,7 @@ The combined `services.facilities` table contains all school and health entries.
 - Facility coordinates are unknown and remain null. `services.facility_island_points` joins Census **island reference points**, explicitly named as such, for approximate map placement. They are not facility entrance coordinates or evidence for a walking transfer time.
 - `transport.terminals`, `routes`, `trips`, `trip_stops`, and `transfers` are empty typed tables. Verified timetables, fares, operating dates, and terminal data still need to be sourced.
 - `services.facility_services` and `facility_hours` are empty: specialties and opening hours have not been established.
-- `population.journey_requests` is empty until an explicit appointment scenario is supplied.
+- `population.journey_requests` assumes 3% of residents travel daily and randomly assigns healthcare, education, employment, or other with equal probability. Healthcare requests target hospital, health centre, or clinic categories. Workplace and other destination catalogs are still missing, so those requests cannot yet be fully routed.
 
 `meta.datasets` marks these gaps as `not_sourced`. An empty table is not evidence that there is no transport, no healthcare service, or no demand. The data snapshot alone is not sufficient for a complete accessibility simulation.
 
@@ -50,6 +52,7 @@ The combined `services.facilities` table contains all school and health entries.
 
 ```text
 data/
+  MTCC.xlsx                       # Optional demo passenger workbook; not observed demand
   database/shared.duckdb
   processed/population/*.parquet
   processed/facilities/*.parquet
@@ -111,3 +114,4 @@ That query returns only verified records in this snapshot; it is not a national 
 - [Maafushi School profile](https://www.moe.gov.mv/en/schools/526) — verified grade range and island.
 - [Sheikh Ibrahim School profile](https://www.moe.gov.mv/en/schools/435) — verified island, no grade offering established.
 - [RTL](https://www.rtl.mv/) — transport discovery link only; schedules have not been downloaded or represented as verified data.
+- `MTCC.xlsx` — optional local demo workbook; its own README says passenger counts are randomly generated and not actual MTCC/RTL figures.

@@ -204,6 +204,15 @@ def validate_bundle(bundle, schema_directory="schemas"):
     for request in requests.values():
         require(request["person_id"] in people, "Unknown request person_id")
         require(request["origin_island_id"] == people[request["person_id"]]["home_island_id"], "Request origin/person island mismatch")
+        require((request["destination_facility_id"] is None) != (request["destination_facility_type"] is None), "Journey request needs exactly one facility ID or facility type")
+        expected_types = {
+            "healthcare": {"hospital", "health_centre", "clinic"},
+            "education": {"government_school"},
+            "employment": {"workplace"},
+            "other": {"other"},
+        }
+        if request["destination_facility_type"] is not None:
+            require(request["destination_facility_type"] in expected_types[request["purpose"]], "Destination facility type does not match journey purpose")
         start = sum(int(part) * scale for part, scale in zip(request["appointment_time"].split(":"), (60, 1)))
         deadline = sum(int(part) * scale for part, scale in zip(request["return_home_by"].split(":"), (60, 1)))
         require(start + request["activity_duration_minutes"] <= deadline, "Activity exceeds same-day return deadline")

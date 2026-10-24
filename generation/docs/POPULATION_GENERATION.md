@@ -98,4 +98,71 @@ people = connection.execute(
 ).fetchall()
 ```
 
-Population groups describe residents, not healthcare demand. Appointments remain explicit scenario inputs; no fictional hospital schedule is added to the source-derived national population by default.
+Population groups describe residents, not travel demand. Journey assumptions remain explicit scenario inputs; no fictional facility schedule is added to the source-derived national population by default.
+
+## Assumed daily journeys
+
+The repository wrapper uses the checked-in daily scenario by default:
+
+```sh
+.venv/bin/python generation/run.py --no-publish
+```
+
+The direct `population.generate` CLI still leaves requests empty unless a
+scenario is supplied. The model assumes 3% of the population travels each day.
+It selects distinct residents within each island
+for that day, then independently draws one of four purposes with equal
+probability: healthcare, education, employment, or other. Realized purpose
+counts are random and reproducible from the generation seed; they are not forced
+to be exactly equal.
+
+The scenario JSON supplies the reporting month and common activity times:
+
+```json
+{
+  "month": "2025-12",
+  "appointment_time": "09:00",
+  "activity_duration_minutes": 60,
+  "return_home_by": "18:00"
+}
+```
+
+Healthcare requests do not choose an exact facility. They independently draw
+`hospital`, `health_centre`, or `clinic` with equal probability, matching the
+three health-facility categories built from the local hospital list. The request
+stores that value in `destination_facility_type`; the simulator must find and
+route to a matching facility. Education uses `government_school`, employment
+uses `workplace`, and other uses `other`. The local facility catalog currently
+supports health facilities and government schools; workplace and other
+destinations still need external routing data. Exact facility IDs remain valid
+for scenarios that already know a destination.
+
+Daily demand is rounded once nationally and allocated to Census islands using
+largest remainders, so the national total is preserved. Allocation occurs before
+island filtering, and seeded sampling keeps filtered output consistent with a
+national run. The generation report records the daily rate, random category
+probabilities, and daily counts.
+
+## Optional ferry-volume demo
+
+Pass `--ferry-data data/MTCC.xlsx` with the same `--journey-scenario` option to
+use the workbook's route totals instead of the 3% daily assumption. In this mode
+the scenario also has one fixed `purpose`, and each atoll maps directly to one
+destination facility ID.
+
+The workbook README explicitly describes randomly generated sample passenger
+figures and partial route coverage. Runs using it have **demo** metadata and
+requests. These are monthly boardings, not unique travelers or observed demand
+for healthcare or education. Each summed route boarding produces one modeled
+request; no return-trip conversion is inferred. The simulator still chooses
+transport and routes.
+
+Within each workbook area, counts are allocated to Census islands by population
+using largest remainders, preserving exact area totals. The combined Gaafu Alifu
+and Gaafu Dhaalu volume is split across their populations by the same rule.
+Unlisted atolls remain unmodeled, rather than being assigned inferred totals.
+Residents are sampled with replacement and request dates are uniform within the
+month. Island allocation happens before island filtering; seeds keep resident
+sampling and dates reproducible. Source hashes and scenario assumptions enter
+the run fingerprint and manifest; area and island counts appear under
+`ferry_demand` in the generation report.

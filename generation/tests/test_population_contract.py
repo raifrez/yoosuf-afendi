@@ -148,6 +148,19 @@ class ContractTests(unittest.TestCase):
                 with self.assertRaisesRegex(ContractError, "Unknown"):
                     self.validate(bundle)
 
+    def test_destination_contract_and_employment_purpose(self):
+        request = self.bundle["journey_requests"][0]
+        request.update(purpose="healthcare", destination_facility_id=None, destination_facility_type="health_centre")
+        self.validate()
+        request.update(purpose="employment", destination_facility_id="demo-workplace-001", destination_facility_type=None)
+        self.validate()
+        request.update(purpose="healthcare", destination_facility_type="clinic")
+        with self.assertRaisesRegex(ContractError, "exactly one"):
+            self.validate()
+        request.update(destination_facility_id=None, destination_facility_type="government_school")
+        with self.assertRaisesRegex(ContractError, "does not match"):
+            self.validate()
+
     def test_inconsistent_household_and_group_weights(self):
         for table, field in (("households", "household_size"), ("population_groups", "population_weight")):
             with self.subTest(table=table):

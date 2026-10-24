@@ -18,6 +18,8 @@ from .names import NameGenerator
 from .prepare import SOURCES, prepare, sha256
 from .validate import SchemaChecker, age_group_for, validate_bundle
 from .xlsx import rows
+from .ferry import allocate_volumes, ferry_volumes, journey_rows, load_scenario
+from .demand import daily_allocations, daily_journey_rows, PURPOSES
 
 
 AGE_GROUPS = ("0_17", "18_64", "65_plus", "unknown")
@@ -28,7 +30,7 @@ TABLE_TYPES = {
     "households": {"household_id": "VARCHAR", "home_island_id": "VARCHAR", "household_size": "INTEGER", "monthly_income_mvr": "DECIMAL(18,2)", "monthly_expenditure_mvr": "DECIMAL(18,2)", "economic_assignment": "VARCHAR", "data_classification": "VARCHAR"},
     "persons": {"person_id": "VARCHAR", "display_name": "VARCHAR", "name_is_synthetic": "BOOLEAN", "household_id": "VARCHAR", "home_island_id": "VARCHAR", "age": "INTEGER", "age_group": "VARCHAR", "group_id": "VARCHAR", "population_weight": "BIGINT", "data_classification": "VARCHAR"},
     "population_groups": {"group_id": "VARCHAR", "label": "VARCHAR", "home_island_id": "VARCHAR", "age_group": "VARCHAR", "population_weight": "BIGINT", "data_classification": "VARCHAR"},
-    "journey_requests": {"journey_request_id": "VARCHAR", "person_id": "VARCHAR", "purpose": "VARCHAR", "origin_island_id": "VARCHAR", "destination_facility_id": "VARCHAR", "date": "DATE", "appointment_time": "TIME", "activity_duration_minutes": "INTEGER", "return_home_by": "TIME", "timezone": "VARCHAR", "data_classification": "VARCHAR"},
+    "journey_requests": {"journey_request_id": "VARCHAR", "person_id": "VARCHAR", "purpose": "VARCHAR", "origin_island_id": "VARCHAR", "destination_facility_id": "VARCHAR", "destination_facility_type": "VARCHAR", "date": "DATE", "appointment_time": "TIME", "activity_duration_minutes": "INTEGER", "return_home_by": "TIME", "timezone": "VARCHAR", "data_classification": "VARCHAR"},
 }
 
 
@@ -268,7 +270,7 @@ def make_manifest(population_id, seed, names, geography=None):
     }
 
 
-def write_staging(directory, profiles, donors, seed, manifest, schemas, names):
+def write_staging(directory, profiles, donors, seed, manifest, schemas, names, journey_scenario=None, journey_counts=None):
     """Write bounded-memory CSV staging, validating each generated record."""
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=False)
@@ -289,6 +291,10 @@ def write_staging(directory, profiles, donors, seed, manifest, schemas, names):
         checker.check(record, checker.schemas[table + ".schema.json"])
         writers[table].writerow({key: NULL if value is None else value for key, value in record.items()})
         report["counts"][table] += 1
+        if table == "journey_requests":
+            report.setdefault("journey_purpose_counts", Counter())[record["purpose"]] += 1
+            if record["destination_facility_type"] is not None:
+                report.setdefault("destination_facility_type_counts", Counter())[record["destination_facility_type"]] += 1
         if include_preview:
             preview[table].append(record)
 
@@ -309,6 +315,7 @@ def write_staging(directory, profiles, donors, seed, manifest, schemas, names):
                 random.Random(stable_int(seed, "ages", code, group)).shuffle(pool)
                 age_pools[group] = pool
             island_group_counts = Counter()
+            island_people = []
             for sequence, (economic_eligible, composition) in enumerate(template_pool, 1):
                 household_id = f"hh-{code}-{sequence:06d}"
                 size = sum(composition)
@@ -342,10 +349,21 @@ def write_staging(directory, profiles, donors, seed, manifest, schemas, names):
                         "data_classification": "derived",
                     }
                     write("persons", record, sample)
+                    if journey_scenario:
+                        island_people.append(person_id)
                     generated_ages[(code, group)][age] += 1
                     island_group_counts[group] += 1
             if any(age_pools.values()):
                 raise ValueError(f"Unallocated ages on island {code}")
+            if journey_scenario and journey_counts.get(code, 0):
+                if journey_scenario.get("model", "ferry") == "population_daily":
+                    requests = daily_journey_rows(code, island_people, journey_counts[code], journey_scenario, seed)
+                else:
+                    scenario = dict(journey_scenario, destination_facility_id=journey_scenario["destinations"][island["atoll_code"]])
+                    requests = journey_rows(code, island_people, journey_counts[code], scenario, seed)
+                preview_people = {person["person_id"] for person in preview["persons"]}
+                for request in requests:
+                    write("journey_requests", request, request["person_id"] in preview_people)
             for group, count in sorted(island_group_counts.items()):
                 label = {"0_17": "aged 0–17", "18_64": "aged 18–64", "65_plus": "aged 65+", "unknown": "with unknown age"}[group]
                 write("population_groups", {"group_id": f"grp-{code}-{group}", "label": f"{island['name']} residents {label}", "home_island_id": code, "age_group": group, "population_weight": count, "data_classification": "derived"})
@@ -361,7 +379,7 @@ def write_staging(directory, profiles, donors, seed, manifest, schemas, names):
     for (code, group, group_id), count in sorted(preview_counts.items()):
         preview["population_groups"].append({"group_id": group_id, "label": f"{profiles['islands'][code]['name']} preview {group}", "home_island_id": code, "age_group": group, "population_weight": count, "data_classification": "derived"})
     validate_bundle(preview, schemas)
-    report["counts"]["journey_requests"] = 0
+    report["counts"].setdefault("journey_requests", 0)
     report["checks"] = {"all_rows_pass_schema": True, "single_year_age_totals_match": True, "household_composition_counts_match": True, "preview_passes_contract": True}
     return report, preview
 
@@ -384,20 +402,59 @@ def main(argv=None):
     parser.add_argument("--islands", nargs="+", help="Canonical Census island codes; default all inhabited Census areas")
     parser.add_argument("--geography", type=Path, help="Previously downloaded local islands.json")
     parser.add_argument("--name-catalog", type=Path)
+    parser.add_argument("--ferry-data", type=Path, help="Opt into sample ferry volumes instead of 3% daily population demand; requires --journey-scenario")
+    parser.add_argument("--journey-scenario", type=Path, help="Monthly destination/time assumptions; defaults to 3% daily demand with uniformly random purposes")
     parser.add_argument("--stage-only", action="store_true", help="Prepare validated CSV staging without DuckDB export")
     args = parser.parse_args(argv)
+    if args.ferry_data and not args.journey_scenario:
+        parser.error("--ferry-data requires --journey-scenario")
+    scenario = load_scenario(args.journey_scenario, "ferry" if args.ferry_data else "population_daily") if args.journey_scenario else None
     root = args.root.resolve()
     paths, source_hashes = prepare(root, source_dir=args.source_dir)
     names = NameGenerator(args.seed, args.name_catalog)
     selected = set(args.islands) if args.islands else None
     print("Building aggregate Census household templates and age totals...", flush=True)
-    profiles = census_profiles(paths, selected, args.geography)
+    profiles = census_profiles(paths, None if scenario else selected, args.geography)
+    journey_counts = None
+    ferry_totals = None
+    if scenario:
+        if selected is not None and selected - profiles["islands"].keys():
+            raise ValueError(f"Unknown or excluded island IDs: {sorted(selected - profiles['islands'].keys())}")
+        if args.ferry_data:
+            ferry_totals = ferry_volumes(args.ferry_data, scenario["month"])
+            journey_counts = allocate_volumes(ferry_totals, profiles["islands"], profiles["people_by_island"])
+        else:
+            journey_counts = daily_allocations(dict(profiles["people_by_island"]))
+        if args.ferry_data:
+            generated_codes = selected if selected is not None else journey_counts.keys()
+            required_atolls = {profiles["islands"][code]["atoll_code"] for code in generated_codes if journey_counts.get(code, 0)}
+            if required_atolls - scenario["destinations"].keys():
+                raise ValueError(f"Scenario missing destinations for {sorted(required_atolls - scenario['destinations'].keys())}")
+        if selected is not None:
+            profiles = census_profiles(paths, selected, args.geography)
     print("Building paired weighted HIES donor pools...", flush=True)
     donors = EconomicDonors(paths)
     fingerprint = {"sources": source_hashes, "seed": args.seed, "islands": sorted(selected) if selected is not None else "inhabited", "names": names.catalog_sha256, "geography": sha256(args.geography) if args.geography else None, "algorithm": "aggregate-households-v1"}
+    if scenario:
+        fingerprint.update(ferry_data=sha256(args.ferry_data) if args.ferry_data else None, journey_scenario=scenario, algorithm="aggregate-households-demand-v3")
     suffix = hashlib.sha256(json.dumps(fingerprint, sort_keys=True).encode()).hexdigest()[:12]
     population_id = f"population-2022-seed{args.seed}-{suffix}"
     manifest = make_manifest(population_id, args.seed, names, args.geography)
+    if scenario:
+        manifest["assumptions"] = [item for item in manifest["assumptions"] if not item.startswith("Journey requests are empty")]
+        if args.ferry_data:
+            manifest["data_classification"] = "demo"
+            manifest["sources"].append({"source_id": "mtcc_sample_ferry", "publisher": "Local sample workbook (not observed MTCC statistics)", "file": str(args.ferry_data), "reference_year": int(scenario["month"][:4]), "data_classification": "demo", "caveats": "Workbook README: randomly generated passenger figures; partial route coverage. Counts are boardings, not unique travelers or observed origins."})
+            manifest["assumptions"].extend([
+                "Demo journeys match summed monthly ferry route boardings, allocated to islands by Census population using largest remainders. Combined Gaafu Alifu/Dhaalu counts are split by population; absent atolls remain unmodeled.",
+                "Residents are sampled with replacement; dates are uniform within the reporting month. Destinations, purpose and appointment rules are supplied scenario assumptions. Ferry boardings do not establish healthcare demand, origin-destination flows, or distinct travelers.",
+            ])
+        else:
+            manifest["assumptions"].extend([
+                "Assume 3% of residents have daily travel needs. Each request independently draws healthcare, education, employment or other with equal probability, so realized counts vary. National demand rounds half up; largest remainders allocate the daily total across all Census islands and wards before filtering.",
+                "Healthcare requests independently draw hospital, health_centre or clinic with equal probability. Education targets government_school, employment targets workplace and other targets other; the routing layer must select a matching destination. Workplace and other destination catalogs are not currently sourced. Each day samples distinct residents without replacement within islands. Residents can travel on multiple days. One request represents a person's daily activity and return deadline, not two ferry boardings.",
+            ])
+        manifest["assumptions"].append("Journey scenario: " + json.dumps(scenario, sort_keys=True))
     cache_root = root / "data/cache"
     stage = cache_root / (population_id + "-staging")
     if stage.exists():
@@ -414,7 +471,14 @@ def main(argv=None):
     temporary = Path(tempfile.mkdtemp(prefix=".population-staging-", dir=cache_root))
     try:
         working = temporary / "run"
-        report, preview = write_staging(working, profiles, donors, args.seed, manifest, root / "schemas", names)
+        report, preview = write_staging(working, profiles, donors, args.seed, manifest, root / "schemas", names, scenario, journey_counts)
+        if scenario:
+            if args.ferry_data:
+                report["ferry_demand"] = {"month": scenario["month"], "source_area_boardings": ferry_totals, "allocated_island_requests": {code: count for code, count in journey_counts.items() if code in profiles["islands"]}, "data_classification": "demo"}
+                source_hashes = dict(source_hashes, mtcc_sample_ferry=sha256(args.ferry_data))
+            else:
+                report["daily_travel_demand"] = {"month": scenario["month"], "daily_population_rate": 0.03, "purpose_probabilities": {purpose: 1 / len(PURPOSES) for purpose in PURPOSES}, "healthcare_facility_type_probabilities": {facility_type: 1 / 3 for facility_type in ("hospital", "health_centre", "clinic")}, "national_daily_people": sum(journey_counts.values()), "selected_daily_people": sum(count for code, count in journey_counts.items() if code in profiles["islands"]), "daily_people_by_island": {code: count for code, count in journey_counts.items() if code in profiles["islands"]}, "data_classification": "assumed"}
+            source_hashes = dict(source_hashes, journey_scenario=sha256(args.journey_scenario))
         report.update({"population_id": population_id, "source_sha256": source_hashes, "source_counts": profiles["source_counts"], "donors": dict(donors.report), "usual_residence_label_differences": profiles["usual_residence_label_differences"], "geography_matched_areas": sum(row['geography_id'] is not None for row in profiles['islands'].values())})
         dump_json(working / "manifest.json", manifest)
         dump_json(working / "generation_report.json", report)

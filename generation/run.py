@@ -15,6 +15,8 @@ def main():
     parser.add_argument("--islands", nargs="+")
     parser.add_argument("--geography", type=Path)
     parser.add_argument("--name-catalog", type=Path)
+    parser.add_argument("--journey-scenario", type=Path, default=root / "scenarios/daily-assumed.json")
+    parser.add_argument("--ferry-data", type=Path, help="Opt into sample ferry volumes; default journey demand is 3% of residents daily")
     parser.add_argument("--no-publish", action="store_true", help="Generate an immutable run without updating shared tables")
     args = parser.parse_args()
     data = args.data_dir.resolve()
@@ -24,6 +26,12 @@ def main():
     for option, value in (("--geography", args.geography), ("--name-catalog", args.name_catalog)):
         if value:
             options.extend([option, str(value.resolve())])
+    if args.ferry_data and not args.journey_scenario:
+        parser.error("--ferry-data requires --journey-scenario")
+    if args.journey_scenario:
+        options.extend(["--journey-scenario", str(args.journey_scenario.resolve())])
+    if args.ferry_data:
+        options.extend(["--ferry-data", str(args.ferry_data.resolve())])
     output = generate(options)
     if not args.no_publish:
         print(f"Updated shared database: {publish_run(output, data)}")

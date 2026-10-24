@@ -56,6 +56,7 @@ def export_run(staging, output):
             "individual_weights_are_one": "SELECT count(*) = 0 FROM persons WHERE population_weight <> 1",
             "unavailable_economics_are_null": "SELECT count(*) = 0 FROM households WHERE economic_assignment = 'unavailable' AND (monthly_income_mvr IS NOT NULL OR monthly_expenditure_mvr IS NOT NULL)",
             "request_origins_match": "SELECT count(*) = 0 FROM journey_requests r LEFT JOIN persons p USING (person_id) WHERE p.person_id IS NULL OR r.origin_island_id <> p.home_island_id",
+            "request_destinations_match_purpose": "SELECT count(*) = 0 FROM journey_requests WHERE (destination_facility_id IS NULL) = (destination_facility_type IS NULL) OR (destination_facility_type IS NOT NULL AND NOT ((purpose = 'healthcare' AND destination_facility_type IN ('hospital', 'health_centre', 'clinic')) OR (purpose = 'education' AND destination_facility_type = 'government_school') OR (purpose = 'employment' AND destination_facility_type = 'workplace') OR (purpose = 'other' AND destination_facility_type = 'other')))",
         }
         for name, query in checks.items():
             passed = connection.execute(query).fetchone()[0]

@@ -76,6 +76,17 @@
       "caveats": "Factual directory rows extracted from a web-tool text capture and saved locally before processing. Government-school directory; school-specific locations, grade ranges, and hours are not provided in this capture."
     },
     {
+      "source_id": "mtcc-rtl-demo-demand",
+      "publisher": "Project-provided demo dataset",
+      "source_url": null,
+      "source_as_of": "2025-12-31",
+      "reference_year": 2025,
+      "local_path": "MTCC.xlsx",
+      "sha256": "d8d4a475668ba7b5adba03eef20a5d1e1a5cdc4542852edde0c12c7c45b0d441",
+      "availability": "demo_sample",
+      "caveats": "Workbook README states that passenger figures are randomly generated and are not actual MTCC/RTL statistics. Route names and codes are real, coverage is partial, and the default population generation does not use these volumes."
+    },
+    {
       "source_id": "rtl-schedules",
       "publisher": "MTCC / Raajje Transport Link",
       "source_url": "https://www.rtl.mv/",
@@ -88,10 +99,11 @@
   ],
   "missing_datasets": [
     "verified transport timetables and terminals",
+    "workplace and other destination catalogs",
     "facility opening hours",
     "clinical specialties and service capabilities",
     "grades taught for schools without verified profile evidence",
     "precise facility coordinates and unresolved island mappings"
   ],
-  "population_id": "population-2022-seed42-79c30207f1b3"
+  "population_id": "population-2022-seed42-2d03205b6940"
 }

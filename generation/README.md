@@ -33,6 +33,13 @@ cd generation
 ../.venv/bin/python -m unittest discover -s tests -v
 ```
 
+The wrapper uses `scenarios/daily-assumed.json` by default. It models daily
+demand as 3% of residents and randomly assigns healthcare, education,
+employment, or other. Override it with `--journey-scenario scenario.json`. See the
+[scenario format and assumptions](docs/POPULATION_GENERATION.md#assumed-daily-journeys).
+Passing `--ferry-data data/MTCC.xlsx` instead opts into the workbook's sample
+ferry volumes.
+
 See [data shapes and simulator responsibilities](docs/POPULATION_SIMULATION_CONTRACT.md) and the [generation method](docs/POPULATION_GENERATION.md). The complete example is in `examples/`; JSON Schemas are in `schemas/`.
 
 Current generated population: **448,819 people, 90,459 households, and 578 groups** across 193 Census island/ward areas. Names and household membership are synthetic; demographic aggregates come from Census 2022, supported economics are modeled from HIES 2019. Journey requests currently have zero rows until an explicit appointment scenario is added.

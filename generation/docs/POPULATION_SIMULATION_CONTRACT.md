@@ -96,7 +96,7 @@ Schema: [population_groups.schema.json](../schemas/population_groups.schema.json
 
 Group counts describe the represented population. They are not counts of people requesting healthcare. Groups and persons describe the same residents: never sum both representations. Individual appointment requests are the authoritative demand records in this contract.
 
-### Journey requests: a person's appointment, not a ferry departure
+### Journey requests: a person's activity and travel need
 
 Schema: [journey_requests.schema.json](../schemas/journey_requests.schema.json).
 
@@ -107,6 +107,7 @@ Schema: [journey_requests.schema.json](../schemas/journey_requests.schema.json).
   "purpose": "healthcare",
   "origin_island_id": "69",
   "destination_facility_id": "demo-hospital-001",
+  "destination_facility_type": null,
   "date": "2026-10-24",
   "appointment_time": "09:00",
   "activity_duration_minutes": 60,
@@ -122,17 +123,18 @@ This says that fictional **Mariyam Noor**, aged 68, needs to reach the selected 
 |---|---|---|
 | `journey_request_id` | string / `VARCHAR` | Unique scenario request ID |
 | `person_id` | string / `VARCHAR` | References `persons.person_id` |
-| `purpose` | string / `VARCHAR` | `healthcare`, `education`, or `other` |
+| `purpose` | string / `VARCHAR` | `healthcare`, `education`, `employment`, or `other` |
 | `origin_island_id` | string / `VARCHAR` | Matches the person's home island |
-| `destination_facility_id` | string / `VARCHAR` | References the simulator's external facility catalog |
+| `destination_facility_id` | string or null / `VARCHAR` | Exact destination, or null when a healthcare facility type must be resolved |
+| `destination_facility_type` | string or null / `VARCHAR` | Unresolved target class: three healthcare types, `government_school`, `workplace`, or `other` |
 | `date` | ISO `YYYY-MM-DD` string / `DATE` | Selected operating day |
-| `appointment_time` | local `HH:MM` string / `TIME` | Latest arrival time and fixed activity start |
+| `appointment_time` | local `HH:MM` string / `TIME` | Latest arrival time and fixed activity start; retained as the contract field name for all purposes |
 | `activity_duration_minutes` | integer / `INTEGER` | Positive activity duration |
 | `return_home_by` | local `HH:MM` string / `TIME` | Home-return deadline on the same date |
 | `timezone` | string / `VARCHAR` | Always `Indian/Maldives` |
 | `data_classification` | string / `VARCHAR` | `assumed` or `demo`; never an observed appointment claim |
 
-All times are local; overnight requests are unsupported in version 1.0. The activity must finish by the return deadline even before travel is considered. A syntactically valid request can still fail routing. The simulator must resolve facility IDs, available modes, schedules for the selected day, and transfers. This repository does not define those transport inputs or the route-ranking objective.
+All times are local; overnight requests are unsupported in version 1.0. The activity must finish by the return deadline even before travel is considered. Every request supplies exactly one of an exact facility ID or a destination facility type. Healthcare types are `hospital`, `health_centre`, and `clinic`; the other purpose/type pairs are education/`government_school`, employment/`workplace`, and other/`other`. A syntactically valid request can still fail routing. The simulator must resolve a suitable destination, available modes, schedules for the selected day, and transfers. Workplace and other destination catalogs are not sourced in this repository.
 
 Requests are created only from explicit scenario assumptions. Census/HIES does not identify actual appointments. The same person may have multiple requests; results per request are not unique-person totals.
 

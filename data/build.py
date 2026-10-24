@@ -132,7 +132,7 @@ def build():
         struct = "{" + ",".join(sql_string(key) + ":" + sql_string(value) for key, value in columns.items()) + "}"
         connection.execute(f"CREATE TABLE services.facilities AS SELECT * FROM read_json(?, format='array', columns={struct})", [str(facility_json)])
         connection.execute("CREATE TABLE services.school_grades AS SELECT * FROM read_json(?, format='array', columns={facility_id:'VARCHAR', grade:'VARCHAR', source_url:'VARCHAR', source_as_of:'DATE', evidence:'VARCHAR', data_classification:'VARCHAR'})", [str(grade_json)])
-        for view, predicate in {"schools": "kind='school'", "health_facilities": "kind='health'", "hospitals": "kind='health' AND facility_type='hospital'", "health_centres": "kind='health' AND facility_type='health_centre'"}.items():
+        for view, predicate in {"schools": "kind='school'", "health_facilities": "kind='health'", "hospitals": "kind='health' AND facility_type='hospital'", "health_centres": "kind='health' AND facility_type='health_centre'", "clinics": "kind='health' AND facility_type='clinic'"}.items():
             connection.execute(f"CREATE VIEW services.{view} AS SELECT * FROM services.facilities WHERE {predicate}")
         connection.execute("CREATE VIEW services.facility_island_points AS SELECT f.*, i.latitude island_reference_latitude, i.longitude island_reference_longitude FROM services.facilities f LEFT JOIN geo.islands i ON f.island_id=i.island_id")
         # These empty tables declare gaps; they are not sourced schedules or zero-service evidence.
@@ -158,13 +158,16 @@ def build():
         connection.execute("CREATE TABLE meta.population_manifest (manifest_json JSON)")
         connection.execute("INSERT INTO meta.population_manifest VALUES (?)", [(population_root / "manifest.json").read_text()])
         connection.execute("CREATE TABLE meta.datasets (dataset_name VARCHAR, row_count BIGINT, availability VARCHAR, caveats VARCHAR)")
-        tables = ["geo.islands", "geo.atolls", *["population." + table for table in ("persons", "households", "population_groups", "journey_requests")], "services.facilities", "services.schools", "services.health_facilities", "services.hospitals", "services.health_centres", "services.school_grades", *empty_tables]
+        tables = ["geo.islands", "geo.atolls", *["population." + table for table in ("persons", "households", "population_groups", "journey_requests")], "services.facilities", "services.schools", "services.health_facilities", "services.hospitals", "services.health_centres", "services.clinics", "services.school_grades", *empty_tables]
         counts = {}
         for table in tables:
             count = connection.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
             counts[table] = count
-            missing = table in empty_tables or table == "population.journey_requests"
-            connection.execute("INSERT INTO meta.datasets VALUES (?, ?, ?, ?)", [table, count, "not_sourced" if missing else "available", "Empty: not evidence of zero services or demand." if missing else "See catalog and source dates; facility mappings and school grade coverage are partial."])
+            missing = table in empty_tables or (table == "population.journey_requests" and count == 0)
+            caveat = "Empty: not evidence of zero services or demand." if missing else "See catalog and source dates; facility mappings and school grade coverage are partial."
+            if table == "population.journey_requests" and count:
+                caveat = "Modeled scenario requests; see population manifest for travel demand and appointment assumptions."
+            connection.execute("INSERT INTO meta.datasets VALUES (?, ?, ?, ?)", [table, count, "not_sourced" if missing else "available", caveat])
         assert counts["services.schools"] == len(json.loads((ROOT / "raw/facilities/schools.snapshot.json").read_text())["records"])
         assert counts["services.health_facilities"] == len(json.loads((ROOT / "raw/facilities/health_facilities.snapshot.json").read_text())["records"])
         assert connection.execute("SELECT count(*) FROM services.facilities f LEFT JOIN geo.islands i ON f.island_id=i.island_id WHERE f.island_id IS NOT NULL AND i.island_id IS NULL").fetchone()[0] == 0
