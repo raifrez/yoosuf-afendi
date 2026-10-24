@@ -362,8 +362,8 @@
     }
 
     // Wake on the water. Each ferry keeps the path it has travelled (sampled by
-    // distance); a single foam trail is drawn along the last ~70 px of it from
-    // the stern, fading with distance. Points stay where the boat left them, so
+    // distance); two foam trails are drawn along the last ~70 px of it from
+    // the stern corners, opening slightly and fading with distance. Points stay where the boat left them, so
     // turns leave a curve.
     const WAKE_PX = 70, WAKE_STEPS = 10;
     function updateTrails(boats) {
@@ -375,8 +375,8 @@
         if (!tr) {
           const g = el("g", { class: "wake" }, gWakes);
           const lines = [];
-          // One trail down the middle of the boat's path.
-          for (const side of [0]) for (let k = 0; k < WAKE_STEPS; k++) {
+          // Two trails, one from each side of the stern, opening into a narrow V.
+          for (const side of [-1, 1]) for (let k = 0; k < WAKE_STEPS; k++) {
             lines.push({ side, k, el: el("polyline", { "vector-effect": "non-scaling-stroke", class: side ? "side" : "mid" }, g) });
           }
           tr = { pts: [], g, lines };
@@ -395,7 +395,7 @@
     function drawWakes(grow) {
       const unitPx = upp * grow;                 // map units per boat-pixel
       const L = WAKE_PX * unitPx;                // wake length in map units
-      const STERN = 8 * unitPx, HALF0 = 2.2 * unitPx, SPREAD = Math.tan((20 * Math.PI) / 180);
+      const STERN = 8 * unitPx, HALF0 = 2.6 * unitPx, SPREAD = Math.tan((9 * Math.PI) / 180);
       for (const tr of trails.values()) {
         if (!tr.head) continue;
         // Path from the stern backwards: start behind the boat along its heading.

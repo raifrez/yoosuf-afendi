@@ -549,7 +549,7 @@
         const cur = net.current.summary.health;
         parts.push(`<div class="issue bad">${issueHead(k, x.w, ` ${cur.access_pct.toFixed(0)}% of ${units(cur.eligible)} served by ferry can.`)}${barriersHtml()}</div>`);
       } else {
-        const fixBtn = k === "wait" && !state.busy && !(state.suggestion && state.suggestion.atoll === state.atoll)
+        const fixBtn = (k === "wait" || k === "longday") && !state.busy && !(state.suggestion && state.suggestion.atoll === state.atoll)
           ? `<button type="button" class="add-stop issue-fix" data-run-optimize>Find better times</button>` : "";
         parts.push(`<div class="issue ${ISSUE[k].tone}">${issueHead(k, x.w)}${fixBtn}
           <ul class="issue-list">${x.items.map((it) => it.id
@@ -908,6 +908,7 @@
     const ok = results.filter((r) => r.success);
     const w = ok.reduce((s2, r) => s2 + r.population_weight, 0);
     return {
+      longday: ok.filter((r) => r.home_arrival - r.legs[0].dep >= LONG_DAY).reduce((s2, r) => s2 + r.population_weight, 0),
       long: ok.filter((r) => r.wait_before_minutes >= LONG_WAIT).reduce((s2, r) => s2 + r.population_weight, 0),
       avg: w ? ok.reduce((s2, r) => s2 + r.wait_before_minutes * r.population_weight, 0) / w : 0,
     };
@@ -916,8 +917,9 @@
     const net = nets[state.atoll];
     if (!net) return "";
     const a = waitStats(net.current.results.health), b = waitStats(o.result.results.health);
-    if (Math.round(a.avg) === Math.round(b.avg) && a.long === b.long) return "";
-    return `<div><dt>Waiting ${fmtDur(LONG_WAIT)}+ before the appointment</dt><dd>${n(a.long)} → <b class="${b.long < a.long ? "good" : ""}">${n(b.long)}</b></dd></div>
+    if (Math.round(a.avg) === Math.round(b.avg) && a.long === b.long && a.longday === b.longday) return "";
+    return `${a.longday || b.longday ? `<div><dt>Days of ${fmtDur(LONG_DAY)}+ for one appointment</dt><dd>${n(a.longday)} → <b class="${b.longday < a.longday ? "good" : ""}">${n(b.longday)}</b></dd></div>` : ""}
+      ${a.long || b.long ? `<div><dt>Waiting ${fmtDur(LONG_WAIT)}+ before the appointment</dt><dd>${n(a.long)} → <b class="${b.long < a.long ? "good" : ""}">${n(b.long)}</b></dd></div>` : ""}
       <div><dt>Average wait</dt><dd>${fmtDur(a.avg)} → <b class="${b.avg < a.avg ? "good" : ""}">${fmtDur(b.avg)}</b></dd></div>`;
   }
 
@@ -943,7 +945,7 @@
     // Only inside an atoll whose residents are cut off from the hospital trip,
     // the issue a timetable change can fix (kept while a search or result is showing).
     const issNow = net ? issuesFor(state.atoll) : null;
-    const hasIssue = !!net && (issNow.hospital.items.length > 0 || issNow.wait.w > 0);
+    const hasIssue = !!net && (issNow.hospital.items.length > 0 || issNow.wait.w > 0 || issNow.longday.w > 0);
     const showing = state.busy || (state.suggestion && state.suggestion.atoll === state.atoll);
     $("#r-suggest").hidden = !net || (!hasIssue && !showing);
     // Find better times disappears once clicked: the search, then its result
@@ -955,10 +957,11 @@
       const iss = state.atoll ? issuesFor(state.atoll) : null;
       const cut = state.atoll ? iss.hospital.w : totals("current").failed;
       const where = state.atoll ? `in ${esc(atollById[state.atoll].name)}` : "across the atolls with ferry data";
-      const waitW = state.atoll ? iss.wait.w : 0;
+      const waitW = state.atoll ? iss.wait.w : 0, dayW = state.atoll ? iss.longday.w : 0;
+      const extra = [waitW ? `<b class="warntxt">${esc(n(waitW))}</b> wait ${esc(fmtDur(LONG_WAIT))}+` : "", dayW ? `<b class="warntxt">${esc(n(dayW))}</b> have ${esc(fmtDur(LONG_DAY))}+ days` : ""].filter(Boolean);
       $("#suggest-lede").innerHTML = cut > 0
-        ? `<b>${esc(units(cut))}</b> cut off from the hospital${waitW ? ` · <b class="warntxt">${esc(n(waitW))}</b> wait 2 h+` : ""}`
-        : waitW ? `<b class="warntxt">${esc(units(waitW))}</b> wait ${esc(fmtDur(LONG_WAIT))}+ at the hospital` : `Everyone ${where} can make the trip.`;
+        ? `<b>${esc(units(cut))}</b> cut off from the hospital${extra.length ? ` · ${extra.join(" · ")}` : ""}`
+        : extra.length ? `${extra.join(" · ")} for a hospital visit` : `Everyone ${where} can make the trip.`;
     }
     if (net) {
       const box = $("#suggestion");
