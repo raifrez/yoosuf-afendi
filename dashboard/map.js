@@ -169,9 +169,12 @@
     // Timer-driven (not requestAnimationFrame) so the zoom still finishes in
     // throttled or background panes; each step is computed from elapsed time.
     let lastZoom = { id: null, fit: null };
+    let baseUpp = null; // map units per pixel at the atoll's framed view
     function zoomTo(id, animate = true, fit = null) {
       lastZoom = { id, fit };
       const to = boxFor(id, fit);
+      const r0 = svg.getBoundingClientRect();
+      baseUpp = Math.max(to[2] / (r0.width || 1), to[3] / (r0.height || 1));
       const id0 = ++tween;
       if (!animate || reduced) { vb = to; applyViewBox(); return; }
       const from = vb.slice(), t0 = performance.now(), dur = 800;
@@ -350,12 +353,35 @@
       placeBoats();
     }
 
+    // Wake: three foam trails behind the stern (centre and both quarters) that
+    // fan out and sway in a travelling wave, wider further back.
+    function wakePath(side, t) {
+      const pts = [];
+      for (let k = 0; k <= 16; k++) {
+        const x = -9 - k * 2.8, d = k / 16;
+        const spread = side * (2.6 + d * 5.2);
+        const amp = (side ? 0.5 : 0.35) + d * (side ? 1.8 : 1.1);
+        const y = spread + amp * Math.sin(k * 0.62 - t * 7 + side * 1.4);
+        pts.push(`${k ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(2)}`);
+      }
+      return pts.join("");
+    }
     function placeBoats() {
-      // Boats are drawn smaller at national zoom so they don't crowd the atolls.
-      const sc = (Math.max(upp, 0.0001) * (svg.classList.contains("is-national") ? 0.55 : 1)).toFixed(3);
+      // Boats keep their size at the atoll's framed view and grow as you zoom in
+      // (up to 3.5x), so they stay in proportion with the islands.
+      const grow = baseUpp && !svg.classList.contains("is-national") ? Math.min(3.5, Math.max(1, Math.pow(baseUpp / upp, 0.75))) : 1;
+      const sc = (Math.max(upp, 0.0001) * grow).toFixed(3);
+      const t = reduced ? 0 : performance.now() / 1000;
       for (const b of lastBoats) {
         const g = boatEls.get(b.id);
-        if (g) g.setAttribute("transform", `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.angle.toFixed(1)}) scale(${sc})`);
+        if (!g) continue;
+        g.setAttribute("transform", `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.angle.toFixed(1)}) scale(${sc})`);
+        const paths = g.querySelectorAll(".wake path");
+        if (paths.length === 3) {
+          paths[0].setAttribute("d", wakePath(0, t));
+          paths[1].setAttribute("d", wakePath(-1, t));
+          paths[2].setAttribute("d", wakePath(1, t));
+        }
       }
     }
 
