@@ -13,7 +13,7 @@
   function createMap(svg, geo, opts) {
     const atolls = geo.atolls;
     const all = atolls.reduce((b, a) => [Math.min(b[0], a.bbox[0]), Math.min(b[1], a.bbox[1]), Math.max(b[2], a.bbox[2]), Math.max(b[3], a.bbox[3])], [1e9, 1e9, -1e9, -1e9]);
-    const NATIONAL = [all[0] - 3000, all[1] - 9000, all[2] - all[0] + 14000, all[3] - all[1] + 21000]; // room for the top legend and the bottom playback bar // extra top room for the map toolbar
+    const NATIONAL = [all[0] - 3000, all[1] - 6500, all[2] - all[0] + 14000, all[3] - all[1] + 9500]; // room for the top legend // extra top room for the map toolbar
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let vb = NATIONAL.slice();
@@ -35,7 +35,7 @@
       const g = el("g", { class: "atoll", "data-atoll": a.id }, gAtolls);
       const [x0, y0, x1, y1] = a.bbox;
       el("rect", { class: "hit", x: x0 - 700, y: y0 - 700, width: x1 - x0 + 1400, height: y1 - y0 + 1400 }, g);
-      if (a.reef) el("path", { class: "reef", d: a.reef }, g);
+      if (a.reef) el("path", { class: "reef", d: a.reef, "vector-effect": "non-scaling-stroke" }, g);
       if (a.land) el("path", { class: "land", d: a.land }, g);
       // Western atolls are labelled on their left so they don't compete with
       // the eastern atolls at the same latitude (Ari vs Malé, Nilandhe vs Mulaku).
@@ -79,8 +79,8 @@
       if (!a) return NATIONAL.slice();
       const [x0, y0, x1, y1] = a.bbox;
       const w = x1 - x0, h = y1 - y0, pad = Math.max(w, h) * 0.12 + 500;
-      // Extra room at the bottom so the playback bar doesn't cover the atoll.
-      return [x0 - pad, y0 - pad, w + 2 * pad, (h + 2 * pad) * 1.2];
+      // A little extra room at the top for the legend.
+      return [x0 - pad, y0 - pad * 1.6, w + 2 * pad, h + 2.6 * pad];
     }
 
     function applyViewBox() {

@@ -232,9 +232,8 @@
   }
 
   // ---- Ferry animation ---------------------------------------------------
+  // Ferries loop through the day in the atoll view (6 schedule minutes per second).
   const anim = { t: 6 * 60 + 30, playing: !reduced, speed: 6, last: performance.now() };
-  const PLAY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>';
-  const PAUSE_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
 
   function boatsAt(t) {
     const out = [];
@@ -262,32 +261,26 @@
     return out;
   }
   function drawBoats() {
+    const national = !state.atoll;
+    $(".mapbox").classList.toggle("national", national);
+    $("#clock-chip").hidden = national;
+    if (national) { map.setBoats([]); return; }
     const boats = boatsAt(anim.t);
     map.setBoats(boats);
     $("#clock").textContent = fmt(Math.floor(anim.t));
-    const inScope = state.atoll ? boats.filter((b) => tripAtolls(b.id).has(state.atoll)).length : boats.length;
-    $("#clock-sub").textContent = `${inScope} ${inScope === 1 ? "ferry" : "ferries"} sailing${state.atoll ? ` in ${atollById[state.atoll].name}` : ""}`;
-    const scrub = $("#time");
-    if (document.activeElement !== scrub) scrub.value = Math.floor(anim.t);
-  }
-  function syncPlayer() {
-    $("#play").innerHTML = anim.playing ? PAUSE_ICON : PLAY_ICON;
-    $("#play").setAttribute("aria-label", anim.playing ? "Pause" : "Play");
-    document.querySelectorAll("[data-speed]").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.speed) === anim.speed)));
+    const inScope = boats.filter((b) => tripAtolls(b.id).has(state.atoll)).length;
+    $("#clock-sub").textContent = `${inScope} ${inScope === 1 ? "ferry" : "ferries"} sailing`;
   }
   // Time-based (not frame-based) so the clock stays right in throttled panes.
   setInterval(() => {
     const now = performance.now();
     const dt = Math.min(5, (now - anim.last) / 1000);
     anim.last = now;
-    if (!anim.playing) return;
+    if (!anim.playing || !state.atoll) return;
     anim.t += dt * anim.speed;
     if (anim.t > 20 * 60) anim.t = 5 * 60;
     drawBoats();
   }, 50);
-  $("#play").addEventListener("click", () => { anim.playing = !anim.playing; anim.last = performance.now(); syncPlayer(); });
-  $("#time").addEventListener("input", (e) => { anim.t = Number(e.target.value); drawBoats(); });
-  document.querySelectorAll("[data-speed]").forEach((b) => b.addEventListener("click", () => { anim.speed = Number(b.dataset.speed); syncPlayer(); }));
 
   // ---- Rail: overview ----------------------------------------------------
   function renderOverview() {
@@ -332,7 +325,7 @@
           <span class="route-main"><b>Route ${esc(r.route)}</b><span>${esc(r.stops.map(sname).join(" → "))}</span></span>
           <span class="route-times mono">${r.trips.map((id) => { const c = tripMeta[id].calls; const sh = active() ? state.shifts[id] || 0 : 0; return `<span class="${sh ? "moved-time" : ""}">${fmt(c[0][1] + sh)}–${fmt(c[c.length - 1][1] + sh)}</span>`; }).join("")}</span>
         </button>`).join("")}</div>
-      <p class="status-line">Hover a route to pick it out on the map; click to watch its next sailing.</p>`;
+      <p class="status-line">Hover a route to pick it out on the map; click to jump to its next sailing.</p>`;
   }
 
   // ---- Rail: same-day hospital access -------------------------------------
@@ -701,7 +694,7 @@
       const ids = D.trips.filter((t) => t.route === rr.dataset.routeRow).map((t) => t.id);
       const deps = ids.map((id) => firstDep(id) + (active() ? state.shifts[id] || 0 : 0)).sort((a, b) => a - b);
       anim.t = (deps.find((d) => d > anim.t + 1) ?? deps[0]) - 2;
-      anim.playing = true; anim.last = performance.now(); syncPlayer(); drawBoats();
+      anim.last = performance.now(); drawBoats();
       return;
     }
     const insp = e.target.closest("[data-inspect]");
@@ -715,6 +708,5 @@
   setupControls();
   renderSources();
   buildTripOptions();
-  syncPlayer();
   render();
 })();

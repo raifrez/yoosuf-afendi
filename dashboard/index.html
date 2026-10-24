@@ -307,15 +307,28 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 #mapsvg .pin.mini.bad .dot { fill: var(--bad); }
 #mapsvg .pin.mini.hub .dot { fill: var(--turquoise); }
 #mapsvg.is-national .route { opacity: .3; stroke-width: 1.2; }
+
+/* No playback bar: ferries loop in the atoll view; a small clock chip shows the time. */
+.clock-chip { display: inline-flex; align-items: baseline; gap: 8px; background: var(--ocean); color: #fff; border-radius: 10px; padding: 5px 11px; font-size: 12px; }
+.clock-chip b { font-size: 15px; font-weight: 600; }
+.clock-chip span { color: #A9C6DB; }
+.mapbox.national .atoll-only { display: none; }
+/* Make atolls readable at national scale */
+#mapsvg.is-national .reef { fill: color-mix(in srgb, var(--turquoise) 45%, var(--reef)); stroke: color-mix(in srgb, var(--turquoise) 70%, var(--map-label)); stroke-width: 0.8; stroke-opacity: .7; }
+#mapsvg.is-national .land { fill: var(--sand); }
+#mapsvg.is-national .atoll.st-none .reef { fill: color-mix(in srgb, var(--reef) 80%, var(--sea)); stroke-opacity: .35; }
+#mapsvg.is-national .atoll.st-none .land { fill: color-mix(in srgb, var(--land) 75%, var(--sea)); }
+#mapsvg.is-national .atoll.st-bad .reef { stroke: var(--bad); stroke-opacity: .9; }
 </style>
 
 <div class="app">
   <div class="mapbox">
     <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives with ferry routes and moving ferries"></svg>
     <div class="map-ui tl">
+      <div class="clock-chip" id="clock-chip" hidden><b class="mono" id="clock">06:00</b><span id="clock-sub"></span></div>
       <div class="legend">
-        <span><i class="lg-boat"></i>Ferry</span>
-        <span><i class="lg-moved"></i>Moved sailing</span>
+        <span class="atoll-only"><i class="lg-boat"></i>Ferry</span>
+        <span class="atoll-only"><i class="lg-moved"></i>Moved sailing</span>
         <span><i class="lg-ok"></i>Can make the trip</span>
         <span><i class="lg-bad"></i>Can't</span>
         <span><i class="lg-hub"></i>Hospital island</span>
@@ -323,22 +336,7 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
       </div>
     </div>
     <div class="attrib">© OpenStreetMap contributors</div>
-    <div class="player" role="group" aria-label="Ferry playback">
-      <button type="button" class="play" id="play" aria-label="Pause"></button>
-      <div>
-        <div class="clock" id="clock">06:00</div>
-        <div class="clock-sub" id="clock-sub"></div>
-      </div>
-      <div class="scrub">
-        <input type="range" id="time" min="300" max="1200" step="1" value="360" aria-label="Time of day">
-        <div class="scrub-ticks"><span>05:00</span><span>08:00</span><span>11:00</span><span>14:00</span><span>17:00</span><span>20:00</span></div>
-      </div>
-      <div class="speed" role="group" aria-label="Playback speed">
-        <button type="button" data-speed="2">2×</button>
-        <button type="button" data-speed="6">6×</button>
-        <button type="button" data-speed="15">15×</button>
-      </div>
-    </div>
+</div>
   </div>
 
   <aside class="rail" aria-label="Ferry network and access">
