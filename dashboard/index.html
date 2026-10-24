@@ -420,17 +420,17 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 
 /* Apply: a sheen sweeps across the map, then a confirmation toast */
 .sheen { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0; }
-.sheen::before { content: ""; position: absolute; top: -20%; bottom: -20%; width: 45%; left: -50%; transform: skewX(-18deg);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--turquoise) 30%, transparent) 40%, #ffffff40 50%, color-mix(in srgb, var(--turquoise) 30%, transparent) 60%, transparent); }
+.sheen::before { content: ""; position: absolute; left: 0; right: 0; height: 38%; top: 100%;
+  background: linear-gradient(0deg, transparent, color-mix(in srgb, var(--turquoise) 10%, transparent) 45%, #ffffff14 50%, color-mix(in srgb, var(--turquoise) 10%, transparent) 55%, transparent); }
 .mapbox.applying .sheen { opacity: 1; }
-.mapbox.applying .sheen::before { animation: sheen 0.9s ease-in-out infinite; }
-@keyframes sheen { from { left: -50%; } to { left: 110%; } }
+.mapbox.applying .sheen::before { animation: sheen 1.1s ease-in-out infinite; }
+@keyframes sheen { from { top: 100%; } to { top: -38%; } }
 .map-toast { position: absolute; top: 56px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 24px); background: var(--surface); color: var(--ink); border-radius: 12px; padding: 9px 14px; font-size: 13px; box-shadow: 0 8px 24px #06122040; display: flex; gap: 8px; align-items: center; }
 .map-toast b.good { color: var(--ok); }
 .map-toast::before { content: "✓"; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--ok-bg); color: var(--ok); font-weight: 700; font-size: 12px; flex: none; }
 .map-toast.in { animation: toast-in .25s ease-out; }
 @keyframes toast-in { from { opacity: 0; transform: translate(-50%, -6px); } }
-@media (prefers-reduced-motion: reduce) { .mapbox.applying .sheen::before { animation: none; left: 30%; } .map-toast.in { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .mapbox.applying .sheen::before { animation: none; top: 30%; } .map-toast.in { animation: none; } }
 </style>
 
 <div class="app">
