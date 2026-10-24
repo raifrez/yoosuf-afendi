@@ -57,7 +57,7 @@
       for (const a of atolls) {
         const { label } = atollEls[a.id];
         const altText = atollEls[a.id].alt.textContent;
-        const w = (a.name.length * 7.4 + altText.length * 5.6 + 8) * upp;
+        const w = (a.name.length * 7.4 + altText.length * 6.2 + 12) * upp;
         const west = label.dataset.west === "1";
         const x0 = west ? a.bbox[0] - 450 - w : a.bbox[2] + 450;
         const x1 = x0 + w;
@@ -126,7 +126,8 @@
           g.classList.toggle(`st-${k}`, status[a.id] === k);
           label.classList.toggle(`st-${k}`, status[a.id] === k);
         }
-        alt.textContent = notes[a.id] ? `${a.alt} · ${notes[a.id]}` : a.alt;
+        // National labels stay short: the atoll name plus an optional status note.
+        alt.textContent = notes[a.id] || "";
       }
       layoutLabels();
     }
@@ -169,7 +170,7 @@
       for (const n of net.nodes.filter((x) => x.mini)) {
         const g = el("g", { class: `pin mini ${n.status}`, "aria-hidden": "true" }, gNet);
         g.dataset.x = n.x; g.dataset.y = n.y;
-        el("circle", { class: "dot", r: n.hub ? 4.5 : 3 }, g);
+        el("circle", { class: "dot", r: n.hub ? 3.5 : 2.4 }, g);
         pins.push(g);
       }
       for (const b of net.bubbles || []) {
@@ -266,7 +267,8 @@
       placeBoats();
     }
     function placeBoats() {
-      const sc = Math.max(upp, 0.0001).toFixed(3);
+      // Boats are drawn smaller at national zoom so they don't crowd the atolls.
+      const sc = (Math.max(upp, 0.0001) * (svg.classList.contains("is-national") ? 0.55 : 1)).toFixed(3);
       for (const b of lastBoats) {
         const g = boatEls.get(b.id);
         if (g) g.setAttribute("transform", `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${b.angle.toFixed(1)}) scale(${sc})`);

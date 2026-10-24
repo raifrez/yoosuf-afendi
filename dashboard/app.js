@@ -180,10 +180,10 @@
       if (net) {
         const s = net.current.summary.health;
         status[a.id] = s.failed ? "bad" : "ok";
-        notes[a.id] = s.failed ? `${s.failed} of ${s.eligible} cut off` : "all can make it";
+        notes[a.id] = s.failed ? `${s.failed} cut off` : "";
       } else {
         status[a.id] = "none";
-        notes[a.id] = FEED_ATOLLS.includes(a.id) ? "one island in feed" : "no ferry data";
+        notes[a.id] = "";
       }
     }
     map.setState({ atollId: state.atoll, status, notes });
@@ -216,11 +216,7 @@
         status: st, label: s.name, caption, selected: full && state.view === "journey" && s.id === state.island,
       };
     });
-    const bubbles = state.atoll ? [] : Object.entries(nets).filter(([, net]) => net.current.summary.health.failed).map(([id, net]) => {
-      const s = net.current.summary.health;
-      const [x, y] = map.centreOf(id);
-      return { atoll: id, x, y, r: Math.round(10 + Math.sqrt(s.failed) * (popKnown ? 0.25 : 3.5)), text: n(s.failed), status: "bad" };
-    });
+    const bubbles = [];
     const routeLines = state.atoll ? routesIn(state.atoll).map((r) => {
       const pts = r.stops.map((sid) => P[sid]);
       let best = 0, bi = 0;

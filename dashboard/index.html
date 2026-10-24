@@ -116,6 +116,7 @@ h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend i { width: 11px; height: 11px; border-radius: 50%; border: 3px solid; display: inline-block; }
 .legend .lg-ok { border-color: var(--ok); background: var(--ok-bg); } .legend .lg-bad { border-color: var(--bad); background: var(--bad-bg); }
+.legend .lg-dim { opacity: .75; }
 .legend .lg-hub { background: var(--turquoise); border-color: var(--ocean); }
 .legend .lg-boat { width: 14px; height: 8px; border: 0; border-radius: 1px 5px 5px 1px; background: var(--boat); box-shadow: 0 0 0 1px var(--boat-edge); }
 .legend .lg-moved { width: 14px; height: 8px; border: 0; border-radius: 1px 5px 5px 1px; background: var(--boat-moved); }
@@ -297,6 +298,15 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .route-main span { font-size: 12px; color: var(--ink-2); }
 .route-times { display: flex; flex-direction: column; align-items: flex-end; font-size: 12px; color: var(--ink-2); }
 .route-times .moved-time { color: var(--accent); font-weight: 600; }
+
+/* Quiet national view */
+#mapsvg .atoll-label.st-none { fill: var(--map-label-2); opacity: .6; }
+#mapsvg .atoll-label .al-alt { font-family: var(--body); }
+#mapsvg .atoll-label.st-bad .al-alt { fill: var(--bad); font-weight: 700; }
+#mapsvg .pin.mini .dot { stroke: none; fill: color-mix(in srgb, var(--route) 70%, var(--sea)); }
+#mapsvg .pin.mini.bad .dot { fill: var(--bad); }
+#mapsvg .pin.mini.hub .dot { fill: var(--turquoise); }
+#mapsvg.is-national .route { opacity: .3; stroke-width: 1.2; }
 </style>
 
 <div class="app">
@@ -309,6 +319,7 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
         <span><i class="lg-ok"></i>Can make the trip</span>
         <span><i class="lg-bad"></i>Can't</span>
         <span><i class="lg-hub"></i>Hospital island</span>
+        <span class="lg-dim">Dimmed atolls: no ferry data yet</span>
       </div>
     </div>
     <div class="attrib">© OpenStreetMap contributors</div>
