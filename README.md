@@ -15,7 +15,7 @@ uv run python -m simulator.server          # engine API + dashboard on http://12
 
 The server loads all 11 ferry atolls (124,778 synthetic residents) and runs the model in about 0.2 s. It also serves the dashboard (`dashboard/`). The engine API is under `/api/dash/*` (scenario runs, journeys, Find better times and Add a stop) and `/api/*` (scores, comparisons, residents, the demo story).
 
-**Demo story** (`GET /api/demo`): Ismail Rasheed (a synthetic resident of Dh. Meedhoo) can't get home from a 13:30 hospital appointment at Kudahuvadhoo, because the last boat leaves at 14:05. Moving sailing 288_1 75 minutes later lets 523 Dhaalu residents' visits work, but 17 elderly Meedhoo residents now get home after 17:00. Gains and losses are shown separately.
+**Demo story** (`GET /api/demo`, write-up in `docs/demo_resident.md`): Aminath Shafeeg (68, a synthetic resident of GA. Gemanafushi) can reach Viligili hospital for an 11:30 appointment, but the only boat home lands at 18:10, after her 17:00 home-by. Moving sailing 236_1 70 minutes earlier brings her home at 17:00 and gains 1,861 residents across Gemanafushi, Kanduhulhudhoo and Kodey, but 196 Kodey residents lose access, 187 of them their referral trip to Thinadhoo. Gains and losses are shown separately.
 
 **Known gap:** the dashboard UI still computes its numbers with its own `dashboard/simulator.js`. Wiring it onto `/api/dash/*` (the engine's rules) is the next step.
 
