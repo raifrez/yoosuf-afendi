@@ -212,7 +212,7 @@
       }
       return {
         id: s.id, x: P[s.id][0], y: P[s.id][1], mini: !full, hub: st === "hub",
-        r: st === "hub" ? 10 : popKnown && s.population ? Math.round(6 + Math.sqrt(s.population) / 7) : 7,
+        r: st === "hub" ? 10 : !popKnown ? 7 : s.population ? Math.round(6 + Math.sqrt(s.population) / 7) : 5,
         status: st, label: s.name, caption, selected: full && state.view === "journey" && s.id === state.island,
       };
     });
@@ -356,12 +356,12 @@
       const bad = rows.filter((r) => r.s.failed).sort((a, b) => b.s.failed - a.s.failed);
       const ok = rows.filter((r) => !r.s.failed);
       el.innerHTML = accessHeader(cur, base) + `
-        ${bad.length ? `<div class="eyebrow">Where islands are cut off</div><div class="rows">${bad.map(({ id, net, s }) => {
-          const reasons = Object.entries(s.by_reason).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${n(v)} ${v === 1 ? REASON_COUNT[k][0] : REASON_COUNT[k][1]}`).join(" · ");
+        ${bad.length ? `<div class="eyebrow">Where ${popKnown ? "residents" : "islands"} are cut off</div><div class="rows">${bad.map(({ id, net, s }) => {
+          const reasons = Object.entries(s.by_reason).filter(([, v]) => v > 0).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${n(v)} ${v === 1 ? REASON_COUNT[k][0] : REASON_COUNT[k][1]}`).join(" · ");
           const ch = net.comparison && (net.comparison.health.gained || net.comparison.health.lost) ? ` · <b class="good">+${n(net.comparison.health.gained)}</b>${net.comparison.health.lost ? ` <b class="badtxt">−${n(net.comparison.health.lost)}</b>` : ""} with your changes` : "";
-          return `<button type="button" class="row bad" data-go-atoll="${id}"><span class="row-name">${esc(atollById[id].name)}<small>${esc(atollById[id].alt)}</small></span><span class="row-val">${n(s.failed)} of ${n(s.eligible)}</span><span class="row-sub">${esc(reasons)}${ch}</span></button>`;
+          return `<button type="button" class="row bad" data-go-atoll="${id}"><span class="row-name">${esc(atollById[id].name)}<small>${esc(atollById[id].alt)}</small></span><span class="row-val">${n(s.failed)} of ${units(s.eligible)}</span><span class="row-sub">${esc(reasons)}${ch}</span></button>`;
         }).join("")}</div>` : ""}
-        ${ok.length ? `<div class="eyebrow">Every island can make it</div><div class="chips">${ok.map(({ id }) => `<button type="button" class="chip" data-go-atoll="${id}">${esc(atollById[id].name)}</button>`).join("")}</div>` : ""}`;
+        ${ok.length ? `<div class="eyebrow">${popKnown ? "Everyone" : "Every island"} can make it</div><div class="chips">${ok.map(({ id }) => `<button type="button" class="chip" data-go-atoll="${id}">${esc(atollById[id].name)}</button>`).join("")}</div>` : ""}`;
       return;
     }
     el.innerHTML = accessHeader(cur, base) + barriersHtml();
@@ -431,7 +431,7 @@
     for (const [key, rs] of [...groups].sort((a, b) => b[1].length - a[1].length)) {
       const d = describeGroup(rs);
       const w = rs.reduce((s, x) => s + x.population_weight, 0);
-      parts.push(`<div class="barrier"><div class="barrier-top"><span class="pill bad">${esc(key.startsWith("new|") ? "New problem from your change" : REASON[rs[0].failure_reason])}</span><span class="barrier-n">${esc(units(w))}</span></div>
+      parts.push(`<div class="barrier"><div class="barrier-top"><span class="pill bad">${esc(key.startsWith("new|") ? "New problem from your change" : REASON[rs[0].failure_reason])}</span><span class="barrier-n">${esc(w || !popKnown ? units(w) : "no Census residents")}</span></div>
         <div class="barrier-head">${esc(d.head)}</div>
         <div class="barrier-detail">${esc(d.detail)}</div>
         <button type="button" class="link" data-inspect="${rs[0].home_island_id}">See the journey →</button></div>`);
@@ -489,7 +489,7 @@
     return `
       <button type="button" class="link" id="back">← All of ${esc(atollById[state.atoll].name)}</button>
       <div class="sec-head"><h3>${esc(s.name)} → ${esc(sname(net.fx.hub))}</h3>${r.success ? `<span class="pill good">Can make it</span>` : `<span class="pill bad">${esc(REASON[r.failure_reason])}</span>`}</div>
-      <p class="status-line">${s.dv ? `<span lang="dv">${esc(s.dv)}</span> · ` : ""}${popKnown ? units(r.population_weight) : "Population not loaded"}${s.approx ? " · position approximate" : ""}${changed ? ` · <b class="${r.success ? "good" : "badtxt"}">${r.success ? "fixed by your change" : "new problem from your change"}</b>` : ""}</p>
+      <p class="status-line">${s.dv ? `<span lang="dv">${esc(s.dv)}</span> · ` : ""}${!popKnown ? "Population unknown" : s.population ? units(r.population_weight) : `No Census residents${s.populationNote ? ` · ${esc(s.populationNote.replace(/;.*$/, ""))}` : ""}`}${s.approx ? " · position approximate" : ""}${changed ? ` · <b class="${r.success ? "good" : "badtxt"}">${r.success ? "fixed by your change" : "new problem from your change"}</b>` : ""}</p>
       <ol class="timeline">${timeline(r).map((st) => `<li class="step ${st.kind}"><span class="t mono">${st.t}</span><span class="dot" aria-hidden="true"></span><div><div class="st">${esc(st.title)}</div>${st.text ? `<div class="sx">${esc(st.text)}</div>` : ""}</div></li>`).join("")}</ol>
       ${r.success ? `<div class="stats"><div class="stat"><b>${fmtDur(r.travel_minutes)}</b><span>on boats</span></div><div class="stat"><b>${fmtDur(r.wait_minutes)}</b><span>waiting</span></div></div>` : ""}`;
   }
@@ -645,7 +645,7 @@
       if (state.national) {
         const changes = Object.entries(state.national.shifts);
         const gained = state.national.perAtoll.reduce((s, x) => s + x.o.comparison.health.gained, 0);
-        const unres = state.national.perAtoll.reduce((s, x) => s + x.o.unresolved.length, 0);
+        const unres = state.national.perAtoll.reduce((s, x) => s + x.o.unresolved.filter((r) => r.journey_rule_id === "health").reduce((t, r) => t + r.population_weight, 0), 0);
         box.hidden = false;
         box.innerHTML = `
           <div class="sug-head">${changes.length} sailing${changes.length === 1 ? "" : "s"} to move</div>
@@ -664,7 +664,9 @@
       ["Operating days", "Not in the source; every route assumed to run daily", "assumed"],
       ["Island positions", `OpenStreetMap, ${D.stops.filter((s) => s.approx).length} approximate`, "observed"],
       ["Hospitals", `data/facilities.csv: ${obs} from OpenStreetMap, ${D.facilities.length - obs} assumed at the atoll capital`, "mixed"],
-      ["Population", popKnown ? "data/island_population.csv" : "Not loaded. Each island counts once until Census 2022 figures are added to data/island_population.csv", popKnown ? "observed" : "missing"],
+      popKnown
+        ? ["Population", `${D.meta.population.source}: people enumerated per island, linked to all ${D.stops.length} stops by data/export/stop_islands.csv. ${D.stops.filter((s) => !s.population).length} stops (airports, industrial islands) have no Census residents.${D.meta.population.overrides ? ` ${D.meta.population.overrides} set by hand in data/island_population.csv.` : ""}`, "observed"]
+        : ["Population", "Not loaded. Each island counts once", "missing"],
       ["Map outlines", "OpenStreetMap coastline and reefs, simplified", "observed"],
     ];
     $("#sources").innerHTML = rows.map(([a, b, c]) => `<div class="src"><b>${a}</b><span class="tag ${c}">${c}</span><span class="d">${esc(b)}</span></div>`).join("") +

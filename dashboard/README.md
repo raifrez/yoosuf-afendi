@@ -15,11 +15,11 @@ Opening `dashboard/index.html` directly also works.
 The screen is a full-height map and one rail on the right.
 
 - **Ferries move along their routes** when you open an atoll, looping through the day (a small clock chip shows the time). Each route has its own colour; moved sailings get a turquoise outline. Positions are interpolated on straight lines between stops.
-- **All of the Maldives:** the ferry network in numbers, how many islands can make a same-day hospital trip, and the atolls where islands are cut off (also shown as red bubbles on the map).
+- **All of the Maldives:** the ferry network in numbers, how many residents can make a same-day hospital trip, and the atolls where residents are cut off (also shown as red bubbles on the map).
 - **Map controls:** scroll to zoom, drag to pan, or use the +/−/fit buttons. Opening an atoll frames its ferry stops; island names and route numbers are placed so they don't overlap (crowded ones appear as you zoom in).
 - **One atoll:** its sailings, first and last times, its barriers (grouped by cause, such as "Route 288 docks at 10:05") and each island's journey step by step.
 - **Move a sailing** to compare against the published schedule. Every stop of the sailing moves together.
-- **Suggest a timetable** for one atoll or every atoll. It searches 15-min shifts of sailings inside the atoll, maximizes islands with a complete trip, and never lets anyone lose access. It doesn't check boats, crews or cost.
+- **Suggest a timetable** for one atoll or every atoll. It searches 15-min shifts of sailings inside the atoll, maximizes residents with a complete trip, and never lets anyone lose access. It doesn't check boats, crews or cost.
 - **Journey rule** (appointment time, length, home-by time and time to change boats). It is an assumption, so it can be changed in the sidebar to test how sensitive the results are.
 
 ## Data
@@ -28,7 +28,8 @@ The screen is a full-height map and one rail on the right.
 |---|---|---|
 | `data/export/network.json` | Ferry sailings and stops (from `pipeline/`) | Observed; operating days assumed daily |
 | `data/facilities.csv` | The hospital island for each atoll | 7 from OpenStreetMap, 3 assumed at the atoll capital |
-| `data/island_population.csv` | Island populations | **Empty.** Until it's filled, each island counts once. Add Census 2022 figures (`stop_id,population,source,year`) and every count switches to residents |
+| `data/export/stop_islands.csv` + `data/export/island_ferry_coverage.csv` | Each stop's Census island(s) and their populations (from `pipeline/map_islands.py`) | Observed: Census 2022 people enumerated per island. Hulhumeedhoo sums Census Hulhudhoo and Meedhoo; Kooddoo, Kaadehdhoo, Felivaru and Madivaru aren't inhabited Census islands, so they count 0 residents. The hospital island's own residents aren't modeled |
+| `data/island_population.csv` | Manual population overrides (`stop_id,population,source,year`) | Empty; a row replaces that stop's Census figure |
 | `dashboard/maldives-geo.js` | Island and reef outlines for the map | OpenStreetMap (ODbL), simplified |
 
 After changing anything in `data/`, rebuild the dashboard bundle:
