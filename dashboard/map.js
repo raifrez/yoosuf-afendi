@@ -25,7 +25,9 @@
     const gAtolls = el("g", { class: "atolls" }, svg);
     const gLabels = el("g", { class: "atoll-labels" }, svg);
     const gNet = el("g", { class: "network" }, svg);
+    const gRipples = el("g", { class: "ripples" }, svg);
     const gBoats = el("g", { class: "boats" }, svg);
+    const rippleState = new Map(); // boat id -> { t, x, y } of the last ripple
     const boatEls = new Map();
     let lastBoats = [];
     let routeLines = []; // [{ id, color, points: [[x,y]...], el, glow }]
@@ -334,8 +336,28 @@
         g.style.setProperty("--boat-color", b.color || "");
         g.lastChild.textContent = b.title || "";
       }
-      for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); }
+      for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); rippleState.delete(id); }
       placeBoats();
+      dropRipples(boats);
+    }
+
+    // A moving ferry leaves a ring of water every ~0.45 s that spreads and fades
+    // (CSS animation). Rings are sized in screen pixels via scale(upp).
+    function dropRipples(boats) {
+      if (reduced) return;
+      const now = performance.now();
+      for (const b of boats) {
+        if ((b.cls || "").includes("away")) continue; // only ferries in the open atoll
+        const last = rippleState.get(b.id);
+        if (last && (now - last.t < 450 || Math.hypot(b.x - last.x, b.y - last.y) < 0.5 * upp)) continue;
+        rippleState.set(b.id, { t: now, x: b.x, y: b.y });
+        if (!last) continue; // first sighting: nothing to compare movement against yet
+        if (gRipples.childElementCount > 120) gRipples.firstChild.remove();
+        const g = el("g", { class: `ripple ${b.cls || ""}`, transform: `translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) scale(${upp.toFixed(3)})` }, gRipples);
+        g.style.setProperty("--boat-color", b.color || "");
+        el("circle", { r: 4, "vector-effect": "non-scaling-stroke" }, g);
+        setTimeout(() => g.remove(), 1900);
+      }
     }
     function placeBoats() {
       // Boats are drawn smaller at national zoom so they don't crowd the atolls.

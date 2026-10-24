@@ -331,6 +331,14 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .zoom-ctl svg { width: 15px; height: 15px; }
 .attrib { top: auto; bottom: 6px; }
 #mapsvg .route-tag.hidden-label { display: none; }
+
+/* Ripples behind moving ferries */
+#mapsvg .ripples { pointer-events: none; }
+#mapsvg .ripple circle { fill: none; stroke: var(--boat-color, var(--boat)); stroke-width: 1.6; transform-box: fill-box; transform-origin: center; animation: ripple 1.8s ease-out forwards; }
+#mapsvg .ripple.away { opacity: .4; }
+@keyframes ripple { from { transform: scale(0.6); opacity: .7; } to { transform: scale(4.2); opacity: 0; } }
+#mapsvg .boats.has-hl ~ .ripples, #mapsvg .ripples:has(~ .boats.has-hl) { opacity: .3; }
+@media (prefers-reduced-motion: reduce) { #mapsvg .ripples { display: none; } }
 </style>
 
 <div class="app">
