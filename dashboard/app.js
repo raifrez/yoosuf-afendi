@@ -42,7 +42,8 @@
   const stopsIn = (atollId) => D.stops.filter((s) => s.atoll === atollId);
 
   // Routes serving an atoll, ordered by first departure. Each gets a colour slot
-  // (validated categorical palette, max 5; a 6th+ route falls back to neutral).
+  // (validated categorical palette without pink/red, which reads as "can't";
+  // max 4, a 5th+ route falls back to neutral and keeps its number tag).
   function routesIn(atollId) {
     const byRoute = new Map();
     for (const id of tripsTouching(atollId)) {
@@ -55,7 +56,7 @@
       .sort((a, b) => firstDep(a.trips[0]) - firstDep(b.trips[0]))
       .map((r, i) => {
         const longest = r.trips.map((id) => tripMeta[id].calls).sort((a, b) => b.length - a.length)[0];
-        return { ...r, color: i < 5 ? `var(--r${i + 1})` : "var(--r-other)", stops: longest.map(([sid]) => sid) };
+        return { ...r, color: i < 4 ? `var(--r${i + 1})` : "var(--r-other)", stops: longest.map(([sid]) => sid) };
       });
   }
   const routeColor = new Map(); // route id -> colour for the selected atoll
@@ -674,6 +675,15 @@
     });
   }
 
+  let toastTimer = 0;
+  function showToast(html) {
+    const t = $("#map-toast");
+    t.innerHTML = html; t.hidden = false;
+    t.classList.remove("in"); void t.offsetWidth; t.classList.add("in");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 4500);
+  }
+
   // Apply with a short "applying" state, then let the moved routes glow and
   // jump the clock to just before the first moved sailing so it can be watched.
   function applyWithEffect(shifts, box, clear) {
@@ -681,8 +691,11 @@
     state.busy = true;
     box.innerHTML = loaderHtml(`Applying ${Object.keys(shifts).length} new departure time${Object.keys(shifts).length === 1 ? "" : "s"}…`);
     map.setSearching(true);
+    $(".mapbox").classList.add("applying");
+    const before = totals("current").success;
     setTimeout(() => {
       map.setSearching(false);
+      $(".mapbox").classList.remove("applying");
       applyShifts(shifts);
       clear();
       state.busy = false;
@@ -693,7 +706,10 @@
       }
       render();
       map.flashEdited();
-    }, reduced ? 0 : 900);
+      const gained = totals("current").success - before;
+      const list = Object.entries(shifts).map(([id, v]) => `${routeName(id)} now leaves ${fmt(firstDep(id) + v)}`);
+      showToast(`Applied: ${esc(list.slice(0, 2).join(", "))}${list.length > 2 ? ` and ${list.length - 2} more` : ""}${gained > 0 ? ` · <b class="good">+${esc(units(gained))}</b>` : ""}`);
+    }, reduced ? 200 : 1200);
   }
 
   function setShift(v) {

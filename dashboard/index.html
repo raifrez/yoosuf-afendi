@@ -14,7 +14,7 @@
   --sea: #CFE9EC; --reef: #A6DCD8; --land: #E9CF9E;
   --map-label: #0B3A5C; --map-label-2: #4D6F86; --halo: #CFE9EC; --route: #0B3A5C;
   --boat: #0B3A5C; --boat-edge: #FFFFFF; --boat-moved: #0E8378;
-  --r1: #2a78d6; --r2: #e87ba4; --r3: #eda100; --r4: #6250d6; --r5: #1baf7a; --r-other: #6F8494;
+  --r1: #2a78d6; --r2: #eda100; --r3: #6250d6; --r4: #1baf7a; --r-other: #6F8494;
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -26,7 +26,7 @@
   --sea: #082640; --reef: #12495A; --land: #CDB78E;
   --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
   --boat: #FFFFFF; --boat-edge: #082640; --boat-moved: #2EC4B6;
-  --r1: #3987e5; --r2: #d55181; --r3: #c98500; --r4: #9085e9; --r5: #199e70; --r-other: #7D96A9;
+  --r1: #3987e5; --r2: #c98500; --r3: #9085e9; --r4: #199e70; --r-other: #7D96A9;
   color-scheme: dark;
 } }
 :root[data-theme="dark"] {
@@ -36,7 +36,7 @@
   --sea: #082640; --reef: #12495A; --land: #CDB78E;
   --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
   --boat: #FFFFFF; --boat-edge: #082640; --boat-moved: #2EC4B6;
-  --r1: #3987e5; --r2: #d55181; --r3: #c98500; --r4: #9085e9; --r5: #199e70; --r-other: #7D96A9;
+  --r1: #3987e5; --r2: #c98500; --r3: #9085e9; --r4: #199e70; --r-other: #7D96A9;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -417,6 +417,20 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .rail-foot .sug-list li span:first-child { display: inline; }
 .rail-foot .sug-result { font-size: 12.5px; }
 .rail-foot .sug-unres { font-size: 12px; padding: 6px 8px; }
+
+/* Apply: a sheen sweeps across the map, then a confirmation toast */
+.sheen { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0; }
+.sheen::before { content: ""; position: absolute; top: -20%; bottom: -20%; width: 45%; left: -50%; transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--turquoise) 30%, transparent) 40%, #ffffff40 50%, color-mix(in srgb, var(--turquoise) 30%, transparent) 60%, transparent); }
+.mapbox.applying .sheen { opacity: 1; }
+.mapbox.applying .sheen::before { animation: sheen 0.9s ease-in-out infinite; }
+@keyframes sheen { from { left: -50%; } to { left: 110%; } }
+.map-toast { position: absolute; top: 56px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 24px); background: var(--surface); color: var(--ink); border-radius: 12px; padding: 9px 14px; font-size: 13px; box-shadow: 0 8px 24px #06122040; display: flex; gap: 8px; align-items: center; }
+.map-toast b.good { color: var(--ok); }
+.map-toast::before { content: "✓"; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--ok-bg); color: var(--ok); font-weight: 700; font-size: 12px; flex: none; }
+.map-toast.in { animation: toast-in .25s ease-out; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, -6px); } }
+@media (prefers-reduced-motion: reduce) { .mapbox.applying .sheen::before { animation: none; left: 30%; } .map-toast.in { animation: none; } }
 </style>
 
 <div class="app">
@@ -434,6 +448,8 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
         <span class="lg-dim">Dimmed atolls: no ferry data yet</span>
       </div>
     </div>
+    <div class="sheen" aria-hidden="true"></div>
+    <div class="map-toast" id="map-toast" role="status" aria-live="polite" hidden></div>
     <div class="zoom-ctl" role="group" aria-label="Map zoom">
       <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
       <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
