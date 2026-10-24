@@ -40,6 +40,25 @@
     return `${routeName(id)} · ${sname(c[0][0])} → ${sname(c[c.length - 1][0])}`;
   }
   const stopsIn = (atollId) => D.stops.filter((s) => s.atoll === atollId);
+
+  // Routes serving an atoll, ordered by first departure. Each gets a colour slot
+  // (validated categorical palette, max 5; a 6th+ route falls back to neutral).
+  function routesIn(atollId) {
+    const byRoute = new Map();
+    for (const id of tripsTouching(atollId)) {
+      const r = tripMeta[id].route;
+      if (!byRoute.has(r)) byRoute.set(r, []);
+      byRoute.get(r).push(id);
+    }
+    return [...byRoute.entries()]
+      .map(([route, trips]) => ({ route, trips: trips.sort((a, b) => firstDep(a) - firstDep(b)) }))
+      .sort((a, b) => firstDep(a.trips[0]) - firstDep(b.trips[0]))
+      .map((r, i) => {
+        const longest = r.trips.map((id) => tripMeta[id].calls).sort((a, b) => b.length - a.length)[0];
+        return { ...r, color: i < 5 ? `var(--r${i + 1})` : "var(--r-other)", stops: longest.map(([sid]) => sid) };
+      });
+  }
+  const routeColor = new Map(); // route id -> colour for the selected atoll
   const settings = { arriveBy: "10:00", activityMin: 120, homeBy: "18:00", buffer: 15 };
 
   function fxFor(atollId) {
@@ -131,8 +150,15 @@
     state.editTrip = trips.includes(state.editTrip) ? state.editTrip : trips[0] || null;
     const net = nets[state.atoll];
     state.island = net ? net.baseline.results.health[0]?.home_island_id : null;
+    routeColor.clear();
+    if (state.atoll) for (const r of routesIn(state.atoll)) routeColor.set(r.route, r.color);
     map.zoomTo(state.atoll);
     $("#atoll").value = state.atoll || "";
+    if (state.atoll && trips.length && !boatsAt(anim.t).some((b) => tripAtolls(b.id).has(state.atoll))) {
+      // Nothing sailing here right now: jump to the next departure in this atoll.
+      const deps = trips.map(firstDep).sort((a, b) => a - b);
+      anim.t = deps.find((d) => d >= anim.t) ?? deps[0];
+    }
     buildTripOptions();
     render();
     $("#rail-scroll").scrollTop = 0;
@@ -163,7 +189,9 @@
     map.setState({ atollId: state.atoll, status, notes });
     const editedIds = new Set(active() ? moved().map(([id]) => id) : []);
     const pairs = new Map();
+    const inAtoll = state.atoll ? new Set(tripsTouching(state.atoll)) : new Set();
     for (const t of D.trips) {
+      if (inAtoll.has(t.id)) continue;
       for (let i = 0; i < t.calls.length - 1; i++) {
         const a = t.calls[i][0], b = t.calls[i + 1][0];
         const key = [a, b].sort().join("|");
@@ -193,7 +221,17 @@
       const [x, y] = map.centreOf(id);
       return { atoll: id, x, y, r: Math.round(10 + Math.sqrt(s.failed) * (popKnown ? 0.25 : 3.5)), text: n(s.failed), status: "bad" };
     });
-    map.setNetwork({ nodes, routes, bubbles });
+    const routeLines = state.atoll ? routesIn(state.atoll).map((r) => {
+      const pts = r.stops.map((sid) => P[sid]);
+      let best = 0, bi = 0;
+      for (let i = 0; i < pts.length - 1; i++) { const d = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]); if (d > best) { best = d; bi = i; } }
+      return {
+        id: r.route, label: r.route, color: r.color, stops: r.stops, points: pts,
+        labelAt: [(pts[bi][0] + pts[bi + 1][0]) / 2, (pts[bi][1] + pts[bi + 1][1]) / 2],
+        edited: active() && r.trips.some((id) => state.shifts[id]),
+      };
+    }) : [];
+    map.setNetwork({ nodes, routes, bubbles, routeLines });
     drawBoats();
   }
 
@@ -219,6 +257,7 @@
           id: trip.id, x: x0 + (x1 - x0) * k, y: y0 + (y1 - y0) * k,
           angle: (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI,
           cls: `${shift ? "moved" : ""} ${state.atoll && !atolls.has(state.atoll) ? "away" : ""}`,
+          color: routeColor.get(trip.route) || "", route: trip.route,
           title: `${routeName(trip.id)} · ${k < 0.5 ? "leaving" : "approaching"} ${sname(near)}`,
         });
         break;
@@ -289,7 +328,15 @@
         <div class="stat"><b class="mono" style="font-size:19px">${fmt(first)}</b><span>first departure</span></div>
         <div class="stat"><b class="mono" style="font-size:19px">${fmt(last)}</b><span>last arrival</span></div>
       </div>
-      ${links.length ? `<p class="status-line">Sailings also reach ${esc(listNames(links.map((x) => atollById[x].name)))}.</p>` : ""}`;
+      ${links.length ? `<p class="status-line">Sailings also reach ${esc(listNames(links.map((x) => atollById[x].name)))}.</p>` : ""}
+      <div class="eyebrow">Routes</div>
+      <div class="routes">${routesIn(state.atoll).map((r) => `
+        <button type="button" class="route-row" data-route-row="${r.route}">
+          <span class="swatch" style="background:${r.color}"></span>
+          <span class="route-main"><b>Route ${esc(r.route)}</b><span>${esc(r.stops.map(sname).join(" → "))}</span></span>
+          <span class="route-times mono">${r.trips.map((id) => { const c = tripMeta[id].calls; const sh = active() ? state.shifts[id] || 0 : 0; return `<span class="${sh ? "moved-time" : ""}">${fmt(c[0][1] + sh)}–${fmt(c[c.length - 1][1] + sh)}</span>`; }).join("")}</span>
+        </button>`).join("")}</div>
+      <p class="status-line">Hover a route to pick it out on the map; click to watch its next sailing.</p>`;
   }
 
   // ---- Rail: same-day hospital access -------------------------------------
@@ -646,7 +693,21 @@
     syncControls();
   }
 
+  $("#r-overview").addEventListener("mouseover", (e) => { const r = e.target.closest("[data-route-row]"); map.highlightRoute(r ? r.dataset.routeRow : null); drawBoats(); });
+  $("#r-overview").addEventListener("mouseleave", () => { map.highlightRoute(null); drawBoats(); });
+  $("#mapsvg").addEventListener("mouseover", (e) => {
+    const r = e.target.closest("#mapsvg [data-route]");
+    map.highlightRoute(r ? r.dataset.route : null);
+  });
   document.addEventListener("click", (e) => {
+    const rr = e.target.closest("[data-route-row]");
+    if (rr) {
+      const ids = D.trips.filter((t) => t.route === rr.dataset.routeRow).map((t) => t.id);
+      const deps = ids.map((id) => firstDep(id) + (active() ? state.shifts[id] || 0 : 0)).sort((a, b) => a - b);
+      anim.t = (deps.find((d) => d > anim.t + 1) ?? deps[0]) - 2;
+      anim.playing = true; anim.last = performance.now(); syncPlayer(); drawBoats();
+      return;
+    }
     const insp = e.target.closest("[data-inspect]");
     if (insp) { showJourney(insp.dataset.inspect); return; }
     if (e.target.closest("#back")) { state.view = "list"; render(); return; }

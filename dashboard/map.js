@@ -28,6 +28,7 @@
     const gBoats = el("g", { class: "boats" }, svg);
     const boatEls = new Map();
     let lastBoats = [];
+    let routeLines = []; // [{ id, color, points: [[x,y]...], el, glow }]
 
     const atollEls = {};
     for (const a of atolls) {
@@ -90,6 +91,7 @@
       layoutLabels();
       for (const p of pins) p.setAttribute("transform", `translate(${p.dataset.x} ${p.dataset.y}) scale(${upp.toFixed(3)})`);
       svg.style.setProperty("--dash", `${(3 * upp).toFixed(1)} ${(6 * upp).toFixed(1)}`);
+      layoutRouteLines();
       placeBoats();
     }
 
@@ -139,6 +141,31 @@
       for (const r of net.routes) {
         el("line", { class: `route ${r.kind}`, x1: r.x1, y1: r.y1, x2: r.x2, y2: r.y2, "vector-effect": "non-scaling-stroke" }, gNet);
       }
+      // Coloured route lines (atoll view). Routes sharing a stretch are drawn
+      // side by side, like a metro map, so each stays visible.
+      routeLines = [];
+      const use = new Map();
+      for (const r of net.routeLines || []) {
+        for (let i = 0; i < r.points.length - 1; i++) {
+          const k = [r.stops[i], r.stops[i + 1]].sort().join("|");
+          if (!use.has(k)) use.set(k, []);
+          if (!use.get(k).includes(r.id)) use.get(k).push(r.id);
+        }
+      }
+      for (const r of net.routeLines || []) {
+        const glow = r.edited ? el("polyline", { class: "route-glow", "vector-effect": "non-scaling-stroke", "data-route": r.id }, gNet) : null;
+        const line = el("polyline", { class: "route-line", "vector-effect": "non-scaling-stroke", "data-route": r.id, style: `stroke:${r.color}` }, gNet);
+        routeLines.push({ ...r, el: line, glow, use });
+      }
+      for (const r of net.routeLines || []) {
+        const g = el("g", { class: "route-tag", "data-route": r.id }, gNet);
+        g.dataset.x = r.labelAt[0]; g.dataset.y = r.labelAt[1];
+        const w = 10 + String(r.label).length * 7.2;
+        el("rect", { x: -w / 2, y: -9, width: w, height: 18, rx: 9, style: `fill:${r.color}` }, g);
+        const t = el("text", { y: 0.5, "dominant-baseline": "middle" }, g);
+        t.textContent = r.label;
+        pins.push(g);
+      }
       for (const n of net.nodes.filter((x) => x.mini)) {
         const g = el("g", { class: `pin mini ${n.status}`, "aria-hidden": "true" }, gNet);
         g.dataset.x = n.x; g.dataset.y = n.y;
@@ -184,7 +211,40 @@
     });
     svg.addEventListener("mouseleave", () => setHover(null));
 
-    // boats: [{ id, x, y, angle (deg), cls, title }] — positions in map units.
+    function layoutRouteLines() {
+      const gap = 5 * upp;
+      for (const r of routeLines) {
+        const segOff = [];
+        for (let i = 0; i < r.points.length - 1; i++) {
+          const k = [r.stops[i], r.stops[i + 1]].sort().join("|");
+          const ids = r.use.get(k);
+          const idx = ids.indexOf(r.id), cnt = ids.length;
+          // Perpendicular, with a direction that doesn't flip between the two ways of travel.
+          const [a, b] = r.stops[i] < r.stops[i + 1] ? [r.points[i], r.points[i + 1]] : [r.points[i + 1], r.points[i]];
+          const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
+          const o = (idx - (cnt - 1) / 2) * gap;
+          segOff.push([(-dy / L) * o, (dx / L) * o]);
+        }
+        const pts = r.points.map((p, i) => {
+          const s1 = segOff[i - 1], s2 = segOff[i];
+          const ox = s1 && s2 ? (s1[0] + s2[0]) / 2 : (s1 || s2)[0];
+          const oy = s1 && s2 ? (s1[1] + s2[1]) / 2 : (s1 || s2)[1];
+          return `${(p[0] + ox).toFixed(1)},${(p[1] + oy).toFixed(1)}`;
+        }).join(" ");
+        r.el.setAttribute("points", pts);
+        if (r.glow) r.glow.setAttribute("points", pts);
+      }
+    }
+
+    let hlRoute = null;
+    function highlightRoute(id) {
+      hlRoute = id;
+      gNet.classList.toggle("has-hl", !!id);
+      gBoats.classList.toggle("has-hl", !!id);
+      for (const e of svg.querySelectorAll("[data-route]")) e.classList.toggle("hl", e.dataset.route === id);
+    }
+
+    // boats: [{ id, x, y, angle (deg), cls, title, color, route }] — positions in map units.
     function setBoats(boats) {
       lastBoats = boats;
       const seen = new Set();
@@ -198,7 +258,8 @@
           el("title", {}, g);
           boatEls.set(b.id, g);
         }
-        g.setAttribute("class", `boat ${b.cls || ""}`);
+        g.setAttribute("class", `boat ${b.cls || ""}${b.route && b.route === hlRoute ? " hl" : ""}`);
+        g.style.setProperty("--boat-color", b.color || "");
         g.lastChild.textContent = b.title || "";
       }
       for (const [id, g] of boatEls) if (!seen.has(id)) { g.remove(); boatEls.delete(id); }
@@ -229,7 +290,7 @@
     const bboxOf = (id) => atolls.find((a) => a.id === id).bbox;
     const project = (lon, lat) => [(lon - geo.projection.lon0) * geo.projection.k, (geo.projection.lat0 - lat) * geo.projection.k];
     const centreOf = (id) => { const a = atolls.find((x) => x.id === id); return [(a.bbox[0] + a.bbox[2]) / 2, a.labelY != null ? a.labelY : (a.bbox[1] + a.bbox[3]) / 2]; };
-    return { zoomTo, setState, setNetwork, setBoats, bboxOf, project, centreOf };
+    return { zoomTo, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
   }
 
   window.MandarinMap = { createMap };

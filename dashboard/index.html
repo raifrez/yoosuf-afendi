@@ -14,6 +14,7 @@
   --sea: #CFE9EC; --reef: #A6DCD8; --land: #E9CF9E;
   --map-label: #0B3A5C; --map-label-2: #4D6F86; --halo: #CFE9EC; --route: #0B3A5C;
   --boat: #0B3A5C; --boat-edge: #FFFFFF; --boat-moved: #0E8378;
+  --r1: #2a78d6; --r2: #e87ba4; --r3: #eda100; --r4: #6250d6; --r5: #1baf7a; --r-other: #6F8494;
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -25,6 +26,7 @@
   --sea: #082640; --reef: #12495A; --land: #CDB78E;
   --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
   --boat: #FFFFFF; --boat-edge: #082640; --boat-moved: #2EC4B6;
+  --r1: #3987e5; --r2: #d55181; --r3: #c98500; --r4: #9085e9; --r5: #199e70; --r-other: #7D96A9;
   color-scheme: dark;
 } }
 :root[data-theme="dark"] {
@@ -34,6 +36,7 @@
   --sea: #082640; --reef: #12495A; --land: #CDB78E;
   --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
   --boat: #FFFFFF; --boat-edge: #082640; --boat-moved: #2EC4B6;
+  --r1: #3987e5; --r2: #d55181; --r3: #c98500; --r4: #9085e9; --r5: #199e70; --r-other: #7D96A9;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -272,6 +275,28 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .dd-opt .dd-sub { font-size: 12.5px; color: var(--ink-3); }
 .dd-badge { flex: none; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 6px; background: color-mix(in srgb, var(--turquoise) 22%, var(--surface)); color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .dd-trigger, .dd-chev { transition: none; } }
+
+/* Route lines (atoll view) */
+#mapsvg .route-line { fill: none; stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round; transition: opacity .15s; }
+#mapsvg .route-glow { fill: none; stroke: var(--turquoise); stroke-width: 10; stroke-linejoin: round; stroke-linecap: round; opacity: .45; }
+#mapsvg .route-tag rect { stroke: var(--halo); stroke-width: 2; }
+#mapsvg .route-tag text { text-anchor: middle; font-family: var(--mono); font-weight: 600; font-size: 11px; fill: #fff; }
+#mapsvg .route-tag { transition: opacity .15s; }
+#mapsvg .network.has-hl .route-line:not(.hl), #mapsvg .network.has-hl .route-tag:not(.hl), #mapsvg .network.has-hl .route-glow:not(.hl) { opacity: .15; }
+#mapsvg .network.has-hl .route-line.hl { stroke-width: 5.5; }
+#mapsvg .boat .hull { fill: var(--boat-color, var(--boat)); }
+#mapsvg .boat .wake { stroke: var(--boat-color, var(--boat)); }
+#mapsvg .boat.moved .hull { stroke: var(--turquoise); stroke-width: 3; }
+#mapsvg .boats.has-hl .boat:not(.hl) { opacity: .2; }
+.routes { display: flex; flex-direction: column; gap: 4px; }
+.route-row { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; gap: 10px; align-items: start; text-align: left; border: 0; border-radius: 10px; padding: 8px 10px; background: var(--surface-2); }
+.route-row:hover { box-shadow: 0 0 0 2px var(--turquoise); }
+.swatch { width: 12px; height: 12px; border-radius: 3px; margin-top: 3px; }
+.route-main { display: flex; flex-direction: column; min-width: 0; }
+.route-main b { font-size: 13.5px; }
+.route-main span { font-size: 12px; color: var(--ink-2); }
+.route-times { display: flex; flex-direction: column; align-items: flex-end; font-size: 12px; color: var(--ink-2); }
+.route-times .moved-time { color: var(--accent); font-weight: 600; }
 </style>
 
 <div class="app">
