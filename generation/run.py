@@ -16,7 +16,7 @@ def main():
     parser.add_argument("--geography", type=Path)
     parser.add_argument("--name-catalog", type=Path)
     parser.add_argument("--journey-scenario", type=Path, default=root / "scenarios/daily-assumed.json")
-    parser.add_argument("--ferry-data", type=Path, help="Opt into sample ferry volumes; default journey demand is 3% of residents daily")
+    parser.add_argument("--ferry-data", type=Path, help="Opt into sample ferry volumes; default journey demand is 3%% of residents daily")
     parser.add_argument("--no-publish", action="store_true", help="Generate an immutable run without updating shared tables")
     args = parser.parse_args()
     data = args.data_dir.resolve()

@@ -6,7 +6,13 @@ The published ferry schedules are turned into a validated [GTFS](https://gtfs.or
 
 ## Run the app
 
-You need [uv](https://docs.astral.sh/uv/). From the repo root:
+You need [uv](https://docs.astral.sh/uv/) and Python 3.12+. One command regenerates the population (when the Census archives are in `data/raw/archives/`; otherwise it uses the committed one), runs the simulator and serves the dashboard on http://127.0.0.1:8765/:
+
+```bash
+./run.sh
+```
+
+Or, to skip regenerating the population (it's committed):
 
 ```bash
 uv sync

@@ -402,8 +402,8 @@ def main(argv=None):
     parser.add_argument("--islands", nargs="+", help="Canonical Census island codes; default all inhabited Census areas")
     parser.add_argument("--geography", type=Path, help="Previously downloaded local islands.json")
     parser.add_argument("--name-catalog", type=Path)
-    parser.add_argument("--ferry-data", type=Path, help="Opt into sample ferry volumes instead of 3% daily population demand; requires --journey-scenario")
-    parser.add_argument("--journey-scenario", type=Path, help="Monthly destination/time assumptions; defaults to 3% daily demand with uniformly random purposes")
+    parser.add_argument("--ferry-data", type=Path, help="Opt into sample ferry volumes instead of 3%% daily population demand; requires --journey-scenario")
+    parser.add_argument("--journey-scenario", type=Path, help="Monthly destination/time assumptions; defaults to 3%% daily demand with uniformly random purposes")
     parser.add_argument("--stage-only", action="store_true", help="Prepare validated CSV staging without DuckDB export")
     args = parser.parse_args(argv)
     if args.ferry_data and not args.journey_scenario:
