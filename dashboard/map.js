@@ -28,9 +28,10 @@
     // Wake gradient: drawn in each boat's local (screen-pixel) frame, white at
     // the stern fading out behind it.
     const defs = el("defs", {}, svg);
-    const grad = el("linearGradient", { id: "wakeFade", gradientUnits: "userSpaceOnUse", x1: -9, y1: 0, x2: -52, y2: 0 }, defs);
-    el("stop", { offset: 0, "stop-color": "#fff", "stop-opacity": 0.9 }, grad);
-    el("stop", { offset: 1, "stop-color": "#fff", "stop-opacity": 0 }, grad);
+    const grad = el("linearGradient", { id: "wakeFade", gradientUnits: "userSpaceOnUse", x1: -9, y1: 0, x2: -54, y2: 0 }, defs);
+    el("stop", { offset: 0, "stop-color": "#fff", "stop-opacity": 0.85 }, grad);
+    el("stop", { offset: 0.45, "stop-color": "#fff", "stop-opacity": 0.4 }, grad);
+    el("stop", { offset: 0.8, "stop-color": "#fff", "stop-opacity": 0 }, grad);
     const gBoats = el("g", { class: "boats" }, svg);
     const boatEls = new Map();
     let lastBoats = [];
@@ -261,7 +262,7 @@
       }
       for (const n of net.nodes.filter((x) => !x.mini)) {
         const g = el("g", {
-          class: `pin ${n.status}${n.selected ? " sel" : ""}`, "data-island": n.id,
+          class: `pin ${n.status}${n.selected ? " sel" : ""}${n.added ? " added" : ""}`, "data-island": n.id,
           tabindex: n.hub ? -1 : 0, role: n.hub ? "img" : "button", "aria-label": `${n.label}: ${n.caption}`,
         }, gNet);
         g.dataset.x = n.x; g.dataset.y = n.y;
@@ -359,9 +360,10 @@
       const pts = [];
       for (let k = 0; k <= 16; k++) {
         const x = -9 - k * 2.8, d = k / 16;
-        const spread = side * (2.6 + d * 5.2);
-        const amp = (side ? 0.5 : 0.35) + d * (side ? 1.8 : 1.1);
-        const y = spread + amp * Math.sin(k * 0.62 - t * 7 + side * 1.4);
+        // A clean V with only a slight shimmer, so it reads as a wake, not tentacles.
+        const spread = side * (2.6 + d * 4.6);
+        const amp = 0.12 + d * 0.35;
+        const y = spread + amp * Math.sin(k * 0.9 - t * 9 + side * 1.4);
         pts.push(`${k ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(2)}`);
       }
       return pts.join("");

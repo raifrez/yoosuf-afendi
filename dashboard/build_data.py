@@ -92,6 +92,7 @@ def main() -> None:
     # "not on the ferry schedule" issue. Census atoll codes differ slightly from the map's.
     census_atoll = {"Adh": "ADh", "MLE": "K"}
     road = {(r["atoll"], r["island_name"]): r for r in read_csv(DATA / "road_links.csv")}
+    points = {r["island_id"]: r for r in read_csv(DATA / "export" / "island_points.csv")}
     islands = []
     for r in read_csv(DATA / "export" / "island_ferry_coverage.csv"):
         link = road.get((r["atoll_code"], r["name"]))
@@ -100,6 +101,8 @@ def main() -> None:
             "atoll": GEO_ID.get(r["atoll_code"], census_atoll.get(r["atoll_code"], r["atoll_code"])),
             "population": int(r["population"] or 0), "status": r["ferry_status"],
             "stops": [x for x in (r["stop_ids"] or "").split(";") if x],
+            "lat": float(points[r["island_id"]]["lat"]) if r["island_id"] in points else None,
+            "lon": float(points[r["island_id"]]["lon"]) if r["island_id"] in points else None,
             "roadLinkedTo": link["linked_stop_id"] if link else None,
             "roadNote": link["note"] if link else None,
         })
@@ -108,7 +111,7 @@ def main() -> None:
         "meta": {
             **net.get("meta", {}),
             "builtFrom": ["data/export/network.json", "data/facilities.csv", "data/export/stop_islands.csv",
-                          "data/export/island_ferry_coverage.csv", "data/island_population.csv", "data/road_links.csv"],
+                          "data/export/island_ferry_coverage.csv", "data/island_population.csv", "data/road_links.csv", "data/export/island_points.csv"],
             "population": {
                 "source": CENSUS_SOURCE, "year": 2022, "classification": "observed",
                 "measure": "People enumerated on each Census island (Malé wards and administrative islands)",

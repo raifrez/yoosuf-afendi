@@ -16,6 +16,9 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const atollById = Object.fromEntries(geo.atolls.map((a) => [a.id, a]));
+  // The working network: the published stops and sailings, plus any stops the
+  // user has added ("Add a stop"). Rebuilt by refreshNetwork().
+  const NET = { stops: D.stops.slice(), trips: D.trips.slice() };
   const stopById = Object.fromEntries(D.stops.map((s) => [s.id, s]));
   const facilityByAtoll = Object.fromEntries(D.facilities.map((f) => [f.atoll, f]));
   const tripMeta = Object.fromEntries(D.trips.map((t) => [t.id, t]));
@@ -27,19 +30,21 @@
   const ROUTES = new Set(D.trips.map((t) => t.route));
   const FEED_ATOLLS = [...new Set(D.stops.map((s) => s.atoll))];
 
-  const TRIPS = D.trips.map((t) => ({
+  const simTrips = (trips) => trips.map((t) => ({
     id: t.id, days: "all",
     stops: t.calls.map(([sid, m], k, arr) => ({ island: sid, ...(k > 0 ? { arr: fmt(m) } : {}), ...(k < arr.length - 1 ? { dep: fmt(m) } : {}) })),
   }));
+  const BASE_TRIPS = simTrips(D.trips);
+  let TRIPS = BASE_TRIPS;
   const tripAtolls = (id) => new Set(tripMeta[id].calls.map(([s]) => stopById[s].atoll));
-  const tripsTouching = (atollId) => D.trips.filter((t) => tripAtolls(t.id).has(atollId)).map((t) => t.id);
-  const tripsWithin = (atollId) => D.trips.filter((t) => { const a = tripAtolls(t.id); return a.size === 1 && a.has(atollId); }).map((t) => t.id);
+  const tripsTouching = (atollId) => NET.trips.filter((t) => tripAtolls(t.id).has(atollId)).map((t) => t.id);
+  const tripsWithin = (atollId) => NET.trips.filter((t) => { const a = tripAtolls(t.id); return a.size === 1 && a.has(atollId); }).map((t) => t.id);
   const firstDep = (id) => tripMeta[id].calls[0][1];
   function tripLabel(id) {
     const c = tripMeta[id].calls;
     return `${routeName(id)} · ${sname(c[0][0])} → ${sname(c[c.length - 1][0])}`;
   }
-  const stopsIn = (atollId) => D.stops.filter((s) => s.atoll === atollId);
+  const stopsIn = (atollId, stops = NET.stops) => stops.filter((s) => s.atoll === atollId);
 
   // Routes serving an atoll, ordered by first departure. Each gets a colour slot
   // (validated categorical palette without pink/red, which reads as "can't";
@@ -62,9 +67,10 @@
   const routeColor = new Map(); // route id -> colour for the selected atoll
   const settings = { arriveBy: "10:00", activityMin: 120, homeBy: "18:00", buffer: 15 };
 
-  function fxFor(atollId) {
+  // base = true: the published network (the comparison baseline).
+  function fxFor(atollId, base = false) {
     const f = facilityByAtoll[atollId];
-    const stops = stopsIn(atollId);
+    const stops = stopsIn(atollId, base ? D.stops : NET.stops);
     if (!f || stops.length < 2) return null;
     return {
       meta: { weekday: "tue", classification: "observed" },
@@ -73,7 +79,7 @@
         id: s.id, name: s.name, population: popKnown ? s.population : 1, schoolAge: 0, secondaryStudents: 0, ownSecondary: true,
         harbourToFacilityMin: s.id === f.stop ? f.walkMin : 0,
       })),
-      trips: TRIPS,
+      trips: base ? BASE_TRIPS : TRIPS,
       rules: [{ id: "health", label: "Hospital appointment", short: "Hospital", eligible: "residents", destination: f.stop,
         earliestStart: "05:00", arriveBy: settings.arriveBy, activityMin: settings.activityMin, homeBy: settings.homeBy }],
     };
@@ -84,11 +90,13 @@
   let nets = {};
   let shiftError = null;
 
+  // Baseline = published network; current = working network (added stops) +
+  // moved sailings, so gains and losses are always against the published schedule.
   function rebuild() {
     nets = {};
     for (const id of FEED_ATOLLS) {
       const fx = fxFor(id);
-      if (fx) nets[id] = { fx, baseline: M.run(fx, null) };
+      if (fx) nets[id] = { fx, baseline: M.run(fxFor(id, true), null) };
     }
     recompute();
   }
@@ -97,7 +105,7 @@
     shiftError = null;
     for (const net of Object.values(nets)) {
       net.current = net.baseline; net.comparison = null;
-      if (!Object.keys(shifts).length) continue;
+      if (!Object.keys(shifts).length && !Object.keys(added).length) continue;
       const r = M.run(net.fx, { shifts });
       if (r.error) { shiftError = r.error; continue; }
       net.current = r; net.comparison = M.compare(net.baseline, r);
@@ -105,8 +113,10 @@
     if (shiftError) for (const net of Object.values(nets)) { net.current = net.baseline; net.comparison = null; }
   }
   const moved = () => Object.entries(state.shifts).filter(([, v]) => v);
-  const active = () => moved().length > 0 && !shiftError;
-  const resOf = (run, islandId) => run.results.health.find((r) => r.home_island_id === islandId);
+  const active = () => (moved().length > 0 || Object.keys(added).length > 0) && !shiftError;
+  // An added stop has no baseline result: on the published schedule it had no ferry.
+  const NO_FERRY = { success: false, failure_reason: "no_service", population_weight: 0 };
+  const resOf = (run, islandId) => run.results.health.find((r) => r.home_island_id === islandId) || (String(islandId).startsWith("ADD_") ? NO_FERRY : undefined);
 
   function totals(which) {
     const t = { eligible: 0, success: 0, failed: 0, by_reason: {}, gained: 0, lost: 0 };
@@ -143,6 +153,116 @@
     onIsland: (id) => { if (stopById[id] && stopById[id].atoll === state.atoll && nets[state.atoll]) showJourney(id); },
   });
   const P = Object.fromEntries(D.stops.map((s) => [s.id, map.project(s.lon, s.lat)]));
+
+  // ---- Add a stop --------------------------------------------------------
+  // added: census island id -> { stopId, route, a, b, minutes } inserted between
+  // neighbouring stops a and b on every sailing of the route. Leg times use the
+  // route's own boat speed; a 5-min call; later stops on the sailing move later.
+  const added = {};
+  let addSeq = 0; // insertion order: a stop can chain onto an earlier added stop
+  const addedInOrder = () => Object.entries(added).sort((x, y) => x[1].seq - y[1].seq);
+  const DWELL = 5;
+  const islandByCensus = Object.fromEntries((D.islands || []).map((i) => [i.id, i]));
+  const dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1]);
+  function routeSpeed(route) {
+    const v = [];
+    for (const t of D.trips) if (t.route === route) for (let i = 0; i < t.calls.length - 1; i++) {
+      const dt = t.calls[i + 1][1] - t.calls[i][1];
+      if (dt > 0) v.push(dist(P[t.calls[i][0]], P[t.calls[i + 1][0]]) / dt);
+    }
+    v.sort((a, b) => a - b);
+    return v.length ? v[Math.floor(v.length / 2)] : 50; // map units per minute (~33 km/h fallback)
+  }
+  function insertStop(trips, ins, pos) {
+    const sp = routeSpeed(ins.route);
+    const leg = (x) => Math.max(1, Math.ceil(dist(P[x], pos) / sp));
+    return trips.map((t) => {
+      if (t.route !== ins.route) return t;
+      const c = t.calls;
+      if (ins.end) {
+        // Extend the route past its terminus: sailings that start there start at
+        // the new stop a little earlier; sailings that end there carry on to it.
+        const L = leg(ins.a);
+        if (c[0][0] === ins.a) return { ...t, calls: [[ins.stopId, c[0][1] - L - DWELL], ...c], addedMinutes: 0, extraMinutes: L + DWELL };
+        if (c[c.length - 1][0] === ins.a) return { ...t, calls: [...c, [ins.stopId, c[c.length - 1][1] + DWELL + L]], addedMinutes: 0, extraMinutes: L + DWELL };
+        return t;
+      }
+      for (let i = 0; i < c.length - 1; i++) {
+        const x = c[i][0], y = c[i + 1][0];
+        if (!((x === ins.a && y === ins.b) || (x === ins.b && y === ins.a))) continue;
+        const tNew = c[i][1] + leg(x);
+        const delta = Math.max(0, tNew + DWELL + leg(y) - c[i + 1][1]);
+        const calls = [...c.slice(0, i + 1), [ins.stopId, tNew], ...c.slice(i + 1).map(([sid, m]) => [sid, m + delta])];
+        return { ...t, calls, addedMinutes: delta };
+      }
+      return t;
+    });
+  }
+  // Removing a stop also removes stops that were chained onto it.
+  function removeAdded(censusId) {
+    const gone = added[censusId] && added[censusId].stopId;
+    delete added[censusId];
+    for (const [iid, ins] of Object.entries(added)) if (ins.a === gone || ins.b === gone) removeAdded(iid);
+  }
+  function refreshNetwork() {
+    const virt = addedInOrder().map(([iid, ins]) => {
+      const isl = islandByCensus[iid];
+      P[ins.stopId] = map.project(isl.lon, isl.lat);
+      return { id: ins.stopId, name: isl.name, dv: "", atoll: isl.atoll, lat: isl.lat, lon: isl.lon, approx: false,
+        population: isl.population, added: true, censusId: iid };
+    });
+    NET.stops = [...D.stops, ...virt];
+    let trips = D.trips.slice();
+    for (const [, ins] of addedInOrder()) trips = insertStop(trips, ins, P[ins.stopId]);
+    NET.trips = trips;
+    for (const st of virt) stopById[st.id] = st;
+    for (const k of Object.keys(stopById)) if (!NET.stops.some((x) => x.id === k)) delete stopById[k];
+    for (const t of NET.trips) tripMeta[t.id] = t;
+    TRIPS = simTrips(NET.trips);
+    rebuild();
+  }
+  // Try every gap on every route inside the atoll; keep the one that gets the
+  // island's residents there and back without costing anyone access, with the
+  // smallest delay to later stops.
+  const lexLess = (a, b) => { for (let k = 0; k < a.length; k++) if (a[k] !== b[k]) return a[k] < b[k]; return false; };
+  function bestInsertion(censusId) {
+    const isl = islandByCensus[censusId];
+    const stopId = `ADD_${censusId}`;
+    const pos = map.project(isl.lon, isl.lat);
+    P[stopId] = pos;
+    const atoll = isl.atoll;
+    const before = nets[atoll] ? nets[atoll].current : null;
+    const routes = [...new Set(tripsWithin(atoll).map((id) => tripMeta[id].route))];
+    const cands = [];
+    for (const route of routes) {
+      const longest = NET.trips.filter((t) => t.route === route).map((t) => t.calls).sort((a, b) => b.length - a.length)[0];
+      for (let i = 0; i < longest.length - 1; i++) cands.push({ stopId, route, a: longest[i][0], b: longest[i + 1][0] });
+      for (const end of [longest[0][0], longest[longest.length - 1][0]]) cands.push({ stopId, route, a: end, end: true });
+    }
+    let best = null;
+    const keep = { ...added };
+    for (const c of cands) {
+      added[censusId] = c;
+      const trips = insertStop(NET.trips, c, pos);
+      const stops = [...NET.stops, { id: stopId, name: isl.name, atoll, lat: isl.lat, lon: isl.lon, population: isl.population }];
+      const savedTrips = TRIPS; TRIPS = simTrips(trips);
+      const savedStops = NET.stops; NET.stops = stops;
+      const fx = fxFor(atoll);
+      const r = M.run(fx, { shifts: Object.fromEntries(moved()) });
+      TRIPS = savedTrips; NET.stops = savedStops;
+      if (r.error) continue;
+      const me = r.results.health.find((x) => x.home_island_id === stopId);
+      const lost = before ? before.results.health.filter((b) => b.success && !(r.results.health.find((x) => x.home_island_id === b.home_island_id) || {}).success).reduce((s2, b) => s2 + b.population_weight, 0) : 0;
+      const minutes = Math.max(0, ...trips.filter((t) => t.route === c.route).map((t) => t.addedMinutes || 0));
+      const extra = Math.max(0, ...trips.filter((t) => t.route === c.route).map((t) => t.extraMinutes || 0));
+      // Lexicographic: island gets access, then nobody loses access, then least delay.
+      const score = [me && me.success ? 0 : 1, lost, minutes];
+      if (!best || lexLess(score, best.score)) best = { ...c, minutes, extra, lost, ok: !!(me && me.success), me, score };
+    }
+    for (const k of Object.keys(added)) delete added[k];
+    Object.assign(added, keep);
+    return best;
+  }
 
   function selectAtoll(id) {
     state.atoll = id || null;
@@ -197,7 +317,7 @@
     const editedIds = new Set(active() ? moved().map(([id]) => id) : []);
     const pairs = new Map();
     const inAtoll = state.atoll ? new Set(tripsTouching(state.atoll)) : new Set();
-    for (const t of D.trips) {
+    for (const t of NET.trips) {
       if (inAtoll.has(t.id)) continue;
       for (let i = 0; i < t.calls.length - 1; i++) {
         const a = t.calls[i][0], b = t.calls[i + 1][0];
@@ -208,7 +328,7 @@
       }
     }
     const routes = [...pairs.values()].map((p) => ({ x1: P[p.a][0], y1: P[p.a][1], x2: P[p.b][0], y2: P[p.b][1], kind: p.edited ? "edited" : "today" }));
-    const nodes = D.stops.map((s) => {
+    const nodes = NET.stops.map((s) => {
       const st = stopStatus(s.id);
       const net = nets[s.atoll];
       const full = state.atoll && s.atoll === state.atoll;
@@ -220,7 +340,7 @@
       return {
         id: s.id, x: P[s.id][0], y: P[s.id][1], mini: !full, hub: st === "hub",
         r: st === "hub" ? 10 : !popKnown ? 7 : s.population ? Math.round(6 + Math.sqrt(s.population) / 7) : 5,
-        status: st, label: s.name, caption, selected: full && state.view === "journey" && s.id === state.island,
+        status: st, label: s.name, caption, added: !!s.added, selected: full && state.view === "journey" && s.id === state.island,
       };
     });
     const bubbles = [];
@@ -244,7 +364,7 @@
 
   function boatsAt(t) {
     const out = [];
-    for (const trip of D.trips) {
+    for (const trip of NET.trips) {
       const shift = active() ? state.shifts[trip.id] || 0 : 0;
       const c = trip.calls;
       if (t < c[0][1] + shift || t > c[c.length - 1][1] + shift) continue;
@@ -357,8 +477,8 @@
     }
     if (FEED_ATOLLS.includes(atollId)) {
       for (const isl of D.islands || []) {
-        if (isl.atoll !== atollId || isl.status !== "no_route_in_data" || isl.roadLinkedTo) continue;
-        add("nostop", popKnown ? isl.population : 1, { name: isl.name, detail: popKnown ? `${n(isl.population)} residents` : "" });
+        if (isl.atoll !== atollId || isl.status !== "no_route_in_data" || isl.roadLinkedTo || added[isl.id]) continue;
+        add("nostop", popKnown ? isl.population : 1, { name: isl.name, censusId: isl.id, detail: popKnown ? `${n(isl.population)} residents` : "" });
       }
     }
     for (const k of ISSUE_ORDER) out[k].items.sort((a, b) => (b.r ? b.r.population_weight : 0) - (a.r ? a.r.population_weight : 0));
@@ -412,7 +532,7 @@
         parts.push(`<div class="issue ${ISSUE[k].tone}">${issueHead(k, x.w)}
           <ul class="issue-list">${x.items.map((it) => it.id
             ? `<li><button type="button" class="link" data-inspect="${it.id}">${esc(sname(it.id))}</button><span>${esc(it.detail || "")}</span></li>`
-            : `<li><span class="li-name">${esc(it.name)}</span><span>${esc(it.detail || "")}</span></li>`).join("")}</ul></div>`);
+            : `<li><span class="li-name">${esc(it.name)}</span><span class="li-right">${esc(it.detail || "")}${it.censusId && islandByCensus[it.censusId].lat != null ? `<button type="button" class="add-stop" data-add-stop="${it.censusId}">Add a stop</button>` : ""}</span></li>`).join("")}</ul></div>`);
       }
     }
     if (!net) {
@@ -573,8 +693,14 @@
     $("#shift").addEventListener("input", (e) => setShift(Number(e.target.value)));
     $("#earlier").addEventListener("click", () => setShift((state.shifts[state.editTrip] || 0) - 15));
     $("#later").addEventListener("click", () => setShift((state.shifts[state.editTrip] || 0) + 15));
-    $("#reset").addEventListener("click", () => { state.shifts = {}; recompute(); render(); });
+    $("#reset").addEventListener("click", () => {
+      state.shifts = {};
+      for (const k of Object.keys(added)) delete added[k];
+      refreshNetwork(); render();
+    });
     $("#moved").addEventListener("click", (e) => {
+      const un = e.target.closest("[data-unadd]");
+      if (un) { removeAdded(un.dataset.unadd); refreshNetwork(); render(); return; }
       const rm = e.target.closest("[data-unmove]");
       if (rm) { delete state.shifts[rm.dataset.unmove]; recompute(); render(); }
     });
@@ -625,7 +751,10 @@
   // Run the optimizer step by step so the search is visible: an indeterminate
   // loader with live counts in the rail, and on the map the sailing being tried
   // (atoll view) or the atoll being checked (national view).
-  const STEP_MS = reduced ? 0 : 70;
+  // Paced so the search reads as work being done (each step is a real
+  // optimizer step; the pacing only spaces them out).
+  const STEP_MS = reduced ? 0 : 260;
+  const MIN_SEARCH_MS = reduced ? 0 : 3200;
   function loaderHtml(text) {
     return `<div class="loader" role="progressbar" aria-label="Searching timetables"><i></i></div><p class="loader-text" aria-live="polite">${text}</p>`;
   }
@@ -638,9 +767,15 @@
     box.hidden = false;
     map.setSearching(true);
     const per = [];
+    const t0 = performance.now();
     let evaluated = 0, ai = 0, it = null;
     (function tick() {
       if (!it) {
+        if (ai >= ids.length && performance.now() - t0 < MIN_SEARCH_MS) {
+          box.innerHTML = loaderHtml(`Checking the best combination · ${n(evaluated)} timetables checked`);
+          setTimeout(tick, STEP_MS);
+          return;
+        }
         if (ai >= ids.length) {
           map.setSearching(false); map.markAtoll(null); map.highlightRoute(null);
           state.busy = false; btn.disabled = false; labelEl.textContent = label;
@@ -677,9 +812,10 @@
   }
 
   let toastTimer = 0;
-  function showToast(html) {
+  function showToast(html, warn = false) {
     const t = $("#map-toast");
     t.innerHTML = html; t.hidden = false;
+    t.classList.toggle("warn", warn);
     t.classList.remove("in"); void t.offsetWidth; t.classList.add("in");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { t.hidden = true; }, 4500);
@@ -731,8 +867,9 @@
         : `<span class="mono strike">${fmt(from)}</span> → <b class="mono">${to >= 0 && to <= 1439 ? fmt(to) : "--:--"}</b> <span class="muted">${shift > 0 ? "+" : "−"}${Math.abs(shift)} min at every stop</span>`;
     }
     const list = moved();
-    $("#r-moved").hidden = !list.length && !shiftError;
-    $("#moved").innerHTML = list.map(([id, s]) => `<li><span class="moved-edit"><span>${esc(tripLabel(id))}</span><span class="mono">${fmt(firstDep(id))} → ${fmt(firstDep(id) + s)}</span></span><button type="button" class="x" data-unmove="${id}" aria-label="Put ${esc(tripLabel(id))} back">×</button></li>`).join("");
+    const adds = addedInOrder();
+    $("#r-moved").hidden = !list.length && !adds.length && !shiftError;
+    $("#moved").innerHTML = adds.map(([iid, a]) => `<li><span class="moved-edit"><span>Stop added: <b>${esc(islandByCensus[iid].name)}</b> on Route ${esc(a.route)}</span><span class="mono">${a.end ? `beyond ${esc(sname(a.a))} · ${a.extra} min more sailing` : `between ${esc(sname(a.a))} and ${esc(sname(a.b))}${a.minutes ? ` · +${a.minutes} min` : ""}`}</span></span><button type="button" class="x" data-unadd="${iid}" aria-label="Remove the added stop at ${esc(islandByCensus[iid].name)}">×</button></li>`).join("") + list.map(([id, s]) => `<li><span class="moved-edit"><span>${esc(tripLabel(id))}</span><span class="mono">${fmt(firstDep(id))} → ${fmt(firstDep(id) + s)}</span></span><button type="button" class="x" data-unmove="${id}" aria-label="Put ${esc(tripLabel(id))} back">×</button></li>`).join("");
     const st = $("#scenario-status");
     if (shiftError) { st.className = "status-line error"; st.textContent = `${shiftError} Showing the published schedule instead.`; }
     else {
@@ -836,10 +973,44 @@
     const r = e.target.closest("#mapsvg [data-route]");
     map.highlightRoute(r ? r.dataset.route : null);
   });
+  // "Add a stop": search every gap on the atoll's routes (visibly), then insert
+  // the island where it gains access without costing anyone else.
+  function addStop(censusId, btn) {
+    if (state.busy) return;
+    const isl = islandByCensus[censusId];
+    state.busy = true;
+    btn.disabled = true; btn.textContent = "Finding a route…";
+    $(".mapbox").classList.add("applying");
+    map.setSearching(true);
+    setTimeout(() => {
+      const best = bestInsertion(censusId);
+      map.setSearching(false);
+      $(".mapbox").classList.remove("applying");
+      state.busy = false;
+      if (!best || !best.ok || best.lost) {
+        btn.disabled = false; btn.textContent = "Add a stop";
+        showToast(`No stop on an existing route gets ${esc(isl.name)} to the hospital and back without costing others access. It needs a new sailing.`, true);
+        return;
+      }
+      added[censusId] = { ...best, seq: ++addSeq };
+      refreshNetwork();
+      // Watch it: jump the clock to just before the route's next sailing.
+      const deps = NET.trips.filter((t) => t.route === best.route).map((t) => t.calls[0][1] + (state.shifts[t.id] || 0)).sort((a, b) => a - b);
+      anim.t = (deps.find((d) => d > anim.t) ?? deps[0]) - 2;
+      render();
+      map.flashEdited();
+      const me = resOf(nets[isl.atoll].current, best.stopId);
+      const where = best.end ? `as a new end stop beyond ${esc(sname(best.a))} (${best.extra} min more sailing)` : `between ${esc(sname(best.a))} and ${esc(sname(best.b))}${best.minutes ? ` · +${best.minutes} min for later stops` : ""}`;
+      showToast(`Added ${esc(isl.name)} to Route ${esc(best.route)} ${where} · ${me && me.success ? `<b class="good">${esc(units(isl.population))} can now reach the hospital</b>` : `still can't make the hospital trip (${esc((REASON[me ? me.failure_reason : "no_route"] || "").toLowerCase())})`}${best.lost ? ` · <b class="badtxt">${esc(units(best.lost))} lose access</b>` : ""}`);
+    }, reduced ? 0 : 1400);
+  }
+
   document.addEventListener("click", (e) => {
+    const as = e.target.closest("[data-add-stop]");
+    if (as) { addStop(as.dataset.addStop, as); return; }
     const rr = e.target.closest("[data-route-row]");
     if (rr) {
-      const ids = D.trips.filter((t) => t.route === rr.dataset.routeRow).map((t) => t.id);
+      const ids = NET.trips.filter((t) => t.route === rr.dataset.routeRow).map((t) => t.id);
       const deps = ids.map((id) => firstDep(id) + (active() ? state.shifts[id] || 0 : 0)).sort((a, b) => a - b);
       anim.t = (deps.find((d) => d > anim.t + 1) ?? deps[0]) - 2;
       anim.last = performance.now(); drawBoats();

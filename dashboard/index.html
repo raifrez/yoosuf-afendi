@@ -423,13 +423,23 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 #mapsvg .boat .hull { fill: #F4F7F8; stroke: #0B2236; stroke-width: 1; stroke-opacity: .5; }
 #mapsvg .boat .deck { fill: var(--boat-color, var(--ocean)); }
 #mapsvg .boat.moved .hull { stroke: var(--turquoise); stroke-width: 2.5; stroke-opacity: 1; }
-#mapsvg .boat .wake path { fill: none; stroke: url(#wakeFade); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 1.2 2.2; animation: wake .5s linear infinite; }
-#mapsvg .boat .wake path:first-child { stroke-width: 2.8; }
+#mapsvg .boat .wake path { fill: none; stroke: url(#wakeFade); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 1.2 2.2; animation: wake .5s linear infinite; }
+#mapsvg .boat .wake path:first-child { stroke-width: 2.2; }
 @keyframes wake { to { stroke-dashoffset: -6.8; } }
 @media (prefers-reduced-motion: reduce) { #mapsvg .boat .wake path { animation: none; } }
 
 .rail-foot .sug-actions { flex-direction: column; align-items: stretch; gap: 6px; }
 .rail-foot .sug-actions .link { align-self: center; font-size: 12.5px; color: var(--ink-2); }
+
+/* Add a stop */
+.issue-list .li-right { display: inline-flex; align-items: center; gap: 8px; }
+.add-stop { border: 0; border-radius: 8px; padding: 4px 9px; font-size: 12px; font-weight: 600; background: var(--turquoise); color: var(--ocean); white-space: nowrap; }
+.add-stop:hover { background: color-mix(in srgb, var(--turquoise) 85%, #fff); }
+.add-stop:disabled { opacity: .75; cursor: progress; }
+#mapsvg .pin.added .dot { stroke-dasharray: 3 2; }
+#mapsvg .pin.added .sel-ring, #mapsvg .pin.added::after { stroke: var(--turquoise); }
+
+.map-toast.warn::before { content: "!"; background: var(--warn-bg); color: var(--warn); }
 </style>
 
 <div class="app">
@@ -495,7 +505,7 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 
 
       <section class="sec" id="r-moved" hidden>
-        <div class="sec-head"><h3>Moved sailings</h3><button type="button" class="link" id="reset">Put all back</button></div>
+        <div class="sec-head"><h3>Your changes</h3><button type="button" class="link" id="reset">Undo all</button></div>
         <div class="status-line" id="scenario-status"></div>
         <ul class="moved" id="moved"></ul>
       </section>
