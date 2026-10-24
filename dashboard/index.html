@@ -398,6 +398,10 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .hero-btn:disabled { opacity: .8; cursor: progress; }
 .hero-btn svg { width: 16px; height: 16px; }
 .sec.hero .suggestion { background: var(--surface); }
+
+/* Pinned at the bottom of the rail */
+.rail-foot { flex: none; max-height: 52%; overflow-y: auto; border-top: 1px solid var(--surface-3); box-shadow: 0 -10px 24px #06122033; background: linear-gradient(200deg, color-mix(in srgb, var(--turquoise) 20%, var(--surface)), var(--surface) 70%); }
+@media (max-width: 900px) { .rail-foot { max-height: none; } }
 </style>
 
 <div class="app">
@@ -436,15 +440,6 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
     </div>
 
     <div class="rail-scroll" id="rail-scroll">
-      <section class="sec hero" id="r-suggest">
-        <div class="hero-eyebrow">Fix it</div>
-        <h2 id="suggest-title">Suggest a better timetable</h2>
-        <p id="suggest-lede"></p>
-        <button type="button" class="btn hero-btn" id="optimize"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.6 3.9 3.9 1.6-3.9 1.6L8 12.5 6.4 8.6 2.5 7l3.9-1.6z" fill="currentColor"/></svg><span>Suggest a better timetable</span></button>
-        <button type="button" class="btn hero-btn" id="optimize-all"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.6 3.9 3.9 1.6-3.9 1.6L8 12.5 6.4 8.6 2.5 7l3.9-1.6z" fill="currentColor"/></svg><span>Suggest for every atoll</span></button>
-        <div class="suggestion" id="suggestion" hidden></div>
-        <div class="suggestion" id="national-suggestion" hidden></div>
-      </section>
       <section class="sec" id="r-access"></section>
       <section class="sec" id="r-overview"></section>
 
@@ -496,6 +491,15 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
         </details>
       </section>
     </div>
+      <section class="sec hero rail-foot" id="r-suggest" aria-label="Suggest a better timetable">
+      <div class="hero-eyebrow">Fix it</div>
+      <h2 id="suggest-title">Suggest a better timetable</h2>
+      <p id="suggest-lede"></p>
+      <button type="button" class="btn hero-btn" id="optimize"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.6 3.9 3.9 1.6-3.9 1.6L8 12.5 6.4 8.6 2.5 7l3.9-1.6z" fill="currentColor"/></svg><span>Suggest a better timetable</span></button>
+      <button type="button" class="btn hero-btn" id="optimize-all"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.6 3.9 3.9 1.6-3.9 1.6L8 12.5 6.4 8.6 2.5 7l3.9-1.6z" fill="currentColor"/></svg><span>Suggest for every atoll</span></button>
+      <div class="suggestion" id="suggestion" hidden></div>
+      <div class="suggestion" id="national-suggestion" hidden></div>
+    </section>
   </aside>
 </div>
 
