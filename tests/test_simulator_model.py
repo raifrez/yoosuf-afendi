@@ -4,7 +4,7 @@ from collections import Counter
 
 import pytest
 
-from simulator.demo_story import DEMO_EDIT, demo_story
+from simulator.demo_story import DEMO_EDIT, DEMO_PERSON, demo_story
 from simulator.destinations import FerryDistances
 from simulator.evaluate import evaluate_requests
 from simulator.health import (HEALTH_CENTRE, HOSPITAL_ADULT, HOSPITAL_CHILD, HOSPITAL_ELDERLY, REFERRAL,
@@ -102,10 +102,14 @@ def test_scenario_never_changes_baseline_and_networks_stay_isolated(model):
 
 def test_demo_story_has_gains_and_losses(model):
     story = demo_story(model)
+    assert (story["person_id"], story["display_name"], story["island_id"]) == (DEMO_PERSON, "Aminath Shafeeg", "1182")
     assert story["scenario"]["timetable_edits"] == [{"trip_id": DEMO_EDIT.trip_id, "shift_minutes": DEMO_EDIT.shift_minutes}]
     assert story["compare"]["gained"] > 0 and story["compare"]["lost"] > 0
-    trips = {t["category"]: t for t in model.resident_payload(story["person_id"], model.run(Scenario((DEMO_EDIT,))))["trips"]}
-    assert (trips[HOSPITAL_ADULT]["baseline"]["outcome"], trips[HOSPITAL_ADULT]["scenario"]["outcome"]) == ("no_return", "success")
+    assert any(row["island_id"] == "435" and row["lost"] for row in story["compare"]["islands"])  # GA. Kodey
+    trips = {t["category"]: t for t in model.resident_payload(DEMO_PERSON, model.run(Scenario((DEMO_EDIT,))))["trips"]}
+    hospital = trips[HOSPITAL_ELDERLY]
+    assert (hospital["baseline"]["outcome"], hospital["scenario"]["outcome"]) == ("no_return", "success")
+    assert hospital["scenario"]["return"][-1]["arrive"] == "17:00"
 
 
 def test_parse_scenario():

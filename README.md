@@ -22,7 +22,7 @@ The server loads all 11 ferry atolls (124,778 synthetic residents) and runs the 
 Without the dashboard:
 
 ```bash
-uv run python -m simulator.demo --atolls F Dh --shift 288_1=+75     # hospital visits: island x time matrix
+uv run python -m simulator.demo --atolls GA GDh --shift 236_1=-70   # hospital visits: island x time matrix
 uv run python -m simulator.school_demo --atolls F Dh --school-session "Dh. Atoll Education Centre=10:15-14:00"
 uv run python -m simulator.export                                   # static JSON in data/export/simulation/
 uv run pytest -q                                                    # all checks

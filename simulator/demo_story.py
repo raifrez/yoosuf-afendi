@@ -1,37 +1,30 @@
-"""The demo story: one resident whose hospital visit fails, and one edit that helps and hurts.
+"""The demo story: one fixed resident whose hospital visit fails, and one edit that helps and hurts.
 
-Found by sweeping every Faafu/Dhaalu sailing through shifts of -90..+90 min (2026-10-24):
-moving 288_1 (Kudahuvadhoo 14:05 -> Meedhoo) 75 min later lets afternoon hospital visits
-in Dhaalu get home the same day, while elderly Meedhoo residents now get home after 17:00.
+Resident (fixed demo input, chosen 2026-10-24): Aminath Shafeeg, 68, GA. Gemanafushi, the first
+resident aged 65+ on the island with a healthcare request in the generated demand. Her elderly
+hospital visit goes to Viligili (Gaafu Alifu Atoll Hospital, Grade 2). She arrives at 07:50, but
+the only boat home (236_1, Viligili 16:45) lands at 18:10, after her 17:00 home-by: no_return.
+Thinadhoo (her referral hospital) fails too: she arrives late.
 
-The resident is the first (by person ID) Meedhoo adult whose visit fails in the baseline
-because there is no way home, and succeeds with the edit.
+Edit: 236_1 leaves Viligili 70 min earlier (15:35, home 17:00). Found by sweeping 236_1 through
+-35..-120 min in the model: -70 is the smallest shift that brings her home in time and has the
+largest gain. Kodey loses: its residents back from Thinadhoo reach Viligili after 236_1 has gone.
 """
 
-from simulator.health import HOSPITAL_ADULT
+from simulator.health import HOSPITAL_ELDERLY
 from simulator.model import Model, Scenario
-from simulator.scores import outcome
 from simulator.timetable import TripShift
 
-DEMO_EDIT = TripShift("288_1", 75)
-DEMO_ISLAND = "1050"  # Dh.Meedhoo
+DEMO_PERSON = "person-1182-000243-001"  # Aminath Shafeeg, GA. Gemanafushi
+DEMO_CATEGORY = HOSPITAL_ELDERLY
+DEMO_EDIT = TripShift("236_1", -70)
 
 
 def demo_story(model: Model) -> dict | None:
-    if DEMO_ISLAND not in model.region:
+    r = model.residents.get(DEMO_PERSON)
+    if r is None:
         return None
     scenario = Scenario((DEMO_EDIT,))
-    run = model.run(scenario)
-    base_needs = {n.need_id: n for n in model.baseline.needs}
-    scen_needs = {n.need_id: n for n in run.needs}
-    for pid in sorted(model.residents):
-        r = model.residents[pid]
-        if r.home_island_id != DEMO_ISLAND or (pid, HOSPITAL_ADULT) not in model.person_health:
-            continue
-        need_id = model.person_health[pid, HOSPITAL_ADULT]
-        if (outcome(base_needs[need_id], model.baseline.results) == "no_return"
-                and outcome(scen_needs[need_id], run.results) == "success"):
-            return {"person_id": pid, "display_name": r.display_name, "category": HOSPITAL_ADULT,
-                    "island_id": DEMO_ISLAND, "scenario": scenario.as_dict(),
-                    "compare": model.compare_payload(run)}
-    return None
+    return {"person_id": DEMO_PERSON, "display_name": r.display_name, "age": r.age, "category": DEMO_CATEGORY,
+            "island_id": r.home_island_id, "data_classification": "demo", "scenario": scenario.as_dict(),
+            "compare": model.compare_payload(model.run(scenario))}
