@@ -177,10 +177,15 @@
     const status = {}, notes = {};
     for (const a of geo.atolls) {
       const net = nets[a.id];
-      if (net) {
-        const s = net.current.summary.health;
-        status[a.id] = s.failed ? "bad" : "ok";
-        notes[a.id] = s.failed ? `${s.failed} cut off` : "";
+      if (FEED_ATOLLS.includes(a.id)) {
+        // Labels carry the serious issues: people cut off from the hospital trip,
+        // and residents of islands that aren't on the ferry schedule.
+        const iss = issuesFor(a.id);
+        const parts = [];
+        if (iss.hospital.w > 0) parts.push(`${n(iss.hospital.w)} cut off`);
+        if (iss.nostop.w > 0) parts.push(`${n(iss.nostop.w)} off schedule`);
+        status[a.id] = parts.length ? "bad" : net ? "ok" : "none";
+        notes[a.id] = parts.join(" · ");
       } else {
         status[a.id] = "none";
         notes[a.id] = "";
@@ -319,43 +324,100 @@
   }
 
   // ---- Rail: same-day hospital access -------------------------------------
-  function accessHeader(cur, base) {
-    const pp = active() && base ? cur.access_pct - base.access_pct : 0;
-    const d = active() && Math.abs(pp) >= 0.05 ? `<span class="delta ${pp > 0 ? "good" : "bad"}">${pp > 0 ? "▲ +" : "▼ −"}${Math.abs(pp).toFixed(1)} pp vs schedule</span>` : "";
-    return `
-      <div class="eyebrow">${state.atoll ? esc(atollById[state.atoll].name) : "All of the Maldives"}</div>
-      <div class="sec-head"><h2>Current issues</h2><span class="tag assumed">rule assumed</span></div>
-      <div class="access-line">
-        <div class="access-pct">${cur.access_pct == null ? "n/a" : `${cur.access_pct.toFixed(0)}%`}</div>
-        <p>${n(cur.success)} of ${units(cur.eligible)} can reach ${state.atoll ? "the hospital" : "their atoll hospital"} by ${settings.arriveBy} and be home the same day by ${settings.homeBy}.</p>
-      </div>
-      <div class="bar"><i style="width:${(cur.access_pct || 0).toFixed(1)}%"></i></div>${d}`;
+  // ---- Issues ----------------------------------------------------------
+  // Each issue is backed by data: the simulator (hospital trip, waits, long
+  // days) or the Census ↔ ferry-stop coverage (islands not on the schedule).
+  const LONG_WAIT = 120, LONG_DAY = 10 * 60;
+  const ISSUE = {
+    hospital: { title: "Can't make a same-day hospital trip", tone: "bad",
+      why: () => `Can't arrive by ${settings.arriveBy} and be home by ${settings.homeBy} on the scheduled ferries.` },
+    nostop: { title: "Not on the ferry schedule", tone: "bad",
+      why: () => "Inhabited islands with no stop in the published schedule. They may rely on other boats; check before treating them as cut off." },
+    wait: { title: "Long wait at the hospital", tone: "warn",
+      why: () => `The trip works, but the ferry gets them there ${fmtDur(LONG_WAIT)} or more before a ${settings.arriveBy} appointment.` },
+    longday: { title: "Very long day for one appointment", tone: "warn",
+      why: () => `The trip works, but leaving home to getting back takes ${fmtDur(LONG_DAY)} or more.` },
+  };
+  const ISSUE_ORDER = ["hospital", "nostop", "wait", "longday"];
+  const islandPop = (id) => (popKnown ? stopById[id].population : 1);
+
+  function issuesFor(atollId) {
+    const out = Object.fromEntries(ISSUE_ORDER.map((k) => [k, { w: 0, items: [] }]));
+    const add = (k, w, item) => { out[k].w += w; out[k].items.push(item); };
+    const net = nets[atollId];
+    if (net) {
+      for (const r of net.current.results.health) {
+        if (!r.success) { add("hospital", r.population_weight, { id: r.home_island_id, r }); continue; }
+        if (r.wait_before_minutes >= LONG_WAIT) add("wait", r.population_weight, { id: r.home_island_id, r, detail: `waits ${fmtDur(r.wait_before_minutes)}` });
+        const day = r.home_arrival - r.legs[0].dep;
+        if (day >= LONG_DAY) add("longday", r.population_weight, { id: r.home_island_id, r, detail: `${fmtDur(day)}, ${fmt(r.legs[0].dep)}–${fmt(r.home_arrival)}` });
+      }
+    }
+    if (FEED_ATOLLS.includes(atollId)) {
+      for (const isl of D.islands || []) {
+        if (isl.atoll !== atollId || isl.status !== "no_route_in_data" || isl.roadLinkedTo) continue;
+        add("nostop", popKnown ? isl.population : 1, { name: isl.name, detail: popKnown ? `${n(isl.population)} residents` : "" });
+      }
+    }
+    for (const k of ISSUE_ORDER) out[k].items.sort((a, b) => (b.r ? b.r.population_weight : 0) - (a.r ? a.r.population_weight : 0));
+    return out;
+  }
+
+  function issueHead(k, w, extra = "") {
+    const it = ISSUE[k];
+    return `<div class="issue-head"><span class="issue-dot ${it.tone}" aria-hidden="true"></span><h3>${esc(it.title)}</h3><span class="issue-n ${it.tone}">${esc(units(w))}</span></div>
+      <p class="issue-why">${esc(it.why())}${extra}</p>`;
   }
 
   function renderAccess() {
     const el = $("#r-access");
-    if (state.atoll && !nets[state.atoll]) {
-      el.hidden = !FEED_ATOLLS.includes(state.atoll);
-      el.innerHTML = `<h3>Same-day hospital trip</h3><p class="empty">Only one island of this atoll is in the ferry schedule, so there's no ferry journey to the hospital to model.</p>`;
-      return;
-    }
     el.hidden = false;
-    if (state.atoll && state.view === "journey") { el.innerHTML = journeyHtml(); return; }
-    const cur = scopeSummary("current"), base = scopeSummary("baseline");
+    if (state.atoll && state.view === "journey" && nets[state.atoll]) { el.innerHTML = journeyHtml(); return; }
+    const scopeName = state.atoll ? atollById[state.atoll].name : "All of the Maldives";
+    const head = `<div class="eyebrow">${esc(scopeName)}</div><div class="sec-head"><h2>Current issues</h2><span class="tag assumed">rule assumed</span></div>`;
+
     if (!state.atoll) {
-      const rows = Object.entries(nets).map(([id, net]) => ({ id, net, s: net.current.summary.health }));
-      const bad = rows.filter((r) => r.s.failed).sort((a, b) => b.s.failed - a.s.failed);
-      const ok = rows.filter((r) => !r.s.failed);
-      el.innerHTML = accessHeader(cur, base) + `
-        ${bad.length ? `<div class="eyebrow">Where ${popKnown ? "residents" : "islands"} are cut off</div><div class="rows">${bad.map(({ id, net, s }) => {
-          const reasons = Object.entries(s.by_reason).filter(([, v]) => v > 0).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${n(v)} ${v === 1 ? REASON_COUNT[k][0] : REASON_COUNT[k][1]}`).join(" · ");
-          const ch = net.comparison && (net.comparison.health.gained || net.comparison.health.lost) ? ` · <b class="good">+${n(net.comparison.health.gained)}</b>${net.comparison.health.lost ? ` <b class="badtxt">−${n(net.comparison.health.lost)}</b>` : ""} with your changes` : "";
-          return `<button type="button" class="row bad" data-go-atoll="${id}"><span class="row-name">${esc(atollById[id].name)}<small>${esc(atollById[id].alt)}</small></span><span class="row-val">${n(s.failed)} of ${units(s.eligible)}</span><span class="row-sub">${esc(reasons)}${ch}</span></button>`;
-        }).join("")}</div>` : ""}
-        ${ok.length ? `<div class="eyebrow">${popKnown ? "Everyone" : "Every island"} can make it</div><div class="chips">${ok.map(({ id }) => `<button type="button" class="chip" data-go-atoll="${id}">${esc(atollById[id].name)}</button>`).join("")}</div>` : ""}`;
+      const per = Object.fromEntries(FEED_ATOLLS.map((id) => [id, issuesFor(id)]));
+      const cards = ISSUE_ORDER.map((k) => {
+        const rows = FEED_ATOLLS.map((id) => ({ id, w: per[id][k].w, count: per[id][k].items.length })).filter((x) => x.count && (!popKnown || x.w > 0)).sort((a, b) => b.w - a.w);
+        const w = rows.reduce((s, x) => s + x.w, 0);
+        if (!rows.length) return null;
+        let extra = "";
+        if (k === "hospital") {
+          const t = totals("current"), b = totals("baseline");
+          const pp = active() ? t.access_pct - b.access_pct : 0;
+          extra = ` ${t.access_pct.toFixed(0)}% of ${units(t.eligible)} served by ferry can.${active() && Math.abs(pp) >= 0.05 ? ` <b class="${pp > 0 ? "good" : "badtxt"}">${pp > 0 ? "+" : "−"}${Math.abs(pp).toFixed(1)} pp with your changes.</b>` : ""}`;
+        }
+        return { k, w, html: `<div class="issue ${ISSUE[k].tone}">${issueHead(k, w, extra)}
+          <div class="issue-atolls">${rows.map((x) => `<button type="button" class="issue-atoll" data-go-atoll="${x.id}"><span>${esc(atollById[x.id].name)}</span><b>${n(x.w)}</b></button>`).join("")}</div></div>` };
+      }).filter(Boolean);
+      const noData = geo.atolls.filter((a) => !FEED_ATOLLS.includes(a.id));
+      el.innerHTML = head + (cards.length ? `<div class="issues">${cards.map((c) => c.html).join("")}</div>` : `<p class="empty">No issues found under this rule.</p>`) +
+        `<p class="status-line">Not checked: ${noData.length} atolls have no ferry data yet (${esc(noData.map((a) => a.name).join(", "))}).</p>`;
       return;
     }
-    el.innerHTML = accessHeader(cur, base) + barriersHtml();
+
+    const iss = issuesFor(state.atoll);
+    const net = nets[state.atoll];
+    const parts = [];
+    for (const k of ISSUE_ORDER) {
+      const x = iss[k];
+      if (!x.items.length && !(k === "hospital" && net && active())) continue;
+      if (k === "hospital") {
+        const cur = net.current.summary.health;
+        parts.push(`<div class="issue bad">${issueHead(k, x.w, ` ${cur.access_pct.toFixed(0)}% of ${units(cur.eligible)} served by ferry can.`)}${barriersHtml()}</div>`);
+      } else {
+        parts.push(`<div class="issue ${ISSUE[k].tone}">${issueHead(k, x.w)}
+          <ul class="issue-list">${x.items.map((it) => it.id
+            ? `<li><button type="button" class="link" data-inspect="${it.id}">${esc(sname(it.id))}</button><span>${esc(it.detail || "")}</span></li>`
+            : `<li><span class="li-name">${esc(it.name)}</span><span>${esc(it.detail || "")}</span></li>`).join("")}</ul></div>`);
+      }
+    }
+    if (!net) {
+      parts.push(`<p class="empty">${FEED_ATOLLS.includes(state.atoll) ? "Only one island of this atoll is in the ferry schedule, so there's no ferry journey to the hospital to model." : "No ferry schedule for this atoll yet, so its issues can't be checked."}</p>`);
+    }
+    const islands = net ? `<div class="eyebrow">Islands</div><div class="chips">${net.current.results.health.map((r) => `<button type="button" class="chip" data-inspect="${r.home_island_id}" style="${r.success ? "" : "color:var(--bad);font-weight:600"}">${r.success ? "" : "✕ "}${esc(sname(r.home_island_id))}</button>`).join("")}</div>` : "";
+    el.innerHTML = head + (parts.length ? `<div class="issues">${parts.join("")}</div>` : `<p class="empty">No issues found in ${esc(atollById[state.atoll].name)} under this rule.</p>`) + islands;
   }
 
   function groupKey(r) {
@@ -427,9 +489,7 @@
         <div class="barrier-detail">${esc(d.detail)}</div>
         <button type="button" class="link" data-inspect="${rs[0].home_island_id}">See the journey →</button></div>`);
     }
-    const islands = net.current.results.health.map((r) => `<button type="button" class="chip" data-inspect="${r.home_island_id}" style="${r.success ? "" : "color:var(--bad);font-weight:600"}">${r.success ? "" : "✕ "}${esc(sname(r.home_island_id))}</button>`).join("");
-    return `${parts.length ? `<div class="rows">${parts.join("")}</div>` : `<p class="empty">Every ferry-served island can get there and back under this rule.</p>`}
-      <div class="eyebrow">Islands</div><div class="chips">${islands}</div>`;
+    return parts.length ? `<div class="rows">${parts.join("")}</div>` : `<p class="empty">Every ferry-served island can get there and back under this rule.</p>`;
   }
 
   function timeline(r) {

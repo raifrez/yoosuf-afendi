@@ -1,0 +1,4 @@
+atoll,island_name,linked_stop_id,classification,note
+S,Hithadhoo,S_FEYDHOO,assumed,Addu Link Road joins Hithadhoo-Maradhoo-Feydhoo-Gan; verify
+S,Maradhoo,S_FEYDHOO,assumed,Addu Link Road; verify
+S,Maradhoo-Feydhoo,S_FEYDHOO,assumed,Addu Link Road; verify

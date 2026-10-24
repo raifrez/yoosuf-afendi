@@ -15,6 +15,7 @@ Opening `dashboard/index.html` directly also works.
 The screen is a full-height map and one rail on the right.
 
 - **Ferries move along their routes** when you open an atoll, looping through the day (a small clock chip shows the time). Each route has its own colour; moved sailings get a turquoise outline. Positions are interpolated on straight lines between stops.
+- **Current issues** lead the rail: residents who can't make a same-day hospital trip, inhabited islands not on the ferry schedule (Census ↔ ferry stops; road-linked islands in `data/road_links.csv` are excluded), long waits (2 h+ before the appointment) and very long days (10 h+). Atolls without ferry data are listed as not checked.
 - **All of the Maldives:** the ferry network in numbers, how many residents can make a same-day hospital trip, and the atolls where residents are cut off (also shown as red bubbles on the map).
 - **Map controls:** scroll to zoom, drag to pan, or use the +/−/fit buttons. Opening an atoll frames its ferry stops; island names and route numbers are placed so they don't overlap (crowded ones appear as you zoom in).
 - **One atoll:** its sailings, first and last times, its barriers (grouped by cause, such as "Route 288 docks at 10:05") and each island's journey step by step.
