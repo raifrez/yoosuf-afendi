@@ -15,7 +15,7 @@
   const DAY_NAMES = { sun: "Sun", mon: "Mon", tue: "Tue", wed: "Wed", thu: "Thu", fri: "Fri", sat: "Sat" };
   const WEEKDAY_LONG = { sun: "Sundays", mon: "Mondays", tue: "Tuesdays", wed: "Wednesdays", thu: "Thursdays", fri: "Fridays", sat: "Saturdays" };
 
-  const state = { atoll: null, editTrip: "T-B1", shifts: {}, island: "D", rule: "health", reduceWait: false, suggestion: null };
+  const state = { leftView: "cards", atoll: null, editTrip: "T-B1", shifts: {}, island: "D", rule: "health", reduceWait: false, suggestion: null };
   const baseline = M.run(fx, null);
   let current = baseline;
   let comparison = null;
@@ -50,7 +50,7 @@
   // ---- Map ---------------------------------------------------------------
   const map = window.MandarinMap.createMap($("#mapsvg"), geo, {
     onAtoll: (id) => selectAtoll(id),
-    onIsland: (id) => { if (id !== fx.hub) { state.island = id; render(); } },
+    onIsland: (id) => { if (id !== fx.hub) showJourney(id); },
   });
 
   function selectAtoll(id) {
@@ -117,15 +117,15 @@
 
   // ---- Sidebar -----------------------------------------------------------
   function setupSidebar() {
-    $("#atoll").innerHTML = `<option value="">All of the Maldives</option>` + geo.atolls
-      .map((a) => `<option value="${a.id}">${esc(a.name)} (${esc(a.alt)})${a.id === fx.atollId ? " · demo" : ""}</option>`)
+    $("#atoll").innerHTML = `<option value="" data-sub="${geo.atolls.length} atolls">All of the Maldives</option>` + geo.atolls
+      .map((a) => `<option value="${a.id}" data-sub="${esc(a.alt)}"${a.id === fx.atollId ? ' data-badge="Demo"' : ""}>${esc(a.name)}</option>`)
       .join("");
     $("#atoll").addEventListener("change", (e) => selectAtoll(e.target.value));
     $("#to-national").addEventListener("click", () => selectAtoll(null));
 
     const sel = $("#trip");
     sel.innerHTML = baseline.trips
-      .map((t) => `<option value="${t.id}">${esc(tripLabel(t))} · ${fmt(t.stops[0].dep)}${t.days.includes(fx.meta.weekday) ? "" : " (not today)"}</option>`)
+      .map((t) => `<option value="${t.id}" data-sub="Departs ${fmt(t.stops[0].dep)}${t.days.includes(fx.meta.weekday) ? "" : " · not running today"}">${esc(tripLabel(t))}</option>`)
       .join("");
     sel.addEventListener("change", () => { state.editTrip = sel.value; syncControls(); });
     $("#shift").addEventListener("input", (e) => setShift(Number(e.target.value)));
@@ -152,6 +152,9 @@
       else if (ed) { state.editTrip = ed.dataset.edit; syncControls(); }
     });
 
+    window.Dropdown.enhance($("#atoll"));
+    window.Dropdown.enhance(sel);
+
     $("#reduce-wait").addEventListener("change", (e) => { state.reduceWait = e.target.checked; state.suggestion = null; renderSuggestion(); });
     $("#optimize").addEventListener("click", () => {
       state.suggestion = M.optimize(fx, { reduceWait: state.reduceWait });
@@ -167,6 +170,15 @@
         state.suggestion = null; renderSuggestion();
       }
     });
+  }
+
+  function showJourney(islandId, ruleId) {
+    state.island = islandId;
+    if (ruleId) state.rule = ruleId;
+    state.leftView = "journey";
+    render();
+    const left = document.querySelector(".left");
+    if (left) left.scrollTop = 0;
   }
 
   function focusFirstChange() {
@@ -190,6 +202,7 @@
       ? `Departs <b class="mono">${fmt(from)}</b> <span class="muted">as timetabled</span>`
       : `<span class="mono strike">${fmt(from)}</span> → <b class="mono">${to >= 0 && to <= 1439 ? fmt(to) : "--:--"}</b> <span class="muted">${shift > 0 ? "+" : "−"}${Math.abs(shift)} min</span>`;
     $("#reset").disabled = !moved().length;
+    window.Dropdown.syncAll();
     const list = moved();
     $("#moved").innerHTML = list.length
       ? list.map(([id, s]) => {
@@ -443,10 +456,13 @@
   }
 
   function renderInspector() {
+    $("#left-cards").hidden = state.leftView !== "cards";
+    $("#inspector").hidden = state.leftView !== "journey";
     const sel = $("#insp-island");
     if (!sel.options.length) {
       sel.innerHTML = fx.islands.filter((i) => i.id !== fx.hub).map((i) => `<option value="${i.id}">${esc(i.name)}</option>`).join("");
       sel.addEventListener("change", () => { state.island = sel.value; render(); });
+      window.Dropdown.enhance(sel);
     }
     sel.value = state.island;
     document.querySelectorAll("[data-rule-tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.ruleTab === state.rule)));
@@ -510,7 +526,7 @@
       <li><b>Changing boats</b> needs at least ${fx.transferBufferMin} min. Walking between harbour and facility takes ${hub.harbourToFacilityMin} min.</li>
       <li><b>Operating day:</b> ${DAY_NAMES[fx.meta.weekday]} ${fx.meta.operatingDate}. Ferries may depart ${fx.serviceWindow.start}–${fx.serviceWindow.end}; overnight trips are rejected.</li>
       <li><b>Suggested timetables</b> only move existing departures in 15-min steps (up to 4 h), never cost anyone access, and prefer the fewest minutes moved.</li>`;
-    $("#net-title").textContent = `Demo network in ${demoAtoll.name}`;
+    $("#net-title").textContent = `Demo network · ${demoAtoll.name}`;
     $("#net-title-short").textContent = demoAtoll.name;
   }
 
@@ -521,6 +537,7 @@
     renderCards();
     renderInspector();
     renderTable();
+    window.Dropdown.syncAll();
   }
 
   // ---- Events ------------------------------------------------------------
@@ -528,9 +545,10 @@
     const insp = e.target.closest("[data-inspect]");
     if (insp) {
       const [isl, rule] = insp.dataset.inspect.split("|");
-      state.island = isl; state.rule = rule; render();
-      $("#inspector").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      showJourney(isl, rule);
       return;
+    }
+    if (e.target.closest("#back")) { state.leftView = "cards"; render(); return;
     }
     if (e.target.closest("[data-go-demo]")) { selectAtoll(fx.atollId); return; }
     const lens = e.target.closest("[data-lens]");
@@ -538,12 +556,12 @@
     const tab = e.target.closest("[data-rule-tab]");
     if (tab) { state.rule = tab.dataset.ruleTab; render(); return; }
     const row = e.target.closest("tr[data-island]");
-    if (row) { state.island = row.dataset.island; render(); }
+    if (row) { showJourney(row.dataset.island); window.scrollTo({ top: 0, behavior: "smooth" }); }
   });
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const row = e.target.closest && e.target.closest("tr[data-island]");
-    if (row) { e.preventDefault(); state.island = row.dataset.island; render(); }
+    if (row) { e.preventDefault(); showJourney(row.dataset.island); window.scrollTo({ top: 0 }); }
   });
 
   setupSidebar();
