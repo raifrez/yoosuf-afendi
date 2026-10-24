@@ -761,8 +761,11 @@
     $("#to-national").hidden = !state.atoll;
     $("#r-move").hidden = !net;
     // Showcase section: same place at both levels; atoll search inside an atoll, all atolls otherwise.
-    // Only inside an atoll; the all-atolls view leads with current issues instead.
-    $("#r-suggest").hidden = !net;
+    // Only inside an atoll whose residents are cut off from the hospital trip,
+    // the issue a timetable change can fix (kept while a search or result is showing).
+    const hasIssue = !!net && issuesFor(state.atoll).hospital.items.length > 0;
+    const showing = state.busy || (state.suggestion && state.suggestion.atoll === state.atoll);
+    $("#r-suggest").hidden = !net || (!hasIssue && !showing);
     $("#optimize").hidden = !net;
     $("#optimize-all").hidden = !!state.atoll;
     if (!$("#optimize").disabled && !$("#optimize-all").disabled) {
