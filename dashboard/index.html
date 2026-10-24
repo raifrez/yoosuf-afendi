@@ -148,7 +148,7 @@ h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
 .rail-top .dd-badge { background: #2EC4B633; color: #8EEDE4; }
 .icon-btn { border: 0; border-radius: 10px; background: #FFFFFF1F; color: #fff; padding: 9px 11px; font-weight: 600; font-size: 13px; white-space: nowrap; }
 .icon-btn:hover { background: #FFFFFF2E; }
-.rail-scroll { flex: 1; overflow-y: auto; min-height: 0; }
+.rail-scroll { flex: 1; overflow-y: auto; min-height: 0; position: relative; }
 .sec { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
 .sec + .sec { border-top: 1px solid var(--surface-2); }
 .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
@@ -243,6 +243,7 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .st { font-weight: 600; font-size: 13.5px; } .step.fail .st { color: var(--bad); }
 .sx { font-size: 12.5px; color: var(--ink-2); }
 .empty { color: var(--ink-2); margin: 0; }
+@media (min-width: 901px) { html, body { overflow: hidden; } }
 @media (max-width: 900px) {
   .app { grid-template-columns: minmax(0, 1fr); height: auto; }
   .mapbox { height: 68vh; min-height: 460px; }
@@ -336,7 +337,6 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
       </div>
     </div>
     <div class="attrib">© OpenStreetMap contributors</div>
-</div>
   </div>
 
   <aside class="rail" aria-label="Ferry network and access">

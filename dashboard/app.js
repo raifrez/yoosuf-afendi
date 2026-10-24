@@ -498,7 +498,9 @@
     state.island = islandId;
     state.view = "journey";
     render();
-    $("#r-access").scrollIntoView({ block: "start" });
+    // Scroll only the rail, never the page.
+    const rail = $("#rail-scroll"), sec = $("#r-access");
+    rail.scrollTop = sec.offsetTop;
   }
 
   // ---- Rail: controls ----------------------------------------------------
