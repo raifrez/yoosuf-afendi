@@ -1,104 +1,191 @@
+<meta charset="utf-8">
 <title>MANDARIN Access Dashboard</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: ocean header band → scenario bar → headline numbers → impact cards → map + journey → island table → sources. */
+/* Layout: slim ocean header → [Maldives map | control sidebar] → headline numbers → impact cards → journey + islands → sources. */
 :root {
   --ocean: #0B3A5C; --turquoise: #2EC4B6; --sand: #EED9B0; --white: #FFFFFF;
   --bg: #F2F6F8; --surface: #FFFFFF; --surface-2: #E6EEF2; --surface-3: #D9E5EB;
   --ink: #0B2236; --ink-2: #44596B; --ink-3: #6F8494;
-  --accent: #0E8378; --accent-fill: var(--turquoise);
+  --accent: #0E8378;
   --ok: #17895C; --ok-bg: #DDF3E8;
-  --bad: #C9473B; --bad-bg: #FCE3DF;
+  --bad: #D2493C; --bad-bg: #FCE3DF;
   --warn: #7A5A1E; --warn-bg: #F5E9CF;
-  --header-bg: var(--ocean); --header-ink: #FFFFFF; --header-ink-2: #A9C6DB;
-  --sea: #DCEFF0; --land: var(--sand); --route: #0B3A5C66;
+  --header-bg: var(--ocean); --header-ink-2: #A9C6DB;
+  --sea: #CFE9EC; --sea-deep: #BFE0E5; --reef: #A6DCD8; --reef-demo: #7FD3CB; --land: #E9CF9E; --land-demo: #DDBB7C;
+  --map-label: #0B3A5C; --map-label-2: #4D6F86; --halo: #CFE9EC; --route: #0B3A5C;
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #061A2B; --surface: #0C2740; --surface-2: #11314E; --surface-3: #183D5E;
-  --ink: #E6EFF5; --ink-2: #A8BDCC; --ink-3: #7D96A9;
-  --accent: #2EC4B6; --ok: #4FD29C; --ok-bg: #11392F; --bad: #FF8C7E; --bad-bg: #44212A;
-  --warn: #EED9B0; --warn-bg: #3A3226; --header-bg: #0B3A5C; --header-ink-2: #9DBBD1;
-  --sea: #0A2C45; --land: #CDB78E; --route: #9CC2DB70; color-scheme: dark;
+  --ink: #E6EFF5; --ink-2: #A8BDCC; --ink-3: #7D96A9; --accent: #2EC4B6;
+  --ok: #4FD29C; --ok-bg: #11392F; --bad: #FF8C7E; --bad-bg: #44212A; --warn: #EED9B0; --warn-bg: #3A3226;
+  --header-ink-2: #9DBBD1;
+  --sea: #082640; --sea-deep: #0A2C49; --reef: #12495A; --reef-demo: #1A6B70; --land: #CDB78E; --land-demo: #EED9B0;
+  --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
+  color-scheme: dark;
 } }
 :root[data-theme="dark"] {
   --bg: #061A2B; --surface: #0C2740; --surface-2: #11314E; --surface-3: #183D5E;
-  --ink: #E6EFF5; --ink-2: #A8BDCC; --ink-3: #7D96A9;
-  --accent: #2EC4B6; --ok: #4FD29C; --ok-bg: #11392F; --bad: #FF8C7E; --bad-bg: #44212A;
-  --warn: #EED9B0; --warn-bg: #3A3226; --header-bg: #0B3A5C; --header-ink-2: #9DBBD1;
-  --sea: #0A2C45; --land: #CDB78E; --route: #9CC2DB70; color-scheme: dark;
+  --ink: #E6EFF5; --ink-2: #A8BDCC; --ink-3: #7D96A9; --accent: #2EC4B6;
+  --ok: #4FD29C; --ok-bg: #11392F; --bad: #FF8C7E; --bad-bg: #44212A; --warn: #EED9B0; --warn-bg: #3A3226;
+  --header-ink-2: #9DBBD1;
+  --sea: #082640; --sea-deep: #0A2C49; --reef: #12495A; --reef-demo: #1A6B70; --land: #CDB78E; --land-demo: #EED9B0;
+  --map-label: #DCEAF3; --map-label-2: #8FB0C6; --halo: #082640; --route: #BFE3F5;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
-.wrap { max-width: 1280px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1440px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .muted { color: var(--ink-3); }
 .strike { text-decoration: line-through; color: var(--ink-3); }
+.good { color: var(--ok); }
 h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 3px solid var(--turquoise); outline-offset: 2px; }
 
 /* Header */
-header.top { background: var(--header-bg); color: var(--header-ink); }
-header.top .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; justify-content: space-between; padding-block: 22px 20px; }
-.brand-eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--turquoise); font-weight: 600; }
-.brand { font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: .02em; line-height: 1.1; }
-.brand-sub { color: var(--header-ink-2); font-size: 14px; max-width: 60ch; }
+header.top { background: var(--header-bg); color: #fff; }
+header.top .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; padding-block: 14px; }
+.brand-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.brand { font-family: var(--display); font-size: 26px; font-weight: 800; letter-spacing: .03em; }
+.brand-sub { color: var(--header-ink-2); font-size: 14px; }
 .meta { display: flex; gap: 8px; flex-wrap: wrap; }
-.meta span { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: #FFFFFF1A; color: var(--header-ink); }
+.meta span { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: #FFFFFF1A; }
 .meta .demo { background: var(--sand); color: var(--ocean); font-weight: 600; }
 
-main { display: flex; flex-direction: column; gap: 28px; padding-block: 24px 48px; }
+main { display: flex; flex-direction: column; gap: 28px; padding-block: 18px 48px; }
 .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
 .section-head h2 { font-size: 22px; font-weight: 700; }
 .section-head p { margin: 0; color: var(--ink-2); font-size: 14px; }
 
-/* Scenario bar */
-.scenario { background: var(--surface); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
-.scenario-row { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: end; }
+/* Map + sidebar */
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 14px; height: clamp(600px, calc(100vh - 110px), 920px); }
+.mapbox { position: relative; border-radius: 16px; overflow: hidden; background: var(--sea); min-width: 0; }
+#mapsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#mapsvg .sea { fill: var(--sea); }
+#mapsvg .hit { fill: transparent; }
+#mapsvg .reef { fill: var(--reef); }
+#mapsvg .land { fill: var(--land); }
+#mapsvg .atoll { cursor: pointer; }
+#mapsvg .atoll.demo .reef { fill: var(--reef-demo); }
+#mapsvg.is-national .atoll:hover .reef { fill: var(--turquoise); }
+#mapsvg.is-national .atoll:hover .land { fill: var(--ocean); }
+#mapsvg:not(.is-national) .atoll:not(.active) { opacity: .45; }
+#mapsvg:not(.is-national) .atoll.active { cursor: default; }
+#mapsvg .atoll-labels { pointer-events: none; font-family: var(--body); }
+#mapsvg:not(.is-national) .atoll-labels { display: none; }
+#mapsvg .atoll-label { fill: var(--map-label); paint-order: stroke; stroke: var(--halo); stroke-width: .35em; stroke-linejoin: round; }
+#mapsvg .al-name { font-family: var(--display); font-weight: 700; }
+#mapsvg .al-alt { fill: var(--map-label-2); font-size: .82em; }
+#mapsvg .atoll-label.demo .al-alt { fill: var(--accent); font-weight: 600; }
+#mapsvg .route { stroke: var(--route); stroke-width: 2; opacity: .55; }
+#mapsvg .route.off { stroke-dasharray: var(--dash); opacity: .35; }
+#mapsvg .route.edited { stroke: var(--turquoise); stroke-width: 4; opacity: 1; }
+#mapsvg .pin { cursor: pointer; outline: none; }
+#mapsvg .pin.hub { cursor: default; }
+#mapsvg .pin .dot { fill: var(--surface); stroke-width: 4; }
+#mapsvg .pin.ok .dot { stroke: var(--ok); fill: var(--ok-bg); }
+#mapsvg .pin.bad .dot { stroke: var(--bad); fill: var(--bad-bg); }
+#mapsvg .pin.na .dot { stroke: var(--ink-3); stroke-dasharray: 3 3; }
+#mapsvg .pin.hub .dot { fill: var(--turquoise); stroke: var(--ocean); }
+#mapsvg .pin .cross { stroke: #fff; stroke-width: 3; stroke-linecap: round; fill: none; }
+#mapsvg .pin .sel-ring { fill: none; stroke: var(--map-label); stroke-width: 2; }
+#mapsvg .pin:focus-visible .dot { stroke-width: 6; }
+#mapsvg .pin text { text-anchor: middle; paint-order: stroke; stroke: var(--halo); stroke-width: 4px; stroke-linejoin: round; }
+#mapsvg .pin-name { font-family: var(--display); font-weight: 700; font-size: 13px; fill: var(--map-label); }
+#mapsvg .pin-cap { font-size: 11px; fill: var(--map-label-2); }
+#mapsvg .pin.bad .pin-cap { fill: var(--bad); font-weight: 600; }
+
+.map-ui { position: absolute; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.map-ui.tl { top: 12px; left: 12px; right: 12px; }
+.map-ui.tr { top: 60px; right: 12px; }
+.map-ui.bl { bottom: 12px; left: 12px; right: 12px; }
+.map-ui select { font: inherit; font-weight: 600; color: var(--ink); background: var(--surface); border: 0; border-radius: 10px; padding: 9px 12px; max-width: 100%; box-shadow: 0 2px 8px #0B3A5C24; }
+.map-ui .btn { box-shadow: 0 2px 8px #0B3A5C24; }
+.hint { background: var(--surface); color: var(--ink-2); border-radius: 10px; padding: 8px 12px; font-size: 13px; box-shadow: 0 2px 8px #0B3A5C24; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); background: color-mix(in srgb, var(--surface) 88%, transparent); border-radius: 10px; padding: 7px 12px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 50%; border: 3px solid; display: inline-block; }
+.legend .lg-ok { border-color: var(--ok); background: var(--ok-bg); } .legend .lg-bad { border-color: var(--bad); background: var(--bad-bg); }
+.legend .lg-hub { background: var(--turquoise); border-color: var(--ocean); }
+.legend .lg-route { width: 18px; height: 0; border-radius: 0; border: 0; border-top: 2px solid var(--route); opacity: .6; }
+.legend .lg-edit { width: 18px; height: 0; border-radius: 0; border: 0; border-top: 4px solid var(--turquoise); }
+.legend .lg-land { border-radius: 3px; border: 0; background: var(--land); }
+.legend .lg-reef { border-radius: 3px; border: 0; background: var(--reef); }
+.attrib { position: absolute; right: 8px; bottom: 6px; font-size: 10.5px; color: var(--map-label-2); }
+
+.side { background: var(--surface); border-radius: 16px; overflow-y: auto; display: flex; flex-direction: column; min-width: 0; }
+.side-sec { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.side-sec + .side-sec { border-top: 1px solid var(--surface-2); }
+.side h2 { font-size: 19px; font-weight: 700; }
+.side h3 { font-size: 15px; font-weight: 700; }
+.eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.side p { margin: 0; font-size: 14px; color: var(--ink-2); }
+.demo-tag { align-self: flex-start; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--warn-bg); color: var(--warn); }
 .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .field label, .field .lbl { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
-select { font: inherit; color: var(--ink); background: var(--surface-2); border: 0; border-radius: 10px; padding: 9px 12px; max-width: 100%; }
+.side select { font: inherit; color: var(--ink); background: var(--surface-2); border: 0; border-radius: 10px; padding: 9px 12px; width: 100%; }
 .shift-ctl { display: flex; align-items: center; gap: 8px; }
-.shift-ctl input[type=range] { width: 200px; max-width: 40vw; accent-color: var(--turquoise); }
-.btn { background: var(--surface-2); border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 600; }
+.shift-ctl input[type=range] { flex: 1; min-width: 0; accent-color: var(--turquoise); }
+.btn { background: var(--surface-2); border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 600; font-size: 14px; }
 .btn:hover { background: var(--surface-3); }
 .btn:disabled { opacity: .45; cursor: default; }
 .btn.primary { background: var(--ocean); color: #fff; }
-#shift-readout { font-size: 15px; min-width: 15ch; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.chips .lbl { font-size: 13px; color: var(--ink-2); margin-right: 2px; }
-.chip { border: 0; background: var(--surface-2); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 500; }
+.btn.primary:hover { background: color-mix(in srgb, var(--ocean) 85%, #fff); }
+.btn.big { padding: 11px 14px; font-size: 15px; }
+#shift-readout { font-size: 15px; }
+.moved { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.moved li { display: flex; gap: 4px; align-items: stretch; }
+.moved li.none { font-size: 13px; color: var(--ink-3); }
+.moved-edit { flex: 1; text-align: left; border: 0; background: var(--surface-2); border-radius: 8px; padding: 6px 10px; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.moved-edit.cur { background: color-mix(in srgb, var(--turquoise) 22%, var(--surface-2)); }
+.x { border: 0; background: var(--surface-2); border-radius: 8px; width: 32px; font-size: 18px; line-height: 1; color: var(--ink-2); }
+.x:hover { background: var(--bad-bg); color: var(--bad); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 0; background: var(--surface-2); border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 500; text-align: left; }
 .chip:hover { background: color-mix(in srgb, var(--turquoise) 25%, var(--surface-2)); }
 .chip-note { color: var(--bad); font-weight: 600; }
-.status-line { font-size: 14px; color: var(--ink-2); }
+.status-line { font-size: 13px; color: var(--ink-2); }
 .status-line.error { color: var(--bad); font-weight: 600; }
-
-/* Changes */
-.changes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 12px; }
-.change-col { background: var(--surface); border-radius: 14px; padding: 16px 18px; min-width: 0; }
-.change-head { font-family: var(--display); font-weight: 700; font-size: 17px; margin-bottom: 8px; }
-.change-nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.change-nums > div { display: flex; flex-direction: column; }
-.cn { font-family: var(--display); font-weight: 700; font-size: 24px; font-variant-numeric: tabular-nums; }
-.cn.good { color: var(--ok); } .cn.bad { color: var(--bad); }
-.cl { font-size: 12px; color: var(--ink-3); }
-.change-list { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
-.change-list li::before { content: "●"; margin-right: 8px; font-size: 10px; vertical-align: 2px; }
-.change-list li.gained::before { color: var(--ok); } .change-list li.lost::before { color: var(--bad); } .change-list li.none { color: var(--ink-3); }
+.changes { display: flex; flex-direction: column; gap: 6px; }
+.change-row { display: grid; grid-template-columns: 70px 1fr; align-items: baseline; gap: 2px 10px; background: var(--surface-2); border-radius: 10px; padding: 8px 12px; }
+.change-head { font-weight: 700; font-size: 14px; }
+.change-nums { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; }
+.cn { font-family: var(--display); font-weight: 700; font-size: 20px; font-variant-numeric: tabular-nums; }
+.cn.good { color: var(--ok); } .cn.bad { color: var(--bad); } .cn.zero { color: var(--ink-3); }
+.cl { font-size: 12px; color: var(--ink-3); margin-right: 8px; }
+.change-unit { grid-column: 2; font-size: 12px; color: var(--ink-3); }
+.check { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-2); }
+.check input { accent-color: var(--turquoise); width: 16px; height: 16px; }
+.suggestion { background: color-mix(in srgb, var(--turquoise) 12%, var(--surface)); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.sug-head { font-family: var(--display); font-weight: 700; font-size: 17px; }
+.sug-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.sug-list li span:first-child { display: block; }
+.sug-result { margin: 0; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.sug-result div { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.sug-result dt { color: var(--ink-2); }
+.sug-result dd { margin: 0; font-variant-numeric: tabular-nums; }
+.sug-result dd .good { font-weight: 600; margin-left: 4px; }
+.sug-unres { font-size: 13px; color: var(--warn); background: var(--warn-bg); border-radius: 8px; padding: 8px 10px; }
+.sug-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.sug-note { font-size: 12px !important; color: var(--ink-3) !important; }
+.need { margin: 0; padding-left: 18px; font-size: 14px; color: var(--ink-2); display: flex; flex-direction: column; gap: 4px; }
 
 /* KPIs */
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .kpi { background: var(--surface); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.kpi:first-child { background: var(--ocean); color: #fff; }
-.kpi:first-child .kpi-label, .kpi:first-child .kpi-sub { color: #B9D3E4; }
-.kpi:first-child .kpi-value { color: var(--turquoise); }
+.kpi.lead { background: var(--ocean); color: #fff; }
+.kpi.lead .kpi-label, .kpi.lead .kpi-sub { color: #B9D3E4; }
+.kpi.lead .kpi-value { color: var(--turquoise); }
 .kpi-label { font-size: 13px; font-weight: 600; color: var(--ink-2); }
 .kpi-value { font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .kpi.bad .kpi-value { color: var(--bad); } .kpi.good .kpi-value { color: var(--ok); }
@@ -106,7 +193,7 @@ select { font: inherit; color: var(--ink); background: var(--surface-2); border:
 .kpi-sub { font-size: 13px; color: var(--ink-3); }
 .delta { font-size: 12px; font-weight: 600; margin-top: 4px; padding: 2px 8px; border-radius: 999px; align-self: flex-start; }
 .delta.good { background: var(--ok-bg); color: var(--ok); } .delta.bad { background: var(--bad-bg); color: var(--bad); } .delta.flat { background: var(--surface-2); color: var(--ink-3); }
-.kpi:first-child .delta.flat { background: #FFFFFF22; color: #DCEAF3; }
+.kpi.lead .delta.flat { background: #FFFFFF22; color: #DCEAF3; }
 
 /* Impact cards */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -123,48 +210,21 @@ select { font: inherit; color: var(--ink); background: var(--surface-2); border:
 .impact-detail { margin: 0; font-size: 14px; color: var(--ink-2); flex: 1; }
 .link { background: none; border: 0; padding: 4px 0 0; color: var(--accent); font-weight: 600; font-size: 14px; align-self: flex-start; }
 .link:hover { text-decoration: underline; }
-
 .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
-.pill::before { font-size: 11px; }
 .pill.good { background: var(--ok-bg); color: var(--ok); } .pill.good::before { content: "✓"; }
 .pill.bad { background: var(--bad-bg); color: var(--bad); } .pill.bad::before { content: "✕"; }
 .pill.warn { background: var(--warn-bg); color: var(--warn); } .pill.warn::before { content: "◷"; }
 
-/* Map + inspector */
-.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+/* Inspector + table */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
 .panel { background: var(--surface); border-radius: 14px; padding: 18px; min-width: 0; }
 .panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
 .panel-head h2 { font-size: 20px; font-weight: 700; }
 .seg { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 3px; }
+.map-ui .seg { background: var(--surface); box-shadow: 0 2px 8px #0B3A5C24; }
 .seg button { border: 0; background: none; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
-.seg button[aria-pressed="true"], .seg button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px #0B3A5C22; }
-#map svg { width: 100%; height: auto; display: block; border-radius: 10px; }
-#map .sea { fill: var(--sea); }
-#map .route { stroke: var(--route); stroke-width: 2.5; stroke-dasharray: 2 6; stroke-linecap: round; }
-#map .route.off { stroke-dasharray: 1 9; opacity: .5; }
-#map .route.edited { stroke: var(--turquoise); stroke-width: 4; stroke-dasharray: none; }
-#map .isl { cursor: pointer; outline: none; }
-#map .isl.hub { cursor: default; }
-#map .land { fill: var(--land); stroke-width: 4; }
-#map .isl.ok .land { stroke: var(--ok); }
-#map .isl.bad .land { stroke: var(--bad); }
-#map .isl.na .land { stroke: var(--ink-3); stroke-dasharray: 3 4; }
-#map .isl.hub .land { fill: var(--turquoise); stroke: var(--ocean); }
-#map .cross { stroke: #fff; stroke-width: 3.5; stroke-linecap: round; fill: none; }
-#map .sel-ring { fill: none; stroke: var(--ink); stroke-width: 2; }
-#map .isl:focus-visible .land { stroke-width: 6; }
-#map text { text-anchor: middle; }
-#map .isl-name { font-family: var(--display); font-weight: 700; font-size: 13px; fill: var(--ink); }
-#map .isl-cap { font-size: 11px; fill: var(--ink-2); }
-#map .isl.bad .isl-cap { fill: var(--bad); font-weight: 600; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend i { width: 12px; height: 12px; border-radius: 50%; background: var(--land); border: 3px solid; display: inline-block; }
-.legend .lg-ok { border-color: var(--ok); } .legend .lg-bad { border-color: var(--bad); } .legend .lg-hub { background: var(--turquoise); border-color: var(--ocean); }
-.legend .lg-route { width: 18px; height: 0; border-radius: 0; border: 0; border-top: 3px dotted var(--route); background: none; }
-.legend .lg-edit { width: 18px; height: 0; border-radius: 0; border: 0; border-top: 4px solid var(--turquoise); background: none; }
-
-.insp-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.seg button[aria-pressed="true"], .seg button[aria-selected="true"] { background: var(--ocean); color: #fff; }
+.panel select { font: inherit; color: var(--ink); background: var(--surface-2); border: 0; border-radius: 10px; padding: 7px 10px; }
 .insp-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 12px; margin-bottom: 14px; }
 .insp-title { font-family: var(--display); font-size: 18px; font-weight: 700; }
 .insp-sub { font-size: 13px; color: var(--ink-2); }
@@ -185,11 +245,9 @@ select { font: inherit; color: var(--ink); background: var(--surface-2); border:
 .burden { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px; background: var(--surface-2); border-radius: 10px; padding: 12px; font-size: 12px; color: var(--ink-2); }
 .burden span { display: block; font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--ink); }
 .empty { color: var(--ink-2); }
-
-/* Table */
-.table-wrap { overflow-x: auto; background: var(--surface); border-radius: 14px; }
+.table-wrap { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; }
-th, td { text-align: left; padding: 11px 14px; vertical-align: middle; }
+th, td { text-align: left; padding: 10px 12px; vertical-align: middle; }
 thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 600; background: var(--surface-2); white-space: nowrap; }
 tbody tr + tr th, tbody tr + tr td { border-top: 1px solid var(--surface-2); }
 tbody th { font-weight: 600; white-space: nowrap; }
@@ -199,7 +257,7 @@ tbody th { font-weight: 600; white-space: nowrap; }
 .was { display: block; font-size: 12px; color: var(--ink-3); margin-top: 2px; }
 
 /* Sources */
-.sources { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px; }
+.sources { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 12px; }
 .sources .panel h3 { font-size: 17px; margin-bottom: 8px; }
 .sources table th, .sources table td { padding: 8px 10px 8px 0; font-size: 13px; }
 .sources ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); display: flex; flex-direction: column; gap: 6px; }
@@ -207,50 +265,136 @@ tbody th { font-weight: 600; white-space: nowrap; }
 .tag.observed { background: var(--ok-bg); color: var(--ok); }
 .disclaimer { font-size: 13px; color: var(--ink-3); max-width: 80ch; }
 
-@media (max-width: 1060px) { .kpis { grid-template-columns: repeat(2, 1fr); } .cards { grid-template-columns: repeat(2, 1fr); } .split, .sources { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 640px) { .kpis, .cards { grid-template-columns: minmax(0, 1fr); } .change-nums { grid-template-columns: repeat(2, 1fr); } .kpi-value { font-size: 34px; } .shift-ctl input[type=range] { width: 120px; } }
+@media (max-width: 1100px) { .kpis { grid-template-columns: repeat(2, 1fr); } .cards { grid-template-columns: repeat(2, 1fr); } .split, .sources { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); height: auto; } .mapbox { height: 72vh; min-height: 460px; } .side { overflow: visible; } }
+@media (max-width: 640px) { .kpis, .cards { grid-template-columns: minmax(0, 1fr); } .kpi-value { font-size: 34px; } .brand-sub { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 </style>
 
 <header class="top">
   <div class="wrap">
-    <div>
-      <div class="brand-eyebrow">Transport access simulator</div>
+    <div class="brand-row">
       <div class="brand">M.A.N.D.A.R.I.N</div>
-      <div class="brand-sub">Who can reach the hospital and school, and get home the same day, on today's ferry timetable?</div>
+      <div class="brand-sub">Can people reach the hospital and school, and get home the same day, on today's ferries?</div>
     </div>
     <div class="meta">
-      <span class="demo">Demo data · fictional atoll</span>
+      <span class="demo">Demo network · fictional islands and timetable</span>
       <span>Tue 3 Nov 2026</span>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="scenario" aria-label="Timetable change">
-    <div class="scenario-row">
-      <div class="field">
-        <label for="trip">Ferry to move</label>
-        <select id="trip"></select>
+  <section class="stage" aria-label="Map and timetable controls">
+    <div class="mapbox">
+      <svg id="mapsvg" class="is-national" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of the Maldives atolls"></svg>
+      <div class="map-ui tl">
+        <select id="atoll" aria-label="Atoll"></select>
+        <button type="button" class="btn" id="to-national">All atolls</button>
+        <span class="hint" id="map-hint">Pick an atoll on the map or from the list</span>
       </div>
-      <div class="field">
-        <span class="lbl">Departure time</span>
-        <div class="shift-ctl">
-          <button type="button" class="btn" id="earlier" aria-label="15 minutes earlier">−15</button>
-          <input type="range" id="shift" min="-180" max="180" step="15" value="0" aria-label="Shift departure in minutes">
-          <button type="button" class="btn" id="later" aria-label="15 minutes later">+15</button>
-          <span id="shift-readout"></span>
+      <div class="map-ui tr" id="map-lens" hidden>
+        <div class="seg" role="group" aria-label="Colour islands by">
+          <button type="button" data-lens="health">Hospital</button>
+          <button type="button" data-lens="school">School</button>
         </div>
       </div>
-      <button type="button" class="btn primary" id="reset">Reset to timetable</button>
+      <div class="map-ui bl">
+        <div class="legend">
+          <span><i class="lg-land"></i>Island</span>
+          <span><i class="lg-reef"></i>Reef</span>
+          <span id="map-legend-net" hidden>
+            <span><i class="lg-ok"></i>Can make the trip</span>
+            <span><i class="lg-bad"></i>Can't</span>
+            <span><i class="lg-hub"></i>Hospital and school</span>
+            <span><i class="lg-route"></i>Ferry</span>
+            <span><i class="lg-edit"></i>Moved ferry</span>
+          </span>
+        </div>
+      </div>
+      <div class="attrib">Map © OpenStreetMap contributors</div>
     </div>
-    <div class="chips" id="presets-row"><span class="lbl">Try:</span><span class="chips" id="presets"></span></div>
-    <div class="status-line" id="scenario-status"></div>
+
+    <aside class="side" aria-label="Timetable controls">
+      <div id="side-national">
+        <div class="side-sec">
+          <div class="eyebrow">All of the Maldives</div>
+          <h2>Choose an atoll</h2>
+          <p>Click an atoll to zoom in. Each atoll needs its own ferry timetable, population and facility data before it can be modeled.</p>
+        </div>
+        <div class="side-sec">
+          <h3>Demo network</h3>
+          <p>A fictional set of islands and ferries is loaded in <b id="net-title-short">Laamu</b> so the tool can be tried end to end.</p>
+          <button type="button" class="btn primary big" data-go-demo>Open the demo network</button>
+        </div>
+      </div>
+
+      <div id="side-nodata" hidden>
+        <div class="side-sec">
+          <div class="eyebrow">Atoll</div>
+          <h2 id="nodata-name"></h2>
+          <p>No ferry timetable or population data is loaded for this atoll yet. To model it, add:</p>
+          <ul class="need">
+            <li>Island populations (Census 2022)</li>
+            <li>Ferry timetables with operating days</li>
+            <li>Hospital and school locations</li>
+          </ul>
+          <button type="button" class="btn primary big" data-go-demo>Open the demo network</button>
+        </div>
+      </div>
+
+      <div id="side-demo" hidden>
+        <div class="side-sec">
+          <div class="eyebrow">Atoll</div>
+          <h2 id="demo-atoll-name"></h2>
+          <span class="demo-tag">Fictional islands and timetable on a real map</span>
+          <div class="status-line" id="scenario-status"></div>
+          <div class="changes" id="changes" hidden></div>
+        </div>
+
+        <div class="side-sec">
+          <h3>Ferry to move</h3>
+          <div class="field">
+            <label for="trip">Ferry</label>
+            <select id="trip"></select>
+          </div>
+          <div class="field">
+            <span class="lbl">Departure time</span>
+            <div class="shift-ctl">
+              <button type="button" class="btn" id="earlier" aria-label="15 minutes earlier">−15</button>
+              <input type="range" id="shift" min="-240" max="240" step="15" value="0" aria-label="Shift departure in minutes">
+              <button type="button" class="btn" id="later" aria-label="15 minutes later">+15</button>
+            </div>
+            <span id="shift-readout"></span>
+          </div>
+          <div class="field">
+            <span class="lbl">Moved ferries</span>
+            <ul class="moved" id="moved"></ul>
+          </div>
+          <button type="button" class="btn" id="reset">Put every ferry back</button>
+        </div>
+
+        <div class="side-sec">
+          <h3>Try an example</h3>
+          <div class="chips" id="presets"></div>
+        </div>
+
+        <div class="side-sec">
+          <h3>Suggest a timetable</h3>
+          <p>Searches for departure times that give the most people a complete trip, without anyone losing access.</p>
+          <label class="check"><input type="checkbox" id="reduce-wait"> Also cut waiting time (moves more ferries)</label>
+          <button type="button" class="btn primary big" id="optimize">Find the best timetable</button>
+          <div class="suggestion" id="suggestion" hidden></div>
+        </div>
+      </div>
+    </aside>
   </section>
 
-  <section class="changes" id="changes" hidden aria-label="Gains and losses"></section>
-
   <section aria-label="Headline numbers">
+    <div class="section-head">
+      <h2 id="net-title">Demo network</h2>
+      <p>Hospital and school results are counted separately, never added together.</p>
+    </div>
     <div class="kpis" id="kpis"></div>
   </section>
 
@@ -263,27 +407,10 @@ tbody th { font-weight: 600; white-space: nowrap; }
   </section>
 
   <section class="split">
-    <div class="panel">
-      <div class="panel-head">
-        <h2>Atoll map</h2>
-        <div class="seg" role="group" aria-label="Colour islands by">
-          <button type="button" data-lens="health">Hospital</button>
-          <button type="button" data-lens="school">School</button>
-        </div>
-      </div>
-      <div id="map"></div>
-      <div class="legend">
-        <span><i class="lg-ok"></i>Can make the trip</span>
-        <span><i class="lg-bad"></i>Can't</span>
-        <span><i class="lg-hub"></i>Hospital and school</span>
-        <span><i class="lg-route"></i>Ferry link</span>
-        <span><i class="lg-edit"></i>Moved ferry</span>
-      </div>
-    </div>
     <div class="panel" id="inspector">
       <div class="panel-head">
         <h2>Journey</h2>
-        <div class="insp-controls">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
           <select id="insp-island" aria-label="Island"></select>
           <div class="seg" role="tablist" aria-label="Trip">
             <button type="button" role="tab" data-rule-tab="health">Hospital</button>
@@ -293,14 +420,10 @@ tbody th { font-weight: 600; white-space: nowrap; }
       </div>
       <div id="insp-body"></div>
     </div>
-  </section>
-
-  <section aria-labelledby="islands-title">
-    <div class="section-head">
-      <h2 id="islands-title">Islands</h2>
-      <p>Hospital and school results are counted separately, never added together.</p>
+    <div class="panel">
+      <div class="panel-head"><h2>Islands</h2></div>
+      <div class="table-wrap" id="table"></div>
     </div>
-    <div class="table-wrap" id="table"></div>
   </section>
 
   <section aria-labelledby="sources-title">
@@ -308,17 +431,19 @@ tbody th { font-weight: 600; white-space: nowrap; }
     <div class="sources">
       <div class="panel">
         <h3>Datasets</h3>
-        <div class="table-wrap"><table><thead><tr><th>Dataset</th><th>Real source to use</th><th>Status</th></tr></thead><tbody id="sources"></tbody></table></div>
+        <div class="table-wrap"><table><thead><tr><th>Dataset</th><th>Source</th><th>Status</th></tr></thead><tbody id="sources"></tbody></table></div>
       </div>
       <div class="panel">
         <h3>Journey rules</h3>
         <ul id="rules"></ul>
       </div>
     </div>
-    <p class="disclaimer">Every number here is modeled from a fictional demo atoll. Results show residents without same-day access to the selected service under these rules. They are not counts of patients, missed appointments or school absences. A missing return trip doesn't mean an overnight stay is available.</p>
+    <p class="disclaimer">The map outlines are real (OpenStreetMap). The islands, people and ferries in the demo network are fictional and placed in one atoll only to show how the tool works. Results show modeled residents without same-day access under these rules. They are not counts of patients, missed appointments or school absences. A missing return trip doesn't mean an overnight stay is available.</p>
   </section>
 </main>
 
+<script src="maldives-geo.js"></script>
 <script src="data.js"></script>
 <script src="simulator.js"></script>
+<script src="map.js"></script>
 <script src="app.js"></script>

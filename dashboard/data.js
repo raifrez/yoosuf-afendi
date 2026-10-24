@@ -13,10 +13,16 @@ window.MANDARIN_FIXTURE = {
     classification: "demo",
   },
 
+  // The demo network is drawn inside a real atoll on the map so the zoom works,
+  // but its islands, names and timetable are invented. Change atollId to move it.
+  atollId: "L",
+
   hub: "AC",
   transferBufferMin: 15, // minimum time to change boats at an island
+  serviceWindow: { start: "05:00", end: "22:00" }, // ferries may only run inside this window
 
-  // x/y are positions on the schematic map (not real coordinates).
+  // x/y are schematic positions in a 600x430 frame, fitted into the atoll's
+  // bounding box on the map. They are not real island coordinates.
   islands: [
     { id: "AC", name: "Atoll Centre", population: 2400, schoolAge: 600, secondaryStudents: 0, ownSecondary: true,
       hasHospital: true, hasSecondarySchool: true, harbourToFacilityMin: 10, x: 300, y: 215 },
@@ -68,11 +74,12 @@ window.MANDARIN_FIXTURE = {
   ],
 
   sources: [
+    { dataset: "Map: island and reef outlines", planned: "OpenStreetMap contributors (ODbL), simplified; used as-is", classification: "observed" },
     { dataset: "Islands and population", planned: "Census 2022, Maldives Bureau of Statistics", classification: "demo" },
     { dataset: "Ferry timetables", planned: "Public ferry schedules (RTL / MTCC, Transport Authority)", classification: "demo" },
     { dataset: "Health facilities", planned: "Ministry of Health / HPA facility list", classification: "demo" },
     { dataset: "School locations", planned: "Ministry of Education school list", classification: "demo" },
-    { dataset: "Island positions", planned: "OpenStreetMap / HDX", classification: "demo" },
+    { dataset: "Demo island positions", planned: "Real island coordinates from OpenStreetMap", classification: "demo" },
     { dataset: "Journey rules", planned: "Team assumptions (times, buffers, durations)", classification: "assumed" },
   ],
 };

@@ -44,6 +44,12 @@
 
   // ---- 2. Scenario patch -------------------------------------------------
   // Returns minute-based trips with one service shifted, or an error.
+  function scenarioShifts(scenario) {
+    if (!scenario) return {};
+    if (scenario.shifts) return scenario.shifts;
+    return scenario.tripId && scenario.shiftMin ? { [scenario.tripId]: scenario.shiftMin } : {};
+  }
+
   function prepareTrips(fx, scenario) {
     const trips = fx.trips.map((t) => ({
       id: t.id,
@@ -54,15 +60,23 @@
         dep: s.dep != null ? toMin(s.dep) : null,
       })),
     }));
-    if (!scenario || !scenario.shiftMin) return { trips };
-    const trip = trips.find((t) => t.id === scenario.tripId);
-    if (!trip) return { error: `Unknown service ${scenario.tripId}.` };
-    for (const s of trip.stops) {
-      for (const k of ["arr", "dep"]) {
-        if (s[k] == null) continue;
-        s[k] += scenario.shiftMin;
-        if (s[k] < 0 || s[k] > DAY_END) {
-          return { error: "That shift moves the ferry past midnight. Overnight trips aren't supported." };
+    const shifts = scenarioShifts(scenario);
+    const win = fx.serviceWindow || { start: "00:00", end: fmt(DAY_END) };
+    const lo = toMin(win.start), hi = toMin(win.end);
+    for (const [tripId, shift] of Object.entries(shifts)) {
+      if (!shift) continue;
+      const trip = trips.find((t) => t.id === tripId);
+      if (!trip) return { error: `Unknown service ${tripId}.` };
+      for (const s of trip.stops) {
+        for (const k of ["arr", "dep"]) {
+          if (s[k] == null) continue;
+          s[k] += shift;
+          if (s[k] < 0 || s[k] > DAY_END) {
+            return { error: "That shift moves the ferry past midnight. Overnight trips aren't supported." };
+          }
+          if (k === "dep" && (s[k] < lo || s[k] > hi)) {
+            return { error: `Ferries can only depart between ${win.start} and ${win.end}.` };
+          }
         }
       }
     }
@@ -248,5 +262,65 @@
     return out;
   }
 
-  window.Mandarin = { run, compare, generatePopulation, toMin, fmt, fmtDur, tripDays };
+  // ---- 5. Timetable optimizer -------------------------------------------
+  // Coordinate search over departure shifts (15-min steps). Objective, in order:
+  //   1. more people with complete journeys (hospital residents + school students),
+  //   2. less total waiting for those who succeed (only with opts.reduceWait),
+  //   3. smaller total change to the timetable.
+  // Hard constraint: nobody who has access in the baseline loses it.
+  // It does not check vessels, crews, harbours or cost.
+  function optimize(fx, opts = {}) {
+    const step = opts.step || 15, maxShift = opts.maxShift || 240, maxPasses = opts.maxPasses || 4;
+    const baseline = run(fx, null);
+    const key = (r) => `${r.journey_rule_id}|${r.group_id}`;
+    const hadAccess = new Set(Object.values(baseline.results).flat().filter((r) => r.success).map(key));
+    const candidates = baseline.trips.filter((t) => t.days.includes(fx.meta.weekday)).map((t) => t.id);
+    let evaluated = 0;
+
+    function score(shifts) {
+      const r = run(fx, { shifts });
+      evaluated++;
+      if (r.error) return null;
+      const all = Object.values(r.results).flat();
+      if (all.some((x) => hadAccess.has(key(x)) && !x.success)) return null;
+      const ok = all.filter((x) => x.success);
+      return {
+        access: ok.reduce((s, x) => s + x.population_weight, 0),
+        wait: opts.reduceWait ? Math.round(ok.reduce((s, x) => s + x.wait_minutes * x.population_weight, 0) / 1000) : 0,
+        moved: Object.values(shifts).reduce((s, v) => s + Math.abs(v), 0),
+      };
+    }
+    const better = (a, b) =>
+      a.access !== b.access ? a.access > b.access : a.wait !== b.wait ? a.wait < b.wait : a.moved < b.moved;
+
+    let shifts = {};
+    let best = score(shifts);
+    for (let pass = 0; pass < maxPasses; pass++) {
+      let improved = false;
+      for (const id of candidates) {
+        const curShift = shifts[id] || 0;
+        let pick = curShift, pickScore = best;
+        for (let s = -maxShift; s <= maxShift; s += step) {
+          if (s === curShift) continue;
+          const trial = { ...shifts, [id]: s };
+          if (!s) delete trial[id];
+          const sc = score(trial);
+          if (sc && better(sc, pickScore)) { pick = s; pickScore = sc; }
+        }
+        if (pick !== curShift) {
+          shifts = { ...shifts, [id]: pick };
+          if (!pick) delete shifts[id];
+          best = pickScore; improved = true;
+        }
+      }
+      if (!improved) break;
+    }
+    const result = run(fx, { shifts });
+    return {
+      shifts, result, comparison: compare(baseline, result), evaluated,
+      unresolved: Object.values(result.results).flat().filter((r) => !r.success),
+    };
+  }
+
+  window.Mandarin = { run, compare, optimize, generatePopulation, toMin, fmt, fmtDur, tripDays };
 })();
