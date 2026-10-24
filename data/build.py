@@ -2,6 +2,8 @@
 
 import argparse
 from collections import Counter
+import csv
+import difflib
 import hashlib
 import json
 from pathlib import Path
@@ -12,6 +14,15 @@ import duckdb
 
 
 ROOT = Path(__file__).resolve().parent
+FACILITY_ISLANDS = ROOT / "facility_islands_manual.csv"
+# Atoll names that prefix health-facility names -> Census atoll_code.
+ATOLL_CODES = {
+    "Alifu Alifu": "AA", "Alifu Dhaalu": "Adh", "Baa": "B", "Dhaalu": "Dh", "Faafu": "F",
+    "Gaafu Alifu": "GA", "Gaafu Dhaalu": "GDh", "Gnaviyani": "Gn", "Haa Alifu": "HA",
+    "Haa Dhaalu": "HDh", "Kaafu": "K", "Laamu": "L", "Lhaviyani": "Lh", "Meemu": "M",
+    "Noonu": "N", "Raa": "R", "Seenu": "S", "Shaviyani": "Sh", "Thaa": "Th", "Vaavu": "V",
+}
+MIN_SIMILARITY, MIN_MARGIN = 0.8, 0.1
 
 
 def sql_string(value):
@@ -46,11 +57,50 @@ def infer_island(name, islands):
     return candidates[0]["island_id"] if len(candidates) == 1 else None
 
 
+def infer_atoll_island(name, islands):
+    """Map '<Atoll> <Island> Health Centre' to an island within the named atoll.
+
+    A spelling variant (Kunburudhoo/Kuburudhoo) is accepted only when one island in
+    that atoll is clearly the closest name. Returns (island_id, location_match).
+    """
+    atoll = next((a for a in sorted(ATOLL_CODES, key=len, reverse=True) if name.lower().startswith(a.lower() + " ")), None)
+    if atoll is None:
+        return None, None
+    island_name = re.sub(r"(?i)\s+(heal?th\s+cent(re|er)|hc)$", "", name[len(atoll):]).strip()
+    scored = sorted(((difflib.SequenceMatcher(None, normalized(island_name), normalized(i["name"])).ratio(), i["island_id"])
+                     for i in islands if i["atoll_code"] == ATOLL_CODES[atoll]), reverse=True)
+    if not scored:
+        return None, None
+    best, island_id = scored[0]
+    runner_up = scored[1][0] if len(scored) > 1 else 0
+    if best == 1 and runner_up < 1:
+        return island_id, "atoll_name_derived"
+    if best >= MIN_SIMILARITY and best - runner_up >= MIN_MARGIN:
+        return island_id, "atoll_spelling_variant"
+    return None, None
+
+
+def locate_health_facility(name, islands, manual):
+    """Reviewed lookup first, then the atoll-qualified name, then a unique whole island name."""
+    if name in manual:
+        return manual[name]["island_id"], "manual_sourced", manual[name]["source_url"]
+    island_id, match = infer_atoll_island(name, islands)
+    if island_id is None:
+        island_id = infer_island(name, islands)
+        match = "unique_name_derived" if island_id else "unresolved"
+    return island_id, match, None
+
+
 def facilities(islands):
     schools = json.loads((ROOT / "raw/facilities/schools.snapshot.json").read_text())
     health = json.loads((ROOT / "raw/facilities/health_facilities.snapshot.json").read_text())
     profiles = json.loads((ROOT / "raw/facilities/school_profiles.snapshot.json").read_text())
     profile_by_key = {(r["directory_name"], r["directory_phone"]): r for r in profiles["records"]}
+    with FACILITY_ISLANDS.open(newline="") as handle:
+        manual = {r["facility_name"]: r for r in csv.DictReader(handle)}
+    unknown = set(manual) - {r["name"] for r in health["records"]}
+    if unknown:
+        raise ValueError(f"Facility lookup names not in the health list: {sorted(unknown)}")
     island_codes = {island["island_id"] for island in islands}
     result, grades = [], []
     for record in schools["records"]:
@@ -63,6 +113,7 @@ def facilities(islands):
             "facility_id": facility_id, "name": record["name"], "kind": "school",
             "facility_type": "government_school", "island_id": island_id,
             "location_match": "official_profile" if profile else "unique_name_derived" if island_id else "unresolved",
+            "location_source_url": profile["source_url"] if profile else None,
             "latitude": None, "longitude": None,
             "phone": record["phone"], "government_level_raw": None,
             "level_family": None, "level_number": None, "level_label": None,
@@ -82,11 +133,13 @@ def facilities(islands):
         family, number = (match[1], int(match[2])) if match else (code, None)
         label = f"Hospital Grade {number}" if family == "HG" else f"Health Centre Grade {number}" if family == "HCG" else "Tertiary Hospital" if family == "T" else "General Clinic" if family == "GC" else record["government_level"]
         kind = "hospital" if family in ("HG", "T") else "health_centre" if family == "HCG" else "clinic"
-        island_id = infer_island(record["name"], islands)
+        island_id, match, location_source = locate_health_facility(record["name"], islands, manual)
+        if island_id is not None and island_id not in island_codes:
+            raise ValueError(f"Unknown health facility island {island_id}")
         result.append({
             "facility_id": source_id("moh-", record["license_number"]),
             "name": record["name"], "kind": "health", "facility_type": kind,
-            "island_id": island_id, "location_match": "unique_name_derived" if island_id else "unresolved",
+            "island_id": island_id, "location_match": match, "location_source_url": location_source,
             "latitude": None, "longitude": None, "phone": None,
             "government_level_raw": record["government_level"], "level_family": family,
             "level_number": number, "level_label": label,
@@ -127,7 +180,7 @@ def build():
         facility_json.write_text(json.dumps(facility_rows, ensure_ascii=False, indent=2) + "\n")
         grade_json.write_text(json.dumps(grade_rows, ensure_ascii=False, indent=2) + "\n")
         columns = {
-            "facility_id": "VARCHAR", "name": "VARCHAR", "kind": "VARCHAR", "facility_type": "VARCHAR", "island_id": "VARCHAR", "location_match": "VARCHAR", "latitude": "DOUBLE", "longitude": "DOUBLE", "phone": "VARCHAR", "government_level_raw": "VARCHAR", "level_family": "VARCHAR", "level_number": "INTEGER", "level_label": "VARCHAR", "registration_number": "VARCHAR", "license_number": "VARCHAR", "source_id": "VARCHAR", "source_as_of": "DATE", "operating_status": "VARCHAR", "grades_status": "VARCHAR", "foundation_stage": "BOOLEAN", "profile_source_url": "VARCHAR", "data_classification": "VARCHAR",
+            "facility_id": "VARCHAR", "name": "VARCHAR", "kind": "VARCHAR", "facility_type": "VARCHAR", "island_id": "VARCHAR", "location_match": "VARCHAR", "location_source_url": "VARCHAR", "latitude": "DOUBLE", "longitude": "DOUBLE", "phone": "VARCHAR", "government_level_raw": "VARCHAR", "level_family": "VARCHAR", "level_number": "INTEGER", "level_label": "VARCHAR", "registration_number": "VARCHAR", "license_number": "VARCHAR", "source_id": "VARCHAR", "source_as_of": "DATE", "operating_status": "VARCHAR", "grades_status": "VARCHAR", "foundation_stage": "BOOLEAN", "profile_source_url": "VARCHAR", "data_classification": "VARCHAR",
         }
         struct = "{" + ",".join(sql_string(key) + ":" + sql_string(value) for key, value in columns.items()) + "}"
         connection.execute(f"CREATE TABLE services.facilities AS SELECT * FROM read_json(?, format='array', columns={struct})", [str(facility_json)])

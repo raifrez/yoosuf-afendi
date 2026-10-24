@@ -41,6 +41,7 @@ The combined `services.facilities` table contains all school and health entries.
 ## Locations and routing gaps
 
 - Two schools have island mappings from reviewed official profiles. Other mappings use a unique whole island name appearing in the facility name; repeated names and unresolved facilities are left null. `location_match` records the method.
+- Health facilities are placed in this order: `manual_sourced` (a reviewed row in `facility_islands_manual.csv`, with its URL in `location_source_url`); `atoll_name_derived` (the "<Atoll> <Island> Health Centre" name matches an island in that atoll exactly); `atoll_spelling_variant` (one island in that atoll has a clearly closer name, ≥ 0.8 similarity and a 0.1 lead over the next); and `unique_name_derived`. All 22 hospitals and 164 health centres are placed. Six of the 7 clinics are unresolved. To fix a facility, add a sourced row to the lookup, update its `sha256` in `catalog.json`, and rebuild.
 - Facility coordinates are unknown and remain null. `services.facility_island_points` joins Census **island reference points**, explicitly named as such, for approximate map placement. They are not facility entrance coordinates or evidence for a walking transfer time.
 - `transport.terminals`, `routes`, `trips`, `trip_stops`, and `transfers` are empty typed tables. Verified timetables, fares, operating dates, and terminal data still need to be sourced.
 - `services.facility_services` and `facility_hours` are empty: specialties and opening hours have not been established.

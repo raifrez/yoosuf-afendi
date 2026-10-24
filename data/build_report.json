@@ -24,8 +24,11 @@
   },
   "location_matches": {
     "official_profile": 2,
-    "unique_name_derived": 183,
-    "unresolved": 228
+    "unique_name_derived": 79,
+    "unresolved": 148,
+    "atoll_name_derived": 126,
+    "manual_sourced": 22,
+    "atoll_spelling_variant": 36
   },
   "school_grade_coverage": "One profile has a verified numeric grade range; other schools remain unknown until sourced.",
   "checks": {

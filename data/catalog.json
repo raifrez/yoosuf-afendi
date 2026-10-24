@@ -95,6 +95,16 @@
       "sha256": null,
       "availability": "not_downloaded",
       "caveats": "Discovery link only. No verified timetable, fare, terminal, or operating-calendar records are included."
+    },
+    {
+      "source_id": "facility-islands-lookup",
+      "publisher": "Project team (reviewed lookup)",
+      "source_url": "https://maaharaa.health.gov.mv/Public/Home/ListHealthCare",
+      "source_as_of": "2026-10-24",
+      "local_path": "facility_islands_manual.csv",
+      "sha256": "311fb4d88bf4527bb9cb513ccce721dc3b07035a5ca47b346874eed56f7d9b49",
+      "availability": "derived_lookup",
+      "caveats": "Health facility -> Census island for the 20 hospitals and 2 health centres that names alone cannot place. Mostly from the Ministry of Health Maaharaa registry's location field; the two Male' ward assignments come from OpenStreetMap district tags. One source URL per row."
     }
   ],
   "missing_datasets": [
