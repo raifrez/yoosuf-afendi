@@ -423,7 +423,15 @@
     const bboxOf = (id) => atolls.find((a) => a.id === id).bbox;
     const project = (lon, lat) => [(lon - geo.projection.lon0) * geo.projection.k, (geo.projection.lat0 - lat) * geo.projection.k];
     const centreOf = (id) => { const a = atolls.find((x) => x.id === id); return [(a.bbox[0] + a.bbox[2]) / 2, a.labelY != null ? a.labelY : (a.bbox[1] + a.bbox[3]) / 2]; };
-    return { zoomTo, zoomBy, refit, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
+    function setSearching(on) { svg.classList.toggle("searching", !!on); }
+    function markAtoll(id) { for (const a of atolls) atollEls[a.id].g.classList.toggle("checking", a.id === id); }
+    function flashEdited() {
+      svg.classList.remove("just-applied");
+      void svg.getBoundingClientRect();
+      svg.classList.add("just-applied");
+      setTimeout(() => svg.classList.remove("just-applied"), 2600);
+    }
+    return { setSearching, markAtoll, flashEdited, zoomTo, zoomBy, refit, setState, setNetwork, setBoats, highlightRoute, bboxOf, project, centreOf };
   }
 
   window.MandarinMap = { createMap };

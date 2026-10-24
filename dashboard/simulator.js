@@ -272,7 +272,10 @@
   //   3. smaller total change to the timetable.
   // Hard constraint: nobody who has access in the baseline loses it.
   // It does not check vessels, crews, harbours or cost.
-  function optimize(fx, opts = {}) {
+  // Step-by-step version of optimize(): yields after each candidate sailing so
+  // a UI can show progress ({ pass, tripId, evaluated, improved }); the
+  // generator's return value is the same result optimize() returns.
+  function* optimizeSteps(fx, opts = {}) {
     const step = opts.step || 15, maxShift = opts.maxShift || 240, maxPasses = opts.maxPasses || 4;
     const baseline = run(fx, null);
     const key = (r) => `${r.journey_rule_id}|${r.group_id}`;
@@ -315,6 +318,7 @@
           if (!pick) delete shifts[id];
           best = pickScore; improved = true;
         }
+        yield { pass, tripId: id, evaluated, improved: pick !== curShift, shifts: { ...shifts } };
       }
       if (!improved) break;
     }
@@ -325,5 +329,10 @@
     };
   }
 
-  window.Mandarin = { run, compare, optimize, generatePopulation, toMin, fmt, fmtDur, tripDays };
+  function optimize(fx, opts = {}) {
+    const it = optimizeSteps(fx, opts);
+    for (;;) { const r = it.next(); if (r.done) return r.value; }
+  }
+
+  window.Mandarin = { run, compare, optimize, optimizeSteps, generatePopulation, toMin, fmt, fmtDur, tripDays };
 })();

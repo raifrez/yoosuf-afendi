@@ -365,6 +365,27 @@ details.more > div { display: flex; flex-direction: column; gap: 10px; margin-to
 .issue-list li span { color: var(--ink-2); text-align: right; }
 .issue-list .li-name { color: var(--ink); text-align: left; font-weight: 600; }
 .issue .rows .barrier { background: var(--surface); }
+
+/* Search effort: loader in the rail, motion on the map */
+.loader { height: 4px; border-radius: 2px; background: var(--surface-3); overflow: hidden; position: relative; }
+.loader i { position: absolute; top: 0; bottom: 0; left: -40%; width: 40%; border-radius: 2px; background: var(--turquoise); animation: indet 1.1s ease-in-out infinite; }
+@keyframes indet { 0% { left: -40%; } 100% { left: 100%; } }
+.loader-text { font-size: 12.5px; color: var(--ink-2); }
+#mapsvg.searching .route-line { stroke-dasharray: 9 7; animation: flow .7s linear infinite; }
+#mapsvg.searching .network.has-hl .route-line.hl { stroke-width: 6; }
+#mapsvg.searching .route { stroke-dasharray: 6 6; animation: flow .7s linear infinite; opacity: .6; }
+@keyframes flow { to { stroke-dashoffset: -16; } }
+#mapsvg .atoll.checking .reef { animation: checking 0.9s ease-in-out infinite alternate; }
+@keyframes checking { from { fill: var(--reef); } to { fill: var(--turquoise); } }
+#mapsvg.searching:not(.is-national) .atoll.active .reef { animation: shimmer 1.4s ease-in-out infinite alternate; }
+@keyframes shimmer { from { opacity: 1; } to { opacity: .55; } }
+#mapsvg.just-applied .route-glow { animation: glow 0.65s ease-in-out 4 alternate; }
+#mapsvg.just-applied .route.edited { animation: glow 0.65s ease-in-out 4 alternate; }
+@keyframes glow { from { opacity: .25; stroke-width: 6; } to { opacity: 1; stroke-width: 14; } }
+@media (prefers-reduced-motion: reduce) {
+  .loader i { animation: none; left: 0; width: 100%; opacity: .5; }
+  #mapsvg.searching .route-line, #mapsvg.searching .route, #mapsvg .atoll.checking .reef, #mapsvg.just-applied .route-glow { animation: none; }
+}
 </style>
 
 <div class="app">

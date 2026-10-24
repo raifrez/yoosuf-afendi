@@ -593,16 +593,18 @@
     for (const id of ["#rule-arrive", "#rule-duration", "#rule-home", "#rule-buffer"]) { $(id).addEventListener("change", onRule); window.Dropdown.enhance($(id)); }
 
     $("#optimize").addEventListener("click", () => {
-      const net = nets[state.atoll];
-      if (!net) return;
-      state.suggestion = { atoll: state.atoll, ...M.optimize(net.fx, { candidates: tripsWithin(state.atoll) }) };
-      renderControls();
+      if (!nets[state.atoll] || state.busy) return;
+      const atoll = state.atoll;
+      searchAtolls([atoll], $("#suggestion"), $("#optimize"), (per) => {
+        state.suggestion = { atoll, ...per[0].o };
+        renderControls();
+      });
     });
     $("#optimize-all").addEventListener("click", optimizeAll);
     $(".rail").addEventListener("click", (e) => {
-      if (e.target.closest("#apply-suggestion")) { applyShifts(state.suggestion.shifts); state.suggestion = null; render(); }
+      if (e.target.closest("#apply-suggestion")) applyWithEffect(state.suggestion.shifts, $("#suggestion"), () => { state.suggestion = null; });
       else if (e.target.closest("#dismiss-suggestion")) { state.suggestion = null; renderControls(); }
-      else if (e.target.closest("#apply-national")) { applyShifts(state.national.shifts); state.national = null; render(); }
+      else if (e.target.closest("#apply-national")) applyWithEffect(state.national.shifts, $("#national-suggestion"), () => { state.national = null; });
       else if (e.target.closest("#dismiss-national")) { state.national = null; renderControls(); }
     });
     window.Dropdown.enhance($("#atoll"));
@@ -616,26 +618,78 @@
     recompute();
   }
 
+  // Run the optimizer step by step so the search is visible: an indeterminate
+  // loader with live counts in the rail, and on the map the sailing being tried
+  // (atoll view) or the atoll being checked (national view).
+  const STEP_MS = reduced ? 0 : 70;
+  function loaderHtml(text) {
+    return `<div class="loader" role="progressbar" aria-label="Searching timetables"><i></i></div><p class="loader-text" aria-live="polite">${text}</p>`;
+  }
+  function searchAtolls(ids, box, btn, done) {
+    state.busy = true;
+    const label = btn.textContent;
+    btn.disabled = true;
+    box.hidden = false;
+    map.setSearching(true);
+    const per = [];
+    let evaluated = 0, ai = 0, it = null;
+    (function tick() {
+      if (!it) {
+        if (ai >= ids.length) {
+          map.setSearching(false); map.markAtoll(null); map.highlightRoute(null);
+          state.busy = false; btn.disabled = false; btn.textContent = label;
+          done(per, evaluated);
+          return;
+        }
+        it = M.optimizeSteps(nets[ids[ai]].fx, { candidates: tripsWithin(ids[ai]) });
+        if (ids.length > 1) map.markAtoll(ids[ai]);
+      }
+      const r = it.next();
+      const id = ids[ai];
+      if (r.done) {
+        evaluated += r.value.evaluated;
+        per.push({ id, o: r.value });
+        it = null; ai++;
+      } else {
+        const route = tripMeta[r.value.tripId].route;
+        if (ids.length === 1) map.highlightRoute(route);
+        btn.textContent = ids.length > 1 ? `Checking ${atollById[id].name} (${ai + 1} of ${ids.length})…` : "Searching…";
+        box.innerHTML = loaderHtml(`Trying new times for <b>Route ${esc(route)}</b>${ids.length > 1 ? ` in ${esc(atollById[id].name)}` : ""} · ${n(evaluated + r.value.evaluated)} timetables checked`);
+      }
+      setTimeout(tick, STEP_MS);
+    })();
+  }
+
   function optimizeAll() {
     if (state.busy) return;
+    searchAtolls(Object.keys(nets), $("#national-suggestion"), $("#optimize-all"), (per, evaluated) => {
+      const shifts = {};
+      for (const x of per) Object.assign(shifts, x.o.shifts);
+      state.national = { shifts, perAtoll: per, evaluated };
+      renderControls();
+    });
+  }
+
+  // Apply with a short "applying" state, then let the moved routes glow and
+  // jump the clock to just before the first moved sailing so it can be watched.
+  function applyWithEffect(shifts, box, clear) {
+    if (state.busy) return;
     state.busy = true;
-    const ids = Object.keys(nets);
-    const out = { shifts: {}, perAtoll: [], evaluated: 0 };
-    const btn = $("#optimize-all");
-    let i = 0;
-    (function step() {
-      if (i >= ids.length) {
-        state.busy = false; btn.disabled = false; btn.textContent = "Suggest for every atoll";
-        state.national = out; renderControls(); return;
+    box.innerHTML = loaderHtml(`Applying ${Object.keys(shifts).length} new departure time${Object.keys(shifts).length === 1 ? "" : "s"}…`);
+    map.setSearching(true);
+    setTimeout(() => {
+      map.setSearching(false);
+      applyShifts(shifts);
+      clear();
+      state.busy = false;
+      const local = Object.keys(shifts).filter((id) => !state.atoll || tripsTouching(state.atoll).includes(id));
+      if (state.atoll && local.length) {
+        const first = Math.min(...local.map((id) => firstDep(id) + shifts[id]));
+        anim.t = first - 3;
       }
-      const id = ids[i++];
-      btn.disabled = true; btn.textContent = `Checking ${atollById[id].name}…`;
-      const o = M.optimize(nets[id].fx, { candidates: tripsWithin(id) });
-      Object.assign(out.shifts, o.shifts);
-      out.evaluated += o.evaluated;
-      out.perAtoll.push({ id, o });
-      setTimeout(step, 0);
-    })();
+      render();
+      map.flashEdited();
+    }, reduced ? 0 : 900);
   }
 
   function setShift(v) {
