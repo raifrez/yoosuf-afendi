@@ -14,9 +14,11 @@ shifts, Find better times for Dhaalu, and Add a stop for GA. Maamendhoo.
 
 import json
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from simulator.demo_story import demo_story
+from simulator.load import load_island_stops
 from simulator.model import AddedStop, Model, Scenario
 from simulator.optimize import best_stop, run_search
 from simulator.schools import DEFAULT_SESSION
@@ -26,27 +28,50 @@ OUT = Path(__file__).resolve().parent.parent / "dashboard" / "engine-data.js"
 MAAMENDHOO = "1085"
 
 
+def place(model: Model, stop_id: str) -> str:
+    """Census island name for a ferry stop (the stop's own island, not road links)."""
+    if stop_id.startswith("ADD_"):
+        return model.islands[stop_id[4:]]["name"]
+    direct = {s: i for i, stops in load_island_stops(road_links=None).items() for s in stops}
+    if stop_id in direct:
+        return model.islands[direct[stop_id]]["name"]
+    return model.stop_names.get(stop_id, stop_id).split(".", 1)[-1]  # "Ga.Kooddoo" (airport) -> "Kooddoo"
+
+
+def sailings(model: Model, scenario: Scenario) -> str:
+    """'The 16:45 boat from Viligili to Gemanafushi leaves at 15:35 instead (arrives 17:00, not 18:10).' per shift."""
+    before = model.network(replace(scenario, timetable_edits=()))[0]
+    after = model.network(scenario)[0]
+    out = []
+    for e in scenario.timetable_edits:
+        b, a = before.trip(e.trip_id).stop_times, after.trip(e.trip_id).stop_times
+        via = [place(model, st.stop_id) for st in a[1:-1]]
+        out.append(f"The {hhmm(b[0].departure)} boat from {place(model, b[0].stop_id)} "
+                   f"{'via ' + ', '.join(via) + ' ' if via else ''}to {place(model, b[-1].stop_id)} "
+                   f"leaves at {hhmm(a[0].departure)} instead (arrives {hhmm(a[-1].arrival)}, not {hhmm(b[-1].arrival)}).")
+    return " ".join(out)
+
+
 def scenarios(model: Model) -> list[tuple[str, str, str, Scenario]]:
     found = run_search(model, Scenario(), "Dh")
     stop = best_stop(model, Scenario(), MAAMENDHOO)["best"]
     name = model.islands[MAAMENDHOO]["name"]
+    viligili = Scenario((TripShift("236_1", -70),))
+    kudahuvadhoo = Scenario((TripShift("288_1", 75),))
+    dhaalu = Scenario(tuple(TripShift(t, s) for t, s in found["shifts"].items()))
+    new_stop = Scenario(tuple(TripShift(t, s) for t, s in stop["shifts"].items()),
+                        added_stops=(AddedStop(MAAMENDHOO, stop["route_id"], stop["a"], stop["b"]),))
+    where = (f"after {place(model, stop['a'])}, at the end of the route" if stop["b"] is None
+             else f"between {place(model, stop['a'])} and {place(model, stop['b'])}")
     return [
-        ("viligili-earlier", "Boat home from Viligili 70 min earlier",
-         "Sailing 236_1 leaves Viligili at 15:35 instead of 16:45, so Gemanafushi residents are home by 17:00.",
-         Scenario((TripShift("236_1", -70),))),
-        ("kudahuvadhoo-later", "Last boat from Kudahuvadhoo 75 min later",
-         "Sailing 288_1 leaves Kudahuvadhoo at 15:20 instead of 14:05, so afternoon hospital visits can get home.",
-         Scenario((TripShift("288_1", 75),))),
-        ("dhaalu-better-times", "Find better times: Dhaalu",
-         "Sailings inside Dhaalu retimed in 15-min steps so more residents' trips work and nobody loses one: "
-         + ", ".join(f"{t} {s:+d} min" for t, s in found["shifts"].items()) + ".",
-         Scenario(tuple(TripShift(t, s) for t, s in found["shifts"].items()))),
-        ("maamendhoo-stop", f"Add a stop: {name}",
-         f"Route {stop['route_id']} calls at {name} (no ferry stop in the schedule today)"
-         + (f", with sailing times adjusted: " + ", ".join(f"{t} {s:+d} min" for t, s in stop["shifts"].items()) if stop["shifts"] else "")
-         + ". Nobody loses a working trip.",
-         Scenario(tuple(TripShift(t, s) for t, s in stop["shifts"].items()),
-                  added_stops=(AddedStop(MAAMENDHOO, stop["route_id"], stop["a"], stop["b"]),))),
+        ("viligili-earlier", "Earlier boat home from Viligili", sailings(model, viligili), viligili),
+        ("kudahuvadhoo-later", "Later last boat from Kudahuvadhoo", sailings(model, kudahuvadhoo), kudahuvadhoo),
+        ("dhaalu-better-times", "Better boat times for Dhaalu",
+         "Found by searching Dhaalu's own boats in 15-min steps for the times that make the most trips work "
+         "without anyone losing one. " + sailings(model, dhaalu), dhaalu),
+        ("maamendhoo-stop", f"New ferry stop at {name}",
+         f"{name} has no ferry stop today. Route {stop['route_id']}'s boats also call there ({where})."
+         + (" Its times also move so connections keep working. " + sailings(model, new_stop) if new_stop.timetable_edits else ""), new_stop),
     ]
 
 
