@@ -354,16 +354,14 @@
       placeBoats();
     }
 
-    // Wake: three foam trails behind the stern (centre and both quarters) that
-    // fan out and sway in a travelling wave, wider further back.
+    // Wake: three straight foam trails behind the stern (centre and both
+    // quarters) that fan out into a V.
     function wakePath(side, t) {
       const pts = [];
       for (let k = 0; k <= 16; k++) {
         const x = -9 - k * 2.8, d = k / 16;
-        // A clean V with only a slight shimmer, so it reads as a wake, not tentacles.
-        const spread = side * (2.6 + d * 4.6);
-        const amp = 0.12 + d * 0.35;
-        const y = spread + amp * Math.sin(k * 0.9 - t * 9 + side * 1.4);
+        // Straight trails in a clean V (no sway); the foam dashes still drift back.
+        const y = side * (2.6 + d * 4.6);
         pts.push(`${k ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(2)}`);
       }
       return pts.join("");
