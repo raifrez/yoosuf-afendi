@@ -731,7 +731,7 @@
     const h = o.comparison.health;
     const unresolved = o.unresolved.filter((r) => r.journey_rule_id === "health");
     return `
-      <div class="sug-head">${changes.length ? `${changes.length} change${changes.length === 1 ? "" : "s"} for ${esc(scopeName)}` : `No better timetable for ${esc(scopeName)}`}</div>
+      <div class="sug-head">${changes.length ? `${changes.length} change${changes.length === 1 ? "" : "s"} for ${esc(scopeName)}` : `No better times found for ${esc(scopeName)}`}</div>
       ${changes.length ? `<ol class="sug-list">${changes.map(([id, v]) => `<li><span>${esc(tripLabel(id))}</span><span class="mono"><span class="strike">${fmt(firstDep(id))}</span> → <b>${fmt(firstDep(id) + v)}</b></span></li>`).join("")}</ol>` : ""}
       <dl class="sug-result"><div><dt>Gain same-day access</dt><dd class="good"><b>+${units(h.gained)}</b></dd></div><div><dt>Lose access</dt><dd>${n(h.lost)} <span class="muted">(not allowed)</span></dd></div></dl>
       ${unresolved.length ? `<div class="sug-unres"><b>Still not fixed:</b> ${unresolved.map((r) => `${esc(sname(r.home_island_id))} (${esc(REASON[r.failure_reason].toLowerCase())})`).join("; ")}. These need a new sailing or a cross-atoll change.</div>` : ""}
@@ -756,7 +756,7 @@
       const cut = state.atoll ? iss.hospital.w : totals("current").failed;
       const where = state.atoll ? `in ${esc(atollById[state.atoll].name)}` : "across the atolls with ferry data";
       $("#suggest-lede").innerHTML = cut > 0
-        ? `<b>${esc(units(cut))}</b> cut off. Try new departure times; nobody loses access.`
+        ? `<b>${esc(units(cut))}</b> cut off from the hospital`
         : `Everyone ${where} can make the trip.`;
     }
     if (net) {
