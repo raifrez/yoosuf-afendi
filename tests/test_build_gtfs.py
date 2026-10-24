@@ -120,7 +120,7 @@ def test_web_export_matches_feed():
         for t in r["trips"]:
             minutes = [m for _, m in t["calls"]]
             assert minutes == sorted(minutes) and len(set(minutes)) == len(minutes)
-    assert sum(s["approx"] for s in net["stops"]) == 3
+    assert sum(s["approx"] for s in net["stops"]) == 0  # all approximate stops now use Census points
 
 
 def test_geojson_export_covers_every_route_and_stop():

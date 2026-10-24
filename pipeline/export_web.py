@@ -1,7 +1,11 @@
-"""Export the GTFS feed (data/gtfs/) for map and dashboard builders.
+"""Export the GTFS feed (data/gtfs/) for map, dashboard and simulator builders.
 
-Writes data/export/: network.json (every sailing with stop times),
-routes.geojson (route lines) and stops.geojson (island points).
+Writes data/export/:
+  network.json               every sailing with stop times; stops carry Census island_ids
+  routes.geojson             route lines
+  stops.geojson              island stop points
+  stop_islands.csv           ferry stop -> Census island_id(s), with match method
+  island_ferry_coverage.csv  every Census island: served / no route in data / atoll not in data
 If a local web/ app exists, network.json is also copied to web/public/data/.
 
 Usage: uv run python -m pipeline.export_web
@@ -10,8 +14,9 @@ Usage: uv run python -m pipeline.export_web
 import json
 from pathlib import Path
 
-from pipeline.build_gtfs import OUT as GTFS, to_minutes
-from pipeline.stops import ATOLLS, DATA, read_csv, split_stop_name
+from pipeline.build_gtfs import OUT as GTFS, to_minutes, write_csv
+from pipeline.map_islands import coverage, load_census_islands, map_stops
+from pipeline.stops import ATOLLS, DATA, read_csv, split_stop_name, stop_id
 
 EXPORT = DATA / "export"
 WEB_PUBLIC = Path(__file__).resolve().parent.parent / "web" / "public"
@@ -27,7 +32,7 @@ def build_network(gtfs: Path = GTFS) -> dict:
         code, island = split_stop_name(s["stop_name"])
         stops.append({"id": s["stop_id"], "name": island, "atoll": code, "dv": dv.get(s["stop_id"], ""),
                       "lat": float(s["stop_lat"]), "lon": float(s["stop_lon"]),
-                      "approx": stop_prov.get(s["stop_id"], "").startswith("manual_approx")})
+                      "approx": stop_prov.get(s["stop_id"], "").startswith("manual_approx"), "islandIds": []})
     stop_index = {s["id"]: i for i, s in enumerate(stops)}
 
     stop_times: dict[str, list] = {}
@@ -80,6 +85,7 @@ def build_geojson(network: dict) -> tuple[dict, dict]:
     stop_features = [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [s["lon"], s["lat"]]},
                       "properties": {"stop_id": s["id"], "name": s["name"], "name_dv": s["dv"],
                                      "atoll": atolls[s["atoll"]], "approximate_position": s["approx"],
+                                     "census_island_ids": s["islandIds"],
                                      "departures_per_day": departures.get(i, 0),
                                      "routes": sorted(stop_routes.get(i, ()), key=int)}}
                      for i, s in enumerate(stops)]
@@ -89,6 +95,12 @@ def build_geojson(network: dict) -> tuple[dict, dict]:
 
 def main() -> None:
     network = build_network()
+    islands = load_census_islands()
+    mapping = map_stops(islands)
+    ids = {stop_id(m.stop_name): m.island_ids for m in mapping}
+    for s in network["stops"]:
+        s["islandIds"] = ids[s["id"]]
+
     routes_gj, stops_gj = build_geojson(network)
     files = {"network.json": json.dumps(network, ensure_ascii=False, separators=(",", ":")),
              "routes.geojson": json.dumps(routes_gj, ensure_ascii=False, indent=1),
@@ -96,7 +108,16 @@ def main() -> None:
     EXPORT.mkdir(parents=True, exist_ok=True)
     for name, text in files.items():
         (EXPORT / name).write_text(text + "\n", encoding="utf-8")
-    print(f"Wrote {EXPORT}: {', '.join(files)} ({len(network['stops'])} stops, {len(network['routes'])} routes)")
+
+    write_csv(EXPORT / "stop_islands.csv",
+              ["stop_id", "stop_name", "island_ids", "method", "name_similarity", "distance_km", "note"],
+              [{"stop_id": stop_id(m.stop_name), "stop_name": m.stop_name, "island_ids": ";".join(m.island_ids),
+                "method": m.method, "name_similarity": m.similarity, "distance_km": m.distance_km, "note": m.note}
+               for m in mapping])
+    cov = coverage(mapping, islands, network)
+    write_csv(EXPORT / "island_ferry_coverage.csv", list(cov[0]), cov)
+    print(f"Wrote {EXPORT}: {', '.join(files)}, stop_islands.csv, island_ferry_coverage.csv "
+          f"({len(network['stops'])} stops, {len(network['routes'])} routes, {len(cov)} Census islands)")
 
     if WEB_PUBLIC.is_dir():
         (WEB_PUBLIC / "data").mkdir(exist_ok=True)

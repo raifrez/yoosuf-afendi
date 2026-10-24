@@ -16,6 +16,9 @@
     "name_dv": "ބ.ދަރަވަންދޫ",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "844"
+    ],
     "departures_per_day": 4,
     "routes": [
      "254",
@@ -38,6 +41,9 @@
     "name_dv": "ބ.ދޮންފަނު",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "348"
+    ],
     "departures_per_day": 2,
     "routes": [
      "254"
@@ -59,6 +65,9 @@
     "name_dv": "ބ.އޭދަފުށި",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "204"
+    ],
     "departures_per_day": 3,
     "routes": [
      "254",
@@ -81,6 +90,9 @@
     "name_dv": "ބ.ކަމަދޫ",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "518"
+    ],
     "departures_per_day": 2,
     "routes": [
      "254"
@@ -102,6 +114,9 @@
     "name_dv": "ބ.ކެންދޫ",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "668"
+    ],
     "departures_per_day": 1,
     "routes": [
      "254"
@@ -123,6 +138,9 @@
     "name_dv": "ބ.ކިހާދޫ",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "363"
+    ],
     "departures_per_day": 2,
     "routes": [
      "254"
@@ -144,6 +162,9 @@
     "name_dv": "ބ.ކުޑަރިކިލު",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "59"
+    ],
     "departures_per_day": 2,
     "routes": [
      "254"
@@ -165,6 +186,9 @@
     "name_dv": "ބ.މާޅޮސް",
     "atoll": "Baa",
     "approximate_position": false,
+    "census_island_ids": [
+     "637"
+    ],
     "departures_per_day": 6,
     "routes": [
      "254",
@@ -187,6 +211,9 @@
     "name_dv": "ދ.ބަނޑިދޫ",
     "atoll": "Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "66"
+    ],
     "departures_per_day": 2,
     "routes": [
      "288"
@@ -208,6 +235,9 @@
     "name_dv": "ދ.ހުޅުދެލި",
     "atoll": "Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "662"
+    ],
     "departures_per_day": 2,
     "routes": [
      "288"
@@ -229,6 +259,9 @@
     "name_dv": "ދ.ކުޑަހުވަދޫ",
     "atoll": "Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "499"
+    ],
     "departures_per_day": 1,
     "routes": [
      "288"
@@ -250,6 +283,9 @@
     "name_dv": "ދ.މާއެނބޫދޫ",
     "atoll": "Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "209"
+    ],
     "departures_per_day": 2,
     "routes": [
      "288"
@@ -271,6 +307,9 @@
     "name_dv": "ދ.މީދޫ",
     "atoll": "Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1050"
+    ],
     "departures_per_day": 2,
     "routes": [
      "280",
@@ -293,6 +332,9 @@
     "name_dv": "ދ.ރިނބުދޫ",
     "atoll": "Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "334"
+    ],
     "departures_per_day": 2,
     "routes": [
      "288"
@@ -314,6 +356,9 @@
     "name_dv": "ފ.ބިލެތްދޫ",
     "atoll": "Faafu",
     "approximate_position": false,
+    "census_island_ids": [
+     "606"
+    ],
     "departures_per_day": 2,
     "routes": [
      "278"
@@ -335,6 +380,9 @@
     "name_dv": "ފ.ދަރަނބޫދޫ",
     "atoll": "Faafu",
     "approximate_position": false,
+    "census_island_ids": [
+     "970"
+    ],
     "departures_per_day": 2,
     "routes": [
      "278"
@@ -356,6 +404,9 @@
     "name_dv": "ފ.ފީއަލި",
     "atoll": "Faafu",
     "approximate_position": false,
+    "census_island_ids": [
+     "8"
+    ],
     "departures_per_day": 1,
     "routes": [
      "278"
@@ -377,6 +428,9 @@
     "name_dv": "ފ.މަގޫދޫ",
     "atoll": "Faafu",
     "approximate_position": false,
+    "census_island_ids": [
+     "85"
+    ],
     "departures_per_day": 2,
     "routes": [
      "278"
@@ -398,6 +452,9 @@
     "name_dv": "ފ.ނިލަންދޫ",
     "atoll": "Faafu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1158"
+    ],
     "departures_per_day": 2,
     "routes": [
      "278",
@@ -420,6 +477,9 @@
     "name_dv": "ގއ.ދެއްވަދޫ",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [
+     "412"
+    ],
     "departures_per_day": 2,
     "routes": [
      "183"
@@ -441,6 +501,9 @@
     "name_dv": "ގއ.ގެމަނަފުށި",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1182"
+    ],
     "departures_per_day": 2,
     "routes": [
      "236"
@@ -462,6 +525,9 @@
     "name_dv": "ގއ.ކަނޑުހުޅުދޫ",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [
+     "856"
+    ],
     "departures_per_day": 1,
     "routes": [
      "236"
@@ -483,6 +549,9 @@
     "name_dv": "ގއ.ކޮލަމާފުށި",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [
+     "743"
+    ],
     "departures_per_day": 1,
     "routes": [
      "234"
@@ -504,6 +573,9 @@
     "name_dv": "ގއ.ކޮނޑޭ",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [
+     "435"
+    ],
     "departures_per_day": 2,
     "routes": [
      "236"
@@ -525,6 +597,7 @@
     "name_dv": "ގއ.ކޫއްޑޫ",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [],
     "departures_per_day": 5,
     "routes": [
      "197",
@@ -548,6 +621,9 @@
     "name_dv": "ގއ.ވިލިނގިލި",
     "atoll": "Gaafu Alifu",
     "approximate_position": false,
+    "census_island_ids": [
+     "247"
+    ],
     "departures_per_day": 4,
     "routes": [
      "183",
@@ -572,6 +648,9 @@
     "name_dv": "ގދ.ފަރެސްމާތޮޑާ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "572"
+    ],
     "departures_per_day": 6,
     "routes": [
      "193",
@@ -594,6 +673,9 @@
     "name_dv": "ގދ.ފިޔޯރީ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "470"
+    ],
     "departures_per_day": 2,
     "routes": [
      "193"
@@ -605,8 +687,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     72.9999241,
-     0.4524406
+     73.00431389,
+     0.44454028
     ]
    },
    "properties": {
@@ -614,7 +696,10 @@
     "name": "Hon'dehdhoo",
     "name_dv": "ގދ.ހޯޑެއްދޫ",
     "atoll": "Gaafu Dhaalu",
-    "approximate_position": true,
+    "approximate_position": false,
+    "census_island_ids": [
+     "851"
+    ],
     "departures_per_day": 2,
     "routes": [
      "193"
@@ -636,6 +721,7 @@
     "name_dv": "ގދ.ކާޑެއްދޫ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [],
     "departures_per_day": 3,
     "routes": [
      "193",
@@ -658,6 +744,9 @@
     "name_dv": "ގދ.މަޑަވެލި",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "557"
+    ],
     "departures_per_day": 2,
     "routes": [
      "193"
@@ -679,6 +768,9 @@
     "name_dv": "ގދ.ނަޑެއްލާ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "181"
+    ],
     "departures_per_day": 2,
     "routes": [
      "193"
@@ -700,6 +792,9 @@
     "name_dv": "ގދ.ރަތަފަންދޫ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "630"
+    ],
     "departures_per_day": 2,
     "routes": [
      "193"
@@ -721,6 +816,9 @@
     "name_dv": "ގދ.ތިނަދޫ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "717"
+    ],
     "departures_per_day": 3,
     "routes": [
      "183",
@@ -744,6 +842,9 @@
     "name_dv": "ގދ.ވާދޫ",
     "atoll": "Gaafu Dhaalu",
     "approximate_position": false,
+    "census_island_ids": [
+     "195"
+    ],
     "departures_per_day": 3,
     "routes": [
      "193",
@@ -766,6 +867,9 @@
     "name_dv": "ޏ.ފުވައްމުލައް",
     "atoll": "Gnaviyani",
     "approximate_position": false,
+    "census_island_ids": [
+     "726"
+    ],
     "departures_per_day": 4,
     "routes": [
      "205",
@@ -788,6 +892,9 @@
     "name_dv": "ލ.ދަނބިދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1049"
+    ],
     "departures_per_day": 2,
     "routes": [
      "290"
@@ -809,6 +916,9 @@
     "name_dv": "ލ.ފޮނަދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1038"
+    ],
     "departures_per_day": 3,
     "routes": [
      "290",
@@ -831,6 +941,9 @@
     "name_dv": "ލ.ގަން",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "152"
+    ],
     "departures_per_day": 3,
     "routes": [
      "290",
@@ -853,6 +966,9 @@
     "name_dv": "ލ.ހިތަދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "265"
+    ],
     "departures_per_day": 2,
     "routes": [
      "292"
@@ -874,6 +990,9 @@
     "name_dv": "ލ.އިސްދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1070"
+    ],
     "departures_per_day": 1,
     "routes": [
      "290"
@@ -885,8 +1004,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     73.5644347,
-     2.1189323
+     73.56051722,
+     2.11422944
     ]
    },
    "properties": {
@@ -894,7 +1013,10 @@
     "name": "Kalaidhoo",
     "name_dv": "ލ.ކަލައިދޫ",
     "atoll": "Laamu",
-    "approximate_position": true,
+    "approximate_position": false,
+    "census_island_ids": [
+     "1473"
+    ],
     "departures_per_day": 2,
     "routes": [
      "290"
@@ -916,6 +1038,9 @@
     "name_dv": "ލ.ކުނަހަންދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "323"
+    ],
     "departures_per_day": 2,
     "routes": [
      "292"
@@ -937,6 +1062,9 @@
     "name_dv": "ލ.މާބައިދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1053"
+    ],
     "departures_per_day": 2,
     "routes": [
      "290"
@@ -958,6 +1086,9 @@
     "name_dv": "ލ.މާމެންދޫ",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "484"
+    ],
     "departures_per_day": 2,
     "routes": [
      "292"
@@ -979,6 +1110,9 @@
     "name_dv": "ލ.މާވަށް",
     "atoll": "Laamu",
     "approximate_position": false,
+    "census_island_ids": [
+     "938"
+    ],
     "departures_per_day": 1,
     "routes": [
      "292"
@@ -990,8 +1124,8 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     73.5344082,
-     2.0111479
+     73.53389722,
+     2.01184778
     ]
    },
    "properties": {
@@ -999,7 +1133,10 @@
     "name": "Mundoo",
     "name_dv": "ލ.މުންޑޫ",
     "atoll": "Laamu",
-    "approximate_position": true,
+    "approximate_position": false,
+    "census_island_ids": [
+     "102"
+    ],
     "departures_per_day": 2,
     "routes": [
      "290"
@@ -1021,6 +1158,7 @@
     "name_dv": "ޅ.ފެލިވަރު",
     "atoll": "Lhaviyani",
     "approximate_position": false,
+    "census_island_ids": [],
     "departures_per_day": 2,
     "routes": [
      "218",
@@ -1043,6 +1181,9 @@
     "name_dv": "ޅ.ހިންނަވަރު",
     "atoll": "Lhaviyani",
     "approximate_position": false,
+    "census_island_ids": [
+     "340"
+    ],
     "departures_per_day": 3,
     "routes": [
      "217",
@@ -1067,6 +1208,9 @@
     "name_dv": "ޅ.ކުރެންދޫ",
     "atoll": "Lhaviyani",
     "approximate_position": false,
+    "census_island_ids": [
+     "510"
+    ],
     "departures_per_day": 2,
     "routes": [
      "217",
@@ -1089,6 +1233,7 @@
     "name_dv": "ޅ.މަޑިވަރު",
     "atoll": "Lhaviyani",
     "approximate_position": false,
+    "census_island_ids": [],
     "departures_per_day": 6,
     "routes": [
      "217",
@@ -1113,6 +1258,9 @@
     "name_dv": "ޅ.ނައިފަރު",
     "atoll": "Lhaviyani",
     "approximate_position": false,
+    "census_island_ids": [
+     "20"
+    ],
     "departures_per_day": 4,
     "routes": [
      "217",
@@ -1137,6 +1285,9 @@
     "name_dv": "ޅ.އޮޅުވެލިފުށި",
     "atoll": "Lhaviyani",
     "approximate_position": false,
+    "census_island_ids": [
+     "517"
+    ],
     "departures_per_day": 1,
     "routes": [
      "217",
@@ -1159,6 +1310,9 @@
     "name_dv": "ނ.ހެނބަދޫ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "962"
+    ],
     "departures_per_day": 1,
     "routes": [
      "224"
@@ -1180,6 +1334,9 @@
     "name_dv": "ނ.ކެނދިކުޅުދޫ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "866"
+    ],
     "departures_per_day": 2,
     "routes": [
      "224"
@@ -1201,6 +1358,9 @@
     "name_dv": "ނ.ކުޑަފަރި",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "391"
+    ],
     "departures_per_day": 1,
     "routes": [
      "228"
@@ -1222,6 +1382,9 @@
     "name_dv": "ނ.ލަންދޫ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "191"
+    ],
     "departures_per_day": 2,
     "routes": [
      "224"
@@ -1243,6 +1406,9 @@
     "name_dv": "ނ.ޅޮހީ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "500"
+    ],
     "departures_per_day": 2,
     "routes": [
      "228"
@@ -1264,6 +1430,9 @@
     "name_dv": "ނ.މާފަރު",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "560"
+    ],
     "departures_per_day": 3,
     "routes": [
      "224",
@@ -1286,6 +1455,9 @@
     "name_dv": "ނ.މާޅެންދޫ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "203"
+    ],
     "departures_per_day": 2,
     "routes": [
      "224"
@@ -1307,6 +1479,9 @@
     "name_dv": "ނ.މަނަދޫ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "392"
+    ],
     "departures_per_day": 3,
     "routes": [
      "224",
@@ -1330,6 +1505,9 @@
     "name_dv": "ނ.މިލަދޫ",
     "atoll": "Noonu",
     "approximate_position": false,
+    "census_island_ids": [
+     "1068"
+    ],
     "departures_per_day": 2,
     "routes": [
      "228"
@@ -1351,6 +1529,9 @@
     "name_dv": "ސ.ފޭދޫ",
     "atoll": "Seenu",
     "approximate_position": false,
+    "census_island_ids": [
+     "947"
+    ],
     "departures_per_day": 2,
     "routes": [
      "205"
@@ -1372,6 +1553,10 @@
     "name_dv": "ސ.ހުޅުމީދޫ",
     "atoll": "Seenu",
     "approximate_position": false,
+    "census_island_ids": [
+     "299",
+     "272"
+    ],
     "departures_per_day": 4,
     "routes": [
      "205"
@@ -1393,6 +1578,9 @@
     "name_dv": "ތ.ބުރުނި",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "254"
+    ],
     "departures_per_day": 1,
     "routes": [
      "260"
@@ -1414,6 +1602,9 @@
     "name_dv": "ތ.ދިޔަމިގިލި",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "200"
+    ],
     "departures_per_day": 2,
     "routes": [
      "260"
@@ -1435,6 +1626,9 @@
     "name_dv": "ތ.ގާދިއަފުށި",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "427"
+    ],
     "departures_per_day": 2,
     "routes": [
      "264",
@@ -1457,6 +1651,9 @@
     "name_dv": "ތ.ގުރައިދޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "1163"
+    ],
     "departures_per_day": 2,
     "routes": [
      "260"
@@ -1478,6 +1675,9 @@
     "name_dv": "ތ.ހިރިލަނދޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "350"
+    ],
     "departures_per_day": 2,
     "routes": [
      "262"
@@ -1499,6 +1699,9 @@
     "name_dv": "ތ.ކަންޑޫދޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "504"
+    ],
     "departures_per_day": 1,
     "routes": [
      "262"
@@ -1520,6 +1723,9 @@
     "name_dv": "ތ.ކިނބިދޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "422"
+    ],
     "departures_per_day": 2,
     "routes": [
      "262"
@@ -1541,6 +1747,9 @@
     "name_dv": "ތ.މަޑިފުށި",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "627"
+    ],
     "departures_per_day": 2,
     "routes": [
      "260"
@@ -1562,6 +1771,9 @@
     "name_dv": "ތ.އޮމަދޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "783"
+    ],
     "departures_per_day": 2,
     "routes": [
      "262"
@@ -1583,6 +1795,9 @@
     "name_dv": "ތ.ތިމަރަފުށި",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "82"
+    ],
     "departures_per_day": 3,
     "routes": [
      "264",
@@ -1605,6 +1820,9 @@
     "name_dv": "ތ.ވަންދޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "859"
+    ],
     "departures_per_day": 2,
     "routes": [
      "262"
@@ -1626,6 +1844,9 @@
     "name_dv": "ތ.ވޭމަންޑޫ",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "694"
+    ],
     "departures_per_day": 5,
     "routes": [
      "260",
@@ -1651,6 +1872,9 @@
     "name_dv": "ތ.ވިލުފުށި",
     "atoll": "Thaa",
     "approximate_position": false,
+    "census_island_ids": [
+     "205"
+    ],
     "departures_per_day": 2,
     "routes": [
      "260"

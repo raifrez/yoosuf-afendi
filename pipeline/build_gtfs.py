@@ -23,6 +23,7 @@ AGENCY_ID = "RTL"
 SERVICE_ID = "ASSUMED_DAILY"
 FEED_START, FEED_END = "20260101", "20261231"
 MAX_PLAUSIBLE_KMH = 50  # straight-line speed; ferries ~20 km/h, speedboats ~45 km/h
+CENSUS_POINTS = "Census 2022 island reference points (Maldives Bureau of Statistics), data/processed/population/islands.parquet"
 
 
 @dataclass(frozen=True)
@@ -177,7 +178,8 @@ def build_tables(routes: list[Route], coords: dict[str, dict], source_date: str)
                     "classification": "observed",
                     "note": f"Merged identical routes {', '.join(r.aliases)}" if r.aliases else ""} for r in routes]
     provenance += [{"entity_type": "stop", "entity_id": stop_id(name),
-                    "source": "OpenStreetMap via Nominatim (ODbL)", "observed_date": date.today().isoformat(),
+                    "source": CENSUS_POINTS if coords[name]["status"] == "census_point" else "OpenStreetMap via Nominatim (ODbL)",
+                    "observed_date": date.today().isoformat(),
                     "classification": "derived", "note": f"{coords[name]['status']}: {coords[name]['note']}"}
                    for name in sorted(stops)]
     t["provenance"] = (["entity_type", "entity_id", "source", "observed_date", "classification", "note"], provenance)

@@ -58,7 +58,7 @@ stop,GA_KOODDOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_ver
 stop,GA_VILLINGILI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19932560: ވިލިނގިލި, ހުވަދުއަތޮޅު އުތުރުބުރި, ދިވެހިރާއްޖެ"
 stop,GDH_FARESMAATHODA,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932422: ފަރެސްމާތޮޑާ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
 stop,GDH_FIYORI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932249: ފިޔޯރީ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
-stop,GDH_HONDEHDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_approx: No OSM island found; point on Madaveli-Hoadedhdhoo causeway. Verify.
+stop,GDH_HONDEHDHOO,"Census 2022 island reference points (Maldives Bureau of Statistics), data/processed/population/islands.parquet",2026-10-24,derived,census_point: Census 2022 island reference point for Hoadedhdhoo (island_id 851); no OSM island found
 stop,GDH_KAADEHDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"manual_verified: OSM island 'Kaadedhdhoo' (spelling variant), Gaafu Dhaalu"
 stop,GDH_MADAVELI,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932554: މަޑަވެލި, ހުވަދުއަތޮޅު ދެކުނުބުރި, 17010, ދިވެހިރާއްޖެ"
 stop,GDH_NADELLA,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19932236: ނަޑެއްލާ, ހުވަދުއަތޮޅު ދެކުނުބުރި, ދިވެހިރާއްޖެ"
@@ -71,12 +71,12 @@ stop,L_FONADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islan
 stop,L_GAN,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882848: ގަން, ފޮނަދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
 stop,L_HITHADHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19883161: ހިތަދޫ, ހައްދުންމަތި އަތޮޅު, 15110, ދިވެހިރާއްޖެ"
 stop,L_ISDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882790: އިސްދޫ, ހައްދުންމަތި އަތޮޅު, 15011, ދިވެހިރާއްޖެ"
-stop,L_KALAIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,manual_approx: Placed at L.Isdhoo (5-min leg from Isdhoo; likely Isdhoo-Kalaidhoo). OSM ކަޅައިދޫ at 1.99N is a different island. Verify.
+stop,L_KALAIDHOO,"Census 2022 island reference points (Maldives Bureau of Statistics), data/processed/population/islands.parquet",2026-10-24,derived,"census_point: Census 2022 island reference point for Kalaidhoo (island_id 1473), next to Isdhoo; OSM ކަޅައިދޫ at 1.99N is a different island"
 stop,L_KUNAHANDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19882929: ކުނަހަންދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
 stop,L_MAABAIDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_island: OSM way/19883185: މާބައިދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
 stop,L_MAAMENDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19882961: މާމެންދޫ, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
 stop,L_MAAVAH,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19883070: މާވަށް, ހައްދުންމަތި އަތޮޅު, ދިވެހިރާއްޖެ"
-stop,L_MUNDOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"manual_approx: OSM islet 'Mandoo' in Laamu, between Maabaidhoo and Gan as route order implies. Verify name."
+stop,L_MUNDOO,"Census 2022 island reference points (Maldives Bureau of Statistics), data/processed/population/islands.parquet",2026-10-24,derived,census_point: Census 2022 island reference point for Mundoo (island_id 102); OSM labels it Mandoo
 stop,LH_FELIVARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879323: ފެލިވަރު, ނައިފަރު, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
 stop,LH_HINNAVARU,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/441740990: ހިންނަވަރު, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
 stop,LH_KURENDHOO,OpenStreetMap via Nominatim (ODbL),2026-10-24,derived,"osm_islet: OSM way/19879351: ކުރެންދޫ, ފާދިއްޕޮޅު, ދިވެހިރާއްޖެ"
