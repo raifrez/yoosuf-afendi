@@ -14,7 +14,8 @@
    "start": "07:05",
    "end": "12:05"
   },
-  "school_sessions": {}
+  "school_sessions": {},
+  "added_stops": []
  },
  "compare": {
   "islands": [
@@ -129,6 +130,7 @@
     "lost": 17
    }
   ],
+  "newly_served": [],
   "gained": 523,
   "lost": 17
  }
