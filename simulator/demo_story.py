@@ -25,6 +25,10 @@ def demo_story(model: Model) -> dict | None:
     if r is None:
         return None
     scenario = Scenario((DEMO_EDIT,))
+    run = model.run(scenario)
+    trip = next(t for t in model.resident_payload(DEMO_PERSON, run)["trips"] if t["category"] == DEMO_CATEGORY)
+    destination = trip["baseline"]["request"]["destination_island_id"]
     return {"person_id": DEMO_PERSON, "display_name": r.display_name, "age": r.age, "category": DEMO_CATEGORY,
-            "island_id": r.home_island_id, "data_classification": "demo", "scenario": scenario.as_dict(),
-            "compare": model.compare_payload(model.run(scenario))}
+            "island_id": r.home_island_id, "island_name": model.islands[r.home_island_id]["name"],
+            "destination_name": model.islands[destination]["name"], "data_classification": "demo",
+            "scenario": scenario.as_dict(), "trip": trip, "compare": model.compare_payload(run)}
