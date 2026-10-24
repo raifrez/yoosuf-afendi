@@ -290,14 +290,17 @@
       const all = Object.values(r.results).flat();
       if (all.some((x) => hadAccess.has(key(x)) && !x.success)) return null;
       const ok = all.filter((x) => x.success);
+      // Residents with a long wait or a long day (opts.longWait / opts.longDay, minutes).
+      const isLong = (x) => (opts.longWait && x.wait_before_minutes >= opts.longWait) || (opts.longDay && x.home_arrival - x.legs[0].dep >= opts.longDay);
       return {
         access: ok.reduce((s, x) => s + x.population_weight, 0),
+        long: opts.longWait || opts.longDay ? ok.filter(isLong).reduce((s, x) => s + x.population_weight, 0) : 0,
         wait: opts.reduceWait ? Math.round(ok.reduce((s, x) => s + x.wait_minutes * x.population_weight, 0) / 1000) : 0,
         moved: Object.values(shifts).reduce((s, v) => s + Math.abs(v), 0),
       };
     }
     const better = (a, b) =>
-      a.access !== b.access ? a.access > b.access : a.wait !== b.wait ? a.wait < b.wait : a.moved < b.moved;
+      a.access !== b.access ? a.access > b.access : a.long !== b.long ? a.long < b.long : a.wait !== b.wait ? a.wait < b.wait : a.moved < b.moved;
 
     let shifts = {};
     let best = score(shifts);

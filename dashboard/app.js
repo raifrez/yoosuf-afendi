@@ -533,9 +533,12 @@
     if (net) {
       for (const r of net.current.results.health) {
         if (!r.success) { add("hospital", r.population_weight, { id: r.home_island_id, r }); continue; }
-        if (r.wait_before_minutes >= LONG_WAIT) add("wait", r.population_weight, { id: r.home_island_id, r, detail: `waits ${fmtDur(r.wait_before_minutes)}` });
+        if (r.wait_before_minutes >= LONG_WAIT) add("wait", r.population_weight, { id: r.home_island_id, r, fixable: true, detail: `waits ${fmtDur(r.wait_before_minutes)}` });
         const day = r.home_arrival - r.legs[0].dep;
-        if (day >= LONG_DAY) add("longday", r.population_weight, { id: r.home_island_id, r, detail: `${fmtDur(day)}, ${fmt(r.legs[0].dep)}–${fmt(r.home_arrival)}` });
+        // Shortest possible day with zero waiting: boats + walking + the appointment.
+        const floor = r.travel_minutes + r.transfer_minutes + settings.activityMin;
+        if (day >= LONG_DAY) add("longday", r.population_weight, { id: r.home_island_id, r, fixable: floor < LONG_DAY,
+          detail: floor < LONG_DAY ? `${fmtDur(day)}, ${fmt(r.legs[0].dep)}–${fmt(r.home_arrival)}` : `${fmtDur(day)} · ${fmtDur(r.travel_minutes)} on boats, retiming can't fix` });
       }
     }
     if (FEED_ATOLLS.includes(atollId)) {
@@ -592,7 +595,7 @@
         const cur = net.current.summary.health;
         parts.push(`<div class="issue bad">${issueHead(k, x.w, ` ${cur.access_pct.toFixed(0)}% of ${units(cur.eligible)} served by ferry can.`)}${barriersHtml()}</div>`);
       } else {
-        const fixBtn = (k === "wait" || k === "longday") && !state.busy && !(state.suggestion && state.suggestion.atoll === state.atoll)
+        const fixBtn = (k === "wait" || k === "longday") && x.items.some((it) => it.fixable) && !state.busy && !(state.suggestion && state.suggestion.atoll === state.atoll)
           ? `<button type="button" class="add-stop issue-fix" data-run-optimize>Find better times</button>` : "";
         parts.push(`<div class="issue ${ISSUE[k].tone}">${issueHead(k, x.w)}${fixBtn}
           <ul class="issue-list">${x.items.map((it) => it.id
@@ -849,7 +852,7 @@
           done(per, evaluated);
           return;
         }
-        it = M.optimizeSteps(nets[ids[ai]].fx, { candidates: tripsWithin(ids[ai]), reduceWait: true });
+        it = M.optimizeSteps(nets[ids[ai]].fx, { candidates: tripsWithin(ids[ai]), reduceWait: true, longWait: LONG_WAIT, longDay: LONG_DAY });
         if (ids.length > 1) map.markAtoll(ids[ai]);
       }
       const r = it.next();
@@ -990,7 +993,8 @@
     // Only inside an atoll whose residents are cut off from the hospital trip,
     // the issue a timetable change can fix (kept while a search or result is showing).
     const issNow = net ? issuesFor(state.atoll) : null;
-    const hasIssue = !!net && (issNow.hospital.items.length > 0 || issNow.wait.w > 0 || issNow.longday.w > 0);
+    const fixW = (k) => (issNow ? issNow[k].items.filter((it) => it.fixable).reduce((s2, it) => s2 + it.r.population_weight, 0) : 0);
+    const hasIssue = !!net && (issNow.hospital.items.length > 0 || fixW("wait") > 0 || fixW("longday") > 0);
     const showing = state.busy || (state.suggestion && state.suggestion.atoll === state.atoll);
     $("#r-suggest").hidden = !net || (!hasIssue && !showing);
     // Find better times disappears once clicked: the search, then its result
@@ -1002,7 +1006,7 @@
       const iss = state.atoll ? issuesFor(state.atoll) : null;
       const cut = state.atoll ? iss.hospital.w : totals("current").failed;
       const where = state.atoll ? `in ${esc(atollById[state.atoll].name)}` : "across the atolls with ferry data";
-      const waitW = state.atoll ? iss.wait.w : 0, dayW = state.atoll ? iss.longday.w : 0;
+      const waitW = state.atoll ? fixW("wait") : 0, dayW = state.atoll ? fixW("longday") : 0;
       const extra = [waitW ? `<b class="warntxt">${esc(n(waitW))}</b> wait ${esc(fmtDur(LONG_WAIT))}+` : "", dayW ? `<b class="warntxt">${esc(n(dayW))}</b> have ${esc(fmtDur(LONG_DAY))}+ days` : ""].filter(Boolean);
       $("#suggest-lede").innerHTML = cut > 0
         ? `<b>${esc(units(cut))}</b> cut off from the hospital${extra.length ? ` · ${extra.join(" · ")}` : ""}`
