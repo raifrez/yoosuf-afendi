@@ -4,6 +4,35 @@ Maldives ferry routes as open data, for the M.A.N.D.A.R.I.N transport accessibil
 
 The published ferry schedules are turned into a validated [GTFS](https://gtfs.org) feed and map-ready GeoJSON, covering **27 routes, 58 daily sailings and 77 island stops across 11 atolls**.
 
+## Run the app
+
+You need [uv](https://docs.astral.sh/uv/) and Node.js 20 or newer. From the repo root:
+
+```bash
+uv sync
+uv run python -m simulator.server          # simulator API on http://127.0.0.1:8765 (keep it running)
+cd web && npm ci && npm run dev            # dashboard on http://localhost:5173 (proxies /api and /data to the API)
+```
+
+The server loads the four demo atolls (Faafu, Dhaalu, Gaafu Alifu, Gaafu Dhaalu) in under a second. Every edit in the dashboard (a ferry departure shift or school hours) reruns the model on a copy of the baseline in about 0.1 s.
+
+**Demo story:** press **Demo** in the dashboard. Ismail Rasheed (a synthetic resident of Dh. Meedhoo) can't get home from a 13:30 hospital appointment at Kudahuvadhoo, because the last boat leaves at 14:05. Moving sailing 288_1 75 minutes later lets 523 Dhaalu residents' visits work, but 17 elderly Meedhoo residents now get home after 17:00. Gains and losses are shown separately.
+
+Without the dashboard:
+
+```bash
+uv run python -m simulator.demo --atolls F Dh --shift 288_1=+75     # hospital visits: island x time matrix
+uv run python -m simulator.school_demo --atolls F Dh --school-session "Dh. Atoll Education Centre=10:15-14:00"
+uv run python -m simulator.export                                   # static JSON in data/export/simulation/
+uv run pytest -q                                                    # all checks
+```
+
+### What the results mean
+
+Each resident has one need per traveller category: `health_centre`, `hospital_child`, `hospital_adult`, `hospital_elderly`, `referral` (Grade 3 or tertiary hospital) and `school`. The success rate is the share of residents who need a ferry trip and whose round trip works: they arrive in time, stay for the appointment or school day, and get home the same day. Residents with the facility on their island, and islands without data, are shown separately, never as 0%. Atoll rates are computed over the atoll's residents, not averaged across islands. Every parameter and dataset carries a label (`observed`, `derived`, `assumed` or `demo`), shown in the dashboard under **Assumptions & sources**.
+
+The results are modelled access barriers. They are not counts of patients denied care or of school absences.
+
 ## Use the data
 
 Everything you need is already built in `data/`. You don't have to run anything.

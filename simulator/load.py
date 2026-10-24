@@ -5,7 +5,7 @@
   data/processed/population/islands.parquet  Census islands: name, atoll_code (+ population)
   data/processed/facilities/facilities.parquet  hospitals and schools with their island_id (island links derived)
   data/processed/facilities/school_grades.parquet  grades a school profile states (derived)
-  data/processed/population/persons.parquet  synthetic residents: home island and age
+  data/processed/population/persons.parquet  synthetic residents: home island, age, display name
 """
 
 from collections import defaultdict
@@ -18,6 +18,7 @@ from pipeline.build_gtfs import OUT as GTFS, to_minutes
 from pipeline.export_web import EXPORT
 from pipeline.map_islands import load_census_islands
 from pipeline.stops import DATA, read_csv
+from simulator.health import HealthFacility, Resident
 from simulator.schools import SCHOOL_AGES, School, Student
 from simulator.timetable import StopTime, Timetable, Trip
 
@@ -68,12 +69,18 @@ def load_islands() -> dict[str, dict]:
     return {i["island_id"]: i for i in load_census_islands()}
 
 
-def load_hospitals(path: Path = FACILITIES) -> list[dict]:
-    """Hospitals linked to a Census island: facility_id, name, island_id, location_match."""
+def load_health_facilities(path: Path = FACILITIES) -> list[HealthFacility]:
+    """Health facilities linked to a Census island, with their service level."""
     rel = duckdb.sql(f"""
-        SELECT facility_id, name, island_id, location_match FROM '{path}'
-        WHERE facility_type = 'hospital' AND island_id IS NOT NULL ORDER BY island_id, name""")
-    return [dict(zip(rel.columns, row)) for row in rel.fetchall()]
+        SELECT facility_id, name, island_id, facility_type, level_family, level_number FROM '{path}'
+        WHERE kind = 'health' AND island_id IS NOT NULL ORDER BY island_id, name""")
+    return [HealthFacility(*row) for row in rel.fetchall()]
+
+
+def load_hospitals(path: Path = FACILITIES) -> list[dict]:
+    """Hospitals linked to a Census island: facility_id, name, island_id."""
+    return [{"facility_id": f.facility_id, "name": f.name, "island_id": f.island_id}
+            for f in load_health_facilities(path) if f.facility_type == "hospital"]
 
 
 def load_schools(facilities: Path = FACILITIES, grades: Path = SCHOOL_GRADES) -> list[School]:
@@ -86,10 +93,17 @@ def load_schools(facilities: Path = FACILITIES, grades: Path = SCHOOL_GRADES) ->
     return [School(fid, name, island_id, frozenset(g) if g else None) for fid, name, island_id, g in rel.fetchall()]
 
 
+def load_residents(island_ids: Iterable[str], persons: Path = PERSONS,
+                   min_age: int = 0, max_age: int = 200) -> list[Resident]:
+    """Synthetic residents of the given islands, optionally within an age range."""
+    rows = duckdb.execute(f"""
+        SELECT person_id, home_island_id, age, population_weight, display_name FROM '{persons}'
+        WHERE age BETWEEN ? AND ? AND list_contains(?, home_island_id) ORDER BY person_id""",
+        [min_age, max_age, list(island_ids)]).fetchall()
+    return [Resident(*row) for row in rows]
+
+
 def load_students(island_ids: Iterable[str], persons: Path = PERSONS) -> list[Student]:
     """Synthetic residents of school age living on the given islands."""
-    rows = duckdb.execute(f"""
-        SELECT person_id, home_island_id, age, population_weight FROM '{persons}'
-        WHERE age BETWEEN ? AND ? AND list_contains(?, home_island_id) ORDER BY person_id""",
-        [SCHOOL_AGES.start, SCHOOL_AGES.stop - 1, list(island_ids)]).fetchall()
-    return [Student(pid, island, age, weight) for pid, island, age, weight in rows]
+    return [Student(r.person_id, r.home_island_id, r.age, r.weight)
+            for r in load_residents(island_ids, persons, SCHOOL_AGES.start, SCHOOL_AGES.stop - 1)]

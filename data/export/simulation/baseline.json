@@ -1,0 +1,3598 @@
+{
+ "scenario": {
+  "timetable_edits": [],
+  "default_session": {
+   "start": "07:05",
+   "end": "12:05"
+  },
+  "school_sessions": {}
+ },
+ "islands": [
+  {
+   "island_id": "1050",
+   "category": "health_centre",
+   "total": 1118,
+   "no_data": 0,
+   "on_island": 1118,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1050",
+   "category": "hospital_adult",
+   "total": 759,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 759,
+   "success": 316,
+   "success_rate": 0.4163372859025033,
+   "failures": {
+    "arrives_late": 278,
+    "no_return": 165
+   },
+   "burden": {
+    "in_vehicle_minutes": 230,
+    "waiting_minutes": 180,
+    "time_away_minutes": 470
+   }
+  },
+  {
+   "island_id": "1050",
+   "category": "hospital_child",
+   "total": 327,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 327,
+   "success": 139,
+   "success_rate": 0.42507645259938837,
+   "failures": {
+    "arrives_late": 114,
+    "no_return": 74
+   },
+   "burden": {
+    "in_vehicle_minutes": 230,
+    "waiting_minutes": 180,
+    "time_away_minutes": 470
+   }
+  },
+  {
+   "island_id": "1050",
+   "category": "hospital_elderly",
+   "total": 32,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 32,
+   "success": 17,
+   "success_rate": 0.53125,
+   "failures": {
+    "arrives_late": 9,
+    "no_return": 6
+   },
+   "burden": {
+    "in_vehicle_minutes": 230,
+    "waiting_minutes": 180,
+    "time_away_minutes": 470
+   }
+  },
+  {
+   "island_id": "1050",
+   "category": "referral",
+   "total": 1118,
+   "no_data": 1118,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1050",
+   "category": "school",
+   "total": 231,
+   "no_data": 0,
+   "on_island": 189,
+   "boards_away": 42,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1085",
+   "category": "health_centre",
+   "total": 1201,
+   "no_data": 0,
+   "on_island": 1201,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1085",
+   "category": "hospital_adult",
+   "total": 726,
+   "no_data": 726,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1085",
+   "category": "hospital_child",
+   "total": 392,
+   "no_data": 392,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1085",
+   "category": "hospital_elderly",
+   "total": 83,
+   "no_data": 83,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1085",
+   "category": "referral",
+   "total": 1201,
+   "no_data": 1201,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1085",
+   "category": "school",
+   "total": 273,
+   "no_data": 43,
+   "on_island": 230,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1091",
+   "category": "health_centre",
+   "total": 545,
+   "no_data": 0,
+   "on_island": 545,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1091",
+   "category": "hospital_adult",
+   "total": 346,
+   "no_data": 346,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1091",
+   "category": "hospital_child",
+   "total": 162,
+   "no_data": 162,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1091",
+   "category": "hospital_elderly",
+   "total": 37,
+   "no_data": 37,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1091",
+   "category": "referral",
+   "total": 545,
+   "no_data": 545,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1091",
+   "category": "school",
+   "total": 105,
+   "no_data": 18,
+   "on_island": 87,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1158",
+   "category": "health_centre",
+   "total": 1823,
+   "no_data": 0,
+   "on_island": 1823,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1158",
+   "category": "hospital_adult",
+   "total": 1044,
+   "no_data": 0,
+   "on_island": 1044,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1158",
+   "category": "hospital_child",
+   "total": 694,
+   "no_data": 0,
+   "on_island": 694,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1158",
+   "category": "hospital_elderly",
+   "total": 85,
+   "no_data": 0,
+   "on_island": 85,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1158",
+   "category": "referral",
+   "total": 1823,
+   "no_data": 1823,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1158",
+   "category": "school",
+   "total": 470,
+   "no_data": 0,
+   "on_island": 470,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1182",
+   "category": "health_centre",
+   "total": 1318,
+   "no_data": 0,
+   "on_island": 1318,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1182",
+   "category": "hospital_adult",
+   "total": 772,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 772,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 772
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1182",
+   "category": "hospital_child",
+   "total": 467,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 467,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 467
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1182",
+   "category": "hospital_elderly",
+   "total": 79,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 79,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 79
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1182",
+   "category": "referral",
+   "total": 1318,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 1318,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 401,
+    "no_return": 917
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "1182",
+   "category": "school",
+   "total": 310,
+   "no_data": 40,
+   "on_island": 270,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "181",
+   "category": "health_centre",
+   "total": 581,
+   "no_data": 0,
+   "on_island": 581,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "181",
+   "category": "hospital_adult",
+   "total": 367,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 367,
+   "success": 253,
+   "success_rate": 0.6893732970027248,
+   "failures": {
+    "arrives_late": 81,
+    "no_return": 33
+   },
+   "burden": {
+    "in_vehicle_minutes": 165,
+    "waiting_minutes": 305,
+    "time_away_minutes": 530
+   }
+  },
+  {
+   "island_id": "181",
+   "category": "hospital_child",
+   "total": 159,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 159,
+   "success": 117,
+   "success_rate": 0.7358490566037735,
+   "failures": {
+    "arrives_late": 31,
+    "no_return": 11
+   },
+   "burden": {
+    "in_vehicle_minutes": 165,
+    "waiting_minutes": 305,
+    "time_away_minutes": 530
+   }
+  },
+  {
+   "island_id": "181",
+   "category": "hospital_elderly",
+   "total": 55,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 55,
+   "success": 42,
+   "success_rate": 0.7636363636363637,
+   "failures": {
+    "arrives_late": 9,
+    "no_return": 4
+   },
+   "burden": {
+    "in_vehicle_minutes": 165,
+    "waiting_minutes": 305,
+    "time_away_minutes": 530
+   }
+  },
+  {
+   "island_id": "181",
+   "category": "referral",
+   "total": 581,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 581,
+   "success": 352,
+   "success_rate": 0.6058519793459552,
+   "failures": {
+    "arrives_late": 137,
+    "no_return": 92
+   },
+   "burden": {
+    "in_vehicle_minutes": 165,
+    "waiting_minutes": 245,
+    "time_away_minutes": 530
+   }
+  },
+  {
+   "island_id": "181",
+   "category": "school",
+   "total": 100,
+   "no_data": 0,
+   "on_island": 80,
+   "boards_away": 20,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "195",
+   "category": "health_centre",
+   "total": 516,
+   "no_data": 0,
+   "on_island": 516,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "195",
+   "category": "hospital_adult",
+   "total": 367,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 367,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 101,
+    "no_return": 266
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "195",
+   "category": "hospital_child",
+   "total": 100,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 100,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 26,
+    "no_return": 74
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "195",
+   "category": "hospital_elderly",
+   "total": 49,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 49,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 9,
+    "no_return": 40
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "195",
+   "category": "referral",
+   "total": 516,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 516,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 110,
+    "no_return": 406
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "195",
+   "category": "school",
+   "total": 54,
+   "no_data": 0,
+   "on_island": 46,
+   "boards_away": 8,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "209",
+   "category": "health_centre",
+   "total": 679,
+   "no_data": 0,
+   "on_island": 679,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "209",
+   "category": "hospital_adult",
+   "total": 421,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 421,
+   "success": 171,
+   "success_rate": 0.40617577197149646,
+   "failures": {
+    "arrives_late": 161,
+    "no_return": 89
+   },
+   "burden": {
+    "in_vehicle_minutes": 35,
+    "waiting_minutes": 180,
+    "time_away_minutes": 275
+   }
+  },
+  {
+   "island_id": "209",
+   "category": "hospital_child",
+   "total": 208,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 208,
+   "success": 77,
+   "success_rate": 0.3701923076923077,
+   "failures": {
+    "arrives_late": 87,
+    "no_return": 44
+   },
+   "burden": {
+    "in_vehicle_minutes": 35,
+    "waiting_minutes": 180,
+    "time_away_minutes": 275
+   }
+  },
+  {
+   "island_id": "209",
+   "category": "hospital_elderly",
+   "total": 50,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 50,
+   "success": 20,
+   "success_rate": 0.4,
+   "failures": {
+    "arrives_late": 18,
+    "no_return": 12
+   },
+   "burden": {
+    "in_vehicle_minutes": 35,
+    "waiting_minutes": 180,
+    "time_away_minutes": 275
+   }
+  },
+  {
+   "island_id": "209",
+   "category": "referral",
+   "total": 679,
+   "no_data": 679,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "209",
+   "category": "school",
+   "total": 141,
+   "no_data": 0,
+   "on_island": 124,
+   "boards_away": 0,
+   "travellers": 17,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 17
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "247",
+   "category": "health_centre",
+   "total": 2900,
+   "no_data": 0,
+   "on_island": 2900,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "247",
+   "category": "hospital_adult",
+   "total": 1786,
+   "no_data": 0,
+   "on_island": 1786,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "247",
+   "category": "hospital_child",
+   "total": 911,
+   "no_data": 0,
+   "on_island": 911,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "247",
+   "category": "hospital_elderly",
+   "total": 203,
+   "no_data": 0,
+   "on_island": 203,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "247",
+   "category": "referral",
+   "total": 2900,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 2900,
+   "success": 1592,
+   "success_rate": 0.5489655172413793,
+   "failures": {
+    "arrives_late": 881,
+    "no_return": 427
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 205,
+    "time_away_minutes": 515
+   }
+  },
+  {
+   "island_id": "247",
+   "category": "school",
+   "total": 623,
+   "no_data": 86,
+   "on_island": 537,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "334",
+   "category": "health_centre",
+   "total": 316,
+   "no_data": 0,
+   "on_island": 316,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "334",
+   "category": "hospital_adult",
+   "total": 199,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 199,
+   "success": 69,
+   "success_rate": 0.34673366834170855,
+   "failures": {
+    "arrives_late": 80,
+    "no_return": 50
+   },
+   "burden": {
+    "in_vehicle_minutes": 155,
+    "waiting_minutes": 180,
+    "time_away_minutes": 395
+   }
+  },
+  {
+   "island_id": "334",
+   "category": "hospital_child",
+   "total": 100,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 100,
+   "success": 38,
+   "success_rate": 0.38,
+   "failures": {
+    "arrives_late": 42,
+    "no_return": 20
+   },
+   "burden": {
+    "in_vehicle_minutes": 155,
+    "waiting_minutes": 180,
+    "time_away_minutes": 395
+   }
+  },
+  {
+   "island_id": "334",
+   "category": "hospital_elderly",
+   "total": 17,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 17,
+   "success": 6,
+   "success_rate": 0.35294117647058826,
+   "failures": {
+    "arrives_late": 9,
+    "no_return": 2
+   },
+   "burden": {
+    "in_vehicle_minutes": 155,
+    "waiting_minutes": 120,
+    "time_away_minutes": 395
+   }
+  },
+  {
+   "island_id": "334",
+   "category": "referral",
+   "total": 316,
+   "no_data": 316,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "334",
+   "category": "school",
+   "total": 69,
+   "no_data": 0,
+   "on_island": 61,
+   "boards_away": 8,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "412",
+   "category": "health_centre",
+   "total": 599,
+   "no_data": 0,
+   "on_island": 599,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "412",
+   "category": "hospital_adult",
+   "total": 393,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 393,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 393
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "412",
+   "category": "hospital_child",
+   "total": 151,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 151,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 151
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "412",
+   "category": "hospital_elderly",
+   "total": 55,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 55,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 55
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "412",
+   "category": "referral",
+   "total": 599,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 599,
+   "success": 352,
+   "success_rate": 0.5876460767946577,
+   "failures": {
+    "arrives_late": 168,
+    "no_return": 79
+   },
+   "burden": {
+    "in_vehicle_minutes": 85,
+    "waiting_minutes": 205,
+    "time_away_minutes": 410
+   }
+  },
+  {
+   "island_id": "412",
+   "category": "school",
+   "total": 102,
+   "no_data": 17,
+   "on_island": 85,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "435",
+   "category": "health_centre",
+   "total": 328,
+   "no_data": 0,
+   "on_island": 328,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "435",
+   "category": "hospital_adult",
+   "total": 206,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 206,
+   "success": 206,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 135,
+    "waiting_minutes": 475,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "island_id": "435",
+   "category": "hospital_child",
+   "total": 95,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 95,
+   "success": 95,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 135,
+    "waiting_minutes": 415,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "island_id": "435",
+   "category": "hospital_elderly",
+   "total": 27,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 27,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 27
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "435",
+   "category": "referral",
+   "total": 328,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 328,
+   "success": 187,
+   "success_rate": 0.5701219512195121,
+   "failures": {
+    "arrives_late": 98,
+    "no_return": 43
+   },
+   "burden": {
+    "in_vehicle_minutes": 325,
+    "waiting_minutes": 225,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "island_id": "435",
+   "category": "school",
+   "total": 51,
+   "no_data": 9,
+   "on_island": 42,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "470",
+   "category": "health_centre",
+   "total": 637,
+   "no_data": 0,
+   "on_island": 637,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "470",
+   "category": "hospital_adult",
+   "total": 361,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 361,
+   "success": 257,
+   "success_rate": 0.7119113573407202,
+   "failures": {
+    "arrives_late": 73,
+    "no_return": 31
+   },
+   "burden": {
+    "in_vehicle_minutes": 255,
+    "waiting_minutes": 305,
+    "time_away_minutes": 620
+   }
+  },
+  {
+   "island_id": "470",
+   "category": "hospital_child",
+   "total": 207,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 207,
+   "success": 140,
+   "success_rate": 0.6763285024154589,
+   "failures": {
+    "arrives_late": 51,
+    "no_return": 16
+   },
+   "burden": {
+    "in_vehicle_minutes": 255,
+    "waiting_minutes": 305,
+    "time_away_minutes": 620
+   }
+  },
+  {
+   "island_id": "470",
+   "category": "hospital_elderly",
+   "total": 69,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 69,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 15,
+    "no_return": 54
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "470",
+   "category": "referral",
+   "total": 637,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 637,
+   "success": 403,
+   "success_rate": 0.6326530612244898,
+   "failures": {
+    "arrives_late": 138,
+    "no_return": 96
+   },
+   "burden": {
+    "in_vehicle_minutes": 255,
+    "waiting_minutes": 245,
+    "time_away_minutes": 620
+   }
+  },
+  {
+   "island_id": "470",
+   "category": "school",
+   "total": 153,
+   "no_data": 0,
+   "on_island": 136,
+   "boards_away": 17,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "499",
+   "category": "health_centre",
+   "total": 3131,
+   "no_data": 0,
+   "on_island": 3131,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "499",
+   "category": "hospital_adult",
+   "total": 1965,
+   "no_data": 0,
+   "on_island": 1965,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "499",
+   "category": "hospital_child",
+   "total": 1025,
+   "no_data": 0,
+   "on_island": 1025,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "499",
+   "category": "hospital_elderly",
+   "total": 141,
+   "no_data": 0,
+   "on_island": 141,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "499",
+   "category": "referral",
+   "total": 3131,
+   "no_data": 3131,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "499",
+   "category": "school",
+   "total": 736,
+   "no_data": 0,
+   "on_island": 736,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "557",
+   "category": "health_centre",
+   "total": 1219,
+   "no_data": 0,
+   "on_island": 1219,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "557",
+   "category": "hospital_adult",
+   "total": 685,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 685,
+   "success": 473,
+   "success_rate": 0.6905109489051094,
+   "failures": {
+    "arrives_late": 161,
+    "no_return": 51
+   },
+   "burden": {
+    "in_vehicle_minutes": 65,
+    "waiting_minutes": 305,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "557",
+   "category": "hospital_child",
+   "total": 410,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 410,
+   "success": 304,
+   "success_rate": 0.7414634146341463,
+   "failures": {
+    "arrives_late": 85,
+    "no_return": 21
+   },
+   "burden": {
+    "in_vehicle_minutes": 65,
+    "waiting_minutes": 305,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "557",
+   "category": "hospital_elderly",
+   "total": 124,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 124,
+   "success": 86,
+   "success_rate": 0.6935483870967742,
+   "failures": {
+    "arrives_late": 25,
+    "no_return": 13
+   },
+   "burden": {
+    "in_vehicle_minutes": 65,
+    "waiting_minutes": 245,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "557",
+   "category": "referral",
+   "total": 1219,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 1219,
+   "success": 770,
+   "success_rate": 0.6316652994257588,
+   "failures": {
+    "arrives_late": 259,
+    "no_return": 190
+   },
+   "burden": {
+    "in_vehicle_minutes": 65,
+    "waiting_minutes": 245,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "557",
+   "category": "school",
+   "total": 277,
+   "no_data": 0,
+   "on_island": 239,
+   "boards_away": 38,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "572",
+   "category": "health_centre",
+   "total": 858,
+   "no_data": 0,
+   "on_island": 858,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "572",
+   "category": "hospital_adult",
+   "total": 533,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 533,
+   "success": 372,
+   "success_rate": 0.6979362101313321,
+   "failures": {
+    "arrives_late": 115,
+    "no_return": 46
+   },
+   "burden": {
+    "in_vehicle_minutes": 295,
+    "waiting_minutes": 305,
+    "time_away_minutes": 660
+   }
+  },
+  {
+   "island_id": "572",
+   "category": "hospital_child",
+   "total": 239,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 239,
+   "success": 160,
+   "success_rate": 0.6694560669456067,
+   "failures": {
+    "arrives_late": 65,
+    "no_return": 14
+   },
+   "burden": {
+    "in_vehicle_minutes": 295,
+    "waiting_minutes": 305,
+    "time_away_minutes": 660
+   }
+  },
+  {
+   "island_id": "572",
+   "category": "hospital_elderly",
+   "total": 86,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 86,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 18,
+    "no_return": 68
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "572",
+   "category": "referral",
+   "total": 858,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 858,
+   "success": 542,
+   "success_rate": 0.6317016317016317,
+   "failures": {
+    "arrives_late": 189,
+    "no_return": 127
+   },
+   "burden": {
+    "in_vehicle_minutes": 295,
+    "waiting_minutes": 245,
+    "time_away_minutes": 660
+   }
+  },
+  {
+   "island_id": "572",
+   "category": "school",
+   "total": 159,
+   "no_data": 0,
+   "on_island": 145,
+   "boards_away": 14,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "606",
+   "category": "health_centre",
+   "total": 967,
+   "no_data": 0,
+   "on_island": 967,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "606",
+   "category": "hospital_adult",
+   "total": 546,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 546,
+   "success": 546,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 75,
+    "waiting_minutes": 420,
+    "time_away_minutes": 615
+   }
+  },
+  {
+   "island_id": "606",
+   "category": "hospital_child",
+   "total": 378,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 378,
+   "success": 378,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 75,
+    "waiting_minutes": 420,
+    "time_away_minutes": 615
+   }
+  },
+  {
+   "island_id": "606",
+   "category": "hospital_elderly",
+   "total": 43,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 43,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 43
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "606",
+   "category": "referral",
+   "total": 967,
+   "no_data": 967,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "606",
+   "category": "school",
+   "total": 251,
+   "no_data": 0,
+   "on_island": 251,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "630",
+   "category": "health_centre",
+   "total": 431,
+   "no_data": 0,
+   "on_island": 431,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "630",
+   "category": "hospital_adult",
+   "total": 261,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 261,
+   "success": 180,
+   "success_rate": 0.6896551724137931,
+   "failures": {
+    "arrives_late": 58,
+    "no_return": 23
+   },
+   "burden": {
+    "in_vehicle_minutes": 215,
+    "waiting_minutes": 305,
+    "time_away_minutes": 580
+   }
+  },
+  {
+   "island_id": "630",
+   "category": "hospital_child",
+   "total": 101,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 101,
+   "success": 74,
+   "success_rate": 0.7326732673267327,
+   "failures": {
+    "arrives_late": 19,
+    "no_return": 8
+   },
+   "burden": {
+    "in_vehicle_minutes": 215,
+    "waiting_minutes": 305,
+    "time_away_minutes": 580
+   }
+  },
+  {
+   "island_id": "630",
+   "category": "hospital_elderly",
+   "total": 69,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 69,
+   "success": 50,
+   "success_rate": 0.7246376811594203,
+   "failures": {
+    "arrives_late": 13,
+    "no_return": 6
+   },
+   "burden": {
+    "in_vehicle_minutes": 215,
+    "waiting_minutes": 245,
+    "time_away_minutes": 580
+   }
+  },
+  {
+   "island_id": "630",
+   "category": "referral",
+   "total": 431,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 431,
+   "success": 272,
+   "success_rate": 0.6310904872389791,
+   "failures": {
+    "arrives_late": 108,
+    "no_return": 51
+   },
+   "burden": {
+    "in_vehicle_minutes": 215,
+    "waiting_minutes": 245,
+    "time_away_minutes": 580
+   }
+  },
+  {
+   "island_id": "630",
+   "category": "school",
+   "total": 61,
+   "no_data": 0,
+   "on_island": 55,
+   "boards_away": 6,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "66",
+   "category": "health_centre",
+   "total": 629,
+   "no_data": 0,
+   "on_island": 629,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "66",
+   "category": "hospital_adult",
+   "total": 386,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 386,
+   "success": 152,
+   "success_rate": 0.39378238341968913,
+   "failures": {
+    "arrives_late": 141,
+    "no_return": 93
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 180,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "66",
+   "category": "hospital_child",
+   "total": 216,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 216,
+   "success": 75,
+   "success_rate": 0.3472222222222222,
+   "failures": {
+    "arrives_late": 95,
+    "no_return": 46
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 180,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "66",
+   "category": "hospital_elderly",
+   "total": 27,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 27,
+   "success": 13,
+   "success_rate": 0.48148148148148145,
+   "failures": {
+    "arrives_late": 11,
+    "no_return": 3
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 180,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "island_id": "66",
+   "category": "referral",
+   "total": 629,
+   "no_data": 629,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "66",
+   "category": "school",
+   "total": 158,
+   "no_data": 0,
+   "on_island": 146,
+   "boards_away": 12,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "662",
+   "category": "health_centre",
+   "total": 764,
+   "no_data": 0,
+   "on_island": 764,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "662",
+   "category": "hospital_adult",
+   "total": 475,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 475,
+   "success": 175,
+   "success_rate": 0.3684210526315789,
+   "failures": {
+    "arrives_late": 196,
+    "no_return": 104
+   },
+   "burden": {
+    "in_vehicle_minutes": 115,
+    "waiting_minutes": 180,
+    "time_away_minutes": 355
+   }
+  },
+  {
+   "island_id": "662",
+   "category": "hospital_child",
+   "total": 252,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 252,
+   "success": 95,
+   "success_rate": 0.376984126984127,
+   "failures": {
+    "arrives_late": 95,
+    "no_return": 62
+   },
+   "burden": {
+    "in_vehicle_minutes": 115,
+    "waiting_minutes": 180,
+    "time_away_minutes": 355
+   }
+  },
+  {
+   "island_id": "662",
+   "category": "hospital_elderly",
+   "total": 37,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 37,
+   "success": 15,
+   "success_rate": 0.40540540540540543,
+   "failures": {
+    "arrives_late": 14,
+    "no_return": 8
+   },
+   "burden": {
+    "in_vehicle_minutes": 115,
+    "waiting_minutes": 180,
+    "time_away_minutes": 355
+   }
+  },
+  {
+   "island_id": "662",
+   "category": "referral",
+   "total": 764,
+   "no_data": 764,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "662",
+   "category": "school",
+   "total": 179,
+   "no_data": 0,
+   "on_island": 161,
+   "boards_away": 18,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "717",
+   "category": "health_centre",
+   "total": 6217,
+   "no_data": 0,
+   "on_island": 6217,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "717",
+   "category": "hospital_adult",
+   "total": 3685,
+   "no_data": 0,
+   "on_island": 3685,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "717",
+   "category": "hospital_child",
+   "total": 2202,
+   "no_data": 0,
+   "on_island": 2202,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "717",
+   "category": "hospital_elderly",
+   "total": 330,
+   "no_data": 0,
+   "on_island": 330,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "717",
+   "category": "referral",
+   "total": 6217,
+   "no_data": 0,
+   "on_island": 6217,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "717",
+   "category": "school",
+   "total": 1611,
+   "no_data": 0,
+   "on_island": 1611,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "743",
+   "category": "health_centre",
+   "total": 636,
+   "no_data": 0,
+   "on_island": 636,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "743",
+   "category": "hospital_adult",
+   "total": 422,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 422,
+   "success": 422,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 140,
+    "waiting_minutes": 430,
+    "time_away_minutes": 690
+   }
+  },
+  {
+   "island_id": "743",
+   "category": "hospital_child",
+   "total": 153,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 153,
+   "success": 153,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 140,
+    "waiting_minutes": 430,
+    "time_away_minutes": 690
+   }
+  },
+  {
+   "island_id": "743",
+   "category": "hospital_elderly",
+   "total": 61,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 61,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 61
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "743",
+   "category": "referral",
+   "total": 636,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 636,
+   "success": 346,
+   "success_rate": 0.5440251572327044,
+   "failures": {
+    "arrives_late": 208,
+    "no_return": 82
+   },
+   "burden": {
+    "in_vehicle_minutes": 330,
+    "waiting_minutes": 240,
+    "time_away_minutes": 690
+   }
+  },
+  {
+   "island_id": "743",
+   "category": "school",
+   "total": 77,
+   "no_data": 16,
+   "on_island": 61,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "766",
+   "category": "health_centre",
+   "total": 1044,
+   "no_data": 0,
+   "on_island": 1044,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "766",
+   "category": "hospital_adult",
+   "total": 688,
+   "no_data": 688,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "766",
+   "category": "hospital_child",
+   "total": 275,
+   "no_data": 275,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "766",
+   "category": "hospital_elderly",
+   "total": 81,
+   "no_data": 81,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "766",
+   "category": "referral",
+   "total": 1044,
+   "no_data": 1044,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "766",
+   "category": "school",
+   "total": 182,
+   "no_data": 17,
+   "on_island": 165,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "8",
+   "category": "health_centre",
+   "total": 922,
+   "no_data": 0,
+   "on_island": 922,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "8",
+   "category": "hospital_adult",
+   "total": 500,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 500,
+   "success": 500,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 130,
+    "waiting_minutes": 420,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "island_id": "8",
+   "category": "hospital_child",
+   "total": 374,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 374,
+   "success": 374,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 130,
+    "waiting_minutes": 480,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "island_id": "8",
+   "category": "hospital_elderly",
+   "total": 48,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 48,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 48
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "8",
+   "category": "referral",
+   "total": 922,
+   "no_data": 922,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "8",
+   "category": "school",
+   "total": 263,
+   "no_data": 0,
+   "on_island": 225,
+   "boards_away": 0,
+   "travellers": 38,
+   "success": 38,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 55,
+    "waiting_minutes": 315,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "island_id": "85",
+   "category": "health_centre",
+   "total": 702,
+   "no_data": 0,
+   "on_island": 702,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "85",
+   "category": "hospital_adult",
+   "total": 387,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 387,
+   "success": 387,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 45,
+    "waiting_minutes": 480,
+    "time_away_minutes": 585
+   }
+  },
+  {
+   "island_id": "85",
+   "category": "hospital_child",
+   "total": 281,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 281,
+   "success": 281,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 45,
+    "waiting_minutes": 480,
+    "time_away_minutes": 585
+   }
+  },
+  {
+   "island_id": "85",
+   "category": "hospital_elderly",
+   "total": 34,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 34,
+   "success": 34,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 45,
+    "waiting_minutes": 480,
+    "time_away_minutes": 585
+   }
+  },
+  {
+   "island_id": "85",
+   "category": "referral",
+   "total": 702,
+   "no_data": 702,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "85",
+   "category": "school",
+   "total": 182,
+   "no_data": 0,
+   "on_island": 168,
+   "boards_away": 0,
+   "travellers": 14,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 14
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "851",
+   "category": "health_centre",
+   "total": 885,
+   "no_data": 0,
+   "on_island": 885,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "851",
+   "category": "hospital_adult",
+   "total": 505,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 505,
+   "success": 349,
+   "success_rate": 0.691089108910891,
+   "failures": {
+    "arrives_late": 120,
+    "no_return": 36
+   },
+   "burden": {
+    "in_vehicle_minutes": 95,
+    "waiting_minutes": 305,
+    "time_away_minutes": 460
+   }
+  },
+  {
+   "island_id": "851",
+   "category": "hospital_child",
+   "total": 308,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 308,
+   "success": 205,
+   "success_rate": 0.6655844155844156,
+   "failures": {
+    "arrives_late": 73,
+    "no_return": 30
+   },
+   "burden": {
+    "in_vehicle_minutes": 95,
+    "waiting_minutes": 305,
+    "time_away_minutes": 460
+   }
+  },
+  {
+   "island_id": "851",
+   "category": "hospital_elderly",
+   "total": 72,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 72,
+   "success": 50,
+   "success_rate": 0.6944444444444444,
+   "failures": {
+    "arrives_late": 19,
+    "no_return": 3
+   },
+   "burden": {
+    "in_vehicle_minutes": 95,
+    "waiting_minutes": 245,
+    "time_away_minutes": 460
+   }
+  },
+  {
+   "island_id": "851",
+   "category": "referral",
+   "total": 885,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 885,
+   "success": 523,
+   "success_rate": 0.5909604519774011,
+   "failures": {
+    "arrives_late": 213,
+    "no_return": 149
+   },
+   "burden": {
+    "in_vehicle_minutes": 95,
+    "waiting_minutes": 245,
+    "time_away_minutes": 460
+   }
+  },
+  {
+   "island_id": "851",
+   "category": "school",
+   "total": 226,
+   "no_data": 0,
+   "on_island": 210,
+   "boards_away": 16,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "856",
+   "category": "health_centre",
+   "total": 619,
+   "no_data": 0,
+   "on_island": 619,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "856",
+   "category": "hospital_adult",
+   "total": 387,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 387,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 387
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "856",
+   "category": "hospital_child",
+   "total": 194,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 194,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 194
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "856",
+   "category": "hospital_elderly",
+   "total": 38,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 38,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 38
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "856",
+   "category": "referral",
+   "total": 619,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 619,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 199,
+    "no_return": 420
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "856",
+   "category": "school",
+   "total": 121,
+   "no_data": 12,
+   "on_island": 109,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "887",
+   "category": "health_centre",
+   "total": 1414,
+   "no_data": 0,
+   "on_island": 1414,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "887",
+   "category": "hospital_adult",
+   "total": 866,
+   "no_data": 866,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "887",
+   "category": "hospital_child",
+   "total": 408,
+   "no_data": 408,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "887",
+   "category": "hospital_elderly",
+   "total": 140,
+   "no_data": 140,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "887",
+   "category": "referral",
+   "total": 1414,
+   "no_data": 1414,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "887",
+   "category": "school",
+   "total": 282,
+   "no_data": 29,
+   "on_island": 253,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "970",
+   "category": "health_centre",
+   "total": 455,
+   "no_data": 0,
+   "on_island": 455,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "970",
+   "category": "hospital_adult",
+   "total": 269,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 269,
+   "success": 269,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 15,
+    "waiting_minutes": 420,
+    "time_away_minutes": 555
+   }
+  },
+  {
+   "island_id": "970",
+   "category": "hospital_child",
+   "total": 170,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 170,
+   "success": 170,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 15,
+    "waiting_minutes": 480,
+    "time_away_minutes": 555
+   }
+  },
+  {
+   "island_id": "970",
+   "category": "hospital_elderly",
+   "total": 16,
+   "no_data": 0,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 16,
+   "success": 16,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 15,
+    "waiting_minutes": 420,
+    "time_away_minutes": 555
+   }
+  },
+  {
+   "island_id": "970",
+   "category": "referral",
+   "total": 455,
+   "no_data": 455,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "island_id": "970",
+   "category": "school",
+   "total": 126,
+   "no_data": 0,
+   "on_island": 113,
+   "boards_away": 0,
+   "travellers": 13,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 13
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  }
+ ],
+ "atolls": [
+  {
+   "atoll": "Dh",
+   "category": "health_centre",
+   "total": 6637,
+   "no_data": 0,
+   "on_island": 6637,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "Dh",
+   "category": "hospital_adult",
+   "total": 4205,
+   "no_data": 0,
+   "on_island": 1965,
+   "boards_away": 0,
+   "travellers": 2240,
+   "success": 883,
+   "success_rate": 0.39419642857142856,
+   "failures": {
+    "arrives_late": 856,
+    "no_return": 501
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 180,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "atoll": "Dh",
+   "category": "hospital_child",
+   "total": 2128,
+   "no_data": 0,
+   "on_island": 1025,
+   "boards_away": 0,
+   "travellers": 1103,
+   "success": 424,
+   "success_rate": 0.3844061650045331,
+   "failures": {
+    "arrives_late": 433,
+    "no_return": 246
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 180,
+    "time_away_minutes": 430
+   }
+  },
+  {
+   "atoll": "Dh",
+   "category": "hospital_elderly",
+   "total": 304,
+   "no_data": 0,
+   "on_island": 141,
+   "boards_away": 0,
+   "travellers": 163,
+   "success": 71,
+   "success_rate": 0.43558282208588955,
+   "failures": {
+    "arrives_late": 61,
+    "no_return": 31
+   },
+   "burden": {
+    "in_vehicle_minutes": 155,
+    "waiting_minutes": 180,
+    "time_away_minutes": 395
+   }
+  },
+  {
+   "atoll": "Dh",
+   "category": "referral",
+   "total": 6637,
+   "no_data": 6637,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "Dh",
+   "category": "school",
+   "total": 1514,
+   "no_data": 0,
+   "on_island": 1417,
+   "boards_away": 80,
+   "travellers": 17,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "arrives_late": 17
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "F",
+   "category": "health_centre",
+   "total": 4869,
+   "no_data": 0,
+   "on_island": 4869,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "F",
+   "category": "hospital_adult",
+   "total": 2746,
+   "no_data": 0,
+   "on_island": 1044,
+   "boards_away": 0,
+   "travellers": 1702,
+   "success": 1702,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 75,
+    "waiting_minutes": 420,
+    "time_away_minutes": 615
+   }
+  },
+  {
+   "atoll": "F",
+   "category": "hospital_child",
+   "total": 1897,
+   "no_data": 0,
+   "on_island": 694,
+   "boards_away": 0,
+   "travellers": 1203,
+   "success": 1203,
+   "success_rate": 1.0,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": 75,
+    "waiting_minutes": 480,
+    "time_away_minutes": 615
+   }
+  },
+  {
+   "atoll": "F",
+   "category": "hospital_elderly",
+   "total": 226,
+   "no_data": 0,
+   "on_island": 85,
+   "boards_away": 0,
+   "travellers": 141,
+   "success": 50,
+   "success_rate": 0.3546099290780142,
+   "failures": {
+    "no_return": 91
+   },
+   "burden": {
+    "in_vehicle_minutes": 45,
+    "waiting_minutes": 420,
+    "time_away_minutes": 585
+   }
+  },
+  {
+   "atoll": "F",
+   "category": "referral",
+   "total": 4869,
+   "no_data": 4869,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "F",
+   "category": "school",
+   "total": 1292,
+   "no_data": 0,
+   "on_island": 1227,
+   "boards_away": 0,
+   "travellers": 65,
+   "success": 38,
+   "success_rate": 0.5846153846153846,
+   "failures": {
+    "arrives_late": 27
+   },
+   "burden": {
+    "in_vehicle_minutes": 55,
+    "waiting_minutes": 315,
+    "time_away_minutes": 670
+   }
+  },
+  {
+   "atoll": "GA",
+   "category": "health_centre",
+   "total": 9190,
+   "no_data": 0,
+   "on_island": 9190,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "GA",
+   "category": "hospital_adult",
+   "total": 5726,
+   "no_data": 1760,
+   "on_island": 1786,
+   "boards_away": 0,
+   "travellers": 2180,
+   "success": 628,
+   "success_rate": 0.28807339449541286,
+   "failures": {
+    "no_return": 1159,
+    "arrives_late": 393
+   },
+   "burden": {
+    "in_vehicle_minutes": 140,
+    "waiting_minutes": 430,
+    "time_away_minutes": 690
+   }
+  },
+  {
+   "atoll": "GA",
+   "category": "hospital_child",
+   "total": 2800,
+   "no_data": 829,
+   "on_island": 911,
+   "boards_away": 0,
+   "travellers": 1060,
+   "success": 248,
+   "success_rate": 0.2339622641509434,
+   "failures": {
+    "no_return": 661,
+    "arrives_late": 151
+   },
+   "burden": {
+    "in_vehicle_minutes": 140,
+    "waiting_minutes": 430,
+    "time_away_minutes": 690
+   }
+  },
+  {
+   "atoll": "GA",
+   "category": "hospital_elderly",
+   "total": 664,
+   "no_data": 201,
+   "on_island": 203,
+   "boards_away": 0,
+   "travellers": 260,
+   "success": 0,
+   "success_rate": 0.0,
+   "failures": {
+    "no_return": 205,
+    "arrives_late": 55
+   },
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "GA",
+   "category": "referral",
+   "total": 9190,
+   "no_data": 2790,
+   "on_island": 0,
+   "boards_away": 0,
+   "travellers": 6400,
+   "success": 2477,
+   "success_rate": 0.38703125,
+   "failures": {
+    "arrives_late": 1955,
+    "no_return": 1968
+   },
+   "burden": {
+    "in_vehicle_minutes": 190,
+    "waiting_minutes": 205,
+    "time_away_minutes": 515
+   }
+  },
+  {
+   "atoll": "GA",
+   "category": "school",
+   "total": 1844,
+   "no_data": 258,
+   "on_island": 1586,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "GDh",
+   "category": "health_centre",
+   "total": 12758,
+   "no_data": 0,
+   "on_island": 12758,
+   "boards_away": 0,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  },
+  {
+   "atoll": "GDh",
+   "category": "hospital_adult",
+   "total": 7630,
+   "no_data": 866,
+   "on_island": 3685,
+   "boards_away": 0,
+   "travellers": 3079,
+   "success": 1884,
+   "success_rate": 0.6118869762910035,
+   "failures": {
+    "arrives_late": 709,
+    "no_return": 486
+   },
+   "burden": {
+    "in_vehicle_minutes": 165,
+    "waiting_minutes": 305,
+    "time_away_minutes": 530
+   }
+  },
+  {
+   "atoll": "GDh",
+   "category": "hospital_child",
+   "total": 4134,
+   "no_data": 408,
+   "on_island": 2202,
+   "boards_away": 0,
+   "travellers": 1524,
+   "success": 1000,
+   "success_rate": 0.6561679790026247,
+   "failures": {
+    "arrives_late": 350,
+    "no_return": 174
+   },
+   "burden": {
+    "in_vehicle_minutes": 95,
+    "waiting_minutes": 305,
+    "time_away_minutes": 460
+   }
+  },
+  {
+   "atoll": "GDh",
+   "category": "hospital_elderly",
+   "total": 994,
+   "no_data": 140,
+   "on_island": 330,
+   "boards_away": 0,
+   "travellers": 524,
+   "success": 228,
+   "success_rate": 0.4351145038167939,
+   "failures": {
+    "arrives_late": 108,
+    "no_return": 188
+   },
+   "burden": {
+    "in_vehicle_minutes": 95,
+    "waiting_minutes": 305,
+    "time_away_minutes": 460
+   }
+  },
+  {
+   "atoll": "GDh",
+   "category": "referral",
+   "total": 12758,
+   "no_data": 1414,
+   "on_island": 6217,
+   "boards_away": 0,
+   "travellers": 5127,
+   "success": 2862,
+   "success_rate": 0.5582211819777648,
+   "failures": {
+    "arrives_late": 1154,
+    "no_return": 1111
+   },
+   "burden": {
+    "in_vehicle_minutes": 165,
+    "waiting_minutes": 245,
+    "time_away_minutes": 530
+   }
+  },
+  {
+   "atoll": "GDh",
+   "category": "school",
+   "total": 2923,
+   "no_data": 29,
+   "on_island": 2775,
+   "boards_away": 119,
+   "travellers": 0,
+   "success": 0,
+   "success_rate": null,
+   "failures": {},
+   "burden": {
+    "in_vehicle_minutes": null,
+    "waiting_minutes": null,
+    "time_away_minutes": null
+   }
+  }
+ ]
+}

@@ -1,0 +1,135 @@
+{
+ "person_id": "person-1050-000004-002",
+ "display_name": "Ismail Rasheed",
+ "category": "hospital_adult",
+ "island_id": "1050",
+ "scenario": {
+  "timetable_edits": [
+   {
+    "trip_id": "288_1",
+    "shift_minutes": 75
+   }
+  ],
+  "default_session": {
+   "start": "07:05",
+   "end": "12:05"
+  },
+  "school_sessions": {}
+ },
+ "compare": {
+  "islands": [
+   {
+    "island_id": "1050",
+    "category": "hospital_adult",
+    "gained": 107,
+    "lost": 0
+   },
+   {
+    "island_id": "1050",
+    "category": "hospital_child",
+    "gained": 50,
+    "lost": 0
+   },
+   {
+    "island_id": "1050",
+    "category": "hospital_elderly",
+    "gained": 0,
+    "lost": 17
+   },
+   {
+    "island_id": "209",
+    "category": "hospital_adult",
+    "gained": 69,
+    "lost": 0
+   },
+   {
+    "island_id": "209",
+    "category": "hospital_child",
+    "gained": 27,
+    "lost": 0
+   },
+   {
+    "island_id": "209",
+    "category": "hospital_elderly",
+    "gained": 6,
+    "lost": 0
+   },
+   {
+    "island_id": "334",
+    "category": "hospital_adult",
+    "gained": 36,
+    "lost": 0
+   },
+   {
+    "island_id": "334",
+    "category": "hospital_child",
+    "gained": 14,
+    "lost": 0
+   },
+   {
+    "island_id": "334",
+    "category": "hospital_elderly",
+    "gained": 1,
+    "lost": 0
+   },
+   {
+    "island_id": "66",
+    "category": "hospital_adult",
+    "gained": 66,
+    "lost": 0
+   },
+   {
+    "island_id": "66",
+    "category": "hospital_child",
+    "gained": 26,
+    "lost": 0
+   },
+   {
+    "island_id": "66",
+    "category": "hospital_elderly",
+    "gained": 2,
+    "lost": 0
+   },
+   {
+    "island_id": "662",
+    "category": "hospital_adult",
+    "gained": 69,
+    "lost": 0
+   },
+   {
+    "island_id": "662",
+    "category": "hospital_child",
+    "gained": 44,
+    "lost": 0
+   },
+   {
+    "island_id": "662",
+    "category": "hospital_elderly",
+    "gained": 6,
+    "lost": 0
+   }
+  ],
+  "atolls": [
+   {
+    "atoll": "Dh",
+    "category": "hospital_adult",
+    "gained": 347,
+    "lost": 0
+   },
+   {
+    "atoll": "Dh",
+    "category": "hospital_child",
+    "gained": 161,
+    "lost": 0
+   },
+   {
+    "atoll": "Dh",
+    "category": "hospital_elderly",
+    "gained": 15,
+    "lost": 17
+   }
+  ],
+  "gained": 523,
+  "lost": 17
+ }
+}

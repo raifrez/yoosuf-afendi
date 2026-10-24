@@ -42,4 +42,4 @@ ferry volumes.
 
 See [data shapes and simulator responsibilities](docs/POPULATION_SIMULATION_CONTRACT.md) and the [generation method](docs/POPULATION_GENERATION.md). The complete example is in `examples/`; JSON Schemas are in `schemas/`.
 
-Current generated population: **448,819 people, 90,459 households, and 578 groups** across 193 Census island/ward areas. Names and household membership are synthetic; demographic aggregates come from Census 2022, supported economics are modeled from HIES 2019. Journey requests currently have zero rows until an explicit appointment scenario is added.
+Current generated population: **448,819 people, 90,459 households, and 578 groups** across 193 Census island/ward areas. Names and household membership are synthetic; demographic aggregates come from Census 2022, supported economics are modeled from HIES 2019. Journey requests hold 417,415 placeholder rows for October 2026 (3% of residents travel each day, with a random purpose). The simulator does not use them; it builds its own healthcare and school needs (`simulator/health.py`, `simulator/schools.py`).

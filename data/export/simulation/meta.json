@@ -1,0 +1,909 @@
+{
+ "atolls": [
+  "F",
+  "Dh",
+  "GA",
+  "GDh"
+ ],
+ "categories": [
+  {
+   "id": "health_centre",
+   "note": "Everyone: nearest health centre or hospital (primary care)."
+  },
+  {
+   "id": "hospital_child",
+   "note": "Ages 0-17: nearest hospital in the home atoll, travelling with a guardian."
+  },
+  {
+   "id": "hospital_adult",
+   "note": "Ages 18-64: nearest hospital in the home atoll."
+  },
+  {
+   "id": "hospital_elderly",
+   "note": "Ages 65+: nearest hospital in the home atoll, home by an earlier time."
+  },
+  {
+   "id": "referral",
+   "note": "Everyone: nearest Grade 3 or tertiary hospital in any atoll."
+  },
+  {
+   "id": "school",
+   "note": "Ages 6-17 whose grade isn't taught on the home island: daily commute to the nearest school in the home atoll that teaches it."
+  }
+ ],
+ "islands": [
+  {
+   "island_id": "66",
+   "name": "Badidhoo",
+   "atoll": "Dh",
+   "population": 629,
+   "lat": 2.93672667,
+   "lon": 72.99024056,
+   "stop_ids": [
+    "DH_BANDIDHOO"
+   ]
+  },
+  {
+   "island_id": "662",
+   "name": "Hulhudheli",
+   "atoll": "Dh",
+   "population": 764,
+   "lat": 2.85844056,
+   "lon": 72.84650361,
+   "stop_ids": [
+    "DH_HULHUDHELI"
+   ]
+  },
+  {
+   "island_id": "499",
+   "name": "Kudahuvadhoo",
+   "atoll": "Dh",
+   "population": 3131,
+   "lat": 2.67013694,
+   "lon": 72.88885611,
+   "stop_ids": [
+    "DH_KUDAHUVADHOO"
+   ]
+  },
+  {
+   "island_id": "209",
+   "name": "Maaeboodhoo",
+   "atoll": "Dh",
+   "population": 679,
+   "lat": 2.6957625,
+   "lon": 72.96341778,
+   "stop_ids": [
+    "DH_MAAENBOODHOO"
+   ]
+  },
+  {
+   "island_id": "1050",
+   "name": "Meedhoo",
+   "atoll": "Dh",
+   "population": 1118,
+   "lat": 2.99803583,
+   "lon": 73.00727889,
+   "stop_ids": [
+    "DH_MEEDHOO"
+   ]
+  },
+  {
+   "island_id": "334",
+   "name": "Ribudhoo",
+   "atoll": "Dh",
+   "population": 316,
+   "lat": 2.92451667,
+   "lon": 72.89540917,
+   "stop_ids": [
+    "DH_RINBUDHOO"
+   ]
+  },
+  {
+   "island_id": "606",
+   "name": "Biledhdhoo",
+   "atoll": "F",
+   "population": 967,
+   "lat": 3.11837194,
+   "lon": 72.98399889,
+   "stop_ids": [
+    "F_BILEHDHOO"
+   ]
+  },
+  {
+   "island_id": "970",
+   "name": "Dharaboodhoo",
+   "atoll": "F",
+   "population": 455,
+   "lat": 3.06295861,
+   "lon": 72.92572417,
+   "stop_ids": [
+    "F_DHARANBOODHOO"
+   ]
+  },
+  {
+   "island_id": "8",
+   "name": "Feeali",
+   "atoll": "F",
+   "population": 922,
+   "lat": 3.26996861,
+   "lon": 73.001745,
+   "stop_ids": [
+    "F_FEEALI"
+   ]
+  },
+  {
+   "island_id": "85",
+   "name": "Magoodhoo",
+   "atoll": "F",
+   "population": 702,
+   "lat": 3.07917944,
+   "lon": 72.9636525,
+   "stop_ids": [
+    "F_MAGOODHOO"
+   ]
+  },
+  {
+   "island_id": "1158",
+   "name": "Nilandhoo",
+   "atoll": "F",
+   "population": 1823,
+   "lat": 3.0571225,
+   "lon": 72.88881361,
+   "stop_ids": [
+    "F_NILANDHOO"
+   ]
+  },
+  {
+   "island_id": "766",
+   "name": "Dhaandhoo",
+   "atoll": "GA",
+   "population": 1044,
+   "lat": 0.62082417,
+   "lon": 73.46112667,
+   "stop_ids": []
+  },
+  {
+   "island_id": "412",
+   "name": "Dhevvadhoo",
+   "atoll": "GA",
+   "population": 599,
+   "lat": 0.55694778,
+   "lon": 73.24213194,
+   "stop_ids": [
+    "GA_DHEVVADHOO"
+   ]
+  },
+  {
+   "island_id": "1182",
+   "name": "Gemanafushi",
+   "atoll": "GA",
+   "population": 1318,
+   "lat": 0.44244472,
+   "lon": 73.56826528,
+   "stop_ids": [
+    "GA_GEMANAFUSHI"
+   ]
+  },
+  {
+   "island_id": "856",
+   "name": "Kanduhulhudhoo",
+   "atoll": "GA",
+   "population": 619,
+   "lat": 0.35131833,
+   "lon": 73.53972222,
+   "stop_ids": [
+    "GA_KANDUHULHUDHOO"
+   ]
+  },
+  {
+   "island_id": "435",
+   "name": "Kodey",
+   "atoll": "GA",
+   "population": 328,
+   "lat": 0.49925472,
+   "lon": 73.54877694,
+   "stop_ids": [
+    "GA_KONDEY"
+   ]
+  },
+  {
+   "island_id": "743",
+   "name": "Kolamaafushi",
+   "atoll": "GA",
+   "population": 636,
+   "lat": 0.83752111,
+   "lon": 73.18472861,
+   "stop_ids": [
+    "GA_KOLAMAAFUSHI"
+   ]
+  },
+  {
+   "island_id": "1085",
+   "name": "Maamendhoo",
+   "atoll": "GA",
+   "population": 1201,
+   "lat": 0.71382444,
+   "lon": 73.43893,
+   "stop_ids": []
+  },
+  {
+   "island_id": "1091",
+   "name": "Nilandhoo",
+   "atoll": "GA",
+   "population": 545,
+   "lat": 0.63639472,
+   "lon": 73.44627333,
+   "stop_ids": []
+  },
+  {
+   "island_id": "247",
+   "name": "Viligili",
+   "atoll": "GA",
+   "population": 2900,
+   "lat": 0.75634417,
+   "lon": 73.43485194,
+   "stop_ids": [
+    "GA_VILLINGILI"
+   ]
+  },
+  {
+   "island_id": "572",
+   "name": "Fares-Maathodaa",
+   "atoll": "GDh",
+   "population": 858,
+   "lat": 0.19950806,
+   "lon": 73.18719083,
+   "stop_ids": [
+    "GDH_FARESMAATHODA"
+   ]
+  },
+  {
+   "island_id": "470",
+   "name": "Fiyoari",
+   "atoll": "GDh",
+   "population": 637,
+   "lat": 0.22139389,
+   "lon": 73.13655806,
+   "stop_ids": [
+    "GDH_FIYORI"
+   ]
+  },
+  {
+   "island_id": "887",
+   "name": "Gadhdhoo",
+   "atoll": "GDh",
+   "population": 1414,
+   "lat": 0.2901775,
+   "lon": 73.4579575,
+   "stop_ids": []
+  },
+  {
+   "island_id": "851",
+   "name": "Hoadedhdhoo",
+   "atoll": "GDh",
+   "population": 885,
+   "lat": 0.44454028,
+   "lon": 73.00431389,
+   "stop_ids": [
+    "GDH_HONDEHDHOO"
+   ]
+  },
+  {
+   "island_id": "557",
+   "name": "Madaveli",
+   "atoll": "GDh",
+   "population": 1219,
+   "lat": 0.45881833,
+   "lon": 72.99892667,
+   "stop_ids": [
+    "GDH_MADAVELI"
+   ]
+  },
+  {
+   "island_id": "181",
+   "name": "Nadallaa",
+   "atoll": "GDh",
+   "population": 581,
+   "lat": 0.29354444,
+   "lon": 73.04079667,
+   "stop_ids": [
+    "GDH_NADELLA"
+   ]
+  },
+  {
+   "island_id": "630",
+   "name": "Rathafandhoo",
+   "atoll": "GDh",
+   "population": 431,
+   "lat": 0.25274389,
+   "lon": 73.10473611,
+   "stop_ids": [
+    "GDH_RATHAFANDHOO"
+   ]
+  },
+  {
+   "island_id": "717",
+   "name": "Thinadhoo",
+   "atoll": "GDh",
+   "population": 6217,
+   "lat": 0.53243528,
+   "lon": 72.99843056,
+   "stop_ids": [
+    "GDH_THINADHOO"
+   ]
+  },
+  {
+   "island_id": "195",
+   "name": "Vaadhoo",
+   "atoll": "GDh",
+   "population": 516,
+   "lat": 0.22732556,
+   "lon": 73.2736975,
+   "stop_ids": [
+    "GDH_VAADHOO"
+   ]
+  }
+ ],
+ "schools": [
+  {
+   "facility_id": "moe-bcf1d71df0a6a496",
+   "name": "Dh. Atoll School",
+   "island_id": "1050",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-a37c6ea5a0a5cec8",
+   "name": "GA. Maamendhoo School",
+   "island_id": "1085",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-ceca07c9f5e25d14",
+   "name": "GA. Nilandhoo School",
+   "island_id": "1091",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-ad1cc499050d9812",
+   "name": "F. Atoll Education Centre",
+   "island_id": "1158",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "facility_id": "moe-cb54c0c05d640091",
+   "name": "Gemanafushi School",
+   "island_id": "1182",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-7bc88382ee8bade2",
+   "name": "Nadella School",
+   "island_id": "181",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-0fc0dbe38183b966",
+   "name": "Vaadhoo Jamaluddeen School",
+   "island_id": "195",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-5ba1c8b3872d9723",
+   "name": "Maaenboodhoo School",
+   "island_id": "209",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-b30ffbfd84953000",
+   "name": "GA. Atoll Education Centre",
+   "island_id": "247",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-d54a68718da9d427",
+   "name": "Rinbudhoo School",
+   "island_id": "334",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-fcd5cc551c52d3dd",
+   "name": "Sulthan Mohamed School",
+   "island_id": "412",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-17c870ad58e34afc",
+   "name": "Kondey School",
+   "island_id": "435",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-6e30054d67348259",
+   "name": "Fiyoaree School",
+   "island_id": "470",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-53e9c6b5699bbef8",
+   "name": "Dh. Atoll Education Centre",
+   "island_id": "499",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "facility_id": "moe-d25da614e4e59c26",
+   "name": "Madaveli School",
+   "island_id": "557",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-cdc19c59a3923643",
+   "name": "Huvadhoo School",
+   "island_id": "572",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-2ecf2d9af42034d9",
+   "name": "Bilehdhoo School",
+   "island_id": "606",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "facility_id": "moe-86edf32e341b0493",
+   "name": "Rathafandhoo School",
+   "island_id": "630",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-e23a28614503881e",
+   "name": "Bandidhoo School",
+   "island_id": "66",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-634d0a74cf3db286",
+   "name": "Hulhudheli School",
+   "island_id": "662",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-0c8f306e830d442e",
+   "name": "Aboobakuru School",
+   "island_id": "717",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-ea2ffb13cae6d3b1",
+   "name": "GDh. Atoll Education Centre",
+   "island_id": "717",
+   "grades": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "facility_id": "moe-375be9625318f490",
+   "name": "Thinadhoo School",
+   "island_id": "717",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-5d68ce28a4d10bcb",
+   "name": "GA. Atoll School",
+   "island_id": "743",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-b416a3a87b306dea",
+   "name": "Dhaandhoo School",
+   "island_id": "766",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ]
+  },
+  {
+   "facility_id": "moe-950d29a03825b0c9",
+   "name": "F. Atoll School",
+   "island_id": "8",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-848ed8e25ff809f1",
+   "name": "F. Magoodhoo School",
+   "island_id": "85",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-34fbd22dc5be0b35",
+   "name": "Hoadedhdhoo School",
+   "island_id": "851",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-4d124d699fd654b0",
+   "name": "Kanduhulhudhoo School",
+   "island_id": "856",
+   "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "facility_id": "moe-926c4383a1148071",
+   "name": "GDh. Atoll School",
+   "island_id": "887",
+   "grades": null
+  },
+  {
+   "facility_id": "moe-5d76227a8a18df86",
+   "name": "Dharanboodhoo School",
+   "island_id": "970",
+   "grades": null
+  }
+ ],
+ "hospitals": [
+  {
+   "facility_id": "moh-2f7021f888889612",
+   "name": "Faafu Atoll Hospital",
+   "island_id": "1158",
+   "level": "HG1"
+  },
+  {
+   "facility_id": "moh-21035ac2cea68494",
+   "name": "Gaafu Alifu Atoll Hospital",
+   "island_id": "247",
+   "level": "HG2"
+  },
+  {
+   "facility_id": "moh-c6fd6f3ed6af5f8e",
+   "name": "Dhaalu Atoll Hospital",
+   "island_id": "499",
+   "level": "HG1"
+  },
+  {
+   "facility_id": "moh-6a04245b5d459a2d",
+   "name": "Dr. Abdul Samad Memorial Hospital",
+   "island_id": "717",
+   "level": "HG3"
+  }
+ ],
+ "default_session": {
+  "start": "07:05",
+  "end": "12:05"
+ },
+ "parameters": [
+  {
+   "name": "min_transfer_minutes",
+   "classification": "assumed",
+   "note": "Minimum minutes between arriving and departing when changing trips at a stop. Staying on the same trip needs none. 5 keeps the real F.Nilandhoo chain (278_0 arrives 07:35, 280_0 departs 07:40).",
+   "value": 5
+  },
+  {
+   "name": "missed_connection_tolerance_minutes",
+   "classification": "assumed",
+   "note": "Diagnosis only: a failed journey is a missed connection if it would work with a transfer up to this many minutes short of the minimum.",
+   "value": 60
+  },
+  {
+   "name": "max_school_commute_minutes",
+   "classification": "assumed",
+   "note": "Longest one-way ferry time a student commutes daily. Further away, the student is counted as boarding away from home.",
+   "value": 30
+  },
+  {
+   "name": "school_home_by",
+   "classification": "assumed",
+   "note": "Latest time a commuting student gets home.",
+   "value": 1080
+  },
+  {
+   "name": "home_atoll_only",
+   "classification": "assumed",
+   "note": "Students attend a school in their own atoll.",
+   "value": true
+  },
+  {
+   "name": "default_session",
+   "classification": "assumed",
+   "note": "07:05-12:05 for every school, from Rinbudhoo School's profile (the only school stating class hours).",
+   "value": null
+  },
+  {
+   "name": "grade_from_age",
+   "classification": "derived",
+   "note": "grade = age - 5, from the National Curriculum Framework 2014, Table 2.",
+   "value": null
+  },
+  {
+   "name": "students",
+   "classification": "assumed",
+   "note": "Everyone aged 6-17 is a student; enrolment is not known.",
+   "value": null
+  },
+  {
+   "name": "unknown_grades",
+   "classification": "assumed",
+   "note": "A school whose grades are not sourced teaches grades 1-10.",
+   "value": null
+  },
+  {
+   "name": "one_appointment_each",
+   "classification": "assumed",
+   "note": "Each resident gets one appointment per category; rates are shares of residents, not visit counts.",
+   "value": null
+  },
+  {
+   "name": "appointment_slots",
+   "classification": "assumed",
+   "note": "08:00-14:00 every 30 min, spread evenly over residents.",
+   "value": null
+  },
+  {
+   "name": "durations",
+   "classification": "assumed",
+   "note": "Health centre 30 min; hospital 60 or 120 min; referral 120 min.",
+   "value": null
+  },
+  {
+   "name": "home_by",
+   "classification": "assumed",
+   "note": "Home by 18:00; ages 65+ by 17:00.",
+   "value": null
+  },
+  {
+   "name": "home_atoll_hospital",
+   "classification": "assumed",
+   "note": "Hospital visits go to a hospital in the home atoll.",
+   "value": null
+  },
+  {
+   "name": "referral_level",
+   "classification": "derived",
+   "note": "Grade 3 and tertiary hospitals, from the Ministry of Health level codes.",
+   "value": null
+  }
+ ],
+ "data_labels": [
+  {
+   "name": "Ferry timetable",
+   "classification": "observed",
+   "note": "RTL schedules; operating days assumed daily."
+  },
+  {
+   "name": "Stop to island links",
+   "classification": "derived",
+   "note": "data/export/stop_islands.csv"
+  },
+  {
+   "name": "Residents",
+   "classification": "derived",
+   "note": "Synthetic population from Census 2022 and HIES 2019."
+  },
+  {
+   "name": "Facility locations",
+   "classification": "derived",
+   "note": "Ministry lists linked to islands; see location_match."
+  },
+  {
+   "name": "Results",
+   "classification": "derived",
+   "note": "Modelled access barriers, not counts of patients denied care or school absences."
+  }
+ ],
+ "sources": [
+  {
+   "source_id": "census2022-households",
+   "publisher": "Maldives Bureau of Statistics",
+   "source_url": "https://app.statisticsmaldives.gov.mv/census-data/",
+   "source_as_of": null,
+   "availability": "provided_archive"
+  },
+  {
+   "source_id": "census2022-individuals",
+   "publisher": "Maldives Bureau of Statistics",
+   "source_url": "https://app.statisticsmaldives.gov.mv/census-data/",
+   "source_as_of": null,
+   "availability": "provided_archive"
+  },
+  {
+   "source_id": "hies2019",
+   "publisher": "Maldives Bureau of Statistics",
+   "source_url": "https://statisticsmaldives.gov.mv/hies-2019/",
+   "source_as_of": null,
+   "availability": "provided_archive"
+  },
+  {
+   "source_id": "mvgeo-tooling",
+   "publisher": "CustomIcon / mvgeo-data",
+   "source_url": "https://git.cubable.date/CustomIcon/mvgeo-data",
+   "source_as_of": null,
+   "availability": "tooling_only"
+  },
+  {
+   "source_id": "moh-government-health-2024",
+   "publisher": "Ministry of Health, Quality Assurance and Regulation Division",
+   "source_url": "https://health.gov.mv/storage/uploads/Vw9rVzYv/lcyhn3xt.pdf",
+   "source_as_of": "2024-12-31",
+   "availability": "structured_capture"
+  },
+  {
+   "source_id": "moe-school-profiles",
+   "publisher": "Ministry of Education, Higher Education and Skills Development",
+   "source_url": "https://www.moe.gov.mv/en/schools",
+   "source_as_of": null,
+   "availability": "structured_capture"
+  },
+  {
+   "source_id": "moe-schools-2025",
+   "publisher": "Ministry of Education, Higher Education and Skills Development",
+   "source_url": "https://www.moe.gov.mv/en/schools",
+   "source_as_of": "2025-05-23",
+   "availability": "structured_capture"
+  },
+  {
+   "source_id": "mtcc-rtl-demo-demand",
+   "publisher": "Project-provided demo dataset",
+   "source_url": null,
+   "source_as_of": "2025-12-31",
+   "availability": "demo_sample"
+  },
+  {
+   "source_id": "rtl-schedules",
+   "publisher": "MTCC / Raajje Transport Link",
+   "source_url": "https://www.rtl.mv/",
+   "source_as_of": null,
+   "availability": "not_downloaded"
+  },
+  {
+   "source_id": "facility-islands-lookup",
+   "publisher": "Project team (reviewed lookup)",
+   "source_url": "https://maaharaa.health.gov.mv/Public/Home/ListHealthCare",
+   "source_as_of": "2026-10-24",
+   "availability": "derived_lookup"
+  },
+  {
+   "source_id": "nie-ncf-2014",
+   "publisher": "National Institute of Education (Maldives)",
+   "source_url": "https://media.unesco.org/sites/default/files/webform/r2e002/2cda5a0a236191e565a7e98f824f23c08b5dad32.pdf",
+   "source_as_of": "2014-04-01",
+   "availability": "reference"
+  }
+ ]
+}

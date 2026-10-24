@@ -19,8 +19,8 @@ Rules (labels in SCHOOL_PARAM_NOTES):
     where a school profile states them.
   - Only schools in the student's home atoll are candidates (assumed: students attend their
     own atoll's schools; set `home_atoll_only=False` to allow any atoll).
-  - Nearest = the shortest one-way ferry time (first boarding to arrival, valid transfers)
-    on any sailing that day. Distance, not whether the session times fit.
+  - Nearest = the shortest one-way ferry time on any sailing that day (simulator.destinations):
+    distance, not whether the session times fit.
   - Sessions: 07:05-12:05 for every school by default (assumed, from Rinbudhoo School's
     profile, the only one stating class hours), overridable per school. Changing sessions
     changes the requests' times, never who is a commuter.
@@ -30,8 +30,9 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from typing import Iterable, Mapping, Sequence
 
-from simulator.csa import earliest_arrival
-from simulator.evaluate import Params, Request, Result
+from simulator.destinations import FerryDistances
+from simulator.evaluate import ON_ISLAND, Params, Request, Result
+from simulator.scores import BOARDS_AWAY as SCORE_BOARDS_AWAY, NO_FACILITY, Need
 from simulator.timetable import DAY_MINUTES, Timetable
 
 HOME_ISLAND, DAILY_COMMUTE, BOARDS_AWAY, NO_DATA, NO_SCHOOL = (
@@ -120,20 +121,6 @@ def grade_for_age(age: int) -> int | None:
     return age - 5 if age in SCHOOL_AGES else None
 
 
-def shortest_trip_minutes(timetable: Timetable, origins: Iterable[str], targets: Iterable[str],
-                          transfer_minutes: int) -> int | None:
-    """Shortest one-way ferry time, first boarding to arrival, over every departure of the day."""
-    origins, targets = frozenset(origins), frozenset(targets)
-    if origins & targets:
-        return 0
-    best = None
-    for t in sorted({c.departure for c in timetable.connections if c.from_stop in origins}):
-        journey = earliest_arrival(timetable, origins, targets, t, transfer_minutes)
-        if journey is not None and (best is None or journey.arrive - journey.depart < best):
-            best = journey.arrive - journey.depart
-    return best
-
-
 def assign_students(baseline: Timetable, island_stops: Mapping[str, Iterable[str]],
                     island_atoll: Mapping[str, str], students: Iterable[Student], schools: Sequence[School],
                     school_params: SchoolParams = SchoolParams(), params: Params = Params()) -> list[Assignment]:
@@ -142,13 +129,7 @@ def assign_students(baseline: Timetable, island_stops: Mapping[str, Iterable[str
     local = defaultdict(list)
     for school in schools:
         local[school.island_id].append(school)
-    minutes_cache: dict[tuple[str, str], int | None] = {}
-
-    def minutes(home: str, island: str) -> int | None:
-        if (home, island) not in minutes_cache:
-            minutes_cache[home, island] = shortest_trip_minutes(
-                baseline, island_stops.get(home, ()), island_stops.get(island, ()), params.min_transfer_minutes)
-        return minutes_cache[home, island]
+    distances = FerryDistances(baseline, island_stops, params.min_transfer_minutes)
 
     result = []
     for s in students:
@@ -161,18 +142,17 @@ def assign_students(baseline: Timetable, island_stops: Mapping[str, Iterable[str
             result.append(Assignment(**base, category=HOME_ISLAND, school_facility_id=here.facility_id,
                                      school_island_id=here.island_id, one_way_minutes=0))
             continue
-        if not island_stops.get(s.home_island_id):
+        if not distances.has_stop(s.home_island_id):
             result.append(Assignment(**base, category=NO_DATA))
             continue
-        reachable = sorted((m, sc.facility_id, sc) for sc in schools
-                           if sc.teaches(grade) and island_stops.get(sc.island_id)
-                           and (not school_params.home_atoll_only
-                                or island_atoll.get(sc.island_id) == island_atoll.get(s.home_island_id))
-                           and (m := minutes(s.home_island_id, sc.island_id)) is not None)
-        if not reachable:
+        candidates = [sc for sc in schools if sc.teaches(grade) and distances.has_stop(sc.island_id)
+                      and (not school_params.home_atoll_only
+                           or island_atoll.get(sc.island_id) == island_atoll.get(s.home_island_id))]
+        found = distances.nearest(s.home_island_id, candidates, lambda sc: sc.island_id, lambda sc: sc.facility_id)
+        if found is None:
             result.append(Assignment(**base, category=NO_SCHOOL))
             continue
-        m, _, school = reachable[0]
+        m, school = found
         category = DAILY_COMMUTE if m <= school_params.max_school_commute_minutes else BOARDS_AWAY
         result.append(Assignment(**base, category=category, school_facility_id=school.facility_id,
                                  school_island_id=school.island_id, one_way_minutes=m))
@@ -209,3 +189,23 @@ def summarise(assignments: Iterable[Assignment], results: Iterable[Result]) -> d
         label = outcome[a.request_id] if a.category == DAILY_COMMUTE else a.category
         summary[a.home_island_id][label] += a.weight
     return dict(summary)
+
+
+SCHOOL = "school"
+_NEED_LABELS = {HOME_ISLAND: ON_ISLAND, BOARDS_AWAY: SCORE_BOARDS_AWAY, NO_DATA: NO_DATA, NO_SCHOOL: NO_FACILITY}
+
+
+def school_need_id(a: Assignment) -> str:
+    return a.request_id if a.category == DAILY_COMMUTE else f"school:{a.home_island_id}:{_NEED_LABELS[a.category]}"
+
+
+def school_needs(assignments: Sequence[Assignment], sessions: Mapping[str, Session] | None = None,
+                 default_session: Session = DEFAULT_SESSION, school_params: SchoolParams = SchoolParams()) -> list[Need]:
+    """Needs for scoring: one per commuter (a trip), one per island and no-trip category (a label)."""
+    requests = {r.request_id: r for r in school_requests(assignments, sessions, default_session, school_params)}
+    weights = Counter()
+    for a in assignments:
+        weights[school_need_id(a), a.home_island_id, a.category] += a.weight
+    return [Need(need_id, SCHOOL, island, w, request=requests[need_id]) if category == DAILY_COMMUTE
+            else Need(need_id, SCHOOL, island, w, label=_NEED_LABELS[category])
+            for (need_id, island, category), w in sorted(weights.items())]
