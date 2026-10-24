@@ -529,7 +529,9 @@
         const cur = net.current.summary.health;
         parts.push(`<div class="issue bad">${issueHead(k, x.w, ` ${cur.access_pct.toFixed(0)}% of ${units(cur.eligible)} served by ferry can.`)}${barriersHtml()}</div>`);
       } else {
-        parts.push(`<div class="issue ${ISSUE[k].tone}">${issueHead(k, x.w)}
+        const fixBtn = k === "wait" && !state.busy && !(state.suggestion && state.suggestion.atoll === state.atoll)
+          ? `<button type="button" class="add-stop issue-fix" data-run-optimize>Find better times</button>` : "";
+        parts.push(`<div class="issue ${ISSUE[k].tone}">${issueHead(k, x.w)}${fixBtn}
           <ul class="issue-list">${x.items.map((it) => it.id
             ? `<li><button type="button" class="link" data-inspect="${it.id}">${esc(sname(it.id))}</button><span>${esc(it.detail || "")}</span></li>`
             : `<li><span class="li-name">${esc(it.name)}</span><span class="li-right">${esc(it.detail || "")}${it.censusId && islandByCensus[it.censusId].lat != null ? `<button type="button" class="add-stop" data-add-stop="${it.censusId}">Add a stop</button>` : ""}</span></li>`).join("")}</ul></div>`);
@@ -782,7 +784,7 @@
           done(per, evaluated);
           return;
         }
-        it = M.optimizeSteps(nets[ids[ai]].fx, { candidates: tripsWithin(ids[ai]) });
+        it = M.optimizeSteps(nets[ids[ai]].fx, { candidates: tripsWithin(ids[ai]), reduceWait: true });
         if (ids.length > 1) map.markAtoll(ids[ai]);
       }
       const r = it.next();
@@ -880,6 +882,25 @@
     window.Dropdown.syncAll();
   }
 
+  // Waiting before the appointment: residents waiting 2 h+ and the average wait,
+  // now vs with the suggested times.
+  function waitStats(results) {
+    const ok = results.filter((r) => r.success);
+    const w = ok.reduce((s2, r) => s2 + r.population_weight, 0);
+    return {
+      long: ok.filter((r) => r.wait_before_minutes >= LONG_WAIT).reduce((s2, r) => s2 + r.population_weight, 0),
+      avg: w ? ok.reduce((s2, r) => s2 + r.wait_before_minutes * r.population_weight, 0) / w : 0,
+    };
+  }
+  function waitRows(o) {
+    const net = nets[state.atoll];
+    if (!net) return "";
+    const a = waitStats(net.current.results.health), b = waitStats(o.result.results.health);
+    if (Math.round(a.avg) === Math.round(b.avg) && a.long === b.long) return "";
+    return `<div><dt>Waiting ${fmtDur(LONG_WAIT)}+ before the appointment</dt><dd>${n(a.long)} → <b class="${b.long < a.long ? "good" : ""}">${n(b.long)}</b></dd></div>
+      <div><dt>Average wait</dt><dd>${fmtDur(a.avg)} → <b class="${b.avg < a.avg ? "good" : ""}">${fmtDur(b.avg)}</b></dd></div>`;
+  }
+
   function suggestionHtml(o, scopeName) {
     const changes = Object.entries(o.shifts);
     const h = o.comparison.health;
@@ -887,7 +908,8 @@
     return `
       <div class="sug-head">${changes.length ? `${changes.length} change${changes.length === 1 ? "" : "s"} for ${esc(scopeName)}` : `No better times found for ${esc(scopeName)}`}</div>
       ${changes.length ? `<ol class="sug-list">${changes.map(([id, v]) => `<li><span>${esc(tripLabel(id))}</span><span class="mono"><span class="strike">${fmt(firstDep(id))}</span> → <b>${fmt(firstDep(id) + v)}</b></span></li>`).join("")}</ol>` : ""}
-      <dl class="sug-result"><div><dt>Gain same-day access</dt><dd class="good"><b>+${units(h.gained)}</b></dd></div><div><dt>Lose access</dt><dd>${n(h.lost)} <span class="muted">(not allowed)</span></dd></div></dl>
+      <dl class="sug-result">${h.gained ? `<div><dt>Gain same-day access</dt><dd class="good"><b>+${units(h.gained)}</b></dd></div>` : ""}<div><dt>Lose access</dt><dd>${n(h.lost)} <span class="muted">(not allowed)</span></dd></div>${waitRows(o)}</dl>
+      ${changes.length ? `<p class="sug-caveat">These sailings also carry students, workers and other passengers; check new times with the operator.</p>` : ""}
       ${unresolved.length ? `<div class="sug-unres"><b>Still not fixed:</b> ${unresolved.map((r) => `${esc(sname(r.home_island_id))} (${esc(REASON[r.failure_reason].toLowerCase())})`).join("; ")}. These need a new sailing or a cross-atoll change.</div>` : ""}
       <div class="sug-actions">${changes.length ? `<button type="button" class="btn hero-btn" id="apply-suggestion">Apply new times</button>` : ""}<button type="button" class="link" id="dismiss-suggestion">${changes.length ? "Dismiss" : "Close"}</button></div>
       <p class="sug-note">Checked ${n(o.evaluated)} timetables. Moves sailings inside this atoll in 15-min steps. Doesn't check boats, crews or cost.</p>`;
@@ -900,7 +922,8 @@
     // Showcase section: same place at both levels; atoll search inside an atoll, all atolls otherwise.
     // Only inside an atoll whose residents are cut off from the hospital trip,
     // the issue a timetable change can fix (kept while a search or result is showing).
-    const hasIssue = !!net && issuesFor(state.atoll).hospital.items.length > 0;
+    const issNow = net ? issuesFor(state.atoll) : null;
+    const hasIssue = !!net && (issNow.hospital.items.length > 0 || issNow.wait.w > 0);
     const showing = state.busy || (state.suggestion && state.suggestion.atoll === state.atoll);
     $("#r-suggest").hidden = !net || (!hasIssue && !showing);
     // Find better times disappears once clicked: the search, then its result
@@ -912,9 +935,10 @@
       const iss = state.atoll ? issuesFor(state.atoll) : null;
       const cut = state.atoll ? iss.hospital.w : totals("current").failed;
       const where = state.atoll ? `in ${esc(atollById[state.atoll].name)}` : "across the atolls with ferry data";
+      const waitW = state.atoll ? iss.wait.w : 0;
       $("#suggest-lede").innerHTML = cut > 0
-        ? `<b>${esc(units(cut))}</b> cut off from the hospital`
-        : `Everyone ${where} can make the trip.`;
+        ? `<b>${esc(units(cut))}</b> cut off from the hospital${waitW ? ` · <b class="warntxt">${esc(n(waitW))}</b> wait 2 h+` : ""}`
+        : waitW ? `<b class="warntxt">${esc(units(waitW))}</b> wait ${esc(fmtDur(LONG_WAIT))}+ at the hospital` : `Everyone ${where} can make the trip.`;
     }
     if (net) {
       const box = $("#suggestion");
@@ -1006,6 +1030,7 @@
   }
 
   document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-run-optimize]")) { const b = $("#optimize"); if (b && !b.hidden && !b.disabled) b.click(); return; }
     const as = e.target.closest("[data-add-stop]");
     if (as) { addStop(as.dataset.addStop, as); return; }
     const rr = e.target.closest("[data-route-row]");
