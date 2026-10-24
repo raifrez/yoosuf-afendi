@@ -627,7 +627,8 @@
   }
   function searchAtolls(ids, box, btn, done) {
     state.busy = true;
-    const label = btn.textContent;
+    const labelEl = btn.querySelector("span") || btn;
+    const label = labelEl.textContent;
     btn.disabled = true;
     box.hidden = false;
     map.setSearching(true);
@@ -637,7 +638,7 @@
       if (!it) {
         if (ai >= ids.length) {
           map.setSearching(false); map.markAtoll(null); map.highlightRoute(null);
-          state.busy = false; btn.disabled = false; btn.textContent = label;
+          state.busy = false; btn.disabled = false; labelEl.textContent = label;
           done(per, evaluated);
           return;
         }
@@ -653,7 +654,7 @@
       } else {
         const route = tripMeta[r.value.tripId].route;
         if (ids.length === 1) map.highlightRoute(route);
-        btn.textContent = ids.length > 1 ? `Checking ${atollById[id].name} (${ai + 1} of ${ids.length})…` : "Searching…";
+        labelEl.textContent = ids.length > 1 ? `Checking ${atollById[id].name} (${ai + 1} of ${ids.length})…` : "Searching timetables…";
         box.innerHTML = loaderHtml(`Trying new times for <b>Route ${esc(route)}</b>${ids.length > 1 ? ` in ${esc(atollById[id].name)}` : ""} · ${n(evaluated + r.value.evaluated)} timetables checked`);
       }
       setTimeout(tick, STEP_MS);
@@ -739,7 +740,18 @@
     const net = nets[state.atoll];
     $("#to-national").hidden = !state.atoll;
     $("#r-move").hidden = !net;
-    $("#r-suggest-all").hidden = !!state.atoll;
+    // Showcase section: same place at both levels; atoll search inside an atoll, all atolls otherwise.
+    $("#r-suggest").hidden = !!state.atoll && !net;
+    $("#optimize").hidden = !net;
+    $("#optimize-all").hidden = !!state.atoll;
+    if (!$("#optimize").disabled && !$("#optimize-all").disabled) {
+      const iss = state.atoll ? issuesFor(state.atoll) : null;
+      const cut = state.atoll ? iss.hospital.w : totals("current").failed;
+      const where = state.atoll ? `in ${esc(atollById[state.atoll].name)}` : "across the atolls with ferry data";
+      $("#suggest-lede").innerHTML = cut > 0
+        ? `<b>${esc(units(cut))}</b> ${where} can't make a same-day hospital trip. Find departure times that fix it, without anyone losing access.`
+        : `Everyone ${where} can make the trip. Search anyway for times that keep it that way with less waiting.`;
+    }
     if (net) {
       const box = $("#suggestion");
       if (state.suggestion && state.suggestion.atoll === state.atoll) { box.hidden = false; box.innerHTML = suggestionHtml(state.suggestion, atollById[state.atoll].name); }
