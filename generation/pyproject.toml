@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mandarin-population"
+version = "0.1.0"
+description = "Reproducible Census/HIES population generation and simulator contracts for M.A.N.D.A.R.I.N"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+validation = ["jsonschema>=4.18,<5"]
+generation = ["duckdb==1.4.5"]
+
+[tool.setuptools]
+packages = ["population"]
+
+[tool.setuptools.package-data]
+population = ["data/*.json"]

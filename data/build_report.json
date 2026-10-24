@@ -1,0 +1,37 @@
+{
+  "duckdb_version": "1.4.5",
+  "counts": {
+    "geo.islands": 193,
+    "geo.atolls": 21,
+    "population.persons": 448819,
+    "population.households": 90459,
+    "population.population_groups": 578,
+    "population.journey_requests": 0,
+    "services.facilities": 413,
+    "services.schools": 220,
+    "services.health_facilities": 193,
+    "services.hospitals": 22,
+    "services.health_centres": 164,
+    "services.school_grades": 12,
+    "transport.terminals": 0,
+    "transport.routes": 0,
+    "transport.trips": 0,
+    "transport.trip_stops": 0,
+    "transport.transfers": 0,
+    "services.facility_services": 0,
+    "services.facility_hours": 0
+  },
+  "location_matches": {
+    "official_profile": 2,
+    "unique_name_derived": 183,
+    "unresolved": 228
+  },
+  "school_grade_coverage": "One profile has a verified numeric grade range; other schools remain unknown until sourced.",
+  "checks": {
+    "source_checksums": true,
+    "unique_facility_ids": true,
+    "facility_island_references": true,
+    "school_grade_references": true
+  },
+  "intended_destination": "/Users/shaaik/projects/yoosuf-afendi/data"
+}

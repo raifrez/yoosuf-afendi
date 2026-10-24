@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Synthetic household",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["household_id", "home_island_id", "household_size", "monthly_income_mvr", "monthly_expenditure_mvr", "economic_assignment", "data_classification"],
+  "properties": {
+    "household_id": {"type": "string", "minLength": 1},
+    "home_island_id": {"type": "string", "minLength": 1},
+    "household_size": {"type": "integer", "minimum": 1},
+    "monthly_income_mvr": {"type": ["number", "null"], "multipleOf": 0.01},
+    "monthly_expenditure_mvr": {"type": ["number", "null"], "minimum": 0, "multipleOf": 0.01},
+    "economic_assignment": {"enum": ["hies_modeled", "unavailable", "demo"]},
+    "data_classification": {"enum": ["derived", "assumed", "demo"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"economic_assignment": {"const": "unavailable"}}},
+      "then": {"properties": {"monthly_income_mvr": {"type": "null"}, "monthly_expenditure_mvr": {"type": "null"}}}
+    }
+  ]
+}

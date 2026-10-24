@@ -1,0 +1,28 @@
+{
+  "source_id": "moe-school-profiles",
+  "publisher": "Ministry of Education, Higher Education and Skills Development",
+  "source_as_of": null,
+  "data_classification": "observed",
+  "capture_method": "Factual fields checked in official school profiles through the web tool, then saved locally. Page revision dates are unavailable.",
+  "coverage": "Partial enrichment. A missing grade list means unknown, not that a school teaches no grades.",
+  "records": [
+    {
+      "directory_name": "Maafushi School",
+      "directory_phone": "+960 6640471",
+      "source_url": "https://www.moe.gov.mv/en/schools/526",
+      "island_id": "69",
+      "grades": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      "foundation_stage": true,
+      "grade_evidence": "Profile explicitly describes foundation stage through Grade 12. Numeric grades are expanded from that stated range; foundation is retained as a stage rather than inventing individual kindergarten grade offerings."
+    },
+    {
+      "directory_name": "Sheikh Ibrahim School",
+      "directory_phone": "+960 6500097",
+      "source_url": "https://www.moe.gov.mv/en/schools/435",
+      "island_id": "563",
+      "grades": null,
+      "foundation_stage": null,
+      "grade_evidence": "The reviewed profile identifies HA. Kelaa but does not establish the grades taught."
+    }
+  ]
+}

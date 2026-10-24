@@ -1,0 +1,1557 @@
+{
+  "source_id": "moh-government-health-2024",
+  "publisher": "Ministry of Health, Quality Assurance and Regulation Division",
+  "source_url": "https://health.gov.mv/storage/uploads/Vw9rVzYv/lcyhn3xt.pdf",
+  "landing_page": "https://health.gov.mv/en/publications/government-health-facilities-list-1",
+  "source_as_of": "2024-12-31",
+  "capture_method": "Factual rows extracted from all eight pages of the official PDF using the web tool and saved locally before processing. This is a structured text extraction, not the original PDF bytes.",
+  "coverage": "193 operating government health facilities as of 2024-12-31; private facilities and current operational status are not established. Registration numbers are not unique in the source.",
+  "captured_at_utc": "2026-10-24 08:22:49 UTC",
+  "data_classification": "observed",
+  "records": [
+    {
+      "source_row": 1,
+      "name": "Vaavu thinadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/330",
+      "license_number": "GOV-HCG1-007-00",
+      "license_issued_date_text": "17th August 2021"
+    },
+    {
+      "source_row": 2,
+      "name": "Vaavu Fulidhoo health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/329",
+      "license_number": "GOV-HCG1-009-00",
+      "license_issued_date_text": "17th August 2021"
+    },
+    {
+      "source_row": 3,
+      "name": "Vaavu Rakeedhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/331",
+      "license_number": "GOV-HCG1-010-00",
+      "license_issued_date_text": "17th August 2021"
+    },
+    {
+      "source_row": 4,
+      "name": "Vaavu Keyodhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/327",
+      "license_number": "GOV-HCG2-011-00",
+      "license_issued_date_text": "17th August 2021"
+    },
+    {
+      "source_row": 5,
+      "name": "Vaavu Atoll Hospital",
+      "government_level": "HG1",
+      "registration_number": "HF-11/ALP/GOV/328",
+      "license_number": "GOV-HG1-012-00",
+      "license_issued_date_text": "17th August 2021"
+    },
+    {
+      "source_row": 6,
+      "name": "Noonu Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/259",
+      "license_number": "GOV-HG2-21-014-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 7,
+      "name": "Noonu Magoodhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/267",
+      "license_number": "GOV-HCG1-21-015-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 8,
+      "name": "Noonu Maalhendhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/262",
+      "license_number": "GOV-HCG1-21-016-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 9,
+      "name": "Noonu Miladhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/264",
+      "license_number": "GOV-HCG2-21-017-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 10,
+      "name": "Noonu Lhohi Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/263",
+      "license_number": "GOV-HCG1-21-018-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 11,
+      "name": "Noonu Kendhikulhudhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/261",
+      "license_number": "GOV-HCG2-21-019-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 12,
+      "name": "Noonu Maafaru Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/191",
+      "license_number": "GOV-HCG3-21-020-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 13,
+      "name": "Noonu Holhudhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/098",
+      "license_number": "GOV-HCG3-21-021-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 14,
+      "name": "Noonu Velidhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/097",
+      "license_number": "GOV-HCG3-21-022-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 15,
+      "name": "Noonu Kudafari Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/265",
+      "license_number": "GOV-HCG1-21-023-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 16,
+      "name": "Noonu Henbadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/266",
+      "license_number": "GOV-HCG1-21-024-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 17,
+      "name": "Noonu Fohdhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/268",
+      "license_number": "GOV-HCG1-21-025-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 18,
+      "name": "Noonu landhoo Health Center",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/261",
+      "license_number": "GOV-HCG2-23-446-00",
+      "license_issued_date_text": "16th December 2023"
+    },
+    {
+      "source_row": 19,
+      "name": "Laamu Gan Regional Hospital",
+      "government_level": "HG3",
+      "registration_number": "HF-11/ALP/GOV/050",
+      "license_number": "GOV-HG3-21-027-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 20,
+      "name": "Laamu Isdhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/287",
+      "license_number": "GOV-HCG3-21-028-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 21,
+      "name": "Laamu Fonadhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/289",
+      "license_number": "GOV-HCG3-21-029-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 22,
+      "name": "Laamu Maavah Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/286",
+      "license_number": "GOV-HCG3-21-030-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 23,
+      "name": "Laamu Maabaidhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/288",
+      "license_number": "GOV-HCG3-21-031-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 24,
+      "name": "Laamu Hithadhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/130",
+      "license_number": "GOV-HCG3-21-032-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 25,
+      "name": "Laamu Kunahandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-10/ALP/GOV/128",
+      "license_number": "GOV-HCG1-21-033-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 26,
+      "name": "Laamu Maamendhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/129",
+      "license_number": "GOV-HCG2-21-034-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 27,
+      "name": "Laamu Dhanbidhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/291",
+      "license_number": "GOV-HCG1-21-035-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 28,
+      "name": "Laamu Mundoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/293",
+      "license_number": "GOV-HCG1-21-036-00",
+      "license_issued_date_text": "29th August 2021"
+    },
+    {
+      "source_row": 29,
+      "name": "Haa Alifu Muraidhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/090",
+      "license_number": "GOV-HCG1-21-038-00",
+      "license_issued_date_text": "02nd September 2021"
+    },
+    {
+      "source_row": 30,
+      "name": "Haa Alifu Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/081",
+      "license_number": "GOV-HG2-21-039-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 31,
+      "name": "Haa Alifu Uligamu Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/091",
+      "license_number": "GOV-HCG1-21-040-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 32,
+      "name": "Haa Alifu Kelaa Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/088",
+      "license_number": "GOV-HCG3-21-041-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 33,
+      "name": "Haa Alifu Filladhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/089",
+      "license_number": "GOV-HCG1-21-042-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 34,
+      "name": "Haa Alifu Thuraakunu Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/087",
+      "license_number": "GOV-HCG1-21-043-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 35,
+      "name": "Haa Alifu Ihavandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/085",
+      "license_number": "GOV-HCG1-21-044-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 36,
+      "name": "Haa Alifu Maarandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/086",
+      "license_number": "GOV-HCG1-21-045-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 37,
+      "name": "Haa Alifu Vashafaru Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/114",
+      "license_number": "GOV-HCG2-21-046-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 38,
+      "name": "Haa Alifu Hoarafushi Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/083",
+      "license_number": "GOV-HCG4-21-047-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 39,
+      "name": "Haa Alifu Utheemu Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/082",
+      "license_number": "GOV-HCG2-21-048-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 40,
+      "name": "Haa Alifu Thakandhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/183",
+      "license_number": "GOV-HCG2-21-049-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 41,
+      "name": "Haa Alifu Molhadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/030",
+      "license_number": "GOV-HCG3-21-050-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 42,
+      "name": "Haa Alifu Baarah Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/080",
+      "license_number": "GOV-HCG3-21-051-00",
+      "license_issued_date_text": "2nd September 2021"
+    },
+    {
+      "source_row": 43,
+      "name": "Fuvahmulah Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/228",
+      "license_number": "GOV-HG2-23-422-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 44,
+      "name": "Baa Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/111",
+      "license_number": "GOV-HG2-21-053-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 45,
+      "name": "Baa Fehendhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/272",
+      "license_number": "GOV-HCG1-21-054-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 46,
+      "name": "Baa Fulhadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/187",
+      "license_number": "GOV-HCG1-21-055-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 47,
+      "name": "Baa Thulhaadhoo Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/269",
+      "license_number": "GOV-HCG4-21-056-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 48,
+      "name": "Baa Dhonfanu Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/271",
+      "license_number": "GOV-HCG1-21-057-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 49,
+      "name": "Baa Kihaadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/107",
+      "license_number": "GOV-HCG1-21-058-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 50,
+      "name": "Baa Kamadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/198",
+      "license_number": "GOV-HCG1-21-059-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 51,
+      "name": "Baa Maalhos Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/181",
+      "license_number": "GOV-HCG1-21-060-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 52,
+      "name": "Baa Kudarikilu Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/108",
+      "license_number": "GOV-HCG1-21-061-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 53,
+      "name": "Baa Goidhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/110",
+      "license_number": "GOV-HCG3-21-062-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 54,
+      "name": "Baa Dharavandhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/106",
+      "license_number": "GOV-HCG3-21-063-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 55,
+      "name": "Baa Hithaadhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/109",
+      "license_number": "GOV-HCG2-21-064-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 56,
+      "name": "Baa Kendhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/270",
+      "license_number": "GOV-HCG3-21-065-00",
+      "license_issued_date_text": "5th september 2021"
+    },
+    {
+      "source_row": 57,
+      "name": "Senahiya Nothern",
+      "government_level": "GC",
+      "registration_number": "HF-20/ALP/PVT/577",
+      "license_number": "GOV-GC-21-089-00",
+      "license_issued_date_text": "24th October 2021"
+    },
+    {
+      "source_row": 58,
+      "name": "Senahiya Military Hospital",
+      "government_level": "GC",
+      "registration_number": "HF-19/ALP/PVT/522",
+      "license_number": "GOV-GH-21-090-00",
+      "license_issued_date_text": "24th October 2021"
+    },
+    {
+      "source_row": 59,
+      "name": "Dr. Abdul Samad Memorial Hospital",
+      "government_level": "HG3",
+      "registration_number": "HF-11/ALP/GOV/251",
+      "license_number": "GOV-T-21-093-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 60,
+      "name": "Gaafu Dhaalu Nadella Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/258",
+      "license_number": "GOV-HCG2-21-094-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 61,
+      "name": "Gaafu Dhaalu Faresmaathodaa Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/255",
+      "license_number": "GOV-HCG3-21-095-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 62,
+      "name": "Gaafu Dhaalu Madaveli Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/256",
+      "license_number": "GOV-HCG2-21-096-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 63,
+      "name": "Gaafu Dhaalu Gahdhoo Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/252",
+      "license_number": "GOV-HCG4-21-097-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 64,
+      "name": "Gaafu Dhaalu Rathafandhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/131",
+      "license_number": "GOV-HCG2-21-098-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 65,
+      "name": "Gaafu Dhaalu Fiyoaree Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/254",
+      "license_number": "GOV-HCG2-21-099-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 66,
+      "name": "Gaafu Dhaalu Hoadehdhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/257",
+      "license_number": "GOV-HCG2-21-100-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 67,
+      "name": "Gaafu Dhaalu Vaadhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/253",
+      "license_number": "GOV-HCG3-21-101-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 68,
+      "name": "Ungoofaaru Regional Hospital",
+      "government_level": "HG3",
+      "registration_number": "HF-11/ALP/GOV/100",
+      "license_number": "GOV-T-21-102-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 69,
+      "name": "Raa Vaadhoo Health Centre",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/137",
+      "license_number": "GOV-HCG1-21-103-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 70,
+      "name": "Raa Fainu Health Centre",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/099",
+      "license_number": "GOV-HCG1-21-104-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 71,
+      "name": "Raa Madduvari Health Centre",
+      "government_level": "HCG 3",
+      "registration_number": "HF-11/ALP/GOV/101",
+      "license_number": "GOV-HCG3-21-105-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 72,
+      "name": "Raa Kinolhohu Health Centre",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/102",
+      "license_number": "GOV-HCG1-21-106-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 73,
+      "name": "Raa Maakurath Health Centre",
+      "government_level": "HCG 2",
+      "registration_number": "HF-11/ALP/GOV/103",
+      "license_number": "GOV-HCG2-21-107-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 74,
+      "name": "Raa Inguraidhoo Health Centre",
+      "government_level": "HCG 3",
+      "registration_number": "HF-11/ALP/GOV/104",
+      "license_number": "GOV-HCG3-21-108-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 75,
+      "name": "Raa Angolhitheem Health Centre",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/105",
+      "license_number": "GOV-HCG1-21-109-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 76,
+      "name": "Raa Innamaadhoo Health Centre",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/112",
+      "license_number": "GOV-HCG1-21-110-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 77,
+      "name": "Raa Alifushi Health Center",
+      "government_level": "HCG 3",
+      "registration_number": "HF-11/ALP/GOV/189",
+      "license_number": "GOV-HCG3-21-111-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 78,
+      "name": "Raa Rasmaadhoo Health Center",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/195",
+      "license_number": "GOV-HCG1-21-112-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 79,
+      "name": "Raa Meedhoo Health Centre",
+      "government_level": "HCG 3",
+      "registration_number": "HF-11/ALP/GOV/277",
+      "license_number": "GOV-HCG3-21-113-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 80,
+      "name": "Raa Rasgetheem Health Centre",
+      "government_level": "HCG 1",
+      "registration_number": "HF-11/ALP/GOV/278",
+      "license_number": "GOV-HCG1-21-114-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 81,
+      "name": "Raa Dhuvaafaru Health Centre",
+      "government_level": "HCG 4",
+      "registration_number": "HF-11/ALP/GOV/279",
+      "license_number": "GOV-HCG4-21-115-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 82,
+      "name": "Raa Hulhudhuffaaru Heath Centre",
+      "government_level": "HCG 3",
+      "registration_number": "HF-11/ALP/GOV/280",
+      "license_number": "GOV-HCG3-21-116-00",
+      "license_issued_date_text": "15th November 2021"
+    },
+    {
+      "source_row": 83,
+      "name": "Addu Equatorial Hospital",
+      "government_level": "T",
+      "registration_number": "HF-11/ALP/GOV/224",
+      "license_number": "GOV-T-21-128-00",
+      "license_issued_date_text": "01st November 2021"
+    },
+    {
+      "source_row": 84,
+      "name": "Seenu Feydhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/225",
+      "license_number": "GOV-HCG3-21-129-00",
+      "license_issued_date_text": "01st November 2021"
+    },
+    {
+      "source_row": 85,
+      "name": "Seenu Maradhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/227",
+      "license_number": "GOV-HCG3-21-130-00",
+      "license_issued_date_text": "01st November 2021"
+    },
+    {
+      "source_row": 86,
+      "name": "Seenu Hulhu-meedhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/226",
+      "license_number": "GOV-HCG3-21-131-00",
+      "license_issued_date_text": "01st November 2021"
+    },
+    {
+      "source_row": 87,
+      "name": "Alifu Alifu Atoll Hospital",
+      "government_level": "HG1",
+      "registration_number": "HF-11/ALP/GOV/339",
+      "license_number": "GOV-HG1-22-167-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 88,
+      "name": "Alifu Alifu Himandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-10/ALP/GOV/199",
+      "license_number": "GOV-HCG1-22-168-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 89,
+      "name": "Alifu Alifu Maalhos Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-10/ALP/GOV/118",
+      "license_number": "GOV-HCG1-22-169-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 90,
+      "name": "Alifu Alifu Feridhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/117",
+      "license_number": "GOV-HCG2-22-170-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 91,
+      "name": "Alifu Alifu Bodufulhadhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/343",
+      "license_number": "GOV-HCG1-22-171-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 92,
+      "name": "Alifu Alifu Mathiveri Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/342",
+      "license_number": "GOV-HCG3-22-172-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 93,
+      "name": "Alifu Alifu Thoddoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/340",
+      "license_number": "GOV-HCG3-22-173-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 94,
+      "name": "Alifu Alifu Ukulhas Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/341",
+      "license_number": "GOV-HCG3-22-174-00",
+      "license_issued_date_text": "17th March 2022"
+    },
+    {
+      "source_row": 95,
+      "name": "Shaviyani Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/240",
+      "license_number": "GOV-HG2-22-175-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 96,
+      "name": "Shaviyani Maroshi Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/236",
+      "license_number": "GOV-HG2-22-176-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 97,
+      "name": "Shaviyani Feydhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/093",
+      "license_number": "GOV-HG2-22-177-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 98,
+      "name": "Shaviyani Narudhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/094",
+      "license_number": "GOV-HG1-22-178-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 99,
+      "name": "Shaviyani Kanditheemu Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/095",
+      "license_number": "GOV-HG2-22-179-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 100,
+      "name": "Shaviyani Komandoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/096",
+      "license_number": "GOV-HG3-22-180-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 101,
+      "name": "Shaviyani Bilehfahi Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/232",
+      "license_number": "GOV-HG1-22-181-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 102,
+      "name": "Shaviyani Milandhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/233",
+      "license_number": "GOV-HG3-22-182-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 103,
+      "name": "Shaviyani Maaungoodhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/231",
+      "license_number": "GOV-HG2-22-183-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 104,
+      "name": "Shaviyani Foakaidhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/234",
+      "license_number": "GOV-HG3-22-184-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 105,
+      "name": "Shaviyani Feevah Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/235",
+      "license_number": "GOV-HG2-22-185-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 106,
+      "name": "Shaviyani Goidhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/238",
+      "license_number": "GOV-HG1-22-186-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 107,
+      "name": "Shaviyani Noomaraa Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/239",
+      "license_number": "GOV-HG1-22-187-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 108,
+      "name": "Shaviyani Lhaimagu Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/237",
+      "license_number": "GOV-HG1-22-188-00",
+      "license_issued_date_text": "21st March 2022"
+    },
+    {
+      "source_row": 109,
+      "name": "Maldives Correctional Service Medical Centre- Male' Jail",
+      "government_level": "GC",
+      "registration_number": "HF-14/ALP/PVT/414",
+      "license_number": "GOV-GC-22-253-00",
+      "license_issued_date_text": "31st July 2022"
+    },
+    {
+      "source_row": 110,
+      "name": "M.C.S Medical Centre 2- K. Maafushi",
+      "government_level": "GC",
+      "registration_number": "HF-18/ALP/GOV/512",
+      "license_number": "GOV-GC-22-254-00",
+      "license_issued_date_text": "31st July 2022"
+    },
+    {
+      "source_row": 111,
+      "name": "Sourthen Child Development Centre",
+      "government_level": "GC",
+      "registration_number": "HF-11/ALP/GOV/224",
+      "license_number": "GOV-TS-22-256-00",
+      "license_issued_date_text": "04th August 2022"
+    },
+    {
+      "source_row": 112,
+      "name": "IGMH",
+      "government_level": "T",
+      "registration_number": "HF-11/ALP/GOV/223",
+      "license_number": "GOV-T-22-258-00",
+      "license_issued_date_text": "09th August 2022"
+    },
+    {
+      "source_row": 113,
+      "name": "Hulhumale' Hospital",
+      "government_level": "T",
+      "registration_number": "HF-11/ALP/GOV/202",
+      "license_number": "GOV-HG3-22-259-00",
+      "license_issued_date_text": "09th August 2022"
+    },
+    {
+      "source_row": 114,
+      "name": "Dhaalu Atoll Hospital",
+      "government_level": "HG1",
+      "registration_number": "HF-11/ALP/GOV/348",
+      "license_number": "GOV-HG2-22-282-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 115,
+      "name": "Dhaalu Hulhudheli Health Centre",
+      "government_level": "HCGr1",
+      "registration_number": "HF-11/ALP/GOV/345",
+      "license_number": "GOV-HG1-22-267-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 116,
+      "name": "Dhaalu Meedhoo Health Centre",
+      "government_level": "HCGr3",
+      "registration_number": "HF-10/ALP/GOV/123",
+      "license_number": "GOV-HG3-22-268-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 117,
+      "name": "Dhaalu Rinbidhoo Health Centre",
+      "government_level": "HCGr1",
+      "registration_number": "HF-11/ALP/GOV/334",
+      "license_number": "GOV-HG1-22-269-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 118,
+      "name": "Dhaalu Bandidhoo Health Centre",
+      "government_level": "HCGr2",
+      "registration_number": "HF-11/ALP/GOV/347",
+      "license_number": "GOV-HG2-22-270-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 119,
+      "name": "Dhaalu Maaenboodhoo HC",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/346",
+      "license_number": "GOV-HCG1-22-284-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 120,
+      "name": "Faafu Atoll Hospital",
+      "government_level": "HG1",
+      "registration_number": "HF-11/ALP/GOV/350",
+      "license_number": "GOV-HG1-22-271-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 121,
+      "name": "Faafu Feeali Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/193",
+      "license_number": "GOV-HG2-22-272-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 122,
+      "name": "Faafu Dharanboodhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/349",
+      "license_number": "GOV-HG1-22-273-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 123,
+      "name": "Faafu Biledhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/122",
+      "license_number": "GOV-HG2-22-274-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 124,
+      "name": "Faafu Magoodhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/180",
+      "license_number": "GOV-HG2-22-275-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 125,
+      "name": "Meemu Kolhufushi Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/353",
+      "license_number": "GOV-HG4-22-276-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 126,
+      "name": "Meemu Mulak Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/354",
+      "license_number": "GOV-HG3-22-277-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 127,
+      "name": "Meemu Naalaafushi Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-13/ALP/PVT/029",
+      "license_number": "GOV-HCG4-22-278-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 128,
+      "name": "Meemu Maduvvaree Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-10/ALP/GOV/188",
+      "license_number": "GOV-HCG4-22-279-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 129,
+      "name": "Meemu Dhiggaru Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/352",
+      "license_number": "GOV-HCG4-22-280-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 130,
+      "name": "Meemu Mulee Regional Hospital",
+      "government_level": "HG1",
+      "registration_number": "HF-11/ALP/GOV/351",
+      "license_number": "GOV-HG1-22-281-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 131,
+      "name": "Meemu Raimandhoo Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/133",
+      "license_number": "GOV-HCG4-22-283-00",
+      "license_issued_date_text": "30th August 2022"
+    },
+    {
+      "source_row": 132,
+      "name": "Meemu Veyvah Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/084",
+      "license_number": "GOV-HG1-22-286-00",
+      "license_issued_date_text": "04th September 2022"
+    },
+    {
+      "source_row": 133,
+      "name": "Thaa Gaadhifushi Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/300",
+      "license_number": "GOV-HG1-22-287-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 134,
+      "name": "Thaa Kandhoodhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-10/ALP/GOV/194",
+      "license_number": "GOV-HG1-22-288-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 135,
+      "name": "Thaa Omadhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/127",
+      "license_number": "GOV-HCG2-22-289-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 136,
+      "name": "Thaa Dhiyamigili Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/298",
+      "license_number": "GOV-HCG2-22-290-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 137,
+      "name": "Thaa Vandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/301",
+      "license_number": "GOV-HCG1-22-291-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 138,
+      "name": "Thaa Madifushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/124",
+      "license_number": "GOV-HCG3-22-292-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 139,
+      "name": "Thaa Buruni Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/299",
+      "license_number": "GOV-HCG2-22-293-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 140,
+      "name": "Thaa Kinbidhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/297",
+      "license_number": "GOV-HCG2-22-294-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 141,
+      "name": "Thaa Vilufushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/138",
+      "license_number": "GOV-HCG3-22-295-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 142,
+      "name": "Thaa Guraidhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/295",
+      "license_number": "GOV-HCG3-22-296-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 143,
+      "name": "Thaa Thimarafushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/126",
+      "license_number": "GOV-HCG3-22-297-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 144,
+      "name": "Thaa Hirilandhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/296",
+      "license_number": "GOV-HCG3-22-298-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 145,
+      "name": "Thaa Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-10/ALP/GOV/125",
+      "license_number": "GOV-HG2-22-299-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 146,
+      "name": "Lhaviyani Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/273",
+      "license_number": "GOV-HG2-22-300-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 147,
+      "name": "Lhaviyani Kurendhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/275",
+      "license_number": "GOV-HCG3-22-301-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 148,
+      "name": "Lhaviyani Olhuvelifushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/182",
+      "license_number": "GOV-HCG3-22-302-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 149,
+      "name": "Lhaviyani Hinnavaru Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/274",
+      "license_number": "GOV-HCG4-22-303-00",
+      "license_issued_date_text": "05th September 2022"
+    },
+    {
+      "source_row": 150,
+      "name": "General Practice Clinic",
+      "government_level": "GC",
+      "registration_number": "HF-11-ALP/GOV/202",
+      "license_number": "GOV-GC-23-342-00",
+      "license_issued_date_text": "15th January 2023"
+    },
+    {
+      "source_row": 151,
+      "name": "Haa Dhaalu Finey Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/190",
+      "license_number": "GOV-HCG1-24-464-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 152,
+      "name": "Haa Dhaalu Hanimaadhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/092",
+      "license_number": "GOV-HCG3-24-465-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 153,
+      "name": "Haa Dhaalu Hirimaradhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/221",
+      "license_number": "GOV-HCG1-24-466-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 154,
+      "name": "Haa Dhaalu Kumundhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/217",
+      "license_number": "GOV-HCG1-24-467-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 155,
+      "name": "Haa Dhaalu Kurinbi Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/220",
+      "license_number": "GOV-HCG1-24-468-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 156,
+      "name": "Haa Dhaalu Makunudhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/212",
+      "license_number": "GOV-HCG3-24-469-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 157,
+      "name": "Haa Dhaalu Navaidhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/219",
+      "license_number": "GOV-HCG1-24-470-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 158,
+      "name": "Haa Dhaalu Nelliadhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/218",
+      "license_number": "GOV-HCG2-24-471-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 159,
+      "name": "Haa Dhaalu Neykurendhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/215",
+      "license_number": "GOV-HCG3-24-472-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 160,
+      "name": "Haa Dhaalu Nolhivaram Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/214",
+      "license_number": "GOV-HCG3-24-473-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 161,
+      "name": "Haa Dhaalu Nolhivaranfaru Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/213",
+      "license_number": "GOV-HCG3-24-474-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 162,
+      "name": "Haa Dhaalu Vaikaradhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/216",
+      "license_number": "GOV-HCG3-24-475-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 163,
+      "name": "Kulhudhuffushi Regional Hospital",
+      "government_level": "HG3",
+      "registration_number": "HF-11/ALP/GOV/222",
+      "license_number": "GOV-HG3-24-476-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 164,
+      "name": "Kaafu Dhiffushi Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/325",
+      "license_number": "GOV-HCG2-23-432-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 165,
+      "name": "Kaafu Gaafaru Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/116",
+      "license_number": "GOV-HCG2-23-433-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 166,
+      "name": "Kaafu Gulhi Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/326",
+      "license_number": "GOV-HCG2-23-434-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 167,
+      "name": "Kaafu Guraidhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/115",
+      "license_number": "GOV-HCG3-23-435-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 168,
+      "name": "Kaafu Himmafushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/324",
+      "license_number": "GOV-HCG3-23-436-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 169,
+      "name": "Kaafu Huraa Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/197",
+      "license_number": "GOV-HCG2-23-437-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 170,
+      "name": "Kaafu Kaashidhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/323",
+      "license_number": "GOV-HCG3-23-438-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 171,
+      "name": "Kaafu Maafushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/142",
+      "license_number": "GOV-HCG3-23-439-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 172,
+      "name": "Kaafu Thulusdhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/141",
+      "license_number": "GOV-HCG3-23-440-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 173,
+      "name": "Alifu Dhaalu Maamigili Health Centre",
+      "government_level": "HCG4",
+      "registration_number": "HF-11/ALP/GOV/332",
+      "license_number": "GOV-HCG4-23-423-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 174,
+      "name": "Alifu Dhaalu Omadhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/119",
+      "license_number": "GOV-HCG2-23-424-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 175,
+      "name": "Alifu Dhaalu Kunburudhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-10/ALP/GOV/171",
+      "license_number": "GOV-HCG1-23-425-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 176,
+      "name": "Alifu Dhaalu Mandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/336",
+      "license_number": "GOV-HCG1-23-426-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 177,
+      "name": "Alifu Dhaalu Dhangethi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-10/ALP/GOV/192",
+      "license_number": "GOV-HCG3-23-427-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 178,
+      "name": "Alifu Dhaalu Dhigurah Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/333",
+      "license_number": "GOV-HCG2-23-428-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 179,
+      "name": "Alifu Dhaalu Dhihdhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/338",
+      "license_number": "GOV-HCG1-23-429-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 180,
+      "name": "Alifu Dhaalu Fenfushi Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-10/ALP/GOV/121",
+      "license_number": "GOV-HCG2-23-430-00",
+      "license_issued_date_text": "23rd November 2023"
+    },
+    {
+      "source_row": 181,
+      "name": "Alifu Dhaalu Hangnaameedhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/355",
+      "license_number": "GOV-HCG1-23-431-00",
+      "license_issued_date_text": "23rd November2023"
+    },
+    {
+      "source_row": 182,
+      "name": "Gaafu Alifu Dhevvadhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/248",
+      "license_number": "GOV-HCG3-24-455-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 183,
+      "name": "Gaafu Alifu Dhaandhoo Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/243",
+      "license_number": "GOV-HCG3-24-456-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 184,
+      "name": "Gaafu Alifu Gemanafushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/244",
+      "license_number": "GOV-HCG3-24-457-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 185,
+      "name": "Gaafu Alifu Kanduhulhudhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/245",
+      "license_number": "GOV-HCG1-24-458-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 186,
+      "name": "Gaafu Alifu Kondey Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/249",
+      "license_number": "GOV-HCG1-24-459-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 187,
+      "name": "Gaafu Alifu Kolamaafushi Health Centre",
+      "government_level": "HCG3",
+      "registration_number": "HF-11/ALP/GOV/242",
+      "license_number": "GOV-HCG3-24-460-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 188,
+      "name": "Gaafu Alifu Maamendhoo Health Centre",
+      "government_level": "HCG2",
+      "registration_number": "HF-11/ALP/GOV/246",
+      "license_number": "GOV-HCG2-24-461-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 189,
+      "name": "Gaafu Alifu Nilandhoo Health Centre",
+      "government_level": "HCG1",
+      "registration_number": "HF-11/ALP/GOV/247",
+      "license_number": "GOV-HCG1-24-462-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 190,
+      "name": "Gaafu Alifu Atoll Hospital",
+      "government_level": "HG2",
+      "registration_number": "HF-11/ALP/GOV/241",
+      "license_number": "GOV-HG2-24-463-00",
+      "license_issued_date_text": "31st January 2024"
+    },
+    {
+      "source_row": 191,
+      "name": "Gagan Clinic",
+      "government_level": "GC",
+      "registration_number": "HF-24/ALP/GOV/756",
+      "license_number": "GOV-GC-24-477-00",
+      "license_issued_date_text": "04th February 2024"
+    },
+    {
+      "source_row": 192,
+      "name": "Villimale' Hospital",
+      "government_level": "HG1",
+      "registration_number": "HF-11/ALP/GOV/113",
+      "license_number": "GOV-HG1-24-517-00",
+      "license_issued_date_text": "19th September 2024"
+    },
+    {
+      "source_row": 193,
+      "name": "Dharumavantha Hospital",
+      "government_level": "T",
+      "registration_number": "HF-24/ALP/GOV/815",
+      "license_number": "GOV-T-24-536-00",
+      "license_issued_date_text": "13th November 2024"
+    }
+  ]
+}

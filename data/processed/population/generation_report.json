@@ -1,0 +1,1632 @@
+{
+  "counts": {
+    "islands": 193,
+    "households": 90459,
+    "persons": 448819,
+    "population_groups": 578,
+    "journey_requests": 0
+  },
+  "economics": {
+    "modeled_households": 81711,
+    "nearest_size_fallback_households": 157,
+    "households_with_fewer_than_5_donors": 650,
+    "unavailable_households": 8748
+  },
+  "calibration": [
+    {
+      "island_id": "4",
+      "name": "Maalhos",
+      "source_people": 516,
+      "generated_people": 516,
+      "source_households": 98,
+      "generated_households": 98
+    },
+    {
+      "island_id": "8",
+      "name": "Feeali",
+      "source_people": 922,
+      "generated_people": 922,
+      "source_households": 165,
+      "generated_households": 165
+    },
+    {
+      "island_id": "9",
+      "name": "Omadhoo",
+      "source_people": 913,
+      "generated_people": 913,
+      "source_households": 141,
+      "generated_households": 141
+    },
+    {
+      "island_id": "16",
+      "name": "Maaugoodhoo",
+      "source_people": 944,
+      "generated_people": 944,
+      "source_households": 206,
+      "generated_households": 206
+    },
+    {
+      "island_id": "20",
+      "name": "Naifaru",
+      "source_people": 4832,
+      "generated_people": 4832,
+      "source_households": 1037,
+      "generated_households": 1037
+    },
+    {
+      "island_id": "44",
+      "name": "Fulhadhoo",
+      "source_people": 341,
+      "generated_people": 341,
+      "source_households": 76,
+      "generated_households": 76
+    },
+    {
+      "island_id": "48",
+      "name": "Kulhudhuffushi",
+      "source_people": 10131,
+      "generated_people": 10131,
+      "source_households": 1783,
+      "generated_households": 1783
+    },
+    {
+      "island_id": "59",
+      "name": "Kudarikilu",
+      "source_people": 557,
+      "generated_people": 557,
+      "source_households": 100,
+      "generated_households": 100
+    },
+    {
+      "island_id": "61",
+      "name": "Kolhufushi",
+      "source_people": 793,
+      "generated_people": 793,
+      "source_households": 176,
+      "generated_households": 176
+    },
+    {
+      "island_id": "66",
+      "name": "Badidhoo",
+      "source_people": 629,
+      "generated_people": 629,
+      "source_households": 104,
+      "generated_households": 104
+    },
+    {
+      "island_id": "69",
+      "name": "Maafushi",
+      "source_people": 4471,
+      "generated_people": 4471,
+      "source_households": 538,
+      "generated_households": 538
+    },
+    {
+      "island_id": "75",
+      "name": "Felidhoo",
+      "source_people": 620,
+      "generated_people": 620,
+      "source_households": 134,
+      "generated_households": 134
+    },
+    {
+      "island_id": "81",
+      "name": "Maradhoo-Feydhoo",
+      "source_people": 1398,
+      "generated_people": 1398,
+      "source_households": 304,
+      "generated_households": 304
+    },
+    {
+      "island_id": "82",
+      "name": "Thimarafushi",
+      "source_people": 1229,
+      "generated_people": 1229,
+      "source_households": 253,
+      "generated_households": 253
+    },
+    {
+      "island_id": "85",
+      "name": "Magoodhoo",
+      "source_people": 702,
+      "generated_people": 702,
+      "source_households": 111,
+      "generated_households": 111
+    },
+    {
+      "island_id": "102",
+      "name": "Mundoo",
+      "source_people": 176,
+      "generated_people": 176,
+      "source_households": 46,
+      "generated_households": 46
+    },
+    {
+      "island_id": "132",
+      "name": "Mathiveri",
+      "source_people": 878,
+      "generated_people": 878,
+      "source_households": 138,
+      "generated_households": 138
+    },
+    {
+      "island_id": "152",
+      "name": "Gamu",
+      "source_people": 4815,
+      "generated_people": 4815,
+      "source_households": 857,
+      "generated_households": 857
+    },
+    {
+      "island_id": "158",
+      "name": "Maamigili",
+      "source_people": 2798,
+      "generated_people": 2798,
+      "source_households": 426,
+      "generated_households": 426
+    },
+    {
+      "island_id": "168",
+      "name": "Mandhoo",
+      "source_people": 418,
+      "generated_people": 418,
+      "source_households": 78,
+      "generated_households": 78
+    },
+    {
+      "island_id": "178",
+      "name": "Rasgetheemu",
+      "source_people": 537,
+      "generated_people": 537,
+      "source_households": 149,
+      "generated_households": 149
+    },
+    {
+      "island_id": "179",
+      "name": "Dhiggaru",
+      "source_people": 1099,
+      "generated_people": 1099,
+      "source_households": 222,
+      "generated_households": 222
+    },
+    {
+      "island_id": "180",
+      "name": "Maakurathu",
+      "source_people": 956,
+      "generated_people": 956,
+      "source_households": 189,
+      "generated_households": 189
+    },
+    {
+      "island_id": "181",
+      "name": "Nadallaa",
+      "source_people": 581,
+      "generated_people": 581,
+      "source_households": 161,
+      "generated_households": 161
+    },
+    {
+      "island_id": "182",
+      "name": "Fulidhoo",
+      "source_people": 400,
+      "generated_people": 400,
+      "source_households": 94,
+      "generated_households": 94
+    },
+    {
+      "island_id": "191",
+      "name": "Landhoo",
+      "source_people": 757,
+      "generated_people": 757,
+      "source_households": 178,
+      "generated_households": 178
+    },
+    {
+      "island_id": "194",
+      "name": "Kinolhas",
+      "source_people": 543,
+      "generated_people": 543,
+      "source_households": 97,
+      "generated_households": 97
+    },
+    {
+      "island_id": "195",
+      "name": "Vaadhoo",
+      "source_people": 516,
+      "generated_people": 516,
+      "source_households": 165,
+      "generated_households": 165
+    },
+    {
+      "island_id": "199",
+      "name": "Hirimaradhoo",
+      "source_people": 293,
+      "generated_people": 293,
+      "source_households": 79,
+      "generated_households": 79
+    },
+    {
+      "island_id": "200",
+      "name": "Dhiyamigili",
+      "source_people": 649,
+      "generated_people": 649,
+      "source_households": 130,
+      "generated_households": 130
+    },
+    {
+      "island_id": "203",
+      "name": "Maalhendhoo",
+      "source_people": 724,
+      "generated_people": 724,
+      "source_households": 159,
+      "generated_households": 159
+    },
+    {
+      "island_id": "204",
+      "name": "Eydhafushi",
+      "source_people": 2581,
+      "generated_people": 2581,
+      "source_households": 576,
+      "generated_households": 576
+    },
+    {
+      "island_id": "205",
+      "name": "Vilufushi",
+      "source_people": 1081,
+      "generated_people": 1081,
+      "source_households": 246,
+      "generated_households": 246
+    },
+    {
+      "island_id": "209",
+      "name": "Maaeboodhoo",
+      "source_people": 679,
+      "generated_people": 679,
+      "source_households": 142,
+      "generated_households": 142
+    },
+    {
+      "island_id": "232",
+      "name": "Vashafaru",
+      "source_people": 476,
+      "generated_people": 476,
+      "source_households": 106,
+      "generated_households": 106
+    },
+    {
+      "island_id": "235",
+      "name": "Hanimaadhoo",
+      "source_people": 2664,
+      "generated_people": 2664,
+      "source_households": 559,
+      "generated_households": 559
+    },
+    {
+      "island_id": "246",
+      "name": "Hoarafushi",
+      "source_people": 1841,
+      "generated_people": 1841,
+      "source_households": 425,
+      "generated_households": 425
+    },
+    {
+      "island_id": "247",
+      "name": "Viligili",
+      "source_people": 2900,
+      "generated_people": 2900,
+      "source_households": 574,
+      "generated_households": 574
+    },
+    {
+      "island_id": "254",
+      "name": "Buruni",
+      "source_people": 414,
+      "generated_people": 414,
+      "source_households": 97,
+      "generated_households": 97
+    },
+    {
+      "island_id": "257",
+      "name": "Rasdhoo",
+      "source_people": 1282,
+      "generated_people": 1282,
+      "source_households": 282,
+      "generated_households": 282
+    },
+    {
+      "island_id": "260",
+      "name": "Keyodhoo",
+      "source_people": 641,
+      "generated_people": 641,
+      "source_households": 141,
+      "generated_households": 141
+    },
+    {
+      "island_id": "265",
+      "name": "Hithadhoo",
+      "source_people": 1108,
+      "generated_people": 1108,
+      "source_households": 214,
+      "generated_households": 214
+    },
+    {
+      "island_id": "268",
+      "name": "Vilimaale",
+      "source_people": 6847,
+      "generated_people": 6847,
+      "source_households": 1410,
+      "generated_households": 1410
+    },
+    {
+      "island_id": "272",
+      "name": "Meedhoo",
+      "source_people": 1892,
+      "generated_people": 1892,
+      "source_households": 433,
+      "generated_households": 433
+    },
+    {
+      "island_id": "273",
+      "name": "Dhagethi",
+      "source_people": 936,
+      "generated_people": 936,
+      "source_households": 179,
+      "generated_households": 179
+    },
+    {
+      "island_id": "281",
+      "name": "Agolhitheemu",
+      "source_people": 381,
+      "generated_people": 381,
+      "source_households": 85,
+      "generated_households": 85
+    },
+    {
+      "island_id": "287",
+      "name": "Feridhoo",
+      "source_people": 544,
+      "generated_people": 544,
+      "source_households": 114,
+      "generated_households": 114
+    },
+    {
+      "island_id": "288",
+      "name": "Maradhoo",
+      "source_people": 2542,
+      "generated_people": 2542,
+      "source_households": 541,
+      "generated_households": 541
+    },
+    {
+      "island_id": "299",
+      "name": "Hulhudhoo",
+      "source_people": 1182,
+      "generated_people": 1182,
+      "source_households": 284,
+      "generated_households": 284
+    },
+    {
+      "island_id": "323",
+      "name": "Kunahandhoo",
+      "source_people": 601,
+      "generated_people": 601,
+      "source_households": 133,
+      "generated_households": 133
+    },
+    {
+      "island_id": "332",
+      "name": "Fodhdhoo",
+      "source_people": 345,
+      "generated_people": 345,
+      "source_households": 59,
+      "generated_households": 59
+    },
+    {
+      "island_id": "334",
+      "name": "Ribudhoo",
+      "source_people": 316,
+      "generated_people": 316,
+      "source_households": 73,
+      "generated_households": 73
+    },
+    {
+      "island_id": "340",
+      "name": "Hinnavaru",
+      "source_people": 2286,
+      "generated_people": 2286,
+      "source_households": 512,
+      "generated_households": 512
+    },
+    {
+      "island_id": "348",
+      "name": "Dhonfanu",
+      "source_people": 398,
+      "generated_people": 398,
+      "source_households": 96,
+      "generated_households": 96
+    },
+    {
+      "island_id": "350",
+      "name": "Hirilandhoo",
+      "source_people": 1146,
+      "generated_people": 1146,
+      "source_households": 234,
+      "generated_households": 234
+    },
+    {
+      "island_id": "363",
+      "name": "Kihaadhoo",
+      "source_people": 481,
+      "generated_people": 481,
+      "source_households": 78,
+      "generated_households": 78
+    },
+    {
+      "island_id": "391",
+      "name": "Kudafari",
+      "source_people": 628,
+      "generated_people": 628,
+      "source_households": 126,
+      "generated_households": 126
+    },
+    {
+      "island_id": "392",
+      "name": "Manadhoo",
+      "source_people": 1745,
+      "generated_people": 1745,
+      "source_households": 333,
+      "generated_households": 333
+    },
+    {
+      "island_id": "406",
+      "name": "Vaikaradhoo",
+      "source_people": 776,
+      "generated_people": 776,
+      "source_households": 194,
+      "generated_households": 194
+    },
+    {
+      "island_id": "412",
+      "name": "Dhevvadhoo",
+      "source_people": 599,
+      "generated_people": 599,
+      "source_households": 135,
+      "generated_households": 135
+    },
+    {
+      "island_id": "416",
+      "name": "Nolhivaranfaru",
+      "source_people": 1254,
+      "generated_people": 1254,
+      "source_households": 293,
+      "generated_households": 293
+    },
+    {
+      "island_id": "420",
+      "name": "Rakeedhoo",
+      "source_people": 76,
+      "generated_people": 76,
+      "source_households": 31,
+      "generated_households": 31
+    },
+    {
+      "island_id": "422",
+      "name": "Kibidhoo",
+      "source_people": 715,
+      "generated_people": 715,
+      "source_households": 144,
+      "generated_households": 144
+    },
+    {
+      "island_id": "423",
+      "name": "Rasmaadhoo",
+      "source_people": 554,
+      "generated_people": 554,
+      "source_households": 137,
+      "generated_households": 137
+    },
+    {
+      "island_id": "427",
+      "name": "Gaadhiffushi",
+      "source_people": 317,
+      "generated_people": 317,
+      "source_households": 69,
+      "generated_households": 69
+    },
+    {
+      "island_id": "435",
+      "name": "Kodey",
+      "source_people": 328,
+      "generated_people": 328,
+      "source_households": 78,
+      "generated_households": 78
+    },
+    {
+      "island_id": "441",
+      "name": "Finey",
+      "source_people": 409,
+      "generated_people": 409,
+      "source_households": 99,
+      "generated_households": 99
+    },
+    {
+      "island_id": "446",
+      "name": "Muli",
+      "source_people": 949,
+      "generated_people": 949,
+      "source_households": 186,
+      "generated_households": 186
+    },
+    {
+      "island_id": "455",
+      "name": "Holhudhoo",
+      "source_people": 1428,
+      "generated_people": 1428,
+      "source_households": 325,
+      "generated_households": 325
+    },
+    {
+      "island_id": "459",
+      "name": "Dhidhdhoo",
+      "source_people": 141,
+      "generated_people": 141,
+      "source_households": 44,
+      "generated_households": 44
+    },
+    {
+      "island_id": "470",
+      "name": "Fiyoari",
+      "source_people": 637,
+      "generated_people": 637,
+      "source_households": 178,
+      "generated_households": 178
+    },
+    {
+      "island_id": "474",
+      "name": "Bodufolhudhoo",
+      "source_people": 704,
+      "generated_people": 704,
+      "source_households": 103,
+      "generated_households": 103
+    },
+    {
+      "island_id": "484",
+      "name": "Maamendhoo",
+      "source_people": 879,
+      "generated_people": 879,
+      "source_households": 190,
+      "generated_households": 190
+    },
+    {
+      "island_id": "488",
+      "name": "Uligamu",
+      "source_people": 400,
+      "generated_people": 400,
+      "source_households": 82,
+      "generated_households": 82
+    },
+    {
+      "island_id": "497",
+      "name": "Velidhoo",
+      "source_people": 1832,
+      "generated_people": 1832,
+      "source_households": 408,
+      "generated_households": 408
+    },
+    {
+      "island_id": "499",
+      "name": "Kudahuvadhoo",
+      "source_people": 3131,
+      "generated_people": 3131,
+      "source_households": 591,
+      "generated_households": 591
+    },
+    {
+      "island_id": "500",
+      "name": "Lhohi",
+      "source_people": 692,
+      "generated_people": 692,
+      "source_households": 127,
+      "generated_households": 127
+    },
+    {
+      "island_id": "501",
+      "name": "Thoddoo",
+      "source_people": 1924,
+      "generated_people": 1924,
+      "source_households": 364,
+      "generated_households": 364
+    },
+    {
+      "island_id": "504",
+      "name": "Kadoodhoo",
+      "source_people": 456,
+      "generated_people": 456,
+      "source_households": 113,
+      "generated_households": 113
+    },
+    {
+      "island_id": "507",
+      "name": "Utheemu",
+      "source_people": 612,
+      "generated_people": 612,
+      "source_households": 136,
+      "generated_households": 136
+    },
+    {
+      "island_id": "510",
+      "name": "Kurendhoo",
+      "source_people": 1171,
+      "generated_people": 1171,
+      "source_households": 285,
+      "generated_households": 285
+    },
+    {
+      "island_id": "513",
+      "name": "Fenfushi",
+      "source_people": 1000,
+      "generated_people": 1000,
+      "source_households": 193,
+      "generated_households": 193
+    },
+    {
+      "island_id": "517",
+      "name": "Olhuvelifushi",
+      "source_people": 703,
+      "generated_people": 703,
+      "source_households": 143,
+      "generated_households": 143
+    },
+    {
+      "island_id": "518",
+      "name": "Kamadhoo",
+      "source_people": 552,
+      "generated_people": 552,
+      "source_households": 104,
+      "generated_households": 104
+    },
+    {
+      "island_id": "520",
+      "name": "Fehendhoo",
+      "source_people": 198,
+      "generated_people": 198,
+      "source_households": 54,
+      "generated_households": 54
+    },
+    {
+      "island_id": "525",
+      "name": "Milandhoo",
+      "source_people": 2094,
+      "generated_people": 2094,
+      "source_households": 373,
+      "generated_households": 373
+    },
+    {
+      "island_id": "531",
+      "name": "Mulah",
+      "source_people": 1426,
+      "generated_people": 1426,
+      "source_households": 260,
+      "generated_households": 260
+    },
+    {
+      "island_id": "541",
+      "name": "Kumundhoo",
+      "source_people": 997,
+      "generated_people": 997,
+      "source_households": 216,
+      "generated_households": 216
+    },
+    {
+      "island_id": "545",
+      "name": "Mahibadhoo",
+      "source_people": 2580,
+      "generated_people": 2580,
+      "source_households": 405,
+      "generated_households": 405
+    },
+    {
+      "island_id": "551",
+      "name": "Narudhoo",
+      "source_people": 544,
+      "generated_people": 544,
+      "source_households": 91,
+      "generated_households": 91
+    },
+    {
+      "island_id": "557",
+      "name": "Madaveli",
+      "source_people": 1219,
+      "generated_people": 1219,
+      "source_households": 275,
+      "generated_households": 275
+    },
+    {
+      "island_id": "560",
+      "name": "Maafaru",
+      "source_people": 919,
+      "generated_people": 919,
+      "source_households": 188,
+      "generated_households": 188
+    },
+    {
+      "island_id": "563",
+      "name": "Kelaa",
+      "source_people": 1115,
+      "generated_people": 1115,
+      "source_households": 273,
+      "generated_households": 273
+    },
+    {
+      "island_id": "564",
+      "name": "Innamaadhoo",
+      "source_people": 663,
+      "generated_people": 663,
+      "source_households": 163,
+      "generated_households": 163
+    },
+    {
+      "island_id": "568",
+      "name": "Dhidhdhoo",
+      "source_people": 3412,
+      "generated_people": 3412,
+      "source_households": 780,
+      "generated_households": 780
+    },
+    {
+      "island_id": "572",
+      "name": "Fares-Maathodaa",
+      "source_people": 858,
+      "generated_people": 858,
+      "source_households": 224,
+      "generated_households": 224
+    },
+    {
+      "island_id": "573",
+      "name": "Maduvvari",
+      "source_people": 1760,
+      "generated_people": 1760,
+      "source_households": 323,
+      "generated_households": 323
+    },
+    {
+      "island_id": "577",
+      "name": "Gulhi",
+      "source_people": 976,
+      "generated_people": 976,
+      "source_households": 155,
+      "generated_households": 155
+    },
+    {
+      "island_id": "588",
+      "name": "Alifushi",
+      "source_people": 1859,
+      "generated_people": 1859,
+      "source_households": 354,
+      "generated_households": 354
+    },
+    {
+      "island_id": "591",
+      "name": "Hulhumaale",
+      "source_people": 66206,
+      "generated_people": 66206,
+      "source_households": 12870,
+      "generated_households": 12870
+    },
+    {
+      "island_id": "600",
+      "name": "Hulhudhuffaaru",
+      "source_people": 1228,
+      "generated_people": 1228,
+      "source_households": 274,
+      "generated_households": 274
+    },
+    {
+      "island_id": "605",
+      "name": "Meedhoo",
+      "source_people": 1872,
+      "generated_people": 1872,
+      "source_households": 337,
+      "generated_households": 337
+    },
+    {
+      "island_id": "606",
+      "name": "Biledhdhoo",
+      "source_people": 967,
+      "generated_people": 967,
+      "source_households": 175,
+      "generated_households": 175
+    },
+    {
+      "island_id": "609",
+      "name": "Vaadhoo",
+      "source_people": 452,
+      "generated_people": 452,
+      "source_households": 92,
+      "generated_households": 92
+    },
+    {
+      "island_id": "627",
+      "name": "Madifushi",
+      "source_people": 858,
+      "generated_people": 858,
+      "source_households": 208,
+      "generated_households": 208
+    },
+    {
+      "island_id": "630",
+      "name": "Rathafandhoo",
+      "source_people": 431,
+      "generated_people": 431,
+      "source_households": 146,
+      "generated_households": 146
+    },
+    {
+      "island_id": "637",
+      "name": "Maalhos",
+      "source_people": 572,
+      "generated_people": 572,
+      "source_households": 135,
+      "generated_households": 135
+    },
+    {
+      "island_id": "646",
+      "name": "Foakaidhoo",
+      "source_people": 1571,
+      "generated_people": 1571,
+      "source_households": 271,
+      "generated_households": 271
+    },
+    {
+      "island_id": "658",
+      "name": "Nolhivaramu",
+      "source_people": 1985,
+      "generated_people": 1985,
+      "source_households": 399,
+      "generated_households": 399
+    },
+    {
+      "island_id": "662",
+      "name": "Hulhudheli",
+      "source_people": 764,
+      "generated_people": 764,
+      "source_households": 143,
+      "generated_households": 143
+    },
+    {
+      "island_id": "665",
+      "name": "Kaashidhoo",
+      "source_people": 2528,
+      "generated_people": 2528,
+      "source_households": 523,
+      "generated_households": 523
+    },
+    {
+      "island_id": "668",
+      "name": "Kendhoo",
+      "source_people": 1002,
+      "generated_people": 1002,
+      "source_households": 211,
+      "generated_households": 211
+    },
+    {
+      "island_id": "677",
+      "name": "Thulhaadhoo",
+      "source_people": 1625,
+      "generated_people": 1625,
+      "source_households": 356,
+      "generated_households": 356
+    },
+    {
+      "island_id": "683",
+      "name": "Huraa",
+      "source_people": 1654,
+      "generated_people": 1654,
+      "source_households": 242,
+      "generated_households": 242
+    },
+    {
+      "island_id": "686",
+      "name": "Neykurendhoo",
+      "source_people": 641,
+      "generated_people": 641,
+      "source_households": 163,
+      "generated_households": 163
+    },
+    {
+      "island_id": "694",
+      "name": "Veymandoo",
+      "source_people": 1321,
+      "generated_people": 1321,
+      "source_households": 268,
+      "generated_households": 268
+    },
+    {
+      "island_id": "695",
+      "name": "Maarandhoo",
+      "source_people": 668,
+      "generated_people": 668,
+      "source_households": 149,
+      "generated_households": 149
+    },
+    {
+      "island_id": "698",
+      "name": "Nellaidhoo",
+      "source_people": 1038,
+      "generated_people": 1038,
+      "source_households": 227,
+      "generated_households": 227
+    },
+    {
+      "island_id": "699",
+      "name": "Makunudhoo",
+      "source_people": 1265,
+      "generated_people": 1265,
+      "source_households": 280,
+      "generated_households": 280
+    },
+    {
+      "island_id": "701",
+      "name": "Muraidhoo",
+      "source_people": 534,
+      "generated_people": 534,
+      "source_households": 111,
+      "generated_households": 111
+    },
+    {
+      "island_id": "710",
+      "name": "Naivaadhoo",
+      "source_people": 495,
+      "generated_people": 495,
+      "source_households": 105,
+      "generated_households": 105
+    },
+    {
+      "island_id": "717",
+      "name": "Thinadhoo",
+      "source_people": 6217,
+      "generated_people": 6217,
+      "source_households": 1214,
+      "generated_households": 1214
+    },
+    {
+      "island_id": "726",
+      "name": "Fuvahmulah",
+      "source_people": 9177,
+      "generated_people": 9177,
+      "source_households": 2004,
+      "generated_households": 2004
+    },
+    {
+      "island_id": "738",
+      "name": "Guraidhoo",
+      "source_people": 1743,
+      "generated_people": 1743,
+      "source_households": 328,
+      "generated_households": 328
+    },
+    {
+      "island_id": "743",
+      "name": "Kolamaafushi",
+      "source_people": 636,
+      "generated_people": 636,
+      "source_households": 192,
+      "generated_households": 192
+    },
+    {
+      "island_id": "745",
+      "name": "Thulusdhoo",
+      "source_people": 1801,
+      "generated_people": 1801,
+      "source_households": 328,
+      "generated_households": 328
+    },
+    {
+      "island_id": "766",
+      "name": "Dhaandhoo",
+      "source_people": 1044,
+      "generated_people": 1044,
+      "source_households": 218,
+      "generated_households": 218
+    },
+    {
+      "island_id": "771",
+      "name": "Kuburudhoo",
+      "source_people": 509,
+      "generated_people": 509,
+      "source_households": 88,
+      "generated_households": 88
+    },
+    {
+      "island_id": "783",
+      "name": "Omadhoo",
+      "source_people": 417,
+      "generated_people": 417,
+      "source_households": 114,
+      "generated_households": 114
+    },
+    {
+      "island_id": "786",
+      "name": "Raimandhoo",
+      "source_people": 171,
+      "generated_people": 171,
+      "source_households": 35,
+      "generated_households": 35
+    },
+    {
+      "island_id": "790",
+      "name": "Dhuvaafaru",
+      "source_people": 3321,
+      "generated_people": 3321,
+      "source_households": 634,
+      "generated_households": 634
+    },
+    {
+      "island_id": "793",
+      "name": "Naalaafushi",
+      "source_people": 430,
+      "generated_people": 430,
+      "source_households": 96,
+      "generated_households": 96
+    },
+    {
+      "island_id": "836",
+      "name": "Goidhoo",
+      "source_people": 592,
+      "generated_people": 592,
+      "source_households": 131,
+      "generated_households": 131
+    },
+    {
+      "island_id": "844",
+      "name": "Dharavandhoo",
+      "source_people": 997,
+      "generated_people": 997,
+      "source_households": 234,
+      "generated_households": 234
+    },
+    {
+      "island_id": "851",
+      "name": "Hoadedhdhoo",
+      "source_people": 885,
+      "generated_people": 885,
+      "source_households": 217,
+      "generated_households": 217
+    },
+    {
+      "island_id": "852",
+      "name": "Kuribi",
+      "source_people": 492,
+      "generated_people": 492,
+      "source_households": 101,
+      "generated_households": 101
+    },
+    {
+      "island_id": "856",
+      "name": "Kanduhulhudhoo",
+      "source_people": 619,
+      "generated_people": 619,
+      "source_households": 128,
+      "generated_households": 128
+    },
+    {
+      "island_id": "859",
+      "name": "Vandhoo",
+      "source_people": 364,
+      "generated_people": 364,
+      "source_households": 72,
+      "generated_households": 72
+    },
+    {
+      "island_id": "863",
+      "name": "Funadhoo",
+      "source_people": 2255,
+      "generated_people": 2255,
+      "source_households": 469,
+      "generated_households": 469
+    },
+    {
+      "island_id": "866",
+      "name": "Kedhikulhudhoo",
+      "source_people": 1556,
+      "generated_people": 1556,
+      "source_households": 284,
+      "generated_households": 284
+    },
+    {
+      "island_id": "873",
+      "name": "Gaafaru",
+      "source_people": 1294,
+      "generated_people": 1294,
+      "source_households": 242,
+      "generated_households": 242
+    },
+    {
+      "island_id": "874",
+      "name": "Himandhoo",
+      "source_people": 885,
+      "generated_people": 885,
+      "source_households": 160,
+      "generated_households": 160
+    },
+    {
+      "island_id": "887",
+      "name": "Gadhdhoo",
+      "source_people": 1414,
+      "generated_people": 1414,
+      "source_households": 391,
+      "generated_households": 391
+    },
+    {
+      "island_id": "890",
+      "name": "Hulhule",
+      "source_people": 802,
+      "generated_people": 802,
+      "source_households": 30,
+      "generated_households": 30
+    },
+    {
+      "island_id": "894",
+      "name": "Dhiffushi",
+      "source_people": 1270,
+      "generated_people": 1270,
+      "source_households": 246,
+      "generated_households": 246
+    },
+    {
+      "island_id": "901",
+      "name": "Mulhadhoo",
+      "source_people": 286,
+      "generated_people": 286,
+      "source_households": 75,
+      "generated_households": 75
+    },
+    {
+      "island_id": "907",
+      "name": "Magoodhoo",
+      "source_people": 305,
+      "generated_people": 305,
+      "source_households": 63,
+      "generated_households": 63
+    },
+    {
+      "island_id": "908",
+      "name": "Ihavandhoo",
+      "source_people": 2873,
+      "generated_people": 2873,
+      "source_households": 438,
+      "generated_households": 438
+    },
+    {
+      "island_id": "915",
+      "name": "Thuraakunu",
+      "source_people": 427,
+      "generated_people": 427,
+      "source_households": 102,
+      "generated_households": 102
+    },
+    {
+      "island_id": "916",
+      "name": "Ukulhas",
+      "source_people": 1284,
+      "generated_people": 1284,
+      "source_households": 234,
+      "generated_households": 234
+    },
+    {
+      "island_id": "924",
+      "name": "Fainu",
+      "source_people": 423,
+      "generated_people": 423,
+      "source_households": 78,
+      "generated_households": 78
+    },
+    {
+      "island_id": "931",
+      "name": "Goidhoo",
+      "source_people": 583,
+      "generated_people": 583,
+      "source_households": 136,
+      "generated_households": 136
+    },
+    {
+      "island_id": "938",
+      "name": "Maavah",
+      "source_people": 1379,
+      "generated_people": 1379,
+      "source_households": 309,
+      "generated_households": 309
+    },
+    {
+      "island_id": "947",
+      "name": "Feydhoo",
+      "source_people": 4289,
+      "generated_people": 4289,
+      "source_households": 782,
+      "generated_households": 782
+    },
+    {
+      "island_id": "962",
+      "name": "Henbadhoo",
+      "source_people": 638,
+      "generated_people": 638,
+      "source_households": 142,
+      "generated_households": 142
+    },
+    {
+      "island_id": "970",
+      "name": "Dharaboodhoo",
+      "source_people": 455,
+      "generated_people": 455,
+      "source_households": 85,
+      "generated_households": 85
+    },
+    {
+      "island_id": "978",
+      "name": "Lhaimagu",
+      "source_people": 684,
+      "generated_people": 684,
+      "source_households": 130,
+      "generated_households": 130
+    },
+    {
+      "island_id": "984",
+      "name": "Thakandhoo",
+      "source_people": 279,
+      "generated_people": 279,
+      "source_households": 88,
+      "generated_households": 88
+    },
+    {
+      "island_id": "985",
+      "name": "Noomaraa",
+      "source_people": 371,
+      "generated_people": 371,
+      "source_households": 96,
+      "generated_households": 96
+    },
+    {
+      "island_id": "987",
+      "name": "Baarah",
+      "source_people": 1141,
+      "generated_people": 1141,
+      "source_households": 272,
+      "generated_households": 272
+    },
+    {
+      "island_id": "993",
+      "name": "Filladhoo",
+      "source_people": 559,
+      "generated_people": 559,
+      "source_households": 145,
+      "generated_households": 145
+    },
+    {
+      "island_id": "1000",
+      "name": "Hithaadhoo",
+      "source_people": 744,
+      "generated_people": 744,
+      "source_households": 167,
+      "generated_households": 167
+    },
+    {
+      "island_id": "1004",
+      "name": "Hithadhoo",
+      "source_people": 13759,
+      "generated_people": 13759,
+      "source_households": 2635,
+      "generated_households": 2635
+    },
+    {
+      "island_id": "1023",
+      "name": "Hangnameedhoo",
+      "source_people": 484,
+      "generated_people": 484,
+      "source_households": 110,
+      "generated_households": 110
+    },
+    {
+      "island_id": "1038",
+      "name": "Fonadhoo",
+      "source_people": 2986,
+      "generated_people": 2986,
+      "source_households": 556,
+      "generated_households": 556
+    },
+    {
+      "island_id": "1047",
+      "name": "Dhigurah",
+      "source_people": 761,
+      "generated_people": 761,
+      "source_households": 165,
+      "generated_households": 165
+    },
+    {
+      "island_id": "1049",
+      "name": "Dhabidhoo",
+      "source_people": 606,
+      "generated_people": 606,
+      "source_households": 130,
+      "generated_households": 130
+    },
+    {
+      "island_id": "1050",
+      "name": "Meedhoo",
+      "source_people": 1118,
+      "generated_people": 1118,
+      "source_households": 242,
+      "generated_households": 242
+    },
+    {
+      "island_id": "1053",
+      "name": "Maabaidhoo",
+      "source_people": 565,
+      "generated_people": 565,
+      "source_households": 137,
+      "generated_households": 137
+    },
+    {
+      "island_id": "1058",
+      "name": "Komandoo",
+      "source_people": 921,
+      "generated_people": 921,
+      "source_households": 228,
+      "generated_households": 228
+    },
+    {
+      "island_id": "1064",
+      "name": "Bilehffahi",
+      "source_people": 502,
+      "generated_people": 502,
+      "source_households": 103,
+      "generated_households": 103
+    },
+    {
+      "island_id": "1068",
+      "name": "Miladhoo",
+      "source_people": 934,
+      "generated_people": 934,
+      "source_households": 170,
+      "generated_households": 170
+    },
+    {
+      "island_id": "1070",
+      "name": "Isdhoo",
+      "source_people": 929,
+      "generated_people": 929,
+      "source_households": 182,
+      "generated_households": 182
+    },
+    {
+      "island_id": "1079",
+      "name": "Thinadhoo",
+      "source_people": 258,
+      "generated_people": 258,
+      "source_households": 42,
+      "generated_households": 42
+    },
+    {
+      "island_id": "1085",
+      "name": "Maamendhoo",
+      "source_people": 1201,
+      "generated_people": 1201,
+      "source_households": 273,
+      "generated_households": 273
+    },
+    {
+      "island_id": "1091",
+      "name": "Nilandhoo",
+      "source_people": 545,
+      "generated_people": 545,
+      "source_households": 123,
+      "generated_households": 123
+    },
+    {
+      "island_id": "1092",
+      "name": "Kaditheemu",
+      "source_people": 1193,
+      "generated_people": 1193,
+      "source_households": 256,
+      "generated_households": 256
+    },
+    {
+      "island_id": "1100",
+      "name": "Feydhoo",
+      "source_people": 854,
+      "generated_people": 854,
+      "source_households": 186,
+      "generated_households": 186
+    },
+    {
+      "island_id": "1121",
+      "name": "Iguraidhoo",
+      "source_people": 1278,
+      "generated_people": 1278,
+      "source_households": 267,
+      "generated_households": 267
+    },
+    {
+      "island_id": "1129",
+      "name": "Himmafushi",
+      "source_people": 2012,
+      "generated_people": 2012,
+      "source_households": 295,
+      "generated_households": 295
+    },
+    {
+      "island_id": "1144",
+      "name": "Maroshi",
+      "source_people": 479,
+      "generated_people": 479,
+      "source_households": 118,
+      "generated_households": 118
+    },
+    {
+      "island_id": "1149",
+      "name": "Feevah",
+      "source_people": 694,
+      "generated_people": 694,
+      "source_households": 158,
+      "generated_households": 158
+    },
+    {
+      "island_id": "1158",
+      "name": "Nilandhoo",
+      "source_people": 1823,
+      "generated_people": 1823,
+      "source_households": 324,
+      "generated_households": 324
+    },
+    {
+      "island_id": "1163",
+      "name": "Guraidhoo",
+      "source_people": 1293,
+      "generated_people": 1293,
+      "source_households": 262,
+      "generated_households": 262
+    },
+    {
+      "island_id": "1166",
+      "name": "Maduvvari",
+      "source_people": 318,
+      "generated_people": 318,
+      "source_households": 92,
+      "generated_households": 92
+    },
+    {
+      "island_id": "1167",
+      "name": "Veyvah",
+      "source_people": 304,
+      "generated_people": 304,
+      "source_households": 64,
+      "generated_households": 64
+    },
+    {
+      "island_id": "1175",
+      "name": "Ugoofaaru",
+      "source_people": 1754,
+      "generated_people": 1754,
+      "source_households": 336,
+      "generated_households": 336
+    },
+    {
+      "island_id": "1182",
+      "name": "Gemanafushi",
+      "source_people": 1318,
+      "generated_people": 1318,
+      "source_households": 282,
+      "generated_households": 282
+    },
+    {
+      "island_id": "1473",
+      "name": "Kalaidhoo",
+      "source_people": 655,
+      "generated_people": 655,
+      "source_households": 147,
+      "generated_households": 147
+    },
+    {
+      "island_id": "5001",
+      "name": "Henveiru",
+      "source_people": 34049,
+      "generated_people": 34049,
+      "source_households": 7353,
+      "generated_households": 7353
+    },
+    {
+      "island_id": "5002",
+      "name": "Galolhu",
+      "source_people": 28647,
+      "generated_people": 28647,
+      "source_households": 5687,
+      "generated_households": 5687
+    },
+    {
+      "island_id": "5003",
+      "name": "Machchangolhi",
+      "source_people": 27706,
+      "generated_people": 27706,
+      "source_households": 5685,
+      "generated_households": 5685
+    },
+    {
+      "island_id": "5004",
+      "name": "Maafannu",
+      "source_people": 47651,
+      "generated_people": 47651,
+      "source_households": 9536,
+      "generated_households": 9536
+    }
+  ],
+  "checks": {
+    "all_rows_pass_schema": true,
+    "single_year_age_totals_match": true,
+    "household_composition_counts_match": true,
+    "preview_passes_contract": true,
+    "staging_unique_person_ids": true,
+    "staging_relationships_match": true,
+    "staging_household_sizes_match": true,
+    "staging_group_weights_match": true,
+    "staging_age_totals_match_source": true,
+    "unique_island_ids": true,
+    "unique_household_ids": true,
+    "unique_person_ids": true,
+    "unique_group_ids": true,
+    "unique_request_ids": true,
+    "household_membership_matches": true,
+    "group_weights_match": true,
+    "all_person_references_match": true,
+    "all_household_islands_exist": true,
+    "all_group_islands_exist": true,
+    "age_groups_match": true,
+    "individual_weights_are_one": true,
+    "unavailable_economics_are_null": true,
+    "request_origins_match": true,
+    "parquet_source_calibration_matches": true,
+    "parquet_roundtrip_matches": true
+  },
+  "population_id": "population-2022-seed42-79c30207f1b3",
+  "source_sha256": {
+    "Census2022HouseholdExcelDataset.7z": "46433658c101bf9f36d2de0f1c1840289aee58ce2439c86c1277965fe5456a67",
+    "Census2022IndividualExcelDataset.7z": "527983d2ec13cae1d006728d24c4aaf07499e0a001d56519c02339ef512f291a",
+    "HIES_2019_Dataset.7z": "1a30395625c58a29f69c9d21cac765eb2cc7051df410e866e4edbfa2a40cf784"
+  },
+  "source_counts": {
+    "all_households": 94424,
+    "all_reported_people": 515132,
+    "all_persons": 515132
+  },
+  "donors": {
+    "income_households": 4817,
+    "excluded_missing_expenditure": 68,
+    "eligible_paired_donors": 4749
+  },
+  "usual_residence_label_differences": 154166,
+  "geography_matched_areas": 0,
+  "storage": {
+    "duckdb_version": "1.4.5",
+    "parquet_compression": "ZSTD",
+    "tables": {
+      "islands": {
+        "rows": 193,
+        "bytes": 5754
+      },
+      "households": {
+        "rows": 90459,
+        "bytes": 444565
+      },
+      "persons": {
+        "rows": 448819,
+        "bytes": 2130321
+      },
+      "population_groups": {
+        "rows": 578,
+        "bytes": 6477
+      },
+      "journey_requests": {
+        "rows": 0,
+        "bytes": 359
+      }
+    }
+  }
+}

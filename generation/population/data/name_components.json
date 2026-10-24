@@ -1,0 +1,11 @@
+{
+  "version": "names-v1",
+  "description": "Editable starter list of Maldivian name components for fictional display names. No source identities, gender inference, or population-frequency claims.",
+  "given_names": [
+    "Aminath", "Aishath", "Fathimath", "Mariyam", "Hawwa", "Ahmed",
+    "Mohamed", "Hassan", "Hussain", "Ibrahim", "Ismail", "Ali"
+  ],
+  "second_components": [
+    "Noor", "Rasheed", "Shareef", "Latheef", "Waheed", "Naseem", "Naeem", "Shafeeg"
+  ]
+}

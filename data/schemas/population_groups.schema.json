@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Weighted population group",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["group_id", "label", "home_island_id", "age_group", "population_weight", "data_classification"],
+  "properties": {
+    "group_id": {"type": "string", "minLength": 1},
+    "label": {"type": "string", "minLength": 1},
+    "home_island_id": {"type": "string", "minLength": 1},
+    "age_group": {"enum": ["0_17", "18_64", "65_plus", "unknown"]},
+    "population_weight": {"type": "integer", "minimum": 1},
+    "data_classification": {"enum": ["derived", "assumed", "demo"]}
+  }
+}

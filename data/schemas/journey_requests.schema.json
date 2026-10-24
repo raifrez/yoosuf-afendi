@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scenario journey request (not a transport departure)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["journey_request_id", "person_id", "purpose", "origin_island_id", "destination_facility_id", "date", "appointment_time", "activity_duration_minutes", "return_home_by", "timezone", "data_classification"],
+  "properties": {
+    "journey_request_id": {"type": "string", "minLength": 1},
+    "person_id": {"type": "string", "minLength": 1},
+    "purpose": {"enum": ["healthcare", "education", "other"]},
+    "origin_island_id": {"type": "string", "minLength": 1},
+    "destination_facility_id": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "format": "date"},
+    "appointment_time": {"type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"},
+    "activity_duration_minutes": {"type": "integer", "minimum": 1},
+    "return_home_by": {"type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"},
+    "timezone": {"const": "Indian/Maldives"},
+    "data_classification": {"enum": ["assumed", "demo"]}
+  }
+}

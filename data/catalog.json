@@ -1,0 +1,97 @@
+{
+  "catalog_version": "1.0",
+  "sources": [
+    {
+      "source_id": "census2022-households",
+      "publisher": "Maldives Bureau of Statistics",
+      "source_url": "https://app.statisticsmaldives.gov.mv/census-data/",
+      "source_as_of": null,
+      "reference_year": 2022,
+      "local_path": "raw/archives/Census2022HouseholdExcelDataset.7z",
+      "sha256": "46433658c101bf9f36d2de0f1c1840289aee58ce2439c86c1277965fe5456a67",
+      "availability": "provided_archive",
+      "caveats": "Original archive supplied by user; source microdata is not synthetic. Population modeling uses the documented source scope and reference year."
+    },
+    {
+      "source_id": "census2022-individuals",
+      "publisher": "Maldives Bureau of Statistics",
+      "source_url": "https://app.statisticsmaldives.gov.mv/census-data/",
+      "source_as_of": null,
+      "reference_year": 2022,
+      "local_path": "raw/archives/Census2022IndividualExcelDataset.7z",
+      "sha256": "527983d2ec13cae1d006728d24c4aaf07499e0a001d56519c02339ef512f291a",
+      "availability": "provided_archive",
+      "caveats": "Original archive supplied by user; source microdata is not synthetic. Population modeling uses the documented source scope and reference year."
+    },
+    {
+      "source_id": "hies2019",
+      "publisher": "Maldives Bureau of Statistics",
+      "source_url": "https://statisticsmaldives.gov.mv/hies-2019/",
+      "source_as_of": null,
+      "reference_year": 2019,
+      "local_path": "raw/archives/HIES_2019_Dataset.7z",
+      "sha256": "1a30395625c58a29f69c9d21cac765eb2cc7051df410e866e4edbfa2a40cf784",
+      "availability": "provided_archive",
+      "caveats": "Original archive supplied by user; source microdata is not synthetic. Population modeling uses the documented source scope and reference year."
+    },
+    {
+      "source_id": "mvgeo-tooling",
+      "publisher": "CustomIcon / mvgeo-data",
+      "source_url": "https://git.cubable.date/CustomIcon/mvgeo-data",
+      "source_as_of": null,
+      "reference_year": null,
+      "local_path": "raw/archives/mvgeo-data-main.zip",
+      "sha256": "51725b94ec9c40f7b8b46de8532814031b75f3481c6bf028a2f455f80867f162",
+      "availability": "tooling_only",
+      "caveats": "Code only; no downloaded island, school, or facility JSON is in this ZIP. Not used as a facility or population-count dataset."
+    },
+    {
+      "source_id": "moh-government-health-2024",
+      "publisher": "Ministry of Health, Quality Assurance and Regulation Division",
+      "source_url": "https://health.gov.mv/storage/uploads/Vw9rVzYv/lcyhn3xt.pdf",
+      "source_as_of": "2024-12-31",
+      "local_path": "raw/facilities/health_facilities.snapshot.json",
+      "sha256": "e0910b705f613438f99c8c96192979c79e5dd043bd1df50d7d680a71ac1182e3",
+      "availability": "structured_capture",
+      "caveats": "Factual rows extracted from all eight pages of the official PDF using the web tool and saved locally before processing. This is a structured text extraction, not the original PDF bytes. 193 operating government health facilities as of 2024-12-31; private facilities and current operational status are not established. Registration numbers are not unique in the source."
+    },
+    {
+      "source_id": "moe-school-profiles",
+      "publisher": "Ministry of Education, Higher Education and Skills Development",
+      "source_url": "https://www.moe.gov.mv/en/schools",
+      "source_as_of": null,
+      "local_path": "raw/facilities/school_profiles.snapshot.json",
+      "sha256": "c161212bc3426936ce487040176c45bd9c19f31473294e32f90bab81f52e8079",
+      "availability": "structured_capture",
+      "caveats": "Factual fields checked in official school profiles through the web tool, then saved locally. Page revision dates are unavailable. Partial enrichment. A missing grade list means unknown, not that a school teaches no grades."
+    },
+    {
+      "source_id": "moe-schools-2025",
+      "publisher": "Ministry of Education, Higher Education and Skills Development",
+      "source_url": "https://www.moe.gov.mv/en/schools",
+      "source_as_of": "2025-05-23",
+      "local_path": "raw/facilities/schools.snapshot.json",
+      "sha256": "8c03d38364ff3fdfc43090018b9a65872b0439231e45fa23fa6567976c805023",
+      "availability": "structured_capture",
+      "caveats": "Factual directory rows extracted from a web-tool text capture and saved locally before processing. Government-school directory; school-specific locations, grade ranges, and hours are not provided in this capture."
+    },
+    {
+      "source_id": "rtl-schedules",
+      "publisher": "MTCC / Raajje Transport Link",
+      "source_url": "https://www.rtl.mv/",
+      "source_as_of": null,
+      "local_path": null,
+      "sha256": null,
+      "availability": "not_downloaded",
+      "caveats": "Discovery link only. No verified timetable, fare, terminal, or operating-calendar records are included."
+    }
+  ],
+  "missing_datasets": [
+    "verified transport timetables and terminals",
+    "facility opening hours",
+    "clinical specialties and service capabilities",
+    "grades taught for schools without verified profile evidence",
+    "precise facility coordinates and unresolved island mappings"
+  ],
+  "population_id": "population-2022-seed42-79c30207f1b3"
+}

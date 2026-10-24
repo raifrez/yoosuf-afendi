@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Synthetic person",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["person_id", "display_name", "name_is_synthetic", "household_id", "home_island_id", "age", "age_group", "group_id", "population_weight", "data_classification"],
+  "properties": {
+    "person_id": {"type": "string", "minLength": 1},
+    "display_name": {"type": "string", "minLength": 1},
+    "name_is_synthetic": {"const": true},
+    "household_id": {"type": "string", "minLength": 1},
+    "home_island_id": {"type": "string", "minLength": 1},
+    "age": {"type": ["integer", "null"], "minimum": 0},
+    "age_group": {"enum": ["0_17", "18_64", "65_plus", "unknown"]},
+    "group_id": {"type": "string", "minLength": 1},
+    "population_weight": {"const": 1},
+    "data_classification": {"enum": ["derived", "assumed", "demo"]}
+  }
+}

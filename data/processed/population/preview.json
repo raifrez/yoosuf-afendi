@@ -1,0 +1,557 @@
+{
+  "metadata": {
+    "schema_version": "1.0",
+    "population_id": "population-2022-seed42-79c30207f1b3-preview",
+    "synthetic": true,
+    "data_classification": "assumed",
+    "demographic_reference_year": 2022,
+    "economic_reference_year": 2019,
+    "currency": "MVR",
+    "economic_period": "month",
+    "seed": 42,
+    "name_catalog_version": "names-v1",
+    "name_catalog_sha256": "7acc9eed32e8942876f593ba847a8a0fdb2a9286956fa00997fbf5a7d31e7a20",
+    "sources": [
+      {
+        "source_id": "census_households",
+        "publisher": "Maldives Bureau of Statistics",
+        "file": "Census2022HouseholdExcelDataset.7z!household/hh_data.xlsx",
+        "reference_year": 2022,
+        "data_classification": "observed",
+        "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+      },
+      {
+        "source_id": "census_persons",
+        "publisher": "Maldives Bureau of Statistics",
+        "file": "Census2022IndividualExcelDataset.7z!individual/Indvidual_data.xlsx",
+        "reference_year": 2022,
+        "data_classification": "observed",
+        "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+      },
+      {
+        "source_id": "census_dictionary",
+        "publisher": "Maldives Bureau of Statistics",
+        "file": "Census2022HouseholdExcelDataset.7z!household/HH_ data_dictionary.xlsx",
+        "reference_year": 2022,
+        "data_classification": "observed",
+        "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+      },
+      {
+        "source_id": "hies_income",
+        "publisher": "Maldives Bureau of Statistics",
+        "file": "HIES_2019_Dataset.7z!Dataset/HIES2019_EXCEL format/Non-Raised_Dataset.7z!Non-Raised_CombinedIncome_HHLevel.xlsx",
+        "reference_year": 2019,
+        "data_classification": "observed",
+        "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+      },
+      {
+        "source_id": "hies_expenditure",
+        "publisher": "Maldives Bureau of Statistics",
+        "file": "HIES_2019_Dataset.7z!Dataset/HIES2019_EXCEL format/Non-Raised_Dataset.7z!Non-Raised_master_exp.xlsx",
+        "reference_year": 2019,
+        "data_classification": "observed",
+        "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+      }
+    ],
+    "assumptions": [
+      "Coverage is Census Maale and Administrative Island areas; non-administrative islands, including resorts/industrial islands, are excluded. Maale wards remain separate Census origins.",
+      "Modeled home island is the Census enumeration locality, not registered address or a claim of exact usual residence. Some usual-residence labels differ because of ward naming or mobility.",
+      "Synthetic households reproduce each island's household age-band composition counts and size distribution. Ages are shuffled among age-band slots, preserving exact island single-year-age totals; observed identities and household IDs are not exported.",
+      "Household relationships, sex, nationality, disability and within-household exact-age correlations are not synthesized in schema 1.0. This is not a calibrated model of those attributes.",
+      "Economics apply only to regular house/flat/apartment templates. Other housing units have null income and expenditure. HIES covers normal housing and has limits for collective and non-administrative populations.",
+      "HIES donor pairs are selected with household survey weights within Male/Atolls and exact household size where available. Missing exact sizes use nearest size in the same domain without scaling; limited donor support is reported.",
+      "Monthly expenditure is sum(annexp)/12 from the non-raised item-level master expenditure file. Do not annualize again or multiply amounts by selection weights. Donors without expenditure rows are excluded, not treated as zero spending.",
+      "Income and expenditure are modeled in 2019 nominal MVR, with no inflation or population-year projection. No observed island income estimates, affordability limits, or actual appointments are inferred.",
+      "Journey requests are empty until an explicit scenario supplies destinations and appointment rules. The simulator chooses transport and routes.",
+      "Display names are fictional labels from the versioned starter catalog; names can repeat and imply no source identity, sex or nationality.",
+      "No downloaded geography JSON was supplied. Census dictionary names and Census island coordinates are used; geography_id remains null. The repository ZIP contains downloader code, not the published JSON datasets.",
+      "This preview is a small complete-household subset; its counts are not national or island population totals."
+    ]
+  },
+  "islands": [
+    {
+      "island_id": "4",
+      "name": "Maalhos",
+      "atoll_code": "AA",
+      "geography_id": null,
+      "latitude": 3.98640528,
+      "longitude": 72.71922667,
+      "data_classification": "derived"
+    }
+  ],
+  "households": [
+    {
+      "household_id": "hh-4-000001",
+      "home_island_id": "4",
+      "household_size": 4,
+      "monthly_income_mvr": 10000.0,
+      "monthly_expenditure_mvr": 20813.85,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000002",
+      "home_island_id": "4",
+      "household_size": 2,
+      "monthly_income_mvr": 10000.0,
+      "monthly_expenditure_mvr": 8849.15,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "household_size": 10,
+      "monthly_income_mvr": 21195.0,
+      "monthly_expenditure_mvr": 48055.06,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "household_size": 9,
+      "monthly_income_mvr": 21600.0,
+      "monthly_expenditure_mvr": 27459.47,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000005",
+      "home_island_id": "4",
+      "household_size": 1,
+      "monthly_income_mvr": 5000.0,
+      "monthly_expenditure_mvr": 16280.8,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000006",
+      "home_island_id": "4",
+      "household_size": 1,
+      "monthly_income_mvr": 3200.0,
+      "monthly_expenditure_mvr": 7641.41,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000007",
+      "home_island_id": "4",
+      "household_size": 2,
+      "monthly_income_mvr": 24080.0,
+      "monthly_expenditure_mvr": 8129.85,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    },
+    {
+      "household_id": "hh-4-000008",
+      "home_island_id": "4",
+      "household_size": 2,
+      "monthly_income_mvr": 9500.0,
+      "monthly_expenditure_mvr": 12228.65,
+      "economic_assignment": "hies_modeled",
+      "data_classification": "assumed"
+    }
+  ],
+  "persons": [
+    {
+      "person_id": "person-4-000001-001",
+      "display_name": "Ahmed Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000001",
+      "home_island_id": "4",
+      "age": 8,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000001-002",
+      "display_name": "Ali Naeem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000001",
+      "home_island_id": "4",
+      "age": 49,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000001-003",
+      "display_name": "Aishath Naeem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000001",
+      "home_island_id": "4",
+      "age": 10,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000001-004",
+      "display_name": "Mariyam Shafeeg",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000001",
+      "home_island_id": "4",
+      "age": 27,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000002-001",
+      "display_name": "Aishath Noor",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000002",
+      "home_island_id": "4",
+      "age": 37,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000002-002",
+      "display_name": "Aminath Shareef",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000002",
+      "home_island_id": "4",
+      "age": 81,
+      "age_group": "65_plus",
+      "group_id": "grp-4-65_plus",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-001",
+      "display_name": "Aminath Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 9,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-002",
+      "display_name": "Hassan Shareef",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 68,
+      "age_group": "65_plus",
+      "group_id": "grp-4-65_plus",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-003",
+      "display_name": "Ali Shareef",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 25,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-004",
+      "display_name": "Mariyam Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 48,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-005",
+      "display_name": "Fathimath Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 14,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-006",
+      "display_name": "Fathimath Shafeeg",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 54,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-007",
+      "display_name": "Fathimath Waheed",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 32,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-008",
+      "display_name": "Mariyam Shafeeg",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 32,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-009",
+      "display_name": "Aminath Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 7,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000003-010",
+      "display_name": "Aishath Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000003",
+      "home_island_id": "4",
+      "age": 2,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-001",
+      "display_name": "Hawwa Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 24,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-002",
+      "display_name": "Hawwa Latheef",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 40,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-003",
+      "display_name": "Hussain Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 2,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-004",
+      "display_name": "Ali Waheed",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 42,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-005",
+      "display_name": "Mohamed Naeem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 2,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-006",
+      "display_name": "Aishath Noor",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 25,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-007",
+      "display_name": "Hassan Naeem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 34,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-008",
+      "display_name": "Mariyam Rasheed",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 5,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000004-009",
+      "display_name": "Mohamed Rasheed",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000004",
+      "home_island_id": "4",
+      "age": 7,
+      "age_group": "0_17",
+      "group_id": "grp-4-0_17",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000005-001",
+      "display_name": "Ismail Noor",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000005",
+      "home_island_id": "4",
+      "age": 33,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000006-001",
+      "display_name": "Ali Naseem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000006",
+      "home_island_id": "4",
+      "age": 34,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000007-001",
+      "display_name": "Ahmed Rasheed",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000007",
+      "home_island_id": "4",
+      "age": 30,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000007-002",
+      "display_name": "Mohamed Naeem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000007",
+      "home_island_id": "4",
+      "age": 22,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000008-001",
+      "display_name": "Aminath Noor",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000008",
+      "home_island_id": "4",
+      "age": 63,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    },
+    {
+      "person_id": "person-4-000008-002",
+      "display_name": "Mariyam Naeem",
+      "name_is_synthetic": true,
+      "household_id": "hh-4-000008",
+      "home_island_id": "4",
+      "age": 44,
+      "age_group": "18_64",
+      "group_id": "grp-4-18_64",
+      "population_weight": 1,
+      "data_classification": "derived"
+    }
+  ],
+  "population_groups": [
+    {
+      "group_id": "grp-4-0_17",
+      "label": "Maalhos preview 0_17",
+      "home_island_id": "4",
+      "age_group": "0_17",
+      "population_weight": 10,
+      "data_classification": "derived"
+    },
+    {
+      "group_id": "grp-4-18_64",
+      "label": "Maalhos preview 18_64",
+      "home_island_id": "4",
+      "age_group": "18_64",
+      "population_weight": 19,
+      "data_classification": "derived"
+    },
+    {
+      "group_id": "grp-4-65_plus",
+      "label": "Maalhos preview 65_plus",
+      "home_island_id": "4",
+      "age_group": "65_plus",
+      "population_weight": 2,
+      "data_classification": "derived"
+    }
+  ],
+  "journey_requests": []
+}

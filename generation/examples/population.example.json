@@ -1,0 +1,168 @@
+{
+  "metadata": {
+    "schema_version": "1.0",
+    "population_id": "demo-population-001",
+    "synthetic": true,
+    "data_classification": "demo",
+    "demographic_reference_year": 2022,
+    "economic_reference_year": 2019,
+    "currency": "MVR",
+    "economic_period": "month",
+    "seed": 42,
+    "name_catalog_version": "names-v1",
+    "name_catalog_sha256": "7acc9eed32e8942876f593ba847a8a0fdb2a9286956fa00997fbf5a7d31e7a20",
+    "sources": [
+      {
+        "source_id": "demo-fixture",
+        "publisher": "M.A.N.D.A.R.I.N team",
+        "file": "examples/population.example.json",
+        "reference_year": null,
+        "data_classification": "demo",
+        "caveats": "Hand-authored fictional counts, ages, money and appointments. Island code 69 and the name K. Maafushi follow the supplied Census dictionary. No Census or HIES records were used to generate this example."
+      }
+    ],
+    "assumptions": [
+      "This fixture represents four fictional people in two households, not the population of Maafushi.",
+      "Only person-001 and person-004 receive a fictional hospital appointment; requests do not establish observed healthcare demand.",
+      "The simulator must supply demo-hospital-001 in its facility catalog before routing these requests.",
+      "Geography mapping and coordinates are unavailable in this fixture; no real household locations are assigned.",
+      "Economic amounts are fictional monthly MVR values, not estimates of 2026 income or travel budgets.",
+      "Names are synthetic display labels from an editable starter catalog and imply no observed identity or demographic characteristic."
+    ]
+  },
+  "islands": [
+    {
+      "island_id": "69",
+      "name": "Maafushi",
+      "atoll_code": "K",
+      "geography_id": null,
+      "latitude": null,
+      "longitude": null,
+      "data_classification": "demo"
+    }
+  ],
+  "households": [
+    {
+      "household_id": "hh-001",
+      "home_island_id": "69",
+      "household_size": 3,
+      "monthly_income_mvr": 24000,
+      "monthly_expenditure_mvr": 21000,
+      "economic_assignment": "demo",
+      "data_classification": "demo"
+    },
+    {
+      "household_id": "hh-002",
+      "home_island_id": "69",
+      "household_size": 1,
+      "monthly_income_mvr": 7000,
+      "monthly_expenditure_mvr": 6500,
+      "economic_assignment": "demo",
+      "data_classification": "demo"
+    }
+  ],
+  "persons": [
+    {
+      "person_id": "person-001",
+      "display_name": "Ibrahim Latheef",
+      "name_is_synthetic": true,
+      "household_id": "hh-001",
+      "home_island_id": "69",
+      "age": 35,
+      "age_group": "18_64",
+      "group_id": "grp-69-18_64",
+      "population_weight": 1,
+      "data_classification": "demo"
+    },
+    {
+      "person_id": "person-002",
+      "display_name": "Fathimath Latheef",
+      "name_is_synthetic": true,
+      "household_id": "hh-001",
+      "home_island_id": "69",
+      "age": 32,
+      "age_group": "18_64",
+      "group_id": "grp-69-18_64",
+      "population_weight": 1,
+      "data_classification": "demo"
+    },
+    {
+      "person_id": "person-003",
+      "display_name": "Ali Shafeeg",
+      "name_is_synthetic": true,
+      "household_id": "hh-001",
+      "home_island_id": "69",
+      "age": 10,
+      "age_group": "0_17",
+      "group_id": "grp-69-0_17",
+      "population_weight": 1,
+      "data_classification": "demo"
+    },
+    {
+      "person_id": "person-004",
+      "display_name": "Mariyam Noor",
+      "name_is_synthetic": true,
+      "household_id": "hh-002",
+      "home_island_id": "69",
+      "age": 68,
+      "age_group": "65_plus",
+      "group_id": "grp-69-65_plus",
+      "population_weight": 1,
+      "data_classification": "demo"
+    }
+  ],
+  "population_groups": [
+    {
+      "group_id": "grp-69-0_17",
+      "label": "Maafushi residents aged 0–17",
+      "home_island_id": "69",
+      "age_group": "0_17",
+      "population_weight": 1,
+      "data_classification": "demo"
+    },
+    {
+      "group_id": "grp-69-18_64",
+      "label": "Maafushi residents aged 18–64",
+      "home_island_id": "69",
+      "age_group": "18_64",
+      "population_weight": 2,
+      "data_classification": "demo"
+    },
+    {
+      "group_id": "grp-69-65_plus",
+      "label": "Maafushi residents aged 65+",
+      "home_island_id": "69",
+      "age_group": "65_plus",
+      "population_weight": 1,
+      "data_classification": "demo"
+    }
+  ],
+  "journey_requests": [
+    {
+      "journey_request_id": "request-001",
+      "person_id": "person-001",
+      "purpose": "healthcare",
+      "origin_island_id": "69",
+      "destination_facility_id": "demo-hospital-001",
+      "date": "2026-10-24",
+      "appointment_time": "09:00",
+      "activity_duration_minutes": 60,
+      "return_home_by": "18:00",
+      "timezone": "Indian/Maldives",
+      "data_classification": "demo"
+    },
+    {
+      "journey_request_id": "request-002",
+      "person_id": "person-004",
+      "purpose": "healthcare",
+      "origin_island_id": "69",
+      "destination_facility_id": "demo-hospital-001",
+      "date": "2026-10-24",
+      "appointment_time": "09:00",
+      "activity_duration_minutes": 60,
+      "return_home_by": "18:00",
+      "timezone": "Indian/Maldives",
+      "data_classification": "demo"
+    }
+  ]
+}

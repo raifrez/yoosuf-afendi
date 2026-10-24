@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Island",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["island_id", "name", "atoll_code", "geography_id", "latitude", "longitude", "data_classification"],
+  "properties": {
+    "island_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "atoll_code": {"type": "string", "minLength": 1},
+    "geography_id": {"type": ["string", "null"], "minLength": 1},
+    "latitude": {"type": ["number", "null"], "minimum": -90, "maximum": 90},
+    "longitude": {"type": ["number", "null"], "minimum": -180, "maximum": 180},
+    "data_classification": {"enum": ["observed", "derived", "assumed", "demo"]}
+  }
+}

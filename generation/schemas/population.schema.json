@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M.A.N.D.A.R.I.N population handoff v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["metadata", "islands", "households", "persons", "population_groups", "journey_requests"],
+  "properties": {
+    "metadata": {"$ref": "generation_metadata.schema.json"},
+    "islands": {"type": "array", "items": {"$ref": "islands.schema.json"}},
+    "households": {"type": "array", "items": {"$ref": "households.schema.json"}},
+    "persons": {"type": "array", "items": {"$ref": "persons.schema.json"}},
+    "population_groups": {"type": "array", "items": {"$ref": "population_groups.schema.json"}},
+    "journey_requests": {"type": "array", "items": {"$ref": "journey_requests.schema.json"}}
+  }
+}

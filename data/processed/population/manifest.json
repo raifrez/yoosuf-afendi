@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "population_id": "population-2022-seed42-79c30207f1b3",
+  "synthetic": true,
+  "data_classification": "assumed",
+  "demographic_reference_year": 2022,
+  "economic_reference_year": 2019,
+  "currency": "MVR",
+  "economic_period": "month",
+  "seed": 42,
+  "name_catalog_version": "names-v1",
+  "name_catalog_sha256": "7acc9eed32e8942876f593ba847a8a0fdb2a9286956fa00997fbf5a7d31e7a20",
+  "sources": [
+    {
+      "source_id": "census_households",
+      "publisher": "Maldives Bureau of Statistics",
+      "file": "Census2022HouseholdExcelDataset.7z!household/hh_data.xlsx",
+      "reference_year": 2022,
+      "data_classification": "observed",
+      "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+    },
+    {
+      "source_id": "census_persons",
+      "publisher": "Maldives Bureau of Statistics",
+      "file": "Census2022IndividualExcelDataset.7z!individual/Indvidual_data.xlsx",
+      "reference_year": 2022,
+      "data_classification": "observed",
+      "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+    },
+    {
+      "source_id": "census_dictionary",
+      "publisher": "Maldives Bureau of Statistics",
+      "file": "Census2022HouseholdExcelDataset.7z!household/HH_ data_dictionary.xlsx",
+      "reference_year": 2022,
+      "data_classification": "observed",
+      "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+    },
+    {
+      "source_id": "hies_income",
+      "publisher": "Maldives Bureau of Statistics",
+      "file": "HIES_2019_Dataset.7z!Dataset/HIES2019_EXCEL format/Non-Raised_Dataset.7z!Non-Raised_CombinedIncome_HHLevel.xlsx",
+      "reference_year": 2019,
+      "data_classification": "observed",
+      "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+    },
+    {
+      "source_id": "hies_expenditure",
+      "publisher": "Maldives Bureau of Statistics",
+      "file": "HIES_2019_Dataset.7z!Dataset/HIES2019_EXCEL format/Non-Raised_Dataset.7z!Non-Raised_master_exp.xlsx",
+      "reference_year": 2019,
+      "data_classification": "observed",
+      "caveats": "Source records remain in the local preparation cache; exports contain aggregate-derived synthetic records. HIES economic assignment is modeled, not an identity join."
+    }
+  ],
+  "assumptions": [
+    "Coverage is Census Maale and Administrative Island areas; non-administrative islands, including resorts/industrial islands, are excluded. Maale wards remain separate Census origins.",
+    "Modeled home island is the Census enumeration locality, not registered address or a claim of exact usual residence. Some usual-residence labels differ because of ward naming or mobility.",
+    "Synthetic households reproduce each island's household age-band composition counts and size distribution. Ages are shuffled among age-band slots, preserving exact island single-year-age totals; observed identities and household IDs are not exported.",
+    "Household relationships, sex, nationality, disability and within-household exact-age correlations are not synthesized in schema 1.0. This is not a calibrated model of those attributes.",
+    "Economics apply only to regular house/flat/apartment templates. Other housing units have null income and expenditure. HIES covers normal housing and has limits for collective and non-administrative populations.",
+    "HIES donor pairs are selected with household survey weights within Male/Atolls and exact household size where available. Missing exact sizes use nearest size in the same domain without scaling; limited donor support is reported.",
+    "Monthly expenditure is sum(annexp)/12 from the non-raised item-level master expenditure file. Do not annualize again or multiply amounts by selection weights. Donors without expenditure rows are excluded, not treated as zero spending.",
+    "Income and expenditure are modeled in 2019 nominal MVR, with no inflation or population-year projection. No observed island income estimates, affordability limits, or actual appointments are inferred.",
+    "Journey requests are empty until an explicit scenario supplies destinations and appointment rules. The simulator chooses transport and routes.",
+    "Display names are fictional labels from the versioned starter catalog; names can repeat and imply no source identity, sex or nationality.",
+    "No downloaded geography JSON was supplied. Census dictionary names and Census island coordinates are used; geography_id remains null. The repository ZIP contains downloader code, not the published JSON datasets."
+  ]
+}
