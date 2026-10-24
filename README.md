@@ -6,17 +6,18 @@ The published ferry schedules are turned into a validated [GTFS](https://gtfs.or
 
 ## Run the app
 
-You need [uv](https://docs.astral.sh/uv/) and Node.js 20 or newer. From the repo root:
+You need [uv](https://docs.astral.sh/uv/). From the repo root:
 
 ```bash
 uv sync
-uv run python -m simulator.server          # simulator API on http://127.0.0.1:8765 (keep it running)
-cd web && npm ci && npm run dev            # dashboard on http://localhost:5173 (proxies /api and /data to the API)
+uv run python -m simulator.server          # engine API + dashboard on http://127.0.0.1:8765/
 ```
 
-The server loads the four demo atolls (Faafu, Dhaalu, Gaafu Alifu, Gaafu Dhaalu) in under a second. Every edit in the dashboard (a ferry departure shift or school hours) reruns the model on a copy of the baseline in about 0.1 s.
+The server loads all 11 ferry atolls (124,778 synthetic residents) and runs the model in about 0.2 s. It also serves the dashboard (`dashboard/`). The engine API is under `/api/dash/*` (scenario runs, journeys, Find better times and Add a stop) and `/api/*` (scores, comparisons, residents, the demo story).
 
-**Demo story:** press **Demo** in the dashboard. Ismail Rasheed (a synthetic resident of Dh. Meedhoo) can't get home from a 13:30 hospital appointment at Kudahuvadhoo, because the last boat leaves at 14:05. Moving sailing 288_1 75 minutes later lets 523 Dhaalu residents' visits work, but 17 elderly Meedhoo residents now get home after 17:00. Gains and losses are shown separately.
+**Demo story** (`GET /api/demo`): Ismail Rasheed (a synthetic resident of Dh. Meedhoo) can't get home from a 13:30 hospital appointment at Kudahuvadhoo, because the last boat leaves at 14:05. Moving sailing 288_1 75 minutes later lets 523 Dhaalu residents' visits work, but 17 elderly Meedhoo residents now get home after 17:00. Gains and losses are shown separately.
+
+**Known gap:** the dashboard UI still computes its numbers with its own `dashboard/simulator.js`. Wiring it onto `/api/dash/*` (the engine's rules) is the next step.
 
 Without the dashboard:
 
